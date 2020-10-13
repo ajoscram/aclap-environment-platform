@@ -1,4 +1,4 @@
 - **Bitácoras de Trabajo:**
-    - [Alejandro Schmidt](/logs/alejandro.md)
-    - [Fabio Alpízar](/logs/fabio.md)
-    - [Josué Canales](/logs/josue.md)
+    - [Alejandro Schmidt](./logs/alejandro.md)
+    - [Fabio Alpízar](./logs/fabio.md)
+    - [Josué Canales](./logs/josue.md)
