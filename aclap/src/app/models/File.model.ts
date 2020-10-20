@@ -1,4 +1,11 @@
-export class File {
+export interface IFile{
+    url: string,
+    name: string,
+    uploaded: Date,
+    bytes: number
+}
+
+export class File implements IFile{
 
     private static readonly B: string = 'b';
     private static readonly KB: string = 'kb';

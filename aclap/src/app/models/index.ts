@@ -3,7 +3,7 @@ export { Discipline } from './Discipline.model';
 export { DisciplineMetadata } from './DisciplineMetadata.model';
 export { EducatorRequest, EducatorRequestState } from './EducatorRequest.model';
 export { Evaluation } from './Evaluation.model';
-export { File } from './File.model';
+export { File, IFile } from './File.model';
 export { Implementation } from './Implementation.model';
 export { Location } from './Location.model';
 export { Question } from './Question.model';
