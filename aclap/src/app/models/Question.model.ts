@@ -1,4 +1,4 @@
-import Score from "./Score";
+import { Score } from "../models/Score.model";
 
 export class Question {
     constructor(
