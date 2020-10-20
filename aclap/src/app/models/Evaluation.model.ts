@@ -1,6 +1,6 @@
-import Answer from "../models/Answer.model";
+import { Answer } from "../models/Answer.model";
 
-export default class Evaluation {
+export class Evaluation {
     constructor(
         public id: string,
         public date: Date,
@@ -8,5 +8,4 @@ export default class Evaluation {
         public activityName: string,
         public answers: Answer[]
     ){}
-
 }

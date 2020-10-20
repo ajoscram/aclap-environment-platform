@@ -1,6 +1,10 @@
 import { Component } from "./Component.model";
 
-export class ParagraphComponent extends Component{
+export interface IParagraphComponent{
+    text: string
+}
+
+export class ParagraphComponent extends Component implements IParagraphComponent{
     constructor(
         public id: string,
         public text: string

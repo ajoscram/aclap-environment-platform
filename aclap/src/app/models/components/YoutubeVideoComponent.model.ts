@@ -1,6 +1,10 @@
 import { Component } from "./Component.model";
 
-export class YoutubeVideoComponent extends Component{
+export interface IYoutubeVideoComponent{
+    url: string
+}
+
+export class YoutubeVideoComponent extends Component implements IYoutubeVideoComponent{
     constructor(
         public id: string,
         public url: string

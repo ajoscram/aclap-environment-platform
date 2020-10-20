@@ -1,10 +1,9 @@
-import { Score } from "../models/Score.model";
+import { Score } from "../models";
 
-export default class Answer {
+export class Answer {
     constructor(
         public question: string,
         public option: string,
         public score: Score
     ){}
-
 }

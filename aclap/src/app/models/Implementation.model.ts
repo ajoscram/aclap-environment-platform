@@ -1,4 +1,4 @@
-export default class Implementation {
+export class Implementation {
     constructor(
         public id: string,
         public startDate: Date,

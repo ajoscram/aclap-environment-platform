@@ -1,6 +1,12 @@
 import { Component } from "./Component.model";
 
-export class ImageComponent extends Component{
+export interface IImageComponent{
+    footing: string,
+    url: string,
+    reference: string
+}
+
+export class ImageComponent extends Component implements IImageComponent{
     constructor(
         public id: string,
         public footing: string,
