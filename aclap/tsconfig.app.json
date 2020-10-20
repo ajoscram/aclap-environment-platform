@@ -2,7 +2,6 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "module": "esnext",
     "types": [],
     "paths": {
       "@src/*": [
@@ -12,6 +11,8 @@
     }
   },
   "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
     "src/main.ts",
     "src/polyfills.ts"
   ]
