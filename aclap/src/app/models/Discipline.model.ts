@@ -1,6 +1,6 @@
-export default class Discipline {
+export class Discipline {
     constructor(
-        public subjects: string,
+        public subject: string,
         public year: number,
         public theme: string
     ){}
