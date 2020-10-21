@@ -18,6 +18,7 @@ import { EditActivityComponent } from '@src/app/components/edit/edit-activity/ed
 import { EditModuleInfoComponent } from '@src/app/components/edit/edit-module-info/edit-module-info.component';
 import { EditImageComponent } from '@src/app/components/edit/edit-image/edit-image.component';
 import { EditYoutubeComponent } from '@src/app/components/edit/edit-youtube/edit-youtube.component';
+import { ModuleCardListComponent } from '@src/app/components/module-card-list/module-card-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditYoutubeComponent } from '@src/app/components/edit/edit-youtube/edit
     EditActivityComponent,
     EditModuleInfoComponent,
     EditImageComponent,
-    EditYoutubeComponent
+    EditYoutubeComponent,
+    ModuleCardListComponent
   ],
   imports: [
     BrowserModule,

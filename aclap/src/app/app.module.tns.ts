@@ -17,6 +17,7 @@ import { EditActivityComponent } from '@src/app/components/edit/edit-activity/ed
 import { EditModuleInfoComponent } from '@src/app/components/edit/edit-module-info/edit-module-info.component';
 import { EditImageComponent } from '@src/app/components/edit/edit-image/edit-image.component';
 import { EditYoutubeComponent } from '@src/app/components/edit/edit-youtube/edit-youtube.component';
+import { ModuleCardListComponent } from '@src/app/components/module-card-list/module-card-list.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -39,6 +40,7 @@ import { EditYoutubeComponent } from '@src/app/components/edit/edit-youtube/edit
     EditModuleInfoComponent,
     EditImageComponent,
     EditYoutubeComponent,
+    ModuleCardListComponent,
   ],
   imports: [
     NativeScriptModule,
