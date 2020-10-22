@@ -1,7 +1,9 @@
+import { Subject } from '.';
+
 export class Discipline {
     constructor(
-        public subject: string,
-        public year: number,
+        public subject: Subject,
+        public year: string,
         public theme: string
     ){}
 }

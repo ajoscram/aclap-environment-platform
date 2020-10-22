@@ -1,4 +1,4 @@
-import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile } from '@src/app/models';
+import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile, User } from '@src/app/models';
 import { Database, DatabaseError } from './Database.service';
 
 
@@ -6,9 +6,11 @@ const firebase = require('nativescript-plugin-firebase');
 
 export class FirebaseDatabase implements Database{
     
+    async getUser(id: string): Promise<User>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
+    
     async getModule (id: string): Promise<Module>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) }
 
-    async geModules (): Promise<Module[]>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
+    async getModules (): Promise<Module[]>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
 
     async addModule (module: IModule): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
 

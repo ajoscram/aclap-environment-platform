@@ -24,6 +24,14 @@ import { DisplayActivityComponent } from '@src/app/components/display/display-ac
 import { DisplayTitleComponent } from '@src/app/components/display/display-title/display-title.component';
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
+import ControlModule from './modules/control.module';
+import { Controller } from './services/control/Controller.service';
+import { DefaultController } from './services/control/DefaultController.service';
+import { Database } from './services/database/Database.service';
+import { Authenticator } from './services/authentication/Authenticator.service';
+import { MockAuthenticator } from './services/authentication/MockAuthenticator.service';
+import { MockDatabase } from './services/database/MockDatabase.service';
+import { MockStorage } from './services/storage/MockStorage.service';
 
 @NgModule({
   declarations: [
@@ -52,9 +60,15 @@ import { DisplayYoutubeComponent } from '@src/app/components/display/display-you
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ControlModule
   ],
-  providers: [],
+  providers: [
+    { provide: Controller, useClass: DefaultController },
+    { provide: Database, useClass: MockDatabase },
+    { provide: Storage, useClass: MockStorage },
+    { provide: Authenticator, useClass: MockAuthenticator }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

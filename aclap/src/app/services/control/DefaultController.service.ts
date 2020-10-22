@@ -4,7 +4,12 @@ import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
+import { Injectable } from '@angular/core';
+import ControlModule from '../../modules/control.module';
 
+@Injectable({
+    providedIn: ControlModule
+})
 export class DefaultController implements Controller{
 
     constructor(
