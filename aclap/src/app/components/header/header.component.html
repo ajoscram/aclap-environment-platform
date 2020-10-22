@@ -3,15 +3,15 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
             <span class="navbar-toggler-icon order-xs-1"></span>
         </button>
-        <img class="d-block d-sm-none" src="../../../assets/logo.png" height="30" width="41">
+        <img class="d-block d-sm-none" src="../../../assets/logo.png" height="30">
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="Navbar">
             <ul class="navbar-nav mr-auto">
-                <a class="navbar-brand mr-auto d-none d-md-block"><img src="../../../assets/logo.png" height="30">Ambientate</a>
-                <li class="nav-item active ml-md-3"><a class="nav-link">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" > Perfil</a></li>
-                <li class="nav-item"><a class="nav-link" >Módulos</a></li>
-                <li class="nav-item"><a class="nav-link" >Eventos</a></li>
-                <li class="nav-item"><a class="nav-link" >Acerca de</a></li>
+                <a class="navbar-brand mr-auto d-none d-md-block"><img src="../../../assets/logo.png" [routerLink]="['/inicio']" height="30">Ambientate</a>
+                <li class="nav-item ml-md-3" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/inicio']">Inicio</a></li>
+                <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" > Perfil</a></li>
+                <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/modulos']">Módulos</a></li>
+                <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Eventos</a></li>
+                <li class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Acerca de</a></li>
             </ul>
             <span class="navbar-text">
                 <a id="singupButton" class="btn">Ser Educador</a>

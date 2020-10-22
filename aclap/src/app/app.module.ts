@@ -19,6 +19,7 @@ import { EditModuleInfoComponent } from '@src/app/components/edit/edit-module-in
 import { EditImageComponent } from '@src/app/components/edit/edit-image/edit-image.component';
 import { EditYoutubeComponent } from '@src/app/components/edit/edit-youtube/edit-youtube.component';
 import { ModuleCardListComponent } from '@src/app/components/module-card-list/module-card-list.component';
+import { DisciplineComponent } from '@src/app/components/discipline/discipline.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ModuleCardListComponent } from '@src/app/components/module-card-list/mo
     EditModuleInfoComponent,
     EditImageComponent,
     EditYoutubeComponent,
-    ModuleCardListComponent
+    ModuleCardListComponent,
+    DisciplineComponent
   ],
   imports: [
     BrowserModule,
