@@ -1,6 +1,10 @@
-import { Component, DisciplineMetadata, File, IComponent, IFile, IModule, Module } from "../../models";
+import { Component, DisciplineMetadata, File, IComponent, IFile, IModule, Module, User } from "../../models";
 
 export abstract class Database{
+
+    //users
+    getUser: (id: string) => Promise<User>;
+
     //modules
     getModule: (id: string) => Promise<Module>;
     geModules: () => Promise<Module[]>;

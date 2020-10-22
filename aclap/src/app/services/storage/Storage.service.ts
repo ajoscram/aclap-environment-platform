@@ -1,8 +1,8 @@
-import { IFile } from "../../models";
+import { IFile, File } from "../../models";
 
 export abstract class Storage{
-    upload: (bytes: any) => IFile;
-    download: (source: string | File) => any;
+    upload: (path: string) => Promise<IFile>;
+    delete: (file: File) => Promise<void>;
 }
 
 export enum StorageError{
