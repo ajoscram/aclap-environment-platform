@@ -12,10 +12,12 @@
                                 <h5 class="card-title">{{ module.name }}</h5>
                             </div>
                         </div>
-                        <div class="row flex-grow-1 card-bg">
+                        <div class="row flex-grow-1 card-bg" [routerLink]="['/modulos',module.id]">
                             <div class="card-body container">
                                 <div class="row d-flex justify-content-md-end">
-                                    <p class="card-text"> En proceso </p>
+                                    <div class="col-auto">
+                                        <p class="card-text"> En proceso </p>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
