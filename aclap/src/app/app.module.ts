@@ -29,6 +29,7 @@ import { Controller } from './services/control/Controller.service';
 import { DefaultController } from './services/control/DefaultController.service';
 import { Database } from './services/database/Database.service';
 import { Authenticator } from './services/authentication/Authenticator.service';
+import { Storage } from './services/storage/Storage.service';
 import { MockAuthenticator } from './services/authentication/MockAuthenticator.service';
 import { MockDatabase } from './services/database/MockDatabase.service';
 import { MockStorage } from './services/storage/MockStorage.service';

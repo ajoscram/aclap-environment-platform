@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile, User, Administrator, Educator, Discipline, Subject } from '@src/app/models';
 import ControlModule from '../../modules/control.module';
-import { Database } from './Database.service';
+import { Database, DatabaseError } from './Database.service';
 
 @Injectable({
     providedIn: ControlModule
@@ -53,15 +53,18 @@ export class MockDatabase implements Database{
         for(let user of this.users)
             if(user.id === id)
                 return user;
-        throw new Error();
+        throw new Error(DatabaseError.USER_NOT_FOUND);
     }
 
     async getModule(id: string): Promise<Module>{
-        throw new Error("Not implemented yet.");
+        for(let module of this.modules)
+            if(module.id === id)
+                return module;
+        throw new Error(DatabaseError.MODULE_NOT_FOUND);
     }
 
     async getModules(): Promise<Module[]>{
-        throw new Error("Not implemented yet.");
+        return this.modules;
     }
     
     async addModule(module: IModule): Promise<void>{

@@ -9,14 +9,15 @@ import { Controller } from '@src/app/services/control/Controller.service';
 })
 export class ModuleCardListComponent implements OnInit {
 
-  private modules: Module[];
+  modules: Module[];
 
-  constructor(private controller: Controller){}
-
-  ngOnInit(): void {
+  constructor(private controller: Controller){
     this.controller.getModules()
       .then( modules => { this.modules = modules; })
-      .catch()
+      //este console error hay que cambiarlo eventualmente por un mensaje de error
+      //significativo para el usuario
+      .catch( error => console.error(error) );
   }
 
+  ngOnInit(): void {}
 }
