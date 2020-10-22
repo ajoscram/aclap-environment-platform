@@ -12,6 +12,9 @@ node_modules/
 hooks/
 platforms/
 
+# Environment
+environments/
+
 # IDEs and editors
 .idea/
 .project

@@ -127,6 +127,7 @@
   },
   "defaultProject": "aclap",
   "cli": {
-    "defaultCollection": "@nativescript/schematics"
+    "defaultCollection": "@nativescript/schematics",
+    "analytics": "c6e941b2-7093-48cb-8282-7a8deffbbaf5"
   }
 }
