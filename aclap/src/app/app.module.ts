@@ -24,6 +24,7 @@ import { DisplayActivityComponent } from '@src/app/components/display/display-ac
 import { DisplayTitleComponent } from '@src/app/components/display/display-title/display-title.component';
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import ControlModule from './modules/control.module';
 import { Controller } from './services/control/Controller.service';
 import { DefaultController } from './services/control/DefaultController.service';
@@ -61,6 +62,7 @@ import { MockStorage } from './services/storage/MockStorage.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    YouTubePlayerModule,
     NgbModule,
     ControlModule
   ],

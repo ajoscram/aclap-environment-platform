@@ -9,12 +9,10 @@ import { ParagraphComponent } from '@src/app/models';
 export class DisplayParagraphComponent implements OnInit {
 
   @Input() paragraph: ParagraphComponent;
-  paraphs: Array<string>;
 
   constructor() {  }
 
   ngOnInit(): void {
-    this.paraphs = this.paragraph.text.split('\n');
   }
 
 }
