@@ -24,6 +24,7 @@ import { DisplayActivityComponent } from '@src/app/components/display/display-ac
 import { DisplayTitleComponent } from '@src/app/components/display/display-title/display-title.component';
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DisplayYoutubeComponent } from '@src/app/components/display/display-you
   imports: [
     BrowserModule,
     AppRoutingModule,
+    YouTubePlayerModule,
     NgbModule
   ],
   providers: [],
