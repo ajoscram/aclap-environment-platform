@@ -1,8 +1,8 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Verificar que no sea necesario escribir servicios para Angular/Nativescript
-* Investigar a fondo Nativescript
+* Crear pruebas unitarias de Controller y ComponentFactory
+* Borrar subcolecciones mediante Cloud Functions
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
 
@@ -10,6 +10,8 @@
 
 | Fecha | Tarea | 
 | :---: | :--- |
+| 23/10/2020 | Agregar imágenes a Implementables |
+| 23/10/2020 | Agregar datos a MockDatabase y MockAuthenticator |
 | 22/10/2020 | Esribir Mocks |
 | 21/10/2020 | Escribir Controlador |
 | 20/10/2020 | Pasar servicios a código |
