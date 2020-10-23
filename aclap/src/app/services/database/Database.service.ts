@@ -7,7 +7,7 @@ export abstract class Database{
 
     //modules
     getModule: (id: string) => Promise<Module>;
-    geModules: () => Promise<Module[]>;
+    getModules: () => Promise<Module[]>;
     addModule: (module: IModule) => Promise<void>;
     updateModule: (id: string, module: IModule) => Promise<void>;
     deleteModule: (id: string) => Promise<void>;
@@ -26,5 +26,9 @@ export abstract class Database{
 }
 
 export enum DatabaseError{
-    NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED"
+    NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED",
+    USER_NOT_FOUND = "DatbaseError.USER_NOT_FOUND",
+    MODULE_NOT_FOUND = "DatabaseError.MODULE_NOT_FOUND",
+    COMPONENT_NOT_FOUND = "DatabaseError.COMPONENT_NOT_FOUND",
+    FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND"
 }

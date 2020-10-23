@@ -1,8 +1,14 @@
-import { isFileOrResourcePath } from '@nativescript/core/image-source';
+import { Injectable } from '@angular/core';
 import { IFile, File } from '@src/app/models';
+import ControlModule from '../../modules/control.module';
 import { Storage } from './Storage.service'
 
+@Injectable({
+    providedIn: ControlModule
+})
 export class MockStorage implements Storage{
+
+    constructor(){}
 
     async upload(path: string): Promise<IFile>{
         return {

@@ -1,12 +1,13 @@
-import { Component } from "./Component.model";
+import { Component, IComponent } from "./Component.model";
 
-export interface IParagraphComponent{
+export interface IParagraphComponent extends IComponent{
     text: string
 }
 
 export class ParagraphComponent extends Component implements IParagraphComponent{
     constructor(
         public id: string,
+        public index: number,
         public text: string
-    ){ super(id); }
+    ){ super(id, index); }
 }

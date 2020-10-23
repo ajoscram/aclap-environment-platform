@@ -1,13 +1,8 @@
 import { Discipline } from "../Discipline.model";
-import { Implementable } from "./Implementable.model";
+import { IImplementable, Implementable } from "./Implementable.model";
 
-export interface IModule{
-    name: string,
-    publisherId: string,
-    publisherName: string,
-    publisherLastname: string,
+export interface IModule extends IImplementable{
     recommendedAge: number,
-    objectives: string[],
     requirements: string[],
     disciplines: Discipline[]
 }
@@ -16,6 +11,7 @@ export class Module extends Implementable implements IModule{
     constructor(
         public id: string,
         public name: string,
+        public imageUrl: string,
         public publisherId: string,
         public publisherName: string,
         public publisherLastname: string,
@@ -27,6 +23,7 @@ export class Module extends Implementable implements IModule{
         super(
             id,
             name,
+            imageUrl,
             publisherId,
             publisherName,
             publisherLastname,

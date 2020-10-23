@@ -1,7 +1,10 @@
-export interface IComponent{}
+export interface IComponent{
+    index: number
+}
 
-export abstract class Component implements IComponent {
+export abstract class Component {
     constructor(
-        public id: string
+        public id: string,
+        public index: number
     ){}
 }

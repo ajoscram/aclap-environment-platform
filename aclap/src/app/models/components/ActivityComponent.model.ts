@@ -1,8 +1,7 @@
-import { TransitiveCompileNgModuleMetadata } from "@angular/compiler";
 import { Question } from "../Question.model";
-import { Component } from "./Component.model";
+import { Component, IComponent } from "./Component.model";
 
-export interface IActivityComponent{
+export interface IActivityComponent extends IComponent{
     description: string,
     estimatedMinutes: number,
     tools: string,
@@ -12,9 +11,10 @@ export interface IActivityComponent{
 export class ActivityComponent extends Component implements IActivityComponent{
     constructor(
         public id: string,
+        public index: number,
         public description: string,
         public estimatedMinutes: number,
         public tools: string,
         public questions: Question[]
-    ){ super(id); }
+    ){ super(id, index); }
 }
