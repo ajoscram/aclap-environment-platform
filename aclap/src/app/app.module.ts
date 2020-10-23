@@ -25,6 +25,15 @@ import { DisplayTitleComponent } from '@src/app/components/display/display-title
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import ControlModule from './modules/control.module';
+import { Controller } from './services/control/Controller.service';
+import { DefaultController } from './services/control/DefaultController.service';
+import { Database } from './services/database/Database.service';
+import { Authenticator } from './services/authentication/Authenticator.service';
+import { Storage } from './services/storage/Storage.service';
+import { MockAuthenticator } from './services/authentication/MockAuthenticator.service';
+import { MockDatabase } from './services/database/MockDatabase.service';
+import { MockStorage } from './services/storage/MockStorage.service';
 
 @NgModule({
   declarations: [
@@ -54,9 +63,15 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     BrowserModule,
     AppRoutingModule,
     YouTubePlayerModule,
-    NgbModule
+    NgbModule,
+    ControlModule
   ],
-  providers: [],
+  providers: [
+    { provide: Controller, useClass: DefaultController },
+    { provide: Database, useClass: MockDatabase },
+    { provide: Storage, useClass: MockStorage },
+    { provide: Authenticator, useClass: MockAuthenticator }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

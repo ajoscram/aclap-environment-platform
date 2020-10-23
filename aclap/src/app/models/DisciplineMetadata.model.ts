@@ -1,6 +1,8 @@
+import { Subject } from '.';
+
 export class DisciplineMetadata {
     constructor(
-        public subjects: string[],
+        public subjects: Subject[],
         public years: string[]
     ){}
 }

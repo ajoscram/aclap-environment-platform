@@ -1,4 +1,5 @@
 export { Answer } from './Answer.model';
+export { Subject } from './Subject.model';
 export { Discipline } from './Discipline.model';
 export { DisciplineMetadata } from './DisciplineMetadata.model';
 export { EducatorRequest, EducatorRequestState } from './EducatorRequest.model';

@@ -1,6 +1,11 @@
+import { Injectable } from '@angular/core';
+import ControlModule from '../../modules/control.module';
 import { Authenticator, AuthenticatorError } from './Authenticator.service';
 import { Role, Session } from './Session.model';
 
+@Injectable({
+    providedIn: ControlModule
+})
 export class MockAuthenticator implements Authenticator{
     private session: Session;
 

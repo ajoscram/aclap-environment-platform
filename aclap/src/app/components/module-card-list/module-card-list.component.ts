@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Module } from '@src/app/models';
+import { Controller } from '@src/app/services/control/Controller.service';
 
 @Component({
   selector: 'app-module-card-list',
@@ -7,96 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleCardListComponent implements OnInit {
 
-  cards = [
-    {
-      id: "1",
-      name: "MI ENTORNO",
-      publisherId: "5",
-      publisherName: "Jorge Mario",
-      publisherLastname: "Alvarez Barquero",
-      recommendedAge: 45,
-      objectives: new Array("Hola", "Cambiar", "Horas"),
-      requirements: new Array("Nada"),
-      disciplines: [
-        {
-          subject: "Estudios sociales",
-          year: "2do Año",
-          theme: "#585FC2"
-        },
-        {
-          subject: "Civica",
-          year: "2do Año",
-          theme: "#019CF6"
-        },
-        {
-          subject: "Ciencias",
-          year: "4to Año",
-          theme: "#53A23C"
-        },
-        {
-          subject: "Estudios sociales",
-          year: "3er Año",
-          theme: "#585FC2"
-        },
-        {
-          subject: "Civica",
-          year: "3er Año",
-          theme: "#019CF6"
-        },
-        {
-          subject: "Ciencias",
-          year: "5to Año",
-          theme: "#53A23C"
-        }
-      ]
-    },
-    {
-      id: "2",
-      name: "MI AGUA",
-      publisherId: "5",
-      publisherName: "Jorge Mario",
-      publisherLastname: "Alvarez Barquero",
-      recommendedAge: 45,
-      objectives: new Array("Hola", "Cambiar", "Horas"),
-      requirements: new Array("Nada"),
-      disciplines: [
-        {
-          subject: "Estudios sociales",
-          year: "2do Año",
-          theme: "#585FC2"
-        },
-        {
-          subject: "Civica",
-          year: "2do Año",
-          theme: "#019CF6"
-        },
-        {
-          subject: "Ciencias",
-          year: "4to Año",
-          theme: "#53A23C"
-        },
-        {
-          subject: "Estudios sociales",
-          year: "3er Año",
-          theme: "#585FC2"
-        },
-        {
-          subject: "Civica",
-          year: "3er Año",
-          theme: "#019CF6"
-        },
-        {
-          subject: "Ciencias",
-          year: "5to Año",
-          theme: "#53A23C"
-        }
-      ]
-    }
-  ];
+  modules: Module[];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private controller: Controller){
+    this.controller.getModules()
+      .then( modules => { this.modules = modules; })
+      //este console error hay que cambiarlo eventualmente por un mensaje de error
+      //significativo para el usuario
+      .catch( error => console.error(error) );
   }
 
+  ngOnInit(): void {}
 }
