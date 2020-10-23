@@ -28,5 +28,7 @@ export abstract class Database{
 export enum DatabaseError{
     NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED",
     USER_NOT_FOUND = "DatbaseError.USER_NOT_FOUND",
-    MODULE_NOT_FOUND = "Database.MODULE_NOT_FOUND"
+    MODULE_NOT_FOUND = "DatabaseError.MODULE_NOT_FOUND",
+    COMPONENT_NOT_FOUND = "DatabaseError.COMPONENT_NOT_FOUND",
+    FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND"
 }
