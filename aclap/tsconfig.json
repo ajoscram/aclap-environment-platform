@@ -9,11 +9,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
+    "target": "es2017",
+    "module": "esnext",
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "es2017"
     ],
     "paths": {
       "@src/*": [
@@ -23,6 +24,7 @@
         "src/*.web.ts",
         "src/*"
       ]
-    }
+    },
+    "removeComments": false
   }
 }
