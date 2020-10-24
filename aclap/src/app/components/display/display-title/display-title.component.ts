@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TitleComponent } from '@src/app/models';
+import { TitleComponent } from '@src/app/models/components/TitleComponent.model';
 import { TitleComponentSize } from '@src/app/models/components/TitleComponent.model';
 
 @Component({

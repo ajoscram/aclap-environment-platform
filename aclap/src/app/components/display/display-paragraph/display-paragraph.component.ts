@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ParagraphComponent } from '@src/app/models';
+import { ParagraphComponent } from '../../../models/';
 
 @Component({
   selector: 'app-display-paragraph',

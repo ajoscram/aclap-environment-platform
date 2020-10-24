@@ -8,8 +8,8 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "__PACKAGE__" 
-    
+    applicationId = "org.nativescript.aclap" 
+    multiDexEnabled true
     //override supported platforms
     // ndk {
     //       abiFilters.clear()
