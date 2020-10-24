@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Discipline } from '@src/app/models';
+import { Discipline } from '@src/app/models/Discipline.model';
 
 @Component({
   selector: 'app-discipline',
