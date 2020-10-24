@@ -1,1 +1,32 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #99D493;
+$button-color: #E27406;
+
+.jumbotron{
+    background-color: $jumbo-color;
+    color: whitesmoke;
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn-goto{
+    background-color: $button-color;
+    color: white;
+}
+
+.row-content{
+    margin: 0px auto;
+    padding: 15px 0px 50px 0px;
+    min-height: 100px;
+}
+
+.action-image {
+    width: 40;
+    height: 40;
+    vertical-align: center;
+}
+
+Actionbar{
+    background-color: #206a5c;
+}
