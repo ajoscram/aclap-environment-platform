@@ -25,15 +25,16 @@ import { DisplayTitleComponent } from '@src/app/components/display/display-title
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import ControlModule from './modules/control.module';
-import { Controller } from './services/control/Controller.service';
-import { DefaultController } from './services/control/DefaultController.service';
-import { Database } from './services/database/Database.service';
-import { Authenticator } from './services/authentication/Authenticator.service';
-import { Storage } from './services/storage/Storage.service';
-import { MockAuthenticator } from './services/authentication/MockAuthenticator.service';
-import { MockDatabase } from './services/database/MockDatabase.service';
-import { MockStorage } from './services/storage/MockStorage.service';
+import ControlModule from '@src/app/modules/control.module';
+import { Controller } from '@src/app/services/control/Controller.service';
+import { DefaultController } from '@src/app/services/control/DefaultController.service';
+import { Database } from '@src/app/services/database/Database.service';
+import { Authenticator } from '@src/app/services/authentication/Authenticator.service';
+import { Storage } from '@src/app/services/storage/Storage.service';
+import { MockAuthenticator } from '@src/app/services/authentication/MockAuthenticator.service';
+import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
+import { MockStorage } from '@src/app/services/storage/MockStorage.service';
+import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MockStorage } from './services/storage/MockStorage.service';
     DisplayActivityComponent,
     DisplayTitleComponent,
     DisplayParagraphComponent,
-    DisplayYoutubeComponent
+    DisplayYoutubeComponent,
+    DisplayerComponent
   ],
   imports: [
     BrowserModule,

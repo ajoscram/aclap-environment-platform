@@ -23,6 +23,7 @@ import { DisplayActivityComponent } from '@src/app/components/display/display-ac
 import { DisplayTitleComponent } from '@src/app/components/display/display-title/display-title.component';
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
+import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -50,7 +51,8 @@ import { DisplayYoutubeComponent } from '@src/app/components/display/display-you
     DisplayActivityComponent,
     DisplayTitleComponent,
     DisplayParagraphComponent,
-    DisplayYoutubeComponent
+    DisplayYoutubeComponent,
+    DisplayerComponent
   ],
   imports: [
     NativeScriptModule,

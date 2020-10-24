@@ -1,0 +1,17 @@
+<div *ngFor="let component of comps">
+    <div *ngIf="isActivity(component)">
+        <app-display-activity [activity]=component ></app-display-activity>
+    </div>
+    <div *ngIf="isImage(component)">
+        <app-display-image [image]=component></app-display-image>
+    </div>
+    <div *ngIf="isParagraph(component)">
+        <app-display-paragraph [paragraph]=component></app-display-paragraph>
+    </div>
+    <div *ngIf="isTitle(component)">
+        <app-display-title [title]=component></app-display-title>
+    </div>
+    <div *ngIf="isYoutube(component)">
+        <app-display-youtube [video]=component></app-display-youtube>
+    </div>
+</div>
