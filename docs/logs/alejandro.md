@@ -3,6 +3,7 @@
 ### Pendiente
 * Crear pruebas unitarias de Controller y ComponentFactory
 * Borrar subcolecciones mediante Cloud Functions
+* Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
 

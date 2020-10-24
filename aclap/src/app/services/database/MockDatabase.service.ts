@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageComponent, TitleComponent, ParagraphComponent, ActivityComponent, Question, Score, YoutubeVideoComponent, IParagraphComponent } from '@src/app/models';
 import { TitleComponentSize } from '@src/app/models/components/TitleComponent.model';
 import ControlModule from '../../modules/control.module';
-import { ComponentFactory } from '../components/ComponentFactory.service';
+import { ComponentFactory } from './components/ComponentFactory.service';
 import { Database, DatabaseError } from './Database.service';
 
 @Injectable({

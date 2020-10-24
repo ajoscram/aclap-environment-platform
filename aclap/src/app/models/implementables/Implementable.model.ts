@@ -7,7 +7,7 @@ export interface IImplementable{
     objectives: string[]
 }
 
-export abstract class Implementable{
+export abstract class Implementable implements IImplementable{
     constructor(
         public id: string,
         public name: string,

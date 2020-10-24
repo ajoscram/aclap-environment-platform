@@ -5,6 +5,7 @@ import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
 import { Injectable } from '@angular/core';
+import { Pathfinder } from '../pathfinding/Pathfinder.service';
 import ControlModule from '../../modules/control.module';
 
 @Injectable({
@@ -15,7 +16,8 @@ export class DefaultController implements Controller{
     constructor(
         private authenticator: Authenticator,
         private database: Database,
-        private storage: Storage
+        private storage: Storage,
+        private pathfinder: Pathfinder
     ){}
 
     async login(email: string, password: string, role: Role): Promise<void>{
@@ -41,11 +43,16 @@ export class DefaultController implements Controller{
 
     async addModule(module: IModule): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        const file: IFile = await this.storage.upload(module.imageUrl);
+        module.imageUrl = file.url;
         return await this.database.addModule(module);
     }
 
     async updateModule(id: string, module: IModule): Promise<void>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        const paths: string[] = this.pathfinder.find(module);
+        for(let path of paths)
+            await this.storage.upload(path);
         return await this.database.updateModule(id, module);
     }
 
@@ -89,7 +96,7 @@ export class DefaultController implements Controller{
     }
 
     async deleteFile(moduleId: string, componentId: string, file: File): Promise<void>{
-        await this.authenticator.validate(Role.ADMINISTRATOR);
+        await this.authenticator.validate(Role.ANY);
         await this.storage.delete(file);
         await this.database.deleteFile(moduleId, componentId, file.id);
     }

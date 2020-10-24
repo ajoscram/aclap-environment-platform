@@ -5,7 +5,7 @@ export interface IEvent extends IImplementable{
     bannerImageUrl: string
 }
 
-export class Event extends Implementable{
+export class Event extends Implementable implements IEvent{
     constructor(
         public id: string,
         public name: string,

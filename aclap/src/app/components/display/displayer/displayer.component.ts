@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivityComponent, ImageComponent, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '@src/app/models';
+import { ActivityComponent, ImageComponent, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '../../../models';
 
 @Component({
   selector: 'app-displayer',

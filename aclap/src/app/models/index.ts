@@ -15,11 +15,11 @@ export { Component, IComponent } from './components/Component.model';
 export { ActivityComponent, IActivityComponent } from './components/ActivityComponent.model';
 export { ImageComponent, IImageComponent } from './components/ImageComponent.model';
 export { ParagraphComponent, IParagraphComponent } from './components/ParagraphComponent.model';
-export { TitleComponent, ITitleComponent } from './components/TitleComponent.model';
+export { TitleComponent, ITitleComponent, TitleComponentSize } from './components/TitleComponent.model';
 export { YoutubeVideoComponent } from './components/YoutubeVideoComponent.model';
 
 //Implementables
-export { Implementable } from './implementables/Implementable.model';
+export { Implementable, IImplementable } from './implementables/Implementable.model';
 export { Module, IModule } from './implementables/Module.model';
 export { Event } from './implementables/Event.model';
 

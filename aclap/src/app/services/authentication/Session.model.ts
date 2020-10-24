@@ -8,5 +8,6 @@ export class Session{
 
 export enum Role{
     ADMINISTRATOR,
-    EDUCATOR
+    EDUCATOR,
+    ANY
 }
