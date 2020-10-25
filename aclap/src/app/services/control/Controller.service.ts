@@ -1,4 +1,4 @@
-import { Component, DisciplineMetadata, File, IComponent, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IModule, Module, User } from "../../models";
 import { Role } from "../authentication/Session.model";
 
 export abstract class Controller{
@@ -14,17 +14,17 @@ export abstract class Controller{
     updateModule: (id: string, module: IModule) => Promise<void>;
     deleteModule: (id: string) => Promise<void>;
 
-    //components
+    //section
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
-    getComponents: (moduleId: string) => Promise<Component[]>;
-    addComponent: (moduleId: string, component: IComponent) => Promise<void>;
-    updateComponent: (moduleId: string, componentId: string, component: IComponent) => Promise<void>;
-    deleteComponent: (moduleId: string, componentId: string) => Promise<void>;
+    getSections: (moduleId: string) => Promise<Section[]>;
+    addSection: (moduleId: string, section: ISection) => Promise<void>;
+    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<void>;
+    deleteSection: (moduleId: string, sectionId: string) => Promise<void>;
 
     //files
-    getFiles: (moduleId: string, componentId: string) => Promise<File[]>;
-    addFile: (moduleId: string, componentId: string, path: string) => Promise<void>;
-    deleteFile: (moduleId: string, componentId: string, file: File) => Promise<void>;
+    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
+    addFile: (moduleId: string, sectionId: string, path: string) => Promise<void>;
+    deleteFile: (moduleId: string, sectionId: string, file: File) => Promise<void>;
 }
 
 export enum ControllerError{
