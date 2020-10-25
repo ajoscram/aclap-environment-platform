@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ImageComponent } from '../../../models';
+import { ImageSection } from '../../../models';
 
 @Component({
   selector: 'app-display-image',
@@ -8,7 +8,7 @@ import { ImageComponent } from '../../../models';
 })
 export class DisplayImageComponent implements OnInit {
 
-  @Input() image: ImageComponent;
+  @Input() image: ImageSection;
  
   constructor() { }
 

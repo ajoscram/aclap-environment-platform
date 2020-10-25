@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IComponent, Component, IActivityComponent, ActivityComponent, IImageComponent, ImageComponent, IParagraphComponent, ITitleComponent, YoutubeVideoComponent, TitleComponent, ParagraphComponent } from '@src/app/models';
-import { IYoutubeVideoComponent } from '@src/app/models/components/YoutubeVideoComponent.model';
+import { IYoutubeVideoComponent } from '@src/app/models/components/YoutubeVideoSection.model';
 import ControlModule from '@src/app/modules/control.module';
 
 @Injectable({

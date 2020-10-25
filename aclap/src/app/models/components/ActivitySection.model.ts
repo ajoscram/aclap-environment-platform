@@ -1,14 +1,14 @@
 import { Question } from "../Question.model";
-import { Component, IComponent } from "./Component.model";
+import { Section, ISection } from "./Section.model";
 
-export interface IActivityComponent extends IComponent{
+export interface IActivitySection extends ISection{
     description: string,
     estimatedMinutes: number,
     tools: string,
     questions: Question[]
 }
 
-export class ActivityComponent extends Component implements IActivityComponent{
+export class ActivitySection extends Section{
     constructor(
         public id: string,
         public index: number,

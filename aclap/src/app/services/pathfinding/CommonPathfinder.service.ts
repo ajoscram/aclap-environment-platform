@@ -1,12 +1,18 @@
 export abstract class CommonPathfinder{
 
     private static readonly STRING_TYPE = 'string';
+    private static readonly INDENTIFIER = '$';
 
     public find(source: object): string[]{
         try{
             const paths: string[] = [];
             Object.keys(source).forEach(key => {
-                if(typeof source[key] === CommonPathfinder.STRING_TYPE && this.isPath(source[key]))
+                if
+                (
+                    typeof source[key] === CommonPathfinder.STRING_TYPE &&
+                    key.startsWith(CommonPathfinder.INDENTIFIER) &&
+                    this.isPath(source[key])
+                )
                     paths.push(source[key]);
             });
             return paths;

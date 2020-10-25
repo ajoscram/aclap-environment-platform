@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivityComponent, ImageComponent, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '../../../models';
+import { Section, ActivitySection, ImageSection, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Component({
   selector: 'app-displayer',
@@ -8,31 +8,31 @@ import { ActivityComponent, ImageComponent, ParagraphComponent, TitleComponent, 
 })
 export class DisplayerComponent implements OnInit {
 
-  @Input() comps: Array<Component>; 
+  @Input() comps: Array<Section>; 
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  isActivity(component: Component): boolean {
-    return component instanceof ActivityComponent;
+  isActivity(component: Section): boolean {
+    return component instanceof ActivitySection;
   }
 
-  isImage(component: Component): boolean {
-    return component instanceof ImageComponent;
+  isImage(component: Section): boolean {
+    return component instanceof ImageSection;
   }
 
-  isParagraph(component: Component): boolean {
-    return component instanceof ParagraphComponent;
+  isParagraph(component: Section): boolean {
+    return component instanceof ParagraphSection;
   }
 
-  isTitle(component: Component): boolean {
-    return component instanceof TitleComponent;
+  isTitle(component: Section): boolean {
+    return component instanceof TitleSection;
   }
 
-  isYoutube(component: Component): boolean {
-    return component instanceof YoutubeVideoComponent;
+  isYoutube(component: Section): boolean {
+    return component instanceof YoutubeVideoSection;
   }
 
 }
