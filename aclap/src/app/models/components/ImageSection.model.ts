@@ -1,12 +1,12 @@
-import { Component, IComponent } from "./Component.model";
+import { Section, ISection } from "./Section.model";
 
-export interface IImageComponent extends IComponent{
+export interface IImageSection extends ISection{
     footing: string,
-    url: string,
+    $url: string,
     reference: string
 }
 
-export class ImageComponent extends Component implements IImageComponent{
+export class ImageSection extends Section{
     constructor(
         public id: string,
         public index: number,

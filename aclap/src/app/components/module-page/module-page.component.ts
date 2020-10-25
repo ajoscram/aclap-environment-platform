@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ImageComponent, Module, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '../../models';
-import { TitleComponentSize } from '@src/app/models/components/TitleComponent.model';
+import { TitleComponentSize } from '@src/app/models/components/TitleSection.model';
 
 @Component({
   selector: 'app-module-page',

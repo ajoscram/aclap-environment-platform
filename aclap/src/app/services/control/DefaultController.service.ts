@@ -20,6 +20,14 @@ export class DefaultController implements Controller{
         private pathfinder: Pathfinder
     ){}
 
+    //Local Functions
+    private async uploadFiles(obj: object){
+        const paths: string[] = this.pathfinder.find(module);
+        for(let path of paths)
+            await this.storage.upload(path);
+    }
+
+    //Controller
     async login(email: string, password: string, role: Role): Promise<void>{
         await this.authenticator.login(email, password, role);
     }
@@ -43,16 +51,13 @@ export class DefaultController implements Controller{
 
     async addModule(module: IModule): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        const file: IFile = await this.storage.upload(module.imageUrl);
-        module.imageUrl = file.url;
+        await this.uploadFiles(module);
         return await this.database.addModule(module);
     }
 
     async updateModule(id: string, module: IModule): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        const paths: string[] = this.pathfinder.find(module);
-        for(let path of paths)
-            await this.storage.upload(path);
+        await this.uploadFiles(module);
         return await this.database.updateModule(id, module);
     }
 
@@ -72,11 +77,13 @@ export class DefaultController implements Controller{
 
     async addComponent(moduleId: string, component: IComponent): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        await this.uploadFiles(component);
         return await this.database.addComponent(moduleId, component);
     }
 
     async updateComponent(moduleId: string, componentId: string, component: IComponent): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        await this.uploadFiles(component);
         return await this.database.updateComponent(moduleId, componentId, component);
     }
 

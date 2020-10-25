@@ -2,10 +2,10 @@ import { IImplementable, Implementable } from "./Implementable.model";
 
 export interface IEvent extends IImplementable{
     date: Date,
-    bannerImageUrl: string
+    $bannerImageUrl: string
 }
 
-export class Event extends Implementable implements IEvent{
+export class Event extends Implementable{
     constructor(
         public id: string,
         public name: string,

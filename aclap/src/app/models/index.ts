@@ -11,12 +11,12 @@ export { Question } from './Question.model';
 export { Score } from './Score.model';
 
 //Components
-export { Component, IComponent } from './components/Component.model';
-export { ActivityComponent, IActivityComponent } from './components/ActivityComponent.model';
-export { ImageComponent, IImageComponent } from './components/ImageComponent.model';
-export { ParagraphComponent, IParagraphComponent } from './components/ParagraphComponent.model';
-export { TitleComponent, ITitleComponent, TitleComponentSize } from './components/TitleComponent.model';
-export { YoutubeVideoComponent } from './components/YoutubeVideoComponent.model';
+export { Section, ISection } from './components/Section.model';
+export { ActivitySection, IActivitySection } from './components/ActivitySection.model';
+export { ImageSection, IImageSection } from './components/ImageSection.model';
+export { ParagraphSection, IParagraphSection } from './components/ParagraphSection.model';
+export { TitleSection, ITitleSection, TitleSectionSize } from './components/TitleSection.model';
+export { YoutubeVideoSection, IYoutubeVideoSection } from './components/YoutubeVideoSection.model';
 
 //Implementables
 export { Implementable, IImplementable } from './implementables/Implementable.model';
