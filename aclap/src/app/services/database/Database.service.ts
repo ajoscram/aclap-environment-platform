@@ -1,4 +1,4 @@
-import { Component, DisciplineMetadata, File, IComponent, IFile, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IFile, IModule, Module, User } from "../../models";
 
 export abstract class Database{
 
@@ -12,23 +12,23 @@ export abstract class Database{
     updateModule: (id: string, module: IModule) => Promise<void>;
     deleteModule: (id: string) => Promise<void>;
 
-    //components
+    //sections
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
-    getComponents: (moduleId: string) => Promise<Component[]>;
-    addComponent: (moduleId: string, component: IComponent) => Promise<void>;
-    updateComponent: (moduleId: string, componentId: string, component: IComponent) => Promise<void>;
-    deleteComponent: (moduleId: string, componentId: string) => Promise<void>;
+    getSections: (moduleId: string) => Promise<Section[]>;
+    addSection: (moduleId: string, section: ISection) => Promise<void>;
+    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<void>;
+    deleteSection: (moduleId: string, sectionId: string) => Promise<void>;
 
     //files
-    getFiles: (moduleId: string, componentId: string) => Promise<File[]>;
-    addFile: (moduleId: string, componentId: string, file: IFile) => Promise<void>;
-    deleteFile: (moduleId: string, componentId: string, fileId: string) => Promise<void>;
+    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
+    addFile: (moduleId: string, sectionId: string, file: IFile) => Promise<void>;
+    deleteFile: (moduleId: string, sectionId: string, fileId: string) => Promise<void>;
 }
 
 export enum DatabaseError{
     NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED",
     USER_NOT_FOUND = "DatbaseError.USER_NOT_FOUND",
     MODULE_NOT_FOUND = "DatabaseError.MODULE_NOT_FOUND",
-    COMPONENT_NOT_FOUND = "DatabaseError.COMPONENT_NOT_FOUND",
+    SECTION_NOT_FOUND = "DatabaseError.SECTION_NOT_FOUND",
     FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND"
 }

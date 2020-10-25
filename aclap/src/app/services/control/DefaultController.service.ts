@@ -1,4 +1,4 @@
-import { User, Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile } from '@src/app/models';
+import { User, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile } from '@src/app/models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
@@ -71,40 +71,40 @@ export class DefaultController implements Controller{
         return await this.database.getDisciplineMetadata();
     }
 
-    async getComponents(moduleId: string): Promise<Component[]>{
-        return await this.database.getComponents(moduleId);
+    async getSections(moduleId: string): Promise<Section[]>{
+        return await this.database.getSections(moduleId);
     }
 
-    async addComponent(moduleId: string, component: IComponent): Promise<void>{
+    async addSection(moduleId: string, section: ISection): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(component);
-        return await this.database.addComponent(moduleId, component);
+        await this.uploadFiles(section);
+        return await this.database.addSection(moduleId, section);
     }
 
-    async updateComponent(moduleId: string, componentId: string, component: IComponent): Promise<void>{
+    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(component);
-        return await this.database.updateComponent(moduleId, componentId, component);
+        await this.uploadFiles(section);
+        return await this.database.updateSection(moduleId, sectionId, section);
     }
 
-    async deleteComponent(moduleId: string, componentId: string): Promise<void>{
+    async deleteSection(moduleId: string, sectionId: string): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.deleteComponent(moduleId, componentId);
+        return await this.database.deleteSection(moduleId, sectionId);
     }
 
-    async getFiles(moduleId: string, componentId: string): Promise<File[]>{
-        return await this.database.getFiles(moduleId, componentId);
+    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
+        return await this.database.getFiles(moduleId, sectionId);
     }
 
-    async addFile(moduleId: string, componentId: string, path: string): Promise<void>{
+    async addFile(moduleId: string, sectionId: string, path: string): Promise<void>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         const file: IFile = await this.storage.upload(path);
-        return await this.database.addFile(moduleId, componentId, file);
+        return await this.database.addFile(moduleId, sectionId, file);
     }
 
-    async deleteFile(moduleId: string, componentId: string, file: File): Promise<void>{
+    async deleteFile(moduleId: string, sectionId: string, file: File): Promise<void>{
         await this.authenticator.validate(Role.ANY);
         await this.storage.delete(file);
-        await this.database.deleteFile(moduleId, componentId, file.id);
+        await this.database.deleteFile(moduleId, sectionId, file.id);
     }
 }

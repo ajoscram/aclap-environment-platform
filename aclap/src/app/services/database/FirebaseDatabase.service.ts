@@ -1,37 +1,21 @@
-import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile, User } from '@src/app/models';
+import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User } from '@src/app/models';
 import { Database, DatabaseError } from './Database.service';
-
 
 const firebase = require('nativescript-plugin-firebase');
 
 export class FirebaseDatabase implements Database{
-    
-    async getUser(id: string): Promise<User>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-    
-    async getModule (id: string): Promise<Module>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) }
-
-    async getModules (): Promise<Module[]>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async addModule (module: IModule): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async updateModule (id: string, module: IModule): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async deleteModule (id: string): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async getDisciplineMetadata (): Promise<DisciplineMetadata>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async getComponents (moduleId: string): Promise<Component[]>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async addComponent (moduleId: string, component: IComponent): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async updateComponent (moduleId: string, componentId: string, component: IComponent): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async deleteComponent (moduleId: string, componentId: string): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async getFiles (moduleId: string, componentId: string): Promise<File[]>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async addFile (moduleId: string, componentId: string, file: IFile): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-
-    async deleteFile (moduleId: string, componentId: string, fileId: string): Promise<void>{ throw new Error(DatabaseError.NOT_YET_IMPLEMENTED) };
-    
+    getUser: (id: string) => Promise<User>;
+    getModule: (id: string) => Promise<Module>;
+    getModules: () => Promise<Module[]>;
+    addModule: (module: IModule) => Promise<void>;
+    updateModule: (id: string, module: IModule) => Promise<void>;
+    deleteModule: (id: string) => Promise<void>;
+    getDisciplineMetadata: () => Promise<DisciplineMetadata>;
+    getSections: (moduleId: string) => Promise<Section[]>;
+    addSection: (moduleId: string, section: ISection) => Promise<void>;
+    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<void>;
+    deleteSection: (moduleId: string, sectionId: string) => Promise<void>;
+    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
+    addFile: (moduleId: string, sectionId: string, file: IFile) => Promise<void>;
+    deleteFile: (moduleId: string, sectionId: string, fileId: string) => Promise<void>;
 };
