@@ -25,7 +25,7 @@
     "@angular/router": "~10.1.6",
     "@angular/youtube-player": "^10.2.5",
     "@nativescript/angular": "~10.1.0",
-    "@nativescript/core": "~7.0.0",
+    "@nativescript/core": "^7.0.12",
     "@nativescript/schematics": "^10.1.0",
     "@nativescript/theme": "~2.5.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
