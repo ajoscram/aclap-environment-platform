@@ -10,4 +10,10 @@ export class ParagraphSection extends Section{
         public index: number,
         public text: string
     ){ super(id, index); }
+
+    public static check(object: any): object is IParagraphSection{
+        const section: IParagraphSection = <IParagraphSection>object;
+        return super.check_(object) &&
+            section.text !== undefined;
+    }
 }

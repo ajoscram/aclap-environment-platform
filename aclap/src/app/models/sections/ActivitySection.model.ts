@@ -17,4 +17,13 @@ export class ActivitySection extends Section{
         public tools: string,
         public questions: Question[]
     ){ super(id, index); }
+
+    public static check(object: any): object is IActivitySection{
+        const section: IActivitySection = <IActivitySection>object;
+        return super.check_(object) && 
+            section.description !== undefined &&
+            section.estimatedMinutes !== undefined &&
+            section.questions !== undefined &&
+            section.tools !== undefined;
+    }
 }

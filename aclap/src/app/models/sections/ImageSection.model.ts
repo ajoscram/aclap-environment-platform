@@ -14,4 +14,12 @@ export class ImageSection extends Section{
         public url: string,
         public reference: string
     ){ super(id, index); }
+
+    public static check(object: any): object is IImageSection{
+        const section: IImageSection = <IImageSection>object;
+        return super.check_(object) &&
+            section.footing !== undefined &&
+            section.reference !== undefined &&
+            section.$url !== undefined;
+    }
 }
