@@ -1,1 +1,1 @@
-<span class="badge badge-pill" style="background-color: {{ discipline.theme }}; color: white;" > {{ discipline.subject + ' ' + discipline.year }} </span>
+<span class="badge badge-pill" [ngStyle]="background-color: discipline.subject.color; color: white;" > {{ discipline.subject.name + ' ' + discipline.year }} </span>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ImageComponent, Module, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '../../models';
-import { TitleComponentSize } from '@src/app/models/components/TitleComponent.model';
+import { Component, ImageComponent, Module, ParagraphComponent, TitleComponent, YoutubeVideoComponent } from '../../models';
+import { TitleComponentSize } from '../../models/components/TitleComponent.model';
+import { ActivatedRoute } from '@angular/router';
+import { Controller } from '../../services/control/Controller.service';
 
 @Component({
   selector: 'app-module-page',
@@ -9,52 +11,10 @@ import { TitleComponentSize } from '@src/app/models/components/TitleComponent.mo
 })
 export class ModulePageComponent implements OnInit {
 
-  @Input() moduleId: number;
-  module = {
-    id: "1",
-    name: "MODULO EJEMPLO 1",
-    publisherId: "5",
-    publisherName: "Jorge Mario",
-    publisherLastname: "Alvarez Barquero",
-    recommendedAge: 45,
-    objectives: new Array("Duis quis nisl maximus, dignissim sapien sit amet, sodales est.", 
-    "Duis eget mauris nec sapien fringilla imperdiet.",
-    "Integer auctor lectus eget dolor suscipit laoreet."),
-    requirements: new Array("Pellentesque pretium metus ac nisl accumsan, et aliquam dolor vehicula."),
-    disciplines: [
-      {
-        subject: "Estudios sociales",
-        year: "2do Año",
-        theme: "#585FC2"
-      },
-      {
-        subject: "Civica",
-        year: "2do Año",
-        theme: "#019CF6"
-      },
-      {
-        subject: "Ciencias",
-        year: "4to Año",
-        theme: "#53A23C"
-      },
-      {
-        subject: "Estudios sociales",
-        year: "3er Año",
-        theme: "#585FC2"
-      },
-      {
-        subject: "Civica",
-        year: "3er Año",
-        theme: "#019CF6"
-      },
-      {
-        subject: "Ciencias",
-        year: "5to Año",
-        theme: "#53A23C"
-      }
-    ]
-  };
+  module: Module;
+  components: Component[];
 
+  id: string;
   title = new TitleComponent("12", 0, TitleComponentSize.H2,"Hola");
   para = new ParagraphComponent("45", 1,"Mauris fermentum tincidunt elit, finibus tempor diam porttitor quis. Nam luctus rhoncus ultricies. Duis quis tellus lectus. Etiam vitae pulvinar augue, ac egestas ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat magna tincidunt arcu venenatis, sit amet cursus neque rutrum. Aliquam tempus sed turpis id porttitor. Phasellus suscipit justo sit amet tortor dapibus, in varius felis molestie. Cras ornare enim ut tellus tempor elementum. Donec consequat mollis felis porttitor laoreet. Vivamus nec tellus in dolor maximus blandit quis ut ante. Nulla tristique consectetur lorem et dapibus. Pellentesque non libero feugiat, iaculis velit in, egestas felis. Maecenas finibus eu mi ac dictum. Nunc eget metus eu eros pretium ullamcorper.\n\n"+
   "Nulla facilisis pellentesque lectus vel tristique. Sed vitae consectetur ipsum. Nam semper, arcu vehicula tempor iaculis, ipsum orci fringilla lectus, a imperdiet nunc tellus nec libero. Cras eget lectus quis turpis rhoncus faucibus eget ac est. In hac habitasse platea dictumst. In eu congue nisl. Aenean id ligula rhoncus, elementum lacus in, interdum nibh. Fusce egestas vel diam at fringilla.\n\n"+
@@ -63,9 +23,16 @@ export class ModulePageComponent implements OnInit {
   video = new YoutubeVideoComponent("4798", 3,"https://www.youtube.com/watch?v=_WmvVJ43RoM");
 
 
-  constructor() { }
+  constructor(private route:ActivatedRoute, private controller: Controller) { 
+    this.id = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
+    this.controller.getModule(this.id)
+      .then(module => {
+        this.module = module
+      })
+      .catch(error => console.error(error));
     
   }
 
