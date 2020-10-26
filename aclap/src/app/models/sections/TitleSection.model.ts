@@ -18,7 +18,7 @@ export class TitleSection extends Section{
         public text: string
     ){ super(id, index); }
 
-    public static check(object: any): object is TitleSection{
+    public static check(object: any): object is ITitleSection{
         const section: ITitleSection = <ITitleSection>object;
         return super.check_(object) &&
             section.size !== undefined && 

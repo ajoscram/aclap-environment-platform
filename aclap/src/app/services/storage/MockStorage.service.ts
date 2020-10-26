@@ -12,10 +12,10 @@ export class MockStorage implements Storage{
 
     async upload(path: string): Promise<IFile>{
         return {
-            url: "https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf",
-            name: "4+1view-architecture.pdf",
+            url: "https://ak.picdn.net/shutterstock/videos/2028055/thumb/1.jpg",
+            name: "example.jpg",
             uploaded: new Date(),
-            bytes: 114688
+            bytes: 36000
         };
     }
 

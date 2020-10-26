@@ -2,6 +2,7 @@
 
 ### Pendiente
 * Crear pruebas unitarias de Controller y SectionFactory
+* Implementar Pathfinder para Nativescript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Automatizar el agregado de Sections nuevas con intrspección

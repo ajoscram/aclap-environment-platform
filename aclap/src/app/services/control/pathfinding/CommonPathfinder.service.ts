@@ -3,9 +3,11 @@ export abstract class CommonPathfinder{
     private static readonly STRING_TYPE = 'string';
     private static readonly INDENTIFIER = '$';
 
-    public find(source: object): string[]{
+    //finds and returns all fields in an object whose key starts with $
+    //which have a valid local path
+    public find(source: object): Map<string, string>{
         try{
-            const paths: string[] = [];
+            const paths: Map<string, string> = new Map();
             Object.keys(source).forEach(key => {
                 if
                 (
@@ -13,7 +15,7 @@ export abstract class CommonPathfinder{
                     key.startsWith(CommonPathfinder.INDENTIFIER) &&
                     this.isPath(source[key])
                 )
-                    paths.push(source[key]);
+                    paths.set(key, source[key]);
             });
             return paths;
         } catch(error){
