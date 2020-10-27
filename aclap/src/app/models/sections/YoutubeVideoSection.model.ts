@@ -10,4 +10,10 @@ export class YoutubeVideoSection extends Section{
         public index: number,
         public url: string
     ){ super(id, index); }
+
+    public static check(object: any): object is IYoutubeVideoSection{
+        const section: IYoutubeVideoSection = <IYoutubeVideoSection>object;
+        return super.check_(object) &&
+            section.url !== undefined;
+    }
 }

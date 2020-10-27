@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISection, Section, IActivitySection, ActivitySection, IImageSection, ImageSection, IParagraphSection, ITitleSection, YoutubeVideoSection, IYoutubeVideoSection, TitleSection, ParagraphSection } from '@src/app/models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection } from '@src/app/models';
 import ControlModule from '@src/app/modules/control.module';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class SectionFactory{
             throw new Error(SectionFactoryError.NULL_ISECTION);
         if(iSection == undefined)
             throw new Error(SectionFactoryError.UNDEFINED_ISECTION);
-        if(this.checkActivity(iSection))
+        if(ActivitySection.check(iSection))
             return new ActivitySection(
                 null,
                 iSection.index,
@@ -22,7 +22,7 @@ export class SectionFactory{
                 iSection.tools,
                 iSection.questions
             );
-        if(this.checkImage(iSection))
+        if(ImageSection.check(iSection))
             return new ImageSection(
                 null,
                 iSection.index,
@@ -30,52 +30,26 @@ export class SectionFactory{
                 iSection.reference,
                 iSection.$url
             );
-        if(this.checkTitle(iSection))
+        if(TitleSection.check(iSection))
             return new TitleSection(
                 null,
                 iSection.index,
                 iSection.size,
                 iSection.text
             );
-        if(this.checkParagraph(iSection))
+        if(ParagraphSection.check(iSection))
             return new ParagraphSection(
                 null,
                 iSection.index,
                 iSection.text
             );
-        if(this.checkYoutubeVideoSection(iSection))
+        if(YoutubeVideoSection.check(iSection))
             return new YoutubeVideoSection(
                 null,
                 iSection.index,
                 iSection.url
             );
         throw new Error(SectionFactoryError.UNKNOWN_ISECTION);
-    }
-
-    private checkActivity(section: ISection): section is IActivitySection{
-        return (section as IActivitySection).description !== undefined &&
-            (section as IActivitySection).estimatedMinutes !== undefined &&
-            (section as IActivitySection).questions !== undefined &&
-            (section as IActivitySection).tools !== undefined;
-    }
-
-    private checkImage(section: ISection): section is IImageSection{
-        return (section as IImageSection).footing !== undefined &&
-            (section as IImageSection).reference !== undefined &&
-            (section as IImageSection).$url !== undefined;
-    }
-
-    private checkTitle(section: ISection): section is ITitleSection{
-        return (section as ITitleSection).size !== undefined &&
-            (section as ITitleSection).text !== undefined;
-    }
-
-    private checkParagraph(section: ISection): section is IParagraphSection{
-        return (section as IParagraphSection).text !== undefined;
-    }
-
-    private checkYoutubeVideoSection(section: ISection): section is IYoutubeVideoSection{
-        return (section as IYoutubeVideoSection).url !== undefined;
     }
 }
 

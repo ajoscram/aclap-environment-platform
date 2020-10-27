@@ -5,7 +5,7 @@ import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
 import { Injectable } from '@angular/core';
-import { Pathfinder } from '../pathfinding/Pathfinder.service';
+import { Pathfinder } from './pathfinding/Pathfinder.service';
 import ControlModule from '../../modules/control.module';
 
 @Injectable({
@@ -20,14 +20,20 @@ export class DefaultController implements Controller{
         private pathfinder: Pathfinder
     ){}
 
-    //Local Functions
+    //Local functions
+    
+    //uploads all files found by pathfinder and changes the object's
+    //string to the new uploaded URLs
     private async uploadFiles(obj: object){
-        const paths: string[] = this.pathfinder.find(obj);
-        for(let path of paths)
-            await this.storage.upload(path);
+        const paths: Map<string, string> = this.pathfinder.find(obj);
+        for(let key in paths){
+            const path: string = paths[key];
+            const file: IFile = await this.storage.upload(path);
+            obj[key] = file.url;
+        }
     }
 
-    //Controller
+    //Controller interface implementation
     async login(email: string, password: string, role: Role): Promise<void>{
         await this.authenticator.login(email, password, role);
     }

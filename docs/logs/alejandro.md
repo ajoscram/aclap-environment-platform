@@ -1,9 +1,11 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Crear pruebas unitarias de Controller y ComponentFactory
+* Crear pruebas unitarias de Controller y SectionFactory
+* Implementar Pathfinder para Nativescript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
+* Automatizar el agregado de Sections nuevas con intrspección
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
 
@@ -11,6 +13,7 @@
 
 | Fecha | Tarea | 
 | :---: | :--- |
+| 24/10/2020 | Refactor de las Clases Component a Section | 
 | 23/10/2020 | Agregar imágenes a Implementables |
 | 23/10/2020 | Agregar datos a MockDatabase y MockAuthenticator |
 | 22/10/2020 | Esribir Mocks |
