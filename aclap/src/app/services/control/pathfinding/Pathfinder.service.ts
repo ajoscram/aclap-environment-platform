@@ -7,7 +7,7 @@ import { CommonPathfinder } from './CommonPathfinder.service';
 })
 export class Pathfinder extends CommonPathfinder{
 
-    private static readonly FILE_IDENTIFIER = 'file:///';
+    private static readonly FILE_IDENTIFIER = 'file://';
 
     protected isPath(input: string): boolean {
         return input.startsWith(Pathfinder.FILE_IDENTIFIER);

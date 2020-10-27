@@ -1,7 +1,7 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Crear pruebas unitarias de Controller y SectionFactory
+* Crear pruebas unitarias de Controller, SectionFactory y Pathfinder
 * Implementar Pathfinder para Nativescript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditActivityComponent } from '@src/app/components/edit/edit-activity/edit-activity.component';
 
-describe('EditActivityComponent', () => {
+xdescribe('EditActivityComponent', () => {
   let component: EditActivityComponent;
   let fixture: ComponentFixture<EditActivityComponent>;
 

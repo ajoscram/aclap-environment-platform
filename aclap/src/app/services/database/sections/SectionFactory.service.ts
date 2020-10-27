@@ -9,10 +9,8 @@ export class SectionFactory{
     public getSection(iSection: ISection): Section{
         //THE ORDER OF THESE IF STATEMENTS MATTERS
         //SINCE THE CHECKS COULD RETURN FALSE POSITIVES
-        if(iSection == null)
-            throw new Error(SectionFactoryError.NULL_ISECTION);
-        if(iSection == undefined)
-            throw new Error(SectionFactoryError.UNDEFINED_ISECTION);
+        if(!iSection)
+            throw new Error(SectionFactoryError.NULL_OR_UNDEFINED_ISECTION);
         if(ActivitySection.check(iSection))
             return new ActivitySection(
                 null,
@@ -27,8 +25,8 @@ export class SectionFactory{
                 null,
                 iSection.index,
                 iSection.footing,
+                iSection.$url,
                 iSection.reference,
-                iSection.$url
             );
         if(TitleSection.check(iSection))
             return new TitleSection(
@@ -54,7 +52,6 @@ export class SectionFactory{
 }
 
 export enum SectionFactoryError{
-    NULL_ISECTION = "SectionFactoryError.NULL_ISECTION",
-    UNDEFINED_ISECTION = "SectionFactoryError.UNDEFINED_ISECTION",
+    NULL_OR_UNDEFINED_ISECTION = "SectionFactoryError.NULL_ISECTION",
     UNKNOWN_ISECTION = "SectionFactoryError.UNKNOWN_ISECTION"
 }

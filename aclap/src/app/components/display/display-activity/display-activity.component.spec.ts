@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DisplayActivityComponent } from '@src/app/components/display/display-activity/display-activity.component';
 
-describe('DisplayActivityComponent', () => {
+xdescribe('DisplayActivityComponent', () => {
   let component: DisplayActivityComponent;
   let fixture: ComponentFixture<DisplayActivityComponent>;
 

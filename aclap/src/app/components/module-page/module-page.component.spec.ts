@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModulePageComponent } from '@src/app/components/module-page/module-page.component';
 
-describe('ModulePageComponent', () => {
+xdescribe('ModulePageComponent', () => {
   let component: ModulePageComponent;
   let fixture: ComponentFixture<ModulePageComponent>;
 
