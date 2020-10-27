@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Section, ImageSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../models';
-import { TitleSectionSize } from '../../models/components/TitleSection.model';
+import { TitleSectionSize } from '../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../services/control/Controller.service';
 

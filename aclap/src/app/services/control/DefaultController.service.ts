@@ -22,7 +22,7 @@ export class DefaultController implements Controller{
 
     //Local Functions
     private async uploadFiles(obj: object){
-        const paths: string[] = this.pathfinder.find(module);
+        const paths: string[] = this.pathfinder.find(obj);
         for(let path of paths)
             await this.storage.upload(path);
     }
