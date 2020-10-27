@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IFile, File } from '@src/app/models';
-import ControlModule from '../../modules/control.module';
+import ControlModule from '../../modules/control/control.module';
 import { Storage } from './Storage.service'
 
 @Injectable({

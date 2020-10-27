@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import ControlModule from '@src/app/modules/control.module';
+import ControlModule from '../../../modules/control/control.module';
 import { CommonPathfinder } from './CommonPathfinder.service';
 
 @Injectable({
