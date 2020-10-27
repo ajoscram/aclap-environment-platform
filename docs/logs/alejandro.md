@@ -1,8 +1,9 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Crear pruebas unitarias de Controller, SectionFactory y Pathfinder
+* Implementar FirebaseDatabase para web
 * Implementar Pathfinder para Nativescript
+* Implementar FirebaseDatabase para NativeScript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Automatizar el agregado de Sections nuevas con intrspección
@@ -11,8 +12,9 @@
 
 ### Completado
 
-| Fecha | Tarea | 
+| Fecha | Tarea |
 | :---: | :--- |
+| 26/10/2020 | Crear pruebas unitarias de Controller, SectionFactory y Pathfinder |
 | 24/10/2020 | Refactor de las Clases Component a Section | 
 | 23/10/2020 | Agregar imágenes a Implementables |
 | 23/10/2020 | Agregar datos a MockDatabase y MockAuthenticator |

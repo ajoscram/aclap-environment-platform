@@ -11,7 +11,7 @@ export class Module extends Implementable{
     constructor(
         public id: string,
         public name: string,
-        public $imageUrl: string,
+        public imageUrl: string,
         public publisherId: string,
         public publisherName: string,
         public publisherLastname: string,
@@ -23,7 +23,7 @@ export class Module extends Implementable{
         super(
             id,
             name,
-            $imageUrl,
+            imageUrl,
             publisherId,
             publisherName,
             publisherLastname,

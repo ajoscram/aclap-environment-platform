@@ -8,21 +8,21 @@ export abstract class Database{
     //modules
     getModule: (id: string) => Promise<Module>;
     getModules: () => Promise<Module[]>;
-    addModule: (module: IModule) => Promise<void>;
-    updateModule: (id: string, module: IModule) => Promise<void>;
-    deleteModule: (id: string) => Promise<void>;
+    addModule: (module: IModule) => Promise<Module>;
+    updateModule: (id: string, module: IModule) => Promise<Module>;
+    deleteModule: (id: string) => Promise<Module>;
 
     //sections
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
     getSections: (moduleId: string) => Promise<Section[]>;
-    addSection: (moduleId: string, section: ISection) => Promise<void>;
-    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<void>;
-    deleteSection: (moduleId: string, sectionId: string) => Promise<void>;
+    addSection: (moduleId: string, section: ISection) => Promise<Section>;
+    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<Section>;
+    deleteSection: (moduleId: string, sectionId: string) => Promise<Section>;
 
     //files
     getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
-    addFile: (moduleId: string, sectionId: string, file: IFile) => Promise<void>;
-    deleteFile: (moduleId: string, sectionId: string, fileId: string) => Promise<void>;
+    addFile: (moduleId: string, sectionId: string, file: IFile) => Promise<File>;
+    deleteFile: (moduleId: string, sectionId: string, fileId: string) => Promise<File>;
 }
 
 export enum DatabaseError{

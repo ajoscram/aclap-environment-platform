@@ -7,13 +7,18 @@ import { Role, Session } from './Session.model';
     providedIn: ControlModule
 })
 export class MockAuthenticator implements Authenticator{
+
+    public static readonly ADMIN_USERNAME: string = 'admin@example.com';
+    public static readonly EDUCATOR_USERNAME: string = 'educator1@example.com';
+    public static readonly PASSWORD: string = 'password';
+
     private sessions: Session[];
     private current: Session;
 
     constructor(){
         this.sessions = [
-            new Session('0', 'admin@example.com', Role.ADMINISTRATOR),
-            new Session('1', 'educator1@example.com', Role.EDUCATOR),
+            new Session('0', MockAuthenticator.ADMIN_USERNAME, Role.ADMINISTRATOR),
+            new Session('1', MockAuthenticator.EDUCATOR_USERNAME, Role.EDUCATOR),
             new Session('2', 'educator2@example.com', Role.EDUCATOR),
             new Session('3', 'educator3@example.com', Role.EDUCATOR),
         ];
@@ -21,9 +26,12 @@ export class MockAuthenticator implements Authenticator{
     }
 
     async login(email: string, password: string, role: Role): Promise<Session>{
-        for(let session of this.sessions)
-            if(session.email === email && session.role === role)
-                return session;
+        for(let session of this.sessions){
+            if(session.email === email && session.role === role && password === MockAuthenticator.PASSWORD){
+                this.current = session;
+                return this.current;
+            }
+        }
         throw new Error(AuthenticatorError.USER_NOT_FOUND);
     }
 
