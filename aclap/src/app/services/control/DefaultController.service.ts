@@ -6,7 +6,7 @@ import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
 import { Pathfinder } from './pathfinding/Pathfinder.service';
-import ControlModule from '../../modules/control.module';
+import ControlModule from '../../modules/control/control.module';
 
 @Injectable({
     providedIn: ControlModule

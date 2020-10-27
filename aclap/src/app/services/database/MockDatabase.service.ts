@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection } from '@src/app/models';
-import ControlModule from '../../modules/control.module';
+import ControlModule from '../../modules/control/control.module';
 import { SectionFactory } from './sections/SectionFactory.service';
 import { Database, DatabaseError } from './Database.service';
 

@@ -25,7 +25,7 @@ import { DisplayTitleComponent } from '@src/app/components/display/display-title
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import ControlModule from '@src/app/modules/control.module';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { DefaultController } from '@src/app/services/control/DefaultController.service';
 import { Database } from '@src/app/services/database/Database.service';

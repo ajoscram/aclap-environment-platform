@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import ControlModule from '@src/app/modules/control.module';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Role } from '../authentication/Session.model';
 import { Authenticator } from '../authentication/Authenticator.service';
 import { MockAuthenticator } from '../authentication/MockAuthenticator.service';
