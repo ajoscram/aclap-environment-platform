@@ -14,6 +14,7 @@
 
 | Fecha | Tarea |
 | :---: | :--- |
+| 27/10/2020 | Crear proyecto de Firebase para manejar backend |
 | 26/10/2020 | Crear pruebas unitarias de Controller, SectionFactory y Pathfinder |
 | 24/10/2020 | Refactor de las Clases Component a Section | 
 | 23/10/2020 | Agregar imágenes a Implementables |

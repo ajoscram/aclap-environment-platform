@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from './Database.service';   
-import { SectionFactory } from './sections/SectionFactory.service';
+import { Factory } from './sections/Factory.service';
 import { Validator } from './validation/Validator.service';
 import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator } from '../../models';
 
@@ -22,7 +22,7 @@ export class FirebaseDatabase implements Database{
     private static readonly EDUCATOR: string = 'EDUCATOR';
 
     constructor(
-        private sectionFactory: SectionFactory,
+        private factory: Factory,
         private validator: Validator,
         private firestore: AngularFirestore
     ){}
@@ -53,26 +53,22 @@ export class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.UNKNOWN_USER_TYPE);
     }
 
-    async getModule(id: string): Promise<Module>{ throw new Error('Not impemented yet'); }
-    async getModules(): Promise<Module[]>{ throw new Error('Not impemented yet'); }
+    async getModule(id: string): Promise<Module>{
+        const module_: any = await this.firestore.collection(FirebaseDatabase.MODULES).doc(id).get().toPromise();
+        if(!module_)
+            throw new Error(DatabaseError.MODULE_NOT_FOUND);
+        else
+            return this.factory.getModule(module_.id, module_ as IModule);
+    }
+
+    async getModules(): Promise<Module[]>{ throw new Error('Not implemented yet'); }
 
     async addModule(module: IModule): Promise<Module>{
         this.validator.validateIModule(module);
         const id: string = this.firestore.createId();
-        const module_: Module = new Module(
-            id,
-            module.name,
-            module.$imageUrl,
-            module.publisherId,
-            module.publisherName,
-            module.publisherLastname,
-            module.recommendedAge,
-            module.objectives,
-            module.requirements,
-            module.disciplines
-        );
-        this.firestore.collection(FirebaseDatabase.MODULES).doc(id).set(module_);
-        return module_;
+        module['id'] = id;
+        await this.firestore.collection(FirebaseDatabase.MODULES).doc(id).set(module);
+        return this.factory.getModule(id, module);
     }
     
     async updateModule(id: string, module: IModule): Promise<Module>{ throw new Error('Not impemented yet'); }

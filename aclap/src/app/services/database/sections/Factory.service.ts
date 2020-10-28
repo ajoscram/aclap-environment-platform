@@ -1,19 +1,35 @@
 import { Injectable } from '@angular/core';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection } from '@src/app/models';
 import ControlModule from '../../../modules/control/control.module';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
 })
-export class SectionFactory{
-    public getSection(iSection: ISection): Section{
+export class Factory{
+
+    public getModule(id: string, module: IModule): Module{
+        return new Module(
+            id,
+            module.name,
+            module.$imageUrl,
+            module.publisherId,
+            module.publisherName,
+            module.publisherLastname,
+            module.recommendedAge,
+            module.objectives,
+            module.requirements,
+            module.disciplines
+        );
+    }
+
+    public getSection(id: string, iSection: ISection): Section{
         //THE ORDER OF THESE IF STATEMENTS MATTERS
         //SINCE THE CHECKS COULD RETURN FALSE POSITIVES
         if(!iSection)
-            throw new Error(SectionFactoryError.NULL_OR_UNDEFINED_ISECTION);
+            throw new Error(FactoryError.NULL_OR_UNDEFINED_ISECTION);
         if(ActivitySection.check(iSection))
             return new ActivitySection(
-                null,
+                id,
                 iSection.index,
                 iSection.description,
                 iSection.estimatedMinutes,
@@ -22,7 +38,7 @@ export class SectionFactory{
             );
         if(ImageSection.check(iSection))
             return new ImageSection(
-                null,
+                id,
                 iSection.index,
                 iSection.footing,
                 iSection.$url,
@@ -30,28 +46,28 @@ export class SectionFactory{
             );
         if(TitleSection.check(iSection))
             return new TitleSection(
-                null,
+                id,
                 iSection.index,
                 iSection.size,
                 iSection.text
             );
         if(ParagraphSection.check(iSection))
             return new ParagraphSection(
-                null,
+                id,
                 iSection.index,
                 iSection.text
             );
         if(YoutubeVideoSection.check(iSection))
             return new YoutubeVideoSection(
-                null,
+                id,
                 iSection.index,
                 iSection.url
             );
-        throw new Error(SectionFactoryError.UNKNOWN_ISECTION);
+        throw new Error(FactoryError.UNKNOWN_ISECTION);
     }
 }
 
-export enum SectionFactoryError{
+export enum FactoryError{
     NULL_OR_UNDEFINED_ISECTION = "SectionFactoryError.NULL_ISECTION",
     UNKNOWN_ISECTION = "SectionFactoryError.UNKNOWN_ISECTION"
 }
