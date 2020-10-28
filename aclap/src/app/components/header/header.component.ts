@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Frame } from "tns-core-modules/ui/frame";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { SegmentedBar, SegmentedBarItem } from "@nativescript/core";
 
 @Component({
   selector: 'app-header',
@@ -14,15 +13,5 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  onOpenDrawerTap() {
-    let sideDrawer: RadSideDrawer = <RadSideDrawer>(Frame.topmost().getViewById("sideDrawer"));
-    sideDrawer.showDrawer();
-  }
-
-  onCloseDrawerTap() {
-      let sideDrawer: RadSideDrawer = <RadSideDrawer>(Frame.topmost().getViewById("sideDrawer"));
-      sideDrawer.closeDrawer();
-  }
-
+  
 }
