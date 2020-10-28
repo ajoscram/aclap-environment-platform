@@ -11,7 +11,7 @@ export class ImageSection extends Section{
         public id: string,
         public index: number,
         public footing: string,
-        public url: string,
+        public $url: string,
         public reference: string
     ){ super(id, index); }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection } from '@src/app/models';
-import ControlModule from '@src/app/modules/control/control.module';
+import ControlModule from '../../../modules/control/control.module';
 
 @Injectable({
     providedIn: ControlModule

@@ -8,7 +8,7 @@ import { Section, ActivitySection, ImageSection, ParagraphSection, TitleSection,
 })
 export class DisplayerComponent implements OnInit {
 
-  @Input() comps: Array<Section>; 
+  @Input() sections: Array<Section>; 
 
   constructor() { }
 
