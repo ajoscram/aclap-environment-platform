@@ -1,12 +1,12 @@
-import { User, Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile } from '@src/app/models';
+import { Injectable } from '@angular/core';
+import { User, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile } from '@src/app/models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
-import { Injectable } from '@angular/core';
-import { Pathfinder } from '../pathfinding/Pathfinder.service';
-import ControlModule from '../../modules/control.module';
+import { Pathfinder } from './pathfinding/Pathfinder.service';
+import ControlModule from '../../modules/control/control.module';
 
 @Injectable({
     providedIn: ControlModule
@@ -20,6 +20,20 @@ export class DefaultController implements Controller{
         private pathfinder: Pathfinder
     ){}
 
+    //Local functions
+    
+    //WARNING: MUTATES INCOMING OBJECT STATE!
+    //uploads all files found by pathfinder and changes the object's
+    //string to the new uploaded URLs
+    private async uploadFiles(obj: object){
+        const paths: Map<string, string> = this.pathfinder.find(obj);
+        for (let [key, path] of paths){
+            const file: IFile = await this.storage.upload(path);
+            obj[key] = file.url;
+        }
+    }
+
+    //Controller interface implementation
     async login(email: string, password: string, role: Role): Promise<void>{
         await this.authenticator.login(email, password, role);
     }
@@ -41,22 +55,19 @@ export class DefaultController implements Controller{
         return await this.database.getModules();
     }
 
-    async addModule(module: IModule): Promise<void>{
+    async addModule(module: IModule): Promise<Module>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        const file: IFile = await this.storage.upload(module.imageUrl);
-        module.imageUrl = file.url;
+        await this.uploadFiles(module);
         return await this.database.addModule(module);
     }
 
-    async updateModule(id: string, module: IModule): Promise<void>{
+    async updateModule(id: string, module: IModule): Promise<Module>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        const paths: string[] = this.pathfinder.find(module);
-        for(let path of paths)
-            await this.storage.upload(path);
+        await this.uploadFiles(module);
         return await this.database.updateModule(id, module);
     }
 
-    async deleteModule(id: string): Promise<void>{
+    async deleteModule(id: string): Promise<Module>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         return await this.database.deleteModule(id);
     }
@@ -66,38 +77,41 @@ export class DefaultController implements Controller{
         return await this.database.getDisciplineMetadata();
     }
 
-    async getComponents(moduleId: string): Promise<Component[]>{
-        return await this.database.getComponents(moduleId);
+    async getSections(moduleId: string): Promise<Section[]>{
+        return await this.database.getSections(moduleId);
     }
 
-    async addComponent(moduleId: string, component: IComponent): Promise<void>{
+    async addSection(moduleId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.addComponent(moduleId, component);
+        await this.uploadFiles(section);
+        return await this.database.addSection(moduleId, section);
     }
 
-    async updateComponent(moduleId: string, componentId: string, component: IComponent): Promise<void>{
+    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.updateComponent(moduleId, componentId, component);
+        await this.uploadFiles(section);
+        return await this.database.updateSection(moduleId, sectionId, section);
     }
 
-    async deleteComponent(moduleId: string, componentId: string): Promise<void>{
+    async deleteSection(moduleId: string, sectionId: string): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.deleteComponent(moduleId, componentId);
+        return await this.database.deleteSection(moduleId, sectionId);
     }
 
-    async getFiles(moduleId: string, componentId: string): Promise<File[]>{
-        return await this.database.getFiles(moduleId, componentId);
+    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
+        return await this.database.getFiles(moduleId, sectionId);
     }
 
-    async addFile(moduleId: string, componentId: string, path: string): Promise<void>{
+    async addFile(moduleId: string, sectionId: string, path: string): Promise<File>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         const file: IFile = await this.storage.upload(path);
-        return await this.database.addFile(moduleId, componentId, file);
+        return await this.database.addFile(moduleId, sectionId, file);
     }
 
-    async deleteFile(moduleId: string, componentId: string, file: File): Promise<void>{
+    async deleteFile(moduleId: string, sectionId: string, file: File): Promise<File>{
         await this.authenticator.validate(Role.ANY);
+        const deleted: File = await this.database.deleteFile(moduleId, sectionId, file.id);
         await this.storage.delete(file);
-        await this.database.deleteFile(moduleId, componentId, file.id);
+        return deleted;
     }
 }

@@ -1,4 +1,4 @@
-import { Component, DisciplineMetadata, File, IComponent, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IModule, Module, User } from "../../models";
 import { Role } from "../authentication/Session.model";
 
 export abstract class Controller{
@@ -10,21 +10,21 @@ export abstract class Controller{
     //modules
     getModule: (id: string) => Promise<Module>;
     getModules: () => Promise<Module[]>;
-    addModule: (module: IModule) => Promise<void>;
-    updateModule: (id: string, module: IModule) => Promise<void>;
-    deleteModule: (id: string) => Promise<void>;
+    addModule: (module: IModule) => Promise<Module>;
+    updateModule: (id: string, module: IModule) => Promise<Module>;
+    deleteModule: (id: string) => Promise<Module>;
 
-    //components
+    //section
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
-    getComponents: (moduleId: string) => Promise<Component[]>;
-    addComponent: (moduleId: string, component: IComponent) => Promise<void>;
-    updateComponent: (moduleId: string, componentId: string, component: IComponent) => Promise<void>;
-    deleteComponent: (moduleId: string, componentId: string) => Promise<void>;
+    getSections: (moduleId: string) => Promise<Section[]>;
+    addSection: (moduleId: string, section: ISection) => Promise<Section>;
+    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<Section>;
+    deleteSection: (moduleId: string, sectionId: string) => Promise<Section>;
 
     //files
-    getFiles: (moduleId: string, componentId: string) => Promise<File[]>;
-    addFile: (moduleId: string, componentId: string, path: string) => Promise<void>;
-    deleteFile: (moduleId: string, componentId: string, file: File) => Promise<void>;
+    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
+    addFile: (moduleId: string, sectionId: string, path: string) => Promise<File>;
+    deleteFile: (moduleId: string, sectionId: string, file: File) => Promise<File>;
 }
 
 export enum ControllerError{

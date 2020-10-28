@@ -7,7 +7,7 @@ export interface IModule extends IImplementable{
     disciplines: Discipline[]
 }
 
-export class Module extends Implementable implements IModule{
+export class Module extends Implementable{
     constructor(
         public id: string,
         public name: string,

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditParagraphComponent } from '@src/app/components/edit/edit-paragraph/edit-paragraph.component';
 
-describe('EditParagraphComponent', () => {
+xdescribe('EditParagraphComponent', () => {
   let component: EditParagraphComponent;
   let fixture: ComponentFixture<EditParagraphComponent>;
 

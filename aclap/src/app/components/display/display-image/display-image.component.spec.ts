@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DisplayImageComponent } from '@src/app/components/display/display-image/display-image.component';
 
-describe('DisplayImageComponent', () => {
+xdescribe('DisplayImageComponent', () => {
   let component: DisplayImageComponent;
   let fixture: ComponentFixture<DisplayImageComponent>;
 

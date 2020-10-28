@@ -10,13 +10,13 @@ export { Location } from './Location.model';
 export { Question } from './Question.model';
 export { Score } from './Score.model';
 
-//Components
-export { Component, IComponent } from './components/Component.model';
-export { ActivityComponent, IActivityComponent } from './components/ActivityComponent.model';
-export { ImageComponent, IImageComponent } from './components/ImageComponent.model';
-export { ParagraphComponent, IParagraphComponent } from './components/ParagraphComponent.model';
-export { TitleComponent, ITitleComponent, TitleComponentSize } from './components/TitleComponent.model';
-export { YoutubeVideoComponent } from './components/YoutubeVideoComponent.model';
+//Sections
+export { Section, ISection } from './sections/Section.model';
+export { ActivitySection, IActivitySection } from './sections/ActivitySection.model';
+export { ImageSection, IImageSection } from './sections/ImageSection.model';
+export { ParagraphSection, IParagraphSection } from './sections/ParagraphSection.model';
+export { TitleSection, ITitleSection, TitleSectionSize } from './sections/TitleSection.model';
+export { YoutubeVideoSection, IYoutubeVideoSection } from './sections/YoutubeVideoSection.model';
 
 //Implementables
 export { Implementable, IImplementable } from './implementables/Implementable.model';

@@ -1,0 +1,9 @@
+@use '../app.component.scss';
+
+.cont-fluid{
+    max-width:1170px;
+}
+
+.jumbotron{
+    background-color: app.$nav-color;
+}

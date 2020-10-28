@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Module, IModule, DisciplineMetadata, Component, IComponent, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageComponent, TitleComponent, ParagraphComponent, ActivityComponent, Question, Score, YoutubeVideoComponent, IParagraphComponent } from '@src/app/models';
-import { TitleComponentSize } from '@src/app/models/components/TitleComponent.model';
-import ControlModule from '../../modules/control.module';
-import { ComponentFactory } from './components/ComponentFactory.service';
+import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection } from '@src/app/models';
+import ControlModule from '../../modules/control/control.module';
+import { SectionFactory } from './sections/SectionFactory.service';
 import { Database, DatabaseError } from './Database.service';
 
 @Injectable({
@@ -14,10 +13,10 @@ export class MockDatabase implements Database{
     private disciplineMetadata: DisciplineMetadata;
     private users: User[];
     private modules: Module[];
-    private components: Component[];
+    private sections: Section[];
     private files: File[];
     
-    constructor(private componentFactory: ComponentFactory){
+    constructor(private sectionFactory: SectionFactory){
         this.disciplineMetadata = new DisciplineMetadata(
             //subjects
             [ new Subject('Estudios Sociales', '#585FC2'), new Subject('Cívica', '#019CF6'), new Subject('Ciencias', '#53A23C')],
@@ -49,23 +48,23 @@ export class MockDatabase implements Database{
             ])
         ];
 
-        this.components = [
-            new TitleComponent(''+this.ids++, 0, TitleComponentSize.H1, 'Título Grande'),
-            new ImageComponent(''+this.ids++, 1, 'Pie de foto', 'https://media.nationalgeographic.org/assets/photos/000/284/28446.jpg', 'Referencia'),
-            new TitleComponent(''+this.ids++, 2, TitleComponentSize.H2, 'Subtítulo'),
-            new ParagraphComponent(''+this.ids++, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-            new ActivityComponent(''+this.ids++, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 30, 'Herramientas listadas acá',[
+        this.sections = [
+            new TitleSection(''+this.ids++, 0, TitleSectionSize.H1, 'Título Grande'),
+            new ImageSection(''+this.ids++, 1, 'Pie de foto', 'https://media.nationalgeographic.org/assets/photos/000/284/28446.jpg', 'Referencia'),
+            new TitleSection(''+this.ids++, 2, TitleSectionSize.H2, 'Subtítulo'),
+            new ParagraphSection(''+this.ids++, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+            new ActivitySection(''+this.ids++, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 30, 'Herramientas listadas acá',[
                 this.generateQuestion('¿Esto es una pregunta?'),
                 this.generateQuestion('¿Cómo se sintió al leer esa pregunta?'),
                 this.generateQuestion('¿Y al leer esa otra?'),
             ]),
-            new TitleComponent(''+this.ids++, 5, TitleComponentSize.H2, 'Otro subtítulo'),
-            new ParagraphComponent(''+this.ids, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-            new YoutubeVideoComponent(''+this.ids, 7, 'https://www.youtube.com/watch?v=XqZsoesa55w')
+            new TitleSection(''+this.ids++, 5, TitleSectionSize.H2, 'Otro subtítulo'),
+            new ParagraphSection(''+this.ids++, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+            new YoutubeVideoSection(''+this.ids++, 7, 'https://www.youtube.com/watch?v=XqZsoesa55w')
         ];
 
         this.files = [
-            new File(''+this.ids, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF Ejemplo', new Date(), 114688)
+            new File(''+this.ids++, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF Ejemplo', new Date(), 114688)
         ];
 
     }
@@ -98,11 +97,11 @@ export class MockDatabase implements Database{
         return this.modules;
     }
     
-    async addModule(module: IModule): Promise<void>{
-        this.modules.push(new Module(
-            ''+this.ids,
+    async addModule(module: IModule): Promise<Module>{
+        const module_: Module = new Module(
+            ''+this.ids++,
             module.name,
-            module.imageUrl,
+            module.$imageUrl,
             module.publisherId,
             module.publisherName,
             module.publisherLastname,
@@ -110,10 +109,12 @@ export class MockDatabase implements Database{
             module.objectives,
             module.requirements,
             module.disciplines
-        ));
+        );
+        this.modules.push(module_);
+        return module_;
     }
     
-    async updateModule(id: string, module: IModule): Promise<void>{
+    async updateModule(id: string, module: IModule): Promise<Module>{
         for(let module_ of this.modules){
             if(module_.id === id){
                 module_.name = module.name;
@@ -124,19 +125,16 @@ export class MockDatabase implements Database{
                 module_.objectives = module.objectives;
                 module_.requirements = module.requirements;
                 module_.disciplines = module.disciplines;
-                return;
+                return module_;
             }
         }
         throw new Error(DatabaseError.MODULE_NOT_FOUND);
     }
     
-    async deleteModule(id: string): Promise<void>{
-        for(let i = 0; i < this.modules.length; i++){
-            if(this.modules[i].id === id){
-                this.modules.splice(i, 1);
-                return;
-            }
-        }
+    async deleteModule(id: string): Promise<Module>{
+        for(let i = 0; i < this.modules.length; i++)
+            if(this.modules[i].id === id)
+                return this.modules.splice(i, 1)[0];
         throw new Error(DatabaseError.MODULE_NOT_FOUND);
     }
     
@@ -144,71 +142,67 @@ export class MockDatabase implements Database{
         return this.disciplineMetadata;
     }
     
-    private getComponent(componentId: string): Component{
-        const component: Component = this.components.find( component => { component.id === componentId });
-        if(!component)
-            throw new Error(DatabaseError.COMPONENT_NOT_FOUND);
-        else
-            return component;
+    private getSection(sectionId: string): Section{
+        for(let section of this.sections)
+            if(section.id === sectionId)
+                return section;
+        throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
 
-    async getComponents(moduleId: string): Promise<Component[]>{
-        return this.components;
+    async getSections(moduleId: string): Promise<Section[]>{
+        this.getModule(moduleId);//checking for module existance
+        return this.sections;
     }
     
-    async addComponent(moduleId: string, component: IComponent): Promise<void>{
+    async addSection(moduleId: string, section: ISection): Promise<Section>{
         this.getModule(moduleId);//checking for module existance
-        const component_: Component = this.componentFactory.getComponent(component);
-        component_.id = ''+this.ids;
-        this.components.push(component_);
+        const section_: Section = this.sectionFactory.getSection(section);
+        section_.id = ''+this.ids++;
+        this.sections.push(section_);
+        return section_;
     }
     
-    async updateComponent(moduleId: string, componentId: string, component: IComponent): Promise<void>{
+    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
         this.getModule(moduleId);//checking for module existance
-        for(let i = 0; i < this.components.length; i++){
-            if(this.components[i].id === componentId){
-                const component_: Component = this.componentFactory.getComponent(component);
-                component_.id = this.components[i].id;
-                this.components.splice(i, 1, component_);
-                return;
+        for(let i = 0; i < this.sections.length; i++){
+            if(this.sections[i].id === sectionId){
+                const section_: Section = this.sectionFactory.getSection(section);
+                section_.id = this.sections[i].id;
+                this.sections.splice(i, 1, section_);
+                return section_;
             }
         }
-        throw new Error(DatabaseError.COMPONENT_NOT_FOUND);
+        throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
     
-    async deleteComponent(moduleId: string, componentId: string): Promise<void>{
+    async deleteSection(moduleId: string, sectionId: string): Promise<Section>{
         this.getModule(moduleId);//checking for module existance
-        for(let i = 0; i < this.components.length; i++){
-            if(this.components[i].id === componentId){
-                this.components.splice(i, 1);
-                return;
-            }
-        }
-        throw new Error(DatabaseError.COMPONENT_NOT_FOUND);
+        for(let i = 0; i < this.sections.length; i++)
+            if(this.sections[i].id === sectionId)
+                return this.sections.splice(i, 1)[0];
+        throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
     
-    async getFiles(moduleId: string, componentId: string): Promise<File[]>{
+    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
         this.getModule(moduleId);//checking for module existance
-        this.getComponent(componentId);//checking for component existance
+        this.getSection(sectionId);//checking for section existance
         return this.files;
     }
     
-    async addFile(moduleId: string, componentId: string, file: IFile): Promise<void>{
+    async addFile(moduleId: string, sectionId: string, file: IFile): Promise<File>{
         this.getModule(moduleId);//checking for module existance
-        this.getComponent(componentId);//checking for component existance
-        const file_: File = new File(''+this.ids, file.url, file.name, file.uploaded, file.bytes);
+        this.getSection(sectionId);//checking for section existance
+        const file_: File = new File(''+this.ids++, file.url, file.name, file.uploaded, file.bytes);
         this.files.push(file_);
+        return file_;
     }
     
-    async deleteFile(moduleId: string, componentId: string, fileId: string): Promise<void>{
+    async deleteFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
         this.getModule(moduleId);//checking for module existance
-        this.getComponent(componentId);//checking for component existance
-        for(let i = 0; i < this.files.length; i++){
-            if(this.files[i].id === fileId){
-                this.files.splice(i, 1);
-                return;
-            }
-        }
+        this.getSection(sectionId);//checking for section existance
+        for(let i = 0; i < this.files.length; i++)
+            if(this.files[i].id === fileId)
+                return this.files.splice(i, 1)[0];
         throw new Error(DatabaseError.MODULE_NOT_FOUND);
     }
 }

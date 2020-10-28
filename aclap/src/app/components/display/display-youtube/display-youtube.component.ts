@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { YoutubeVideoComponent } from '../../../models';
+import { YoutubeVideoSection } from '../../../models';
 
 @Component({
   selector: 'app-display-youtube',
@@ -8,7 +8,7 @@ import { YoutubeVideoComponent } from '../../../models';
 })
 export class DisplayYoutubeComponent implements OnInit {
 
-  @Input() video: YoutubeVideoComponent;
+  @Input() video: YoutubeVideoSection;
 
   constructor() { }
 

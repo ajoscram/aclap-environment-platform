@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 
-describe('DisplayParagraphComponent', () => {
+xdescribe('DisplayParagraphComponent', () => {
   let component: DisplayParagraphComponent;
   let fixture: ComponentFixture<DisplayParagraphComponent>;
 

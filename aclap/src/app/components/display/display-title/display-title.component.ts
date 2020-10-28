@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TitleComponent, TitleComponentSize } from '../../../models';
+import { TitleSection, TitleSectionSize } from '../../../models';
 
 @Component({
   selector: 'app-display-title',
@@ -8,9 +8,9 @@ import { TitleComponent, TitleComponentSize } from '../../../models';
 })
 export class DisplayTitleComponent implements OnInit {
 
-  @Input() title: TitleComponent;
-  h1 = TitleComponentSize.H1;
-  h2 = TitleComponentSize.H2;
+  @Input() title: TitleSection;
+  h1 = TitleSectionSize.H1;
+  h2 = TitleSectionSize.H2;
 
   constructor() { }
 
