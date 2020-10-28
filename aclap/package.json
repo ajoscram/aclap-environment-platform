@@ -32,12 +32,10 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.0",
     "core-js": "^2.5.7",
-    "firebase": "^7.24.0",
     "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-ui-sidedrawer": "^9.0.3",
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.6.0",
-    "tns-core-modules": "^6.5.20",
     "tslib": "^2.0.3",
     "zone.js": "~0.10.2"
   },
