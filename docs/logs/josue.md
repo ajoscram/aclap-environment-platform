@@ -2,7 +2,6 @@
 
 ### Pendiente
 * Crear UI de pantalla de inicio
-* Crear UI de edición de un módulo
 * Crear UI de los componentes de edición de un Módulo
 * Integrar servicios con los components
 
@@ -18,4 +17,8 @@
 | 20/10/2020 | Crear UI de pantalla de módulos |
 | 21/10/2020 | Crear UI del Card del módulo |
 | 20/10/2020 | Crear UI de pantalla de un módulo |
-| 20/10/2020 -27/10/2020 | Crear UI de los componentes de un Módulo|
+| 20/10/2020 | Crear UI de los componentes de un Módulo |
+| 22/10/2020 | Crear UI de los componentes de un Módulo |
+| 23/10/2020 | Crear UI de los componentes de un Módulo |
+| 24/10/2020 | Crear UI de los componentes de un Módulo |
+| 27/10/2020 | Crear UI de edición de un módulo |
