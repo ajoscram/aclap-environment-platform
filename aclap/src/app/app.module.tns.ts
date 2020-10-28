@@ -24,6 +24,7 @@ import { DisplayTitleComponent } from '@src/app/components/display/display-title
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
+import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/edit-displayer.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -52,7 +53,8 @@ import { DisplayerComponent } from '@src/app/components/display/displayer/displa
     DisplayTitleComponent,
     DisplayParagraphComponent,
     DisplayYoutubeComponent,
-    DisplayerComponent
+    DisplayerComponent,
+    EditDisplayerComponent
   ],
   imports: [
     NativeScriptModule,

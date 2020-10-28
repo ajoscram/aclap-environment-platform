@@ -25,7 +25,7 @@ import { DisplayTitleComponent } from '@src/app/components/display/display-title
 import { DisplayParagraphComponent } from '@src/app/components/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import ControlModule from './modules/control/control.module';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { DefaultController } from '@src/app/services/control/DefaultController.service';
 import { Database } from '@src/app/services/database/Database.service';
@@ -35,6 +35,7 @@ import { MockAuthenticator } from '@src/app/services/authentication/MockAuthenti
 import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
 import { MockStorage } from '@src/app/services/storage/MockStorage.service';
 import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
+import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/edit-displayer.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DisplayerComponent } from '@src/app/components/display/displayer/displa
     DisplayTitleComponent,
     DisplayParagraphComponent,
     DisplayYoutubeComponent,
-    DisplayerComponent
+    DisplayerComponent,
+    EditDisplayerComponent
   ],
   imports: [
     BrowserModule,
