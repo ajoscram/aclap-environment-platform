@@ -11,6 +11,8 @@ import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
 import { correctPath as IMAGE_PATH } from '../control/pathfinding/split/testing';
 import { Discipline, DisciplineMetadata, IModule, IParagraphSection, Module, Section, Subject, File } from '../../models';
+import { Factory } from '../database/sections/Factory.service';
+import { Pathfinder } from './pathfinding/Pathfinder.service';
 
 describe('DefaultController', () => {
 
@@ -25,7 +27,9 @@ describe('DefaultController', () => {
                 { provide: Authenticator, useClass: MockAuthenticator },
                 { provide: Database, useClass: MockDatabase },
                 { provide: Storage, useClass: MockStorage },
-                { provide: Controller, useClass: DefaultController }
+                { provide: Controller, useClass: DefaultController },
+                Factory,
+                Pathfinder
             ] 
         });
         controller = TestBed.inject(Controller);

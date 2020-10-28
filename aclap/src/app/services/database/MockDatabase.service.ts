@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection } from '@src/app/models';
 import ControlModule from '../../modules/control/control.module';
-import { SectionFactory } from './sections/SectionFactory.service';
+import { Factory } from './sections/Factory.service';
 import { Database, DatabaseError } from './Database.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MockDatabase implements Database{
     private sections: Section[];
     private files: File[];
     
-    constructor(private sectionFactory: SectionFactory){
+    constructor(private factory: Factory){
         this.disciplineMetadata = new DisciplineMetadata(
             //subjects
             [ new Subject('Estudios Sociales', '#585FC2'), new Subject('Cívica', '#019CF6'), new Subject('Ciencias', '#53A23C')],
@@ -156,8 +156,8 @@ export class MockDatabase implements Database{
     
     async addSection(moduleId: string, section: ISection): Promise<Section>{
         this.getModule(moduleId);//checking for module existance
-        const section_: Section = this.sectionFactory.getSection(section);
-        section_.id = ''+this.ids++;
+        const id: string = ''+this.ids++;
+        const section_: Section = this.factory.getSection(id, section);
         this.sections.push(section_);
         return section_;
     }
@@ -166,8 +166,7 @@ export class MockDatabase implements Database{
         this.getModule(moduleId);//checking for module existance
         for(let i = 0; i < this.sections.length; i++){
             if(this.sections[i].id === sectionId){
-                const section_: Section = this.sectionFactory.getSection(section);
-                section_.id = this.sections[i].id;
+                const section_: Section = this.factory.getSection(sectionId, section);
                 this.sections.splice(i, 1, section_);
                 return section_;
             }
