@@ -2,6 +2,8 @@
 
 ### Pendiente
 * Implementar FirebaseDatabase para web
+* Implementar FirebaseStorage para web
+* Implementar FirebaseAuthentication para web
 * Implementar Pathfinder para Nativescript
 * Implementar FirebaseDatabase para NativeScript
 * Borrar subcolecciones mediante Cloud Functions
@@ -14,11 +16,12 @@
 
 | Fecha | Tarea |
 | :---: | :--- |
+| 28/10/2020 | Refactor completo de `Checkables` y parcial de módulo de `database` |
 | 27/10/2020 | Crear proyecto de Firebase para manejar backend |
-| 26/10/2020 | Crear pruebas unitarias de Controller, SectionFactory y Pathfinder |
-| 24/10/2020 | Refactor de las Clases Component a Section | 
-| 23/10/2020 | Agregar imágenes a Implementables |
-| 23/10/2020 | Agregar datos a MockDatabase y MockAuthenticator |
+| 26/10/2020 | Crear pruebas unitarias de `DefaultController`, `Factory` y `Pathfinder` |
+| 24/10/2020 | Refactor de las clases `Component` a `Section` | 
+| 23/10/2020 | Agregar imagen a `Implementable` |
+| 23/10/2020 | Agregar datos a `MockDatabase` y `MockAuthenticator` |
 | 22/10/2020 | Esribir Mocks |
 | 21/10/2020 | Escribir Controlador |
 | 20/10/2020 | Pasar servicios a código |

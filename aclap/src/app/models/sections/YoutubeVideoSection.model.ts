@@ -13,7 +13,7 @@ export class YoutubeVideoSection extends Section{
 
     public static check(object: any): object is IYoutubeVideoSection{
         const section: IYoutubeVideoSection = <IYoutubeVideoSection>object;
-        return super.check_(object) &&
+        return super.check(object) &&
             section.url !== undefined;
     }
 }

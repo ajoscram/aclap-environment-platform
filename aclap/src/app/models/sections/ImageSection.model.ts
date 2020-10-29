@@ -17,7 +17,7 @@ export class ImageSection extends Section{
 
     public static check(object: any): object is IImageSection{
         const section: IImageSection = <IImageSection>object;
-        return super.check_(object) &&
+        return super.check(object) &&
             section.footing !== undefined &&
             section.reference !== undefined &&
             section.$url !== undefined;

@@ -1,9 +1,14 @@
-import { Section, DisciplineMetadata, File, ISection, IFile, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IFile, IModule, Module, User, IDisciplineMetadata, Administrator, IAdministrator, IUser } from "../../models";
 
 export abstract class Database{
 
+    //discipline metadata
+    getDisciplineMetadata: () => Promise<DisciplineMetadata>;
+    setDisciplineMetadata: (metadata: IDisciplineMetadata) => Promise<DisciplineMetadata>;
+
     //users
     getUser: (id: string) => Promise<User>;
+    addUser: (id: string, user: IUser) => Promise<User>;
 
     //modules
     getModule: (id: string) => Promise<Module>;
@@ -13,7 +18,6 @@ export abstract class Database{
     deleteModule: (id: string) => Promise<Module>;
 
     //sections
-    getDisciplineMetadata: () => Promise<DisciplineMetadata>;
     getSections: (moduleId: string) => Promise<Section[]>;
     addSection: (moduleId: string, section: ISection) => Promise<Section>;
     updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<Section>;
@@ -27,8 +31,8 @@ export abstract class Database{
 
 export enum DatabaseError{
     NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED",
+    DISCIPLINE_METADATA_NOT_FOUND = "DatabaseError.DISCIPLINE_METADATA_NOT_FOUND",
     USER_NOT_FOUND = "DatabaseError.USER_NOT_FOUND",
-    UNKNOWN_USER_TYPE = "DatabaseError.UNKNOWN_USER_TYPE",
     MODULE_NOT_FOUND = "DatabaseError.MODULE_NOT_FOUND",
     SECTION_NOT_FOUND = "DatabaseError.SECTION_NOT_FOUND",
     FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND"
