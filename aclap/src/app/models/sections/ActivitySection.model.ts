@@ -1,11 +1,11 @@
-import { Question } from "../Question.model";
+import { Question, IQuestion } from "../Question.model";
 import { Section, ISection } from "./Section.model";
 
 export interface IActivitySection extends ISection{
     description: string,
     estimatedMinutes: number,
     tools: string,
-    questions: Question[]
+    questions: IQuestion[]
 }
 
 export class ActivitySection extends Section{

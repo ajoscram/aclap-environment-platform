@@ -11,7 +11,7 @@ import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
 import { correctPath as IMAGE_PATH } from '../control/pathfinding/split/testing';
 import { Discipline, DisciplineMetadata, IModule, IParagraphSection, Module, Section, Subject, File } from '../../models';
-import { Factory } from '../database/sections/Factory.service';
+import { Factory } from '../database/factory/Factory.service';
 import { Pathfinder } from './pathfinding/Pathfinder.service';
 
 describe('DefaultController', () => {
@@ -44,10 +44,14 @@ describe('DefaultController', () => {
             objectives: [ 'first objective', 'second objecive' ],
             requirements: [ 'first requirement', 'second requirement' ],
             disciplines: [ 
-                new Discipline(
-                    new Subject('Estudios Sociales', '#585FC2'),
-                    '1er Año', 'Eje temático'
-                )
+                {
+                    subject: {
+                        name: 'Estudios Sociales',
+                        color: '#585FC2'
+                    },
+                    year: '1er Año',
+                    theme: 'Eje temático'
+                }
             ]
         };
         stubISection  = {

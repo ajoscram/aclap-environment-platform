@@ -3,7 +3,7 @@ import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownSection extends ISection{}
 
-describe('SectionFactory', () => {
+describe('Factory', () => {
     const STUB_ID: string = 'id';
 
     const STUB_ACTIVITY: IActivitySection = {
@@ -11,7 +11,7 @@ describe('SectionFactory', () => {
         description: "STUB_ACTIVITY.description",
         estimatedMinutes: 2,
         tools: "STUB_ACTIVITY.tools",
-        questions: [ new Question("is this a question?", new Map())]
+        questions: [ { question: "is this a question?", options: new Map() } ]
     };
     const STUB_PARAGRAPH: IParagraphSection = {
         index: 1,
@@ -57,7 +57,7 @@ describe('SectionFactory', () => {
         expect(activity.description).toBe(STUB_ACTIVITY.description);
         expect(activity.estimatedMinutes).toBe(STUB_ACTIVITY.estimatedMinutes);
         expect(activity.tools).toBe(STUB_ACTIVITY.tools);
-        expect(activity.questions).toBe(STUB_ACTIVITY.questions);
+        expect(activity.questions[0].question).toBe(STUB_ACTIVITY.questions[0].question);
     });
 
     it('getSection(): returns the correct ParagraphSection when input an IParagraphSection', async () => {

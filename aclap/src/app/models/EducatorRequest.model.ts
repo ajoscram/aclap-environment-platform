@@ -1,7 +1,17 @@
+import { Location, ILocation } from '.';
+
 export enum EducatorRequestState{
     APPROVED,
     DENIED,
     PENDING
+}
+
+export interface IEducatorRequest{
+    name: string,
+    lastname: string,
+    email: string,
+    phone: string,
+    address: ILocation
 }
 
 export class EducatorRequest{

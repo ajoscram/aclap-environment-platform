@@ -1,13 +1,13 @@
-export { Answer } from './Answer.model';
-export { Subject } from './Subject.model';
-export { Discipline } from './Discipline.model';
+export { Answer, IAnswer } from './Answer.model';
+export { Subject, ISubject } from './Subject.model';
+export { Discipline, IDiscipline } from './Discipline.model';
 export { DisciplineMetadata } from './DisciplineMetadata.model';
-export { EducatorRequest, EducatorRequestState } from './EducatorRequest.model';
-export { Evaluation } from './Evaluation.model';
+export { EducatorRequest, IEducatorRequest, EducatorRequestState } from './EducatorRequest.model';
+export { Evaluation, IEvaluation } from './Evaluation.model';
 export { File, IFile } from './File.model';
-export { Implementation } from './Implementation.model';
-export { Location } from './Location.model';
-export { Question } from './Question.model';
+export { Implementation, IImplementation } from './Implementation.model';
+export { Location, ILocation } from './Location.model';
+export { Question, IQuestion } from './Question.model';
 export { Score } from './Score.model';
 
 //Sections
@@ -21,7 +21,7 @@ export { YoutubeVideoSection, IYoutubeVideoSection } from './sections/YoutubeVid
 //Implementables
 export { Implementable, IImplementable } from './implementables/Implementable.model';
 export { Module, IModule } from './implementables/Module.model';
-export { Event } from './implementables/Event.model';
+export { Event, IEvent } from './implementables/Event.model';
 
 //Users
 export { User } from './users/User.model';

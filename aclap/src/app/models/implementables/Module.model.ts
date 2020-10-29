@@ -1,10 +1,10 @@
-import { Discipline } from "../Discipline.model";
+import { IDiscipline, Discipline } from "../Discipline.model";
 import { IImplementable, Implementable } from "./Implementable.model";
 
 export interface IModule extends IImplementable{
     recommendedAge: number,
     requirements: string[],
-    disciplines: Discipline[]
+    disciplines: IDiscipline[]
 }
 
 export class Module extends Implementable{

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from './Database.service';   
-import { Factory } from './sections/Factory.service';
+import { Factory } from './factory/Factory.service';
 import { Validator } from './validation/Validator.service';
 import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator } from '../../models';
 
@@ -54,7 +54,7 @@ export class FirebaseDatabase implements Database{
     }
 
     async getModule(id: string): Promise<Module>{
-        const module_: any = await this.firestore.collection(FirebaseDatabase.MODULES).doc(id).get().toPromise();
+        const module_: any = (await this.firestore.collection(FirebaseDatabase.MODULES).doc(id).get().toPromise()).data();
         if(!module_)
             throw new Error(DatabaseError.MODULE_NOT_FOUND);
         else

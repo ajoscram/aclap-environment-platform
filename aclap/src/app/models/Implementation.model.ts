@@ -1,3 +1,18 @@
+import { Location, ILocation } from '.';
+
+export interface IImplementation{
+    startDate: Date,
+    endDate: Date,
+    participants: number,
+    location: ILocation,
+    deleted: boolean,
+    educatorId: string,
+    educatorName: string,
+    educatorLastname: string,
+    implementableId: string,
+    implementableName: string
+}
+
 export class Implementation {
     constructor(
         public id: string,
@@ -11,7 +26,6 @@ export class Implementation {
         public educatorLastname: string,
         public implementableId: string,
         public implementableName: string
-
     ){}
 
 }
