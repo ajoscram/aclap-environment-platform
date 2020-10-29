@@ -1,1 +1,23 @@
-<page-router-outlet></page-router-outlet>
+<page-router-outlet actionBarVisibility="never"></page-router-outlet>
+
+<TabView androidTabsPosition="top">
+  
+    <page-router-outlet 
+     *tabItem="{title: 'Inicio'}" 
+     class=""
+     actionBarVisibility="never">
+    </page-router-outlet>
+
+    <page-router-outlet 
+      *tabItem="{title: 'Modulos'}" 
+      class="" 
+      actionBarVisibility="never">
+    </page-router-outlet>
+
+    <page-router-outlet 
+      *tabItem="{title: 'Eventos'}" 
+      class="" 
+      actionBarVisibility="never">
+    </page-router-outlet>
+
+</TabView>

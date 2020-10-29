@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SegmentedBar, SegmentedBarItem } from "@nativescript/core";
 
 @Component({
   selector: 'app-header',
