@@ -17,12 +17,12 @@ export class AppComponent {
 
   @ViewChild(RadSideDrawerComponent) sideDrawerComponent: RadSideDrawerComponent;
 
-  navigateToFeatured(): void {
+  navigateToHome(): void {
       this.routerExtensions.navigate(['inicio'], { clearHistory: true });
       this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
-  navigateToBrowse(): void {
+  navigateToModules(): void {
       this.routerExtensions.navigate(['modulos'], { clearHistory: true });
       this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
