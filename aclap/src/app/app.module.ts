@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -76,6 +76,7 @@ import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/
     { provide: Storage, useClass: MockStorage },
     { provide: Authenticator, useClass: MockAuthenticator }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

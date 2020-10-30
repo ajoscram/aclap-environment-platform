@@ -1,4 +1,6 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
+import { RouterExtensions } from '@nativescript/angular';
+import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 
 
 @Component({
@@ -9,8 +11,20 @@ import { Component} from '@angular/core';
 export class AppComponent {
   title = 'aclap';
 
-  constructor() { }
+  constructor(private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void { }
+
+  @ViewChild(RadSideDrawerComponent) sideDrawerComponent: RadSideDrawerComponent;
+
+  navigateToFeatured(): void {
+      this.routerExtensions.navigate(['inicio'], { clearHistory: true });
+      this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
+  navigateToBrowse(): void {
+      this.routerExtensions.navigate(['modulos'], { clearHistory: true });
+      this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
 
 }
