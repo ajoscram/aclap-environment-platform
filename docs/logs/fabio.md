@@ -2,7 +2,6 @@
 
 ### Pendiente
 
-* Lograr navegacion en Nativescript
 * Programar la pantalla de Inicio en Nativescript
 
 ### Completado
@@ -13,3 +12,4 @@
 | 25/10/2020 | Estudiar programacion UI en Nativescript |
 | 25/10/2020 | Empezar a programar UI en Nativescript |
 | 29/10/2020 | Crear barra de navegacion en Nativescript |
+| 29/10/2020 | Lograr navegacion en Nativescript |
