@@ -30,22 +30,22 @@ describe('FirebaseDatabase', () => {
             years: ['1', '2', '3']
         };
         stubAdministrator  = {
-            $imageUrl: 'STUB_ADMINISTRATOR.$imageUrl',
+            $imageUrl: 'https://example.com/image.jpg',
             name: 'STUB_ADMINISTRATOR.name',
             lastname: 'STUB_ADMINISTRATOR.lastname',
-            email: 'STUB_ADMINISTRATOR.email'
+            email: 'example@email.com'
         };
         stubEducator = {
             $imageUrl: 'STUB_EDUCATOR.$imageUrl',
             name: 'STUB_EDUCATOR.name',
             lastname: 'STUB_EDUCATOR.lastname',
-            email: 'STUB_EDUCATOR.email',
-            phone: 'phone',
+            email: 'example@email.com',
+            phone: '+(506)12345678',
             joined: new Date()
         };
         stubModule = {
             name: 'name',
-            $imageUrl: 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg',
+            $imageUrl: 'https://example.com/image.jpg',
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
@@ -68,7 +68,7 @@ describe('FirebaseDatabase', () => {
             text: "STUB_SECTION.text" //a paragraph section is used here as an example
         } as ISection;
         stubFile = {
-            url: 'url',
+            url: 'https://example.com/image.jpg',
             name: 'name',
             uploaded: new Date(),
             bytes: 1

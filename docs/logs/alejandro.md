@@ -3,6 +3,7 @@
 ### Pendiente
 * Implementar `FirebaseStorage` para web
 * Implementar `FirebaseAuthentication` para web
+* Implementar `Validator`
 * Implementar `Pathfinder` para Nativescript
 * Implementar `FirebaseDatabase` para NativeScript
 * Borrar subcolecciones mediante Cloud Functions
@@ -10,6 +11,7 @@
 * Arreglar diagrama de Modelo
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
+* Hacer pruebas unitarias de `Validator`
 
 ### Completado
 
