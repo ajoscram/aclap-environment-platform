@@ -8,6 +8,7 @@
 * Implementar `FirebaseDatabase` para NativeScript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
+* Agregar custom claims para Educators mediante Cloud Functions
 * Arreglar diagrama de Modelo
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD

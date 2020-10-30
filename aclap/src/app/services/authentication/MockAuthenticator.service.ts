@@ -32,12 +32,12 @@ export class MockAuthenticator implements Authenticator{
                 return this.current;
             }
         }
-        throw new Error(AuthenticatorError.USER_NOT_FOUND);
+        throw new Error(AuthenticatorError.AUTHENTICATION_FAILED);
     }
 
     private validateSession(){
         if(!this.current)
-            throw new Error(AuthenticatorError.USER_NOT_LOGGED);
+            throw new Error(AuthenticatorError.NOT_AUTHENTICATED);
     }
 
     async validate(role: Role): Promise<void>{

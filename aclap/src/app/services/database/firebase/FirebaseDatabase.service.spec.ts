@@ -208,4 +208,10 @@ describe('FirebaseDatabase', () => {
         const http: HttpClient = TestBed.inject(HttpClient);
         await http.delete(`http://localhost:8080/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
     });
+
+/*
+    it('(): ', async () => {
+        
+    });
+*/
 });
