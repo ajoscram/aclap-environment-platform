@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '@src/app/modules/control/control.module.tns';
-import { IDisciplineMetadata, IModule, ISection, IUser } from '../../../models';
+import { IDisciplineMetadata, IFile, IModule, ISection, IUser } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -10,6 +10,7 @@ export class Validator{
     validateIModule(module: IModule){}
     validateIUser(user: IUser){}
     validateISection(section: ISection){}
+    validateIFile(file: IFile){}
 }
 
 export enum ValidatorError{}

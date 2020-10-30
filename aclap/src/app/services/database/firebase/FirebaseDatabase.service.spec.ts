@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
-import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IModule, Module, User } from '../../../models';
 import { HttpClient } from '@angular/common/http';
-import { testModule } from './FirebaseDatabase.service.spec.split';
+import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
+import { DisciplineMetadata, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
@@ -15,9 +15,11 @@ describe('FirebaseDatabase', () => {
     let stubAdministrator: IAdministrator;
     let stubEducator: IEducator;
     let stubModule: IModule;
+    let stubSection: ISection;
+    let stubFile: IFile;
 
     beforeEach(() => {
-        TestBed.configureTestingModule(testModule);
+        TestBed.configureTestingModule(TEST_MODULE);
         database = TestBed.inject(Database);
         stubDisciplineMetadata = {
             subjects: [
@@ -47,7 +49,7 @@ describe('FirebaseDatabase', () => {
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
-            recommendedAge: 4,
+            recommendedAge: 1,
             objectives: [ 'first objective', 'second objecive' ],
             requirements: [ 'first requirement', 'second requirement' ],
             disciplines: [ 
@@ -61,6 +63,16 @@ describe('FirebaseDatabase', () => {
                 }
             ]
         };
+        stubSection = {
+            index: 1,
+            text: "STUB_SECTION.text" //a paragraph section is used here as an example
+        } as ISection;
+        stubFile = {
+            url: 'url',
+            name: 'name',
+            uploaded: new Date(),
+            bytes: 1
+        }
     });
 
     it('getDisciplineMetadata(): gets the discipline metadata constants', async () => {
@@ -129,6 +141,65 @@ describe('FirebaseDatabase', () => {
     it('deleteModule(): deletes a module and returns it', async () =>{
         const added: Module = await database.addModule(stubModule);
         const deleted: Module = await database.deleteModule(added.id);
+        expect(deleted).toBeTruthy();
+        expect(deleted.id).toBe(added.id);
+    });
+
+    it('addSection(): adds a new section and returns it', async () => {
+        const module_: Module = await database.addModule(stubModule);
+        const section: Section = await database.addSection(module_.id, stubSection);
+        expect(section).toBeTruthy();
+    });
+
+    it('getSections(): gets a module\'s sections', async () => {
+        const module_: Module = await database.addModule(stubModule);
+        await database.addSection(module_.id, stubSection);
+        await database.addSection(module_.id, stubSection);
+        const sections: Section[] = await database.getSections(module_.id);
+        expect(sections).toBeTruthy();
+        expect(sections.length).toBe(2);
+    });
+
+    it('updateSection(): updates a section and returns the result', async () =>{
+        const module_: Module = await database.addModule(stubModule);
+        const added: Section = await database.addSection(module_.id, stubSection);
+        stubSection.index = stubSection.index - 1;
+        const updated: Section = await database.updateSection(module_.id, added.id, stubSection);
+        expect(updated).toBeTruthy();
+        expect(updated.id).toBe(added.id);
+        expect(updated.index).toBe(stubSection.index);
+    });
+
+    it('deleteSection(): deletes a section and returns it', async () =>{
+        const module_: Module = await database.addModule(stubModule);
+        const added: Section = await database.addSection(module_.id, stubSection);
+        const deleted: Section = await database.deleteSection(module_.id, added.id);
+        expect(deleted).toBeTruthy();
+        expect(deleted.id).toBe(added.id);
+    });
+
+    it('addFile(): adds a new file and returns it', async () => {
+        const module_: Module = await database.addModule(stubModule);
+        const section: Section = await database.addSection(module_.id, stubSection);
+        const file: File = await database.addFile(module_.id, section.id, stubFile);
+        expect(file).toBeTruthy();
+    });
+
+    it('getFiles(): gets a section\'s files', async () => {
+        const module_: Module = await database.addModule(stubModule);
+        const section: Section = await database.addSection(module_.id, stubSection);
+        await database.addFile(module_.id, section.id, stubFile);
+        await database.addFile(module_.id, section.id, stubFile);
+        const files: File[] = await database.getFiles(module_.id, section.id);
+        expect(files).toBeTruthy();
+        expect(files.length).toBe(2);
+    });
+
+    it('deleteFile(): deletes a file and returns it', async () =>{
+        const module_: Module = await database.addModule(stubModule);
+        const section: Section  =await database.addSection(module_.id, stubSection);
+        const added: File = await database.addFile(module_.id, section.id, stubFile);
+        const deleted: File = await database.deleteFile(module_.id, section.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });

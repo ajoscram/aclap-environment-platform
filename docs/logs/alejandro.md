@@ -1,14 +1,13 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Implementar FirebaseDatabase para web
-* Implementar FirebaseStorage para web
-* Implementar FirebaseAuthentication para web
-* Implementar Pathfinder para Nativescript
-* Implementar FirebaseDatabase para NativeScript
+* Implementar `FirebaseStorage` para web
+* Implementar `FirebaseAuthentication` para web
+* Implementar `Pathfinder` para Nativescript
+* Implementar `FirebaseDatabase` para NativeScript
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
-* Automatizar el agregado de Sections nuevas con intrspección
+* Arreglar diagrama de Modelo
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
 
@@ -16,6 +15,7 @@
 
 | Fecha | Tarea |
 | :---: | :--- |
+| 29/10/2020 | Implementar `FirebaseDatabase` para web |
 | 28/10/2020 | Refactor completo de `Checkables` y parcial de módulo de `database` |
 | 27/10/2020 | Crear proyecto de Firebase para manejar backend |
 | 26/10/2020 | Crear pruebas unitarias de `DefaultController`, `Factory` y `Pathfinder` |

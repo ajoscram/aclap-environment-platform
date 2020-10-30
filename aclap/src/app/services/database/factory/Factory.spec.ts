@@ -1,4 +1,4 @@
-import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, Question, TitleSection, TitleSectionSize, YoutubeVideoSection } from "../../../models";
+import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile } from "../../../models";
 import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownUser extends IUser{}
@@ -83,6 +83,13 @@ describe('Factory', () => {
         index: 4,
         url: "STUB_YOUTUBE_VIDEO.url"
     };
+
+    const STUB_FILE: IFile = {
+        url: 'url',
+        name: 'name',
+        uploaded: new Date(),
+        bytes: 1
+    }
 
     const factory: Factory = new Factory();
 
@@ -178,5 +185,14 @@ describe('Factory', () => {
         expect(video.id).toBe(STUB_ID);
         expect(video.index).toBe(STUB_YOUTUBE_VIDEO.index);
         expect(video.url).toBe(STUB_YOUTUBE_VIDEO.url);
+    });
+
+    it('getFile(): returns the correct File when input an IFile', async () => {
+        const file: File = factory.getFile(STUB_ID, STUB_FILE);
+        expect(file.id).toBe(STUB_ID);
+        expect(file.url).toBe(STUB_FILE.url);
+        expect(file.name).toBe(STUB_FILE.name);
+        expect(file.uploaded).toBe(STUB_FILE.uploaded);
+        expect(file.bytes).toBe(STUB_FILE.bytes);
     });
 });

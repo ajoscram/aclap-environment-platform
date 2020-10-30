@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User } from '../../../models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
 })
 export class Factory{
-
 
     public getDisciplineMetadata(metadata: IDisciplineMetadata): DisciplineMetadata{
         const subjects: ISubject[] = [];
@@ -90,7 +89,7 @@ export class Factory{
                 iSection.tools,
                 this.getQuestions(iSection.questions)
             );
-        if(ImageSection.check(iSection))
+        else if(ImageSection.check(iSection))
             return new ImageSection(
                 id,
                 iSection.index,
@@ -98,26 +97,37 @@ export class Factory{
                 iSection.$url,
                 iSection.reference,
             );
-        if(TitleSection.check(iSection))
+        else if(TitleSection.check(iSection))
             return new TitleSection(
                 id,
                 iSection.index,
                 iSection.size,
                 iSection.text
             );
-        if(ParagraphSection.check(iSection))
+        else if(ParagraphSection.check(iSection))
             return new ParagraphSection(
                 id,
                 iSection.index,
                 iSection.text
             );
-        if(YoutubeVideoSection.check(iSection))
+        else if(YoutubeVideoSection.check(iSection))
             return new YoutubeVideoSection(
                 id,
                 iSection.index,
                 iSection.url
             );
-        throw new Error(FactoryError.UNKNOWN_ISECTION);
+        else
+            throw new Error(FactoryError.UNKNOWN_ISECTION);
+    }
+
+    public getFile(id: string, file: IFile): File{
+        return new File(
+            id,
+            file.url,
+            file.name,
+            file.uploaded,
+            file.bytes
+        );
     }
 }
 

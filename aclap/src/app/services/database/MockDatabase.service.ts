@@ -64,9 +64,19 @@ export class MockDatabase implements Database{
         ];
 
         this.files = [
-            new File(''+this.ids++, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF Ejemplo', new Date(), 114688)
+            new File(''+this.ids++, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
         ];
 
+    }
+
+    private generateQuestion(question: string): Question{
+        const map: Map<Score, string> = new Map();
+        map.set(Score.VERY_LOW, 'Muy mal');
+        map.set(Score.LOW, 'Mal');
+        map.set(Score.AVERAGE, 'Regular');
+        map.set(Score.HIGH, 'Bien');
+        map.set(Score.VERY_HIGH, 'Muy bien');
+        return new Question(question, map);
     }
 
     async getDisciplineMetadata(): Promise<DisciplineMetadata>{
@@ -76,16 +86,6 @@ export class MockDatabase implements Database{
     async setDisciplineMetadata(metadata: IDisciplineMetadata): Promise<DisciplineMetadata>{
         this.disciplineMetadata = this.factory.getDisciplineMetadata(metadata);
         return this.disciplineMetadata;
-    }
-    
-    private generateQuestion(question: string): Question{
-        const map: Map<Score, string> = new Map();
-        map.set(Score.VERY_LOW, 'Muy mal');
-        map.set(Score.LOW, 'Mal');
-        map.set(Score.AVERAGE, 'Regular');
-        map.set(Score.HIGH, 'Bien');
-        map.set(Score.VERY_HIGH, 'Muy bien');
-        return new Question(question, map);
     }
     
     async getUser(id: string): Promise<User>{
