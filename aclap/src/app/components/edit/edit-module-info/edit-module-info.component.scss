@@ -1,0 +1,7 @@
+@use '../../app.component.scss';
+
+
+.card-header{
+    background-color: app.$nav-color;
+    color: whitesmoke;
+}

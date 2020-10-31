@@ -25,6 +25,10 @@ import { DisplayParagraphComponent } from '@src/app/components/display/display-p
 import { DisplayYoutubeComponent } from '@src/app/components/display/display-youtube/display-youtube.component';
 import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
 import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/edit-displayer.component';
+import { LoginComponent } from '@src/app/components/login/login.component';
+import { RegisterComponent } from '@src/app/components/register/register.component';
+import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+import { ComponentsComponent } from '@src/app/components/components.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -54,7 +58,11 @@ import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/
     DisplayParagraphComponent,
     DisplayYoutubeComponent,
     DisplayerComponent,
-    EditDisplayerComponent
+    EditDisplayerComponent,
+    LoginComponent,
+    RegisterComponent,
+    AboutUsComponent,
+    ComponentsComponent
   ],
   imports: [
     NativeScriptModule,

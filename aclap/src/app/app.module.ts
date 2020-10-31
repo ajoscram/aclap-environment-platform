@@ -36,6 +36,11 @@ import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
 import { MockStorage } from '@src/app/services/storage/MockStorage.service';
 import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
 import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/edit-displayer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from '@src/app/components/login/login.component';
+import { RegisterComponent } from '@src/app/components/register/register.component';
+import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+import { ComponentsComponent } from '@src/app/components/components.component';
 
 @NgModule({
   declarations: [
@@ -61,14 +66,20 @@ import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/
     DisplayParagraphComponent,
     DisplayYoutubeComponent,
     DisplayerComponent,
-    EditDisplayerComponent
+    EditDisplayerComponent,
+    LoginComponent,
+    RegisterComponent,
+    AboutUsComponent,
+    ComponentsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     YouTubePlayerModule,
     NgbModule,
-    ControlModule
+    ControlModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },

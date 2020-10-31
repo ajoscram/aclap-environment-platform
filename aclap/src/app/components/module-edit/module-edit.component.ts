@@ -24,7 +24,7 @@ export class ModuleEditComponent implements OnInit {
       .catch(error => console.error(error));
     
     this.controller.getSections(this.id)
-      .then(sections => { this.sections = sections; console.log(sections.toString()) })
+      .then(sections => { this.sections = sections })
       .catch(error => console.error(error));
   }
 

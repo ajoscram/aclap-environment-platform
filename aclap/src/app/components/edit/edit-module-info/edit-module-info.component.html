@@ -1,1 +1,53 @@
-<p>edit-module-info works!</p>
+<div class="card">
+    <div class="card-header">
+        Información general del módulo
+    </div>
+    <div class="card-body">
+        <form [formGroup]="moduleForm"> 
+            <div class="col-12">
+                <label>
+                    Nómbre del módulo:
+                    <input type="text" formControlName="name">
+                </label>
+                <label >
+                    Edad recomendada:
+                    <input type="number" formControlName="name">
+                </label>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        Asignaturas implicadas
+                    </div>
+                    <div class="card-body">
+                        <div class="col-6">
+                            Materia
+                            <div ngbDropdown class="d-inline-block">
+                                <button class="btn btn-outline-primary" id="drop_subject" ngbDropdownToggle>Seleccionar Asignatura</button>
+                                <div ngbDropdownMenu aria-labelledby="drop_subject">
+                                    <div *ngFor="let subject of disciplines.subjects">
+                                        <button ngbDropdownItem [value]="subject.name"> {{subject.name}} </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            Año
+                            <div ngbDropdown class="d-inline-block">
+                                <button class="btn btn-outline-primary" id="drop_year" ngbDropdownToggle>Seleccionar Asignatura</button>
+                                <div ngbDropdownMenu aria-labelledby="drop_year">
+                                    <div *ngFor="let year of disciplines.years">
+                                        <button ngbDropdownItem [value]="year"> {{year}} </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
