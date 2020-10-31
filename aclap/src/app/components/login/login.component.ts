@@ -19,14 +19,15 @@ export class LoginComponent implements OnInit {
       username: ['',Validators.email],
       password: ['',Validators.required]
     });
+    this.isAdmin = true;
   }
 
-  login() {
-    let usrname:string = this.loginForm.get('username').value();
-    let password:string = this.loginForm.get('password').value();
+  onSubmit() {
+    let usrname:string = this.loginForm.get('username').value;
+    let password:string = this.loginForm.get('password').value;
     let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
     this.controller.login(usrname, password, role)
-      .then( response => {console.log(response)} ) /* TODO: act after result from the controller */
+      .then( response => {console.log(JSON.stringify(response))} ) /* TODO: act after result from the controller */
       .catch( );
   }
 
