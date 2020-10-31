@@ -1,0 +1,40 @@
+$jumbo-color: #99D493;
+$button-color: #E69E21;
+$lime-color: #c2d02c;
+$nav-color: #206A5D;
+
+.row-content{
+    margin: 0px auto;
+    padding: 15px 0px 50px 0px;
+    min-height: 100px;
+}
+
+.jumbotron{
+    background-color: $jumbo-color;
+    color: whitesmoke;
+    padding: 90px 30px 20px 30px;
+    margin: 0px auto;
+    display: flex;
+}
+
+.lime{
+    background-color: $lime-color;
+    color: whitesmoke;
+}
+
+.wt{
+    color: whitesmoke;
+}
+
+StackLayout Button{
+    color: #206A5D;
+}
+
+StackLayout{
+    background-color: #206A5D;
+}
+
+Image {
+    width: 40;
+    height: 40;
+}

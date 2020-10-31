@@ -1,7 +1,8 @@
+export { Checkable } from './Checkable.model';
 export { Answer, IAnswer } from './Answer.model';
 export { Subject, ISubject } from './Subject.model';
 export { Discipline, IDiscipline } from './Discipline.model';
-export { DisciplineMetadata } from './DisciplineMetadata.model';
+export { DisciplineMetadata, IDisciplineMetadata } from './DisciplineMetadata.model';
 export { EducatorRequest, IEducatorRequest, EducatorRequestState } from './EducatorRequest.model';
 export { Evaluation, IEvaluation } from './Evaluation.model';
 export { File, IFile } from './File.model';
@@ -24,6 +25,6 @@ export { Module, IModule } from './implementables/Module.model';
 export { Event, IEvent } from './implementables/Event.model';
 
 //Users
-export { User } from './users/User.model';
-export { Educator } from './users/Educator.model';
-export { Administrator } from './users/Administrator.model';
+export { User, IUser } from './users/User.model';
+export { Educator, IEducator } from './users/Educator.model';
+export { Administrator, IAdministrator } from './users/Administrator.model';

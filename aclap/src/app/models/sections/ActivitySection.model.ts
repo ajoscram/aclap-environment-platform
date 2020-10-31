@@ -20,7 +20,7 @@ export class ActivitySection extends Section{
 
     public static check(object: any): object is IActivitySection{
         const section: IActivitySection = <IActivitySection>object;
-        return super.check_(object) && 
+        return super.check(object) && 
             section.description !== undefined &&
             section.estimatedMinutes !== undefined &&
             section.questions !== undefined &&

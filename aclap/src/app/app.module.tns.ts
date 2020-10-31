@@ -1,5 +1,6 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from '@nativescript/angular';
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module.tns';
 import { AppComponent } from '@src/app/components/app.component';
@@ -67,6 +68,7 @@ import { ComponentsComponent } from '@src/app/components/components.component';
   imports: [
     NativeScriptModule,
     AppRoutingModule,
+    NativeScriptUISideDrawerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

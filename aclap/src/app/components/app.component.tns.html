@@ -1,1 +1,81 @@
-<page-router-outlet></page-router-outlet>
+<!-- 
+<TabView androidTabsPosition="top">
+  
+    <page-router-outlet 
+     *tabItem="{title: 'Inicio'}" 
+     name="home"
+     actionBarVisibility="never">
+    </page-router-outlet>
+
+    <page-router-outlet 
+      *tabItem="{title: 'Modulos'}" 
+      name="home" 
+      actionBarVisibility="never">
+    </page-router-outlet>
+
+    <page-router-outlet 
+      *tabItem="{title: 'Eventos'}" 
+      name="home" 
+      actionBarVisibility="never">
+    </page-router-outlet>
+
+</TabView> -->
+
+<RadSideDrawer #sideDrawer>
+  <StackLayout tkDrawerContent class="sidedrawer-left">
+
+      <StackLayout class="sidedrawer-header"></StackLayout>
+
+      <StackLayout class="sidedrawer-content">
+          
+        <StackLayout class="sidedrawer-list-item">
+          <Image src=""></Image>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+          <Image src="res://logo"></Image>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+              <Button class="btn btn-primary sidedrawer-list-item-text"
+                  text="Inicio" (tap)="navigateToHome()"></Button>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+          <Button class="btn btn-primary sidedrawer-list-item-text"
+              text="Perfil"></Button>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+              <Button class="btn btn-primary sidedrawer-list-item-text"
+                  text="Modulos" (tap)="navigateToModules()"></Button>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+            <Button class="btn btn-primary sidedrawer-list-item-text"
+                text="Eventos"></Button>
+        </StackLayout>
+
+        <StackLayout class="sidedrawer-list-item">
+          <Button class="btn btn-primary sidedrawer-list-item-text"
+              text="Acerca de"></Button>
+        </StackLayout>
+          
+      </StackLayout>
+
+      <StackLayout class="sidedrawer-footer">
+        <StackLayout orientation="horizontal" width="245" height="100">
+          <Label text="Ingresar" horizontalAlignment="left" color="white"></Label>
+          <Label text="       " horizontalAlignment="center"></Label>
+          <Label text="Ser educador" horizontalAlignment="right" color="white"></Label>
+      </StackLayout>
+      </StackLayout>
+
+  </StackLayout>
+
+  <page-router-outlet tkMainContent actionBarVisibility="never"></page-router-outlet>
+</RadSideDrawer>
+
+
+<!-- <page-router-outlet actionBarVisibility="never"></page-router-outlet> -->
+

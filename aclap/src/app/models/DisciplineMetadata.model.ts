@@ -1,4 +1,9 @@
-import { Subject } from '.';
+import { ISubject, Subject } from './Subject.model';
+
+export interface IDisciplineMetadata{
+    subjects: ISubject[],
+    years: string[]
+}
 
 export class DisciplineMetadata {
     constructor(

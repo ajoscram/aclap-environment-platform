@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection } from '@src/app/models';
+import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser } from '@src/app/models';
 import ControlModule from '../../modules/control/control.module';
 import { Factory } from './factory/Factory.service';
 import { Database, DatabaseError } from './Database.service';
@@ -64,7 +64,7 @@ export class MockDatabase implements Database{
         ];
 
         this.files = [
-            new File(''+this.ids++, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF Ejemplo', new Date(), 114688)
+            new File(''+this.ids++, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
         ];
 
     }
@@ -78,12 +78,27 @@ export class MockDatabase implements Database{
         map.set(Score.VERY_HIGH, 'Muy bien');
         return new Question(question, map);
     }
+
+    async getDisciplineMetadata(): Promise<DisciplineMetadata>{
+        return this.disciplineMetadata;
+    }
+
+    async setDisciplineMetadata(metadata: IDisciplineMetadata): Promise<DisciplineMetadata>{
+        this.disciplineMetadata = this.factory.getDisciplineMetadata(metadata);
+        return this.disciplineMetadata;
+    }
     
     async getUser(id: string): Promise<User>{
         for(let user of this.users)
             if(user.id === id)
                 return user;
         throw new Error(DatabaseError.USER_NOT_FOUND);
+    }
+
+    async addUser(id: string, user: IUser): Promise<User>{
+        const user_: User = this.factory.getUser(id, user);
+        this.users.push(user_);
+        return user_;
     }
 
     async getModule(id: string): Promise<Module>{
@@ -98,18 +113,7 @@ export class MockDatabase implements Database{
     }
     
     async addModule(module: IModule): Promise<Module>{
-        const module_: Module = new Module(
-            ''+this.ids++,
-            module.name,
-            module.$imageUrl,
-            module.publisherId,
-            module.publisherName,
-            module.publisherLastname,
-            module.recommendedAge,
-            module.objectives,
-            module.requirements,
-            module.disciplines
-        );
+        const module_: Module = this.factory.getModule(''+this.ids++, module);
         this.modules.push(module_);
         return module_;
     }
@@ -136,10 +140,6 @@ export class MockDatabase implements Database{
             if(this.modules[i].id === id)
                 return this.modules.splice(i, 1)[0];
         throw new Error(DatabaseError.MODULE_NOT_FOUND);
-    }
-    
-    async getDisciplineMetadata(): Promise<DisciplineMetadata>{
-        return this.disciplineMetadata;
     }
     
     private getSection(sectionId: string): Section{
