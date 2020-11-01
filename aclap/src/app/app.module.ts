@@ -40,7 +40,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
-import { ComponentsComponent } from '@src/app/components/components.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +69,6 @@ import { ComponentsComponent } from '@src/app/components/components.component';
     LoginComponent,
     RegisterComponent,
     AboutUsComponent,
-    ComponentsComponent
   ],
   imports: [
     BrowserModule,

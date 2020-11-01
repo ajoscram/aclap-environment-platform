@@ -2,10 +2,11 @@
 
 ### Pendiente
 * Implementar `FirebaseStorage` para web
-* Implementar `FirebaseAuthentication` para web
-* Implementar `Validator`
 * Implementar `Pathfinder` para Nativescript
 * Implementar `FirebaseDatabase` para NativeScript
+* Implementar `FirebaseAuthenticator` para NativeScript
+* Implementar `FirebaseStorage` para NativeScript
+* Probar `FirebaseAuthenticator` com el emulador
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Agregar custom claims para Educators mediante Cloud Functions
@@ -18,6 +19,8 @@
 
 | Fecha | Tarea |
 | :---: | :--- |
+| 30/10/2020 | Implementar `FirebaseAuthentication` para web |
+| 30/10/2020 | Implementar `Validator` |
 | 29/10/2020 | Implementar `FirebaseDatabase` para web |
 | 28/10/2020 | Refactor completo de `Checkables` y parcial de módulo de `database` |
 | 27/10/2020 | Crear proyecto de Firebase para manejar backend |
