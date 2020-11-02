@@ -1,7 +1,9 @@
-$jumbo-color: #99D493;
-$button-color: #E69E21;
-$lime-color: #c2d02c;
-$nav-color: #206A5D;
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
 
 .row-content{
     margin: 0px auto;
@@ -27,11 +29,11 @@ $nav-color: #206A5D;
 }
 
 StackLayout Button{
-    color: #206A5D;
+    color: $nav-color;
 }
 
 StackLayout{
-    background-color: #206A5D;
+    background-color: $nav-color;
 }
 
 Image {

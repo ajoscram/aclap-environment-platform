@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile } from '@src/app/models';
+import { User, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile } from '../../models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
