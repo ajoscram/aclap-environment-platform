@@ -1,8 +1,8 @@
-$gray-dark: #596668;
-$l-grey: #d3d8d8;
+@use '../app.component.scss';
+
 
 .footer{
-    background-color: $gray-dark;
+    background-color: app.$gray-dark;
     margin: 0px auto;
     padding: 20px 0px 20px 0px;
 }
@@ -12,5 +12,5 @@ $l-grey: #d3d8d8;
     }
     .footer-text li a {
       font-size: 20px;
-      color: $l-grey; 
+      color: app.$l-grey; 
 }

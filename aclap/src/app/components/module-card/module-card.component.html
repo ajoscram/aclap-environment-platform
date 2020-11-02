@@ -4,14 +4,14 @@
             <div class="row no-gutters">
                 <div class="col-12 col-md-4" [style.background-image]="'url(' + module.imageUrl + ')'" [style.min-height]="'150px'">
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-8 hoverable" [routerLink]="['/modulos',module.id]">
                     <div class="container-fluid flex-grow-1">
                         <div class="row module-header align-items-center">
                             <div class="col-12">
                                 <h5 class="card-title">{{ module.name }}</h5>
                             </div>
                         </div>
-                        <div class="row flex-grow-1 card-bg" [routerLink]="['/modulos',module.id]">
+                        <div class="row flex-grow-1 card-bg">
                             <div class="card-body container">
                                 <div class="row d-flex justify-content-md-end">
                                     <div class="col-auto">

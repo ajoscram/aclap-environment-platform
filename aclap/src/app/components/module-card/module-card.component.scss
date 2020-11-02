@@ -1,6 +1,6 @@
 @use '../app.component.scss';
 
-$module-color: #206A5D;
+$module-color: app.$nav-color;
 $l-grey: #F8F8F8;
 $break-small: 320px;
 
@@ -13,6 +13,7 @@ $break-small: 320px;
     background-color: $l-grey;
 }
 
+
 .row-p{
     padding-top: 20px;
     padding-right: 0px;
@@ -24,4 +25,34 @@ $break-small: 320px;
     font-size: 36px;
 }
 
+.container-fluid{
+    transition: 1.7s;
+}
+
+.container-fluid:hover{
+
+    .row{
+        background-color: app.$lime-color;
+        color: white;
+    }
+
+    .row.module-header{
+        background-color: app.$button-color;
+        color: white;
+    }
+
+
+    .card-body{
+        .row{
+            app-discipline{
+                .badge{
+                    background-color: white;
+                    color: app.$nav-color;
+                }
+            }
+        }
+    }
+
+
+}
 

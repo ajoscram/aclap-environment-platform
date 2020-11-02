@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     let password:string = this.loginForm.get('password').value;
     let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
     this.controller.login(usrname, password, role)
-      .then( response => {console.log(JSON.stringify(response))} ) /* TODO: act after result from the controller */
+      .then(non => {  })
       .catch( );
   }
 

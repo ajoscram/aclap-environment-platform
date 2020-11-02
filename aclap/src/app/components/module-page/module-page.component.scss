@@ -1,12 +1,14 @@
 @use '../app.component.scss';
 
-$color: #E69E21;
-
 .jumbotron{
-    background-color: $color;
+    background-color: app.$jumbo-color;
 }
 
 .header{
     background-color: app.$nav-color;
     border-style: none;
+}
+
+body{
+    background-color: app.$l-grey;
 }
