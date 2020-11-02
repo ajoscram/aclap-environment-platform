@@ -102,10 +102,10 @@ export class DefaultController implements Controller{
         return await this.database.getFiles(moduleId, sectionId);
     }
 
-    async addFile(moduleId: string, sectionId: string, path: string): Promise<File>{
+    async addFile(moduleId: string, sectionId: string, file: any): Promise<File>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        const file: IFile = await this.storage.upload(path);
-        return await this.database.addFile(moduleId, sectionId, file);
+        const file_: IFile = await this.storage.upload(file);
+        return await this.database.addFile(moduleId, sectionId, file_);
     }
 
     async deleteFile(moduleId: string, sectionId: string, file: File): Promise<File>{

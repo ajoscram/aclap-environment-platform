@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import ControlModule from '@src/app/modules/control/control.module';
 import { Role } from '../authentication/Session.model';
 import { Authenticator } from '../authentication/Authenticator.service';
-import { MockAuthenticator } from '../authentication/MockAuthenticator.service';
+import { MockAuthenticator } from '../authentication/mock/MockAuthenticator.service';
 import { Database } from '../database/Database.service';
 import { MockDatabase } from '../database/MockDatabase.service';
 import { Storage } from '../storage/Storage.service';

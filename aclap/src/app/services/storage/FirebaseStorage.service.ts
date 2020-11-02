@@ -1,7 +1,28 @@
-import { IFile, File } from '@src/app/models';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { IFile, File as File_ } from '@src/app/models';
 import { Storage } from './Storage.service';
 
 export class FirebaseStorage implements Storage{
-    upload: (path: string) => Promise<IFile>;
-    delete: (file: File) => Promise<void>;
+
+    constructor(
+        private storage: AngularFireStorage
+    ){}
+
+    async upload(file: any): Promise<IFile>{
+        const file_: File = file;
+        const path: string = new Date().getTime() + file_.name;
+        const task: UploadTaskSnapshot = await this.storage.upload(path, file_);
+        const url: string = await task.ref.getDownloadURL();
+        return {
+            url: url,
+            name: file_.name,
+            uploaded: new Date(),
+            bytes: file_.size
+        };
+    }
+
+    async delete(file: File_): Promise<void>{
+        await this.storage.ref(file.url).delete().toPromise();
+    }
 }

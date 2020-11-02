@@ -23,7 +23,7 @@ export abstract class Controller{
 
     //files
     getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
-    addFile: (moduleId: string, sectionId: string, path: string) => Promise<File>;
+    addFile: (moduleId: string, sectionId: string, file: any) => Promise<File>;
     deleteFile: (moduleId: string, sectionId: string, file: File) => Promise<File>;
 }
 

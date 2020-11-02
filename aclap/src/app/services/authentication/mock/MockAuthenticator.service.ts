@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import ControlModule from '../../modules/control/control.module';
-import { Authenticator, AuthenticatorError } from './Authenticator.service';
-import { Role, Session } from './Session.model';
+import { Local } from './MockAuthenticator.service.split';
+import ControlModule from '../../../modules/control/control.module';
+import { Authenticator, AuthenticatorError } from '../Authenticator.service';
+import { Role, Session } from '../Session.model';
 
 @Injectable({
     providedIn: ControlModule
@@ -24,14 +25,14 @@ export class MockAuthenticator implements Authenticator{
             new Session('2', 'educator2@example.com', Role.EDUCATOR),
             new Session('3', 'educator3@example.com', Role.EDUCATOR),
         ];
-        this.current = JSON.parse(localStorage.getItem(MockAuthenticator.SESSION_COOKIE));
+        this.current = JSON.parse(Local.get(MockAuthenticator.SESSION_COOKIE));
     }
 
     async login(email: string, password: string, role: Role): Promise<Session>{
         for(let session of this.sessions){
             if(session.email === email && session.role === role && password === MockAuthenticator.PASSWORD){
                 this.current = session;
-                localStorage.setItem(MockAuthenticator.SESSION_COOKIE, JSON.stringify(this.current));
+                Local.set(MockAuthenticator.SESSION_COOKIE, JSON.stringify(this.current));
                 return this.current;
             }
         }
@@ -58,7 +59,7 @@ export class MockAuthenticator implements Authenticator{
 
     async logout(): Promise<void>{
         this.validateSession();
-        localStorage.setItem(MockAuthenticator.SESSION_COOKIE, null);
+        Local.set(MockAuthenticator.SESSION_COOKIE, null);
         this.current = null;
     }
 

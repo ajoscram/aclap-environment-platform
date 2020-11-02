@@ -31,7 +31,7 @@ import { DefaultController } from '@src/app/services/control/DefaultController.s
 import { Database } from '@src/app/services/database/Database.service';
 import { Authenticator } from '@src/app/services/authentication/Authenticator.service';
 import { Storage } from '@src/app/services/storage/Storage.service';
-import { MockAuthenticator } from '@src/app/services/authentication/MockAuthenticator.service';
+import { MockAuthenticator } from '@src/app/services/authentication/mock/MockAuthenticator.service';
 import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
 import { MockStorage } from '@src/app/services/storage/MockStorage.service';
 import { DisplayerComponent } from '@src/app/components/display/displayer/displayer.component';
