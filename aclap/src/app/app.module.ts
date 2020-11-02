@@ -40,7 +40,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
-import { ComponentsComponent } from '@src/app/components/components.component';
 
 @NgModule({
   declarations: [
@@ -69,8 +68,7 @@ import { ComponentsComponent } from '@src/app/components/components.component';
     EditDisplayerComponent,
     LoginComponent,
     RegisterComponent,
-    AboutUsComponent,
-    ComponentsComponent
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +86,7 @@ import { ComponentsComponent } from '@src/app/components/components.component';
     { provide: Authenticator, useClass: MockAuthenticator }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [LoginComponent]
 })
 export class AppModule { }

@@ -29,7 +29,6 @@ import { EditDisplayerComponent } from '@src/app/components/edit/edit-displayer/
 import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
-import { ComponentsComponent } from '@src/app/components/components.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -62,8 +61,7 @@ import { ComponentsComponent } from '@src/app/components/components.component';
     EditDisplayerComponent,
     LoginComponent,
     RegisterComponent,
-    AboutUsComponent,
-    ComponentsComponent
+    AboutUsComponent
   ],
   imports: [
     NativeScriptModule,

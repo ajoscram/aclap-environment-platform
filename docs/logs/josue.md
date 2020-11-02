@@ -4,6 +4,7 @@
 * Crear UI de pantalla de inicio
 * Crear UI de los componentes de edición de un Módulo
 * Integrar servicios con los components
+* Cambiar los colores y los fonts de la app
 
 ### Completado
 | Fecha | Tarea | 
