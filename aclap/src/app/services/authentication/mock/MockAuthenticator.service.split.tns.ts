@@ -1,7 +1,7 @@
 import { Role, Session } from '../Session.model';
 import { MockAuthenticator } from './MockAuthenticator.service';
 
-export class Local{
+export abstract class Local{
 
     static set(key: string, value: string): void{
         //does nothing currently

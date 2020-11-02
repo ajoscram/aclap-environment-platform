@@ -1,4 +1,4 @@
-import { correctPath, anotherCorrectPath, incorrectPath } from './split/testing';
+import { correctPath, anotherCorrectPath, incorrectPath } from './Pathfinder.service.spec.split';
 import { Pathfinder } from './Pathfinder.service';
 
 describe('Pathfinder', () => {

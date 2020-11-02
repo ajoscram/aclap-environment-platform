@@ -9,8 +9,8 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { correctPath as IMAGE_PATH } from '../control/pathfinding/split/testing';
-import { Discipline, DisciplineMetadata, IModule, IParagraphSection, Module, Section, Subject, File } from '../../models';
+import { correctPath as IMAGE_PATH } from './pathfinding/Pathfinder.service.spec.split';
+import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, File } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
 import { Pathfinder } from './pathfinding/Pathfinder.service';
 
