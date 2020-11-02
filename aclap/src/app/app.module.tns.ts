@@ -1,8 +1,8 @@
-import {NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from '@nativescript/angular';
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 
-import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module.tns';
+import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
 import { HomeComponent } from '@src/app/components/home/home.component';
 import { HeaderComponent } from '@src/app/components/header/header.component';
@@ -30,15 +30,15 @@ import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 
-import { Controller } from '@src/app/services/control/Controller.service';
-import { DefaultController } from '@src/app/services/control/DefaultController.service';
-import { Database } from '@src/app/services/database/Database.service';
-import { Authenticator } from '@src/app/services/authentication/Authenticator.service';
-import { Storage } from '@src/app/services/storage/Storage.service';
-import { MockAuthenticator } from '@src/app/services/authentication/mock/MockAuthenticator.service';
-import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
-import { MockStorage } from '@src/app/services/storage/MockStorage.service';
-import ControlModule from '@src/app/modules/control/control.module';
+// import { Controller } from '@src/app/services/control/Controller.service';
+// import { DefaultController } from '@src/app/services/control/DefaultController.service';
+// import { Database } from '@src/app/services/database/Database.service';
+// import { Authenticator } from '@src/app/services/authentication/Authenticator.service';
+// import { Storage } from '@src/app/services/storage/Storage.service';
+// import { MockAuthenticator } from '@src/app/services/authentication/mock/MockAuthenticator.service';
+// import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
+// import { MockStorage } from '@src/app/services/storage/MockStorage.service';
+// import ControlModule from '@src/app/modules/control/control.module';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 // import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
@@ -75,17 +75,17 @@ import ControlModule from '@src/app/modules/control/control.module';
   imports: [
     NativeScriptModule,
     AppRoutingModule,
-    NativeScriptUISideDrawerModule,
-    ControlModule
+    NativeScriptUISideDrawerModule
+    // ControlModule
   ],
   providers: [
-    { provide: Controller, useClass: DefaultController },
-    { provide: Database, useClass: MockDatabase },
-    { provide: Storage, useClass: MockStorage },
-    { provide: Authenticator, useClass: MockAuthenticator }
+    // { provide: Controller, useClass: DefaultController },
+    // { provide: Database, useClass: MockDatabase },
+    // { provide: Storage, useClass: MockStorage },
+    // { provide: Authenticator, useClass: MockAuthenticator }
   ],
   bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [LoginComponent]
 })
 /*

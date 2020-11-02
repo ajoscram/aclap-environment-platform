@@ -1,1 +1,25 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.cardStyle {
+    background-color: #fff;
+    color: rgb(43, 43, 43);
+}
+
+.cardContent {
+    padding: 20;
+    font-weight: bold;
+    font-size: 12;
+}
+
+.moduleHeader {
+    font-size: 24;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: $jumbo-color;
+}

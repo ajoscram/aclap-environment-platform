@@ -1,1 +1,12 @@
-<app-module-card-list></app-module-card-list>
+<StackLayout>
+    <ScrollView orientation="vertical">
+        <StackLayout orientation="vertical">
+            <gridlayout rows="*, *, *, *" columns="*">
+                <Label row="0" col="0" text="" class="welcome-text" textWrap="true"></Label>
+                <Image row="0" col="0" src="res://logo" class="welcome-img"></Image>
+                <Label row="1" col="0" text="Bienvenido a la Plataforma de Educación Ambiental" class="welcome-text" textWrap="true"></Label>
+            </gridlayout>
+            <app-module-card-list></app-module-card-list>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>
