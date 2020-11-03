@@ -20,7 +20,7 @@ export class Factory{
         if(Educator.check(user))
             return new Educator(
                 id,
-                user.$imageUrl,
+                user.imageUrl,
                 user.name,
                 user.lastname,
                 user.email,
@@ -32,7 +32,7 @@ export class Factory{
         else if(Administrator.check(user))
             return new Administrator(
                 id,
-                user.$imageUrl,
+                user.imageUrl,
                 user.name,
                 user.lastname,
                 user.email
@@ -59,11 +59,13 @@ export class Factory{
         return new Module(
             id,
             module.name,
-            module.$imageUrl,
+            module.color,
+            module.imageUrl,
             module.publisherId,
             module.publisherName,
             module.publisherLastname,
             module.recommendedAge,
+            module.mainObjective,
             module.objectives,
             module.requirements,
             disciplines
@@ -94,7 +96,7 @@ export class Factory{
                 id,
                 iSection.index,
                 iSection.footing,
-                iSection.$url,
+                iSection.url,
                 iSection.reference,
             );
         else if(TitleSection.check(iSection))

@@ -28,9 +28,9 @@ export class MockAuthenticator implements Authenticator{
         this.current = JSON.parse(Local.get(MockAuthenticator.SESSION_COOKIE));
     }
 
-    async login(email: string, password: string, role: Role): Promise<Session>{
+    async login(email: string, password: string): Promise<Session>{
         for(let session of this.sessions){
-            if(session.email === email && session.role === role && password === MockAuthenticator.PASSWORD){
+            if(session.email === email && password === MockAuthenticator.PASSWORD){
                 this.current = session;
                 Local.set(MockAuthenticator.SESSION_COOKIE, JSON.stringify(this.current));
                 return this.current;

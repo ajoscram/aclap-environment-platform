@@ -5,7 +5,6 @@ import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
 import { Database } from '../database/Database.service';
 import { Storage } from '../storage/Storage.service';
-import { Pathfinder } from './pathfinding/Pathfinder.service';
 import ControlModule from '../../modules/control/control.module';
 
 @Injectable({
@@ -16,26 +15,12 @@ export class DefaultController implements Controller{
     constructor(
         private authenticator: Authenticator,
         private database: Database,
-        private storage: Storage,
-        private pathfinder: Pathfinder
+        private storage: Storage
     ){}
 
-    //Local functions
-    
-    //WARNING: MUTATES INCOMING OBJECT STATE!
-    //uploads all files found by pathfinder and changes the object's
-    //string to the new uploaded URLs
-    private async uploadFiles(obj: object){
-        const paths: Map<string, string> = this.pathfinder.find(obj);
-        for (let [key, path] of paths){
-            const file: IFile = await this.storage.upload(path);
-            obj[key] = file.url;
-        }
-    }
-
     //Controller interface implementation
-    async login(email: string, password: string, role: Role): Promise<void>{
-        await this.authenticator.login(email, password, role);
+    async login(email: string, password: string): Promise<void>{
+        await this.authenticator.login(email, password);
     }
 
     async logout(): Promise<void>{
@@ -57,13 +42,11 @@ export class DefaultController implements Controller{
 
     async addModule(module: IModule): Promise<Module>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(module);
         return await this.database.addModule(module);
     }
 
     async updateModule(id: string, module: IModule): Promise<Module>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(module);
         return await this.database.updateModule(id, module);
     }
 
@@ -83,13 +66,11 @@ export class DefaultController implements Controller{
 
     async addSection(moduleId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(section);
         return await this.database.addSection(moduleId, section);
     }
 
     async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        await this.uploadFiles(section);
         return await this.database.updateSection(moduleId, sectionId, section);
     }
 

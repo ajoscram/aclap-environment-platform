@@ -9,12 +9,12 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { correctPath as IMAGE_PATH } from './pathfinding/Pathfinder.service.spec.split';
 import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, File } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
-import { Pathfinder } from './pathfinding/Pathfinder.service';
 
 describe('DefaultController', () => {
+
+    const IMAGE_PATH: string = 'https://example.com/image.png';
 
     let stubIModule: IModule;
     let stubISection: IParagraphSection;
@@ -28,19 +28,20 @@ describe('DefaultController', () => {
                 { provide: Database, useClass: MockDatabase },
                 { provide: Storage, useClass: MockStorage },
                 { provide: Controller, useClass: DefaultController },
-                Factory,
-                Pathfinder
+                Factory
             ] 
         });
         controller = TestBed.inject(Controller);
         await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
         stubIModule = {
             name: 'name',
-            $imageUrl: IMAGE_PATH,
+            color: '#FFFFFF',
+            imageUrl: IMAGE_PATH,
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
             recommendedAge: 4,
+            mainObjective: 'mainObjective',
             objectives: [ 'first objective', 'second objecive' ],
             requirements: [ 'first requirement', 'second requirement' ],
             disciplines: [ 

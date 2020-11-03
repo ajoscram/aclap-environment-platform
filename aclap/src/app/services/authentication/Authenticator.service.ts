@@ -1,7 +1,7 @@
 import { Session, Role } from "./Session.model";
 
 export abstract class Authenticator{
-    login: (email: string, password: string, role: Role) => Promise<Session>;
+    login: (email: string, password: string) => Promise<Session>;
     validate: (role: Role) => Promise<void>;
     getSession: () => Promise<Session>;
     logout: () => Promise<void>;

@@ -23,20 +23,20 @@ describe('FirebaseDatabase', () => {
         database = TestBed.inject(Database);
         stubDisciplineMetadata = {
             subjects: [
-                { name: 'subject1', color: 'color1'},
-                { name: 'subject2', color: 'color2'},
-                { name: 'subject3', color: 'color3'}
+                { name: 'subject1', color: '#FFFFFF'},
+                { name: 'subject2', color: '#FFFFFF'},
+                { name: 'subject3', color: '#FFFFFF'}
             ],
             years: ['1', '2', '3']
         };
         stubAdministrator  = {
-            $imageUrl: 'https://example.com/image.jpg',
+            imageUrl: 'https://example.com/image.jpg',
             name: 'STUB_ADMINISTRATOR.name',
             lastname: 'STUB_ADMINISTRATOR.lastname',
             email: 'example@email.com'
         };
         stubEducator = {
-            $imageUrl: 'STUB_EDUCATOR.$imageUrl',
+            imageUrl: 'https://example.com/image.jpg',
             name: 'STUB_EDUCATOR.name',
             lastname: 'STUB_EDUCATOR.lastname',
             email: 'example@email.com',
@@ -45,11 +45,13 @@ describe('FirebaseDatabase', () => {
         };
         stubModule = {
             name: 'name',
-            $imageUrl: 'https://example.com/image.jpg',
+            color: '#EF6423',
+            imageUrl: 'https://example.com/image.jpg',
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
             recommendedAge: 1,
+            mainObjective: 'mainObjective',
             objectives: [ 'first objective', 'second objecive' ],
             requirements: [ 'first requirement', 'second requirement' ],
             disciplines: [ 

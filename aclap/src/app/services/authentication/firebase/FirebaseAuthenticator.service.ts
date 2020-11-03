@@ -21,7 +21,7 @@ export class FirebaseAuthenticator implements Authenticator{
             throw new Error(FirebaseAuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED);
     }
 
-    async login(email: string, password: string, role: Role): Promise<Session>{
+    async login(email: string, password: string): Promise<Session>{
         try{
             await this.auth.signInWithEmailAndPassword(email, password);
             const user: firebase.User = await this.auth.currentUser;

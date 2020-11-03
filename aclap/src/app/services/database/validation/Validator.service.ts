@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '@src/app/modules/control/control.module.tns';
-import { ActivitySection, Administrator, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IFile, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IFile, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 import { FactoryError } from '../factory/Factory.service';
 
 @Injectable({
@@ -10,6 +10,7 @@ export class Validator{
     private static readonly URL_REGEX: RegExp = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
     private static readonly EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     private static readonly PHONE_REGEX: RegExp = /^[[+][(][0-9]{1,4}[)]]?[/0-9]{8}$/;
+    private static readonly COLOR_REGEX: RegExp = /^#[\dabcdefABCDEF]{6}$/;
     private static readonly OBJECT_TYPE: string = 'object';
 
     private validateNullOrUndefined(object: object){
@@ -48,7 +49,7 @@ export class Validator{
 
     validateIUser(user: IUser){
         this.validateNullOrUndefined(user);
-        if(!Validator.URL_REGEX.test(user.$imageUrl))
+        if(!Validator.URL_REGEX.test(user.imageUrl))
             throw new Error(ValidatorError.MALFORMED_IMAGE_URL)
         else if(!Validator.EMAIL_REGEX.test(user.email))
             throw new Error(ValidatorError.MALFORMED_EMAIL)
@@ -63,9 +64,16 @@ export class Validator{
             throw new Error(ValidatorError.UNKNOWN_IUSER);
     }
 
+    private validateSubject(subject: ISubject){
+        if(!Validator.COLOR_REGEX.test(subject.color))
+            throw new Error(ValidatorError.MALFORMED_COLOR);
+    }
+
     validateIModule(module: IModule){
         this.validateNullOrUndefined(module);
-        if(!Validator.URL_REGEX.test(module.$imageUrl))
+        if(!Validator.COLOR_REGEX.test(module.color))
+            throw new Error(ValidatorError.MALFORMED_COLOR)
+        if(!Validator.URL_REGEX.test(module.imageUrl))
             throw new Error(ValidatorError.MALFORMED_IMAGE_URL);
         else if(module.recommendedAge < 0)
             throw new Error(ValidatorError.RECOMMENDED_AGE_LESS_THAN_ZERO);
@@ -73,6 +81,9 @@ export class Validator{
             throw new Error(ValidatorError.RECOMMENDED_AGE_NOT_WHOLE_NUMBER);
         else if(module.publisherId === "")
             throw new Error(ValidatorError.EMPTY_PUBLISHER_ID);
+        
+        for(let discipline of module.disciplines)
+            this.validateSubject(discipline.subject);
     }
 
     private validateIActivitySection(section: IActivitySection){
@@ -81,7 +92,7 @@ export class Validator{
     }
     
     private validateIImageSection(section: IImageSection){
-        if(!Validator.URL_REGEX.test(section.$url))
+        if(!Validator.URL_REGEX.test(section.url))
             throw new Error(ValidatorError.MALFORMED_URL);
     }
 
@@ -134,6 +145,7 @@ export enum ValidatorError{
     IS_NULL_OR_UNDEFINED = "ValidatorError.IS_NULL_OR_UNDEFINED",
     HAS_NULL_OR_UNDEFINED_FIELDS = "ValidatorError.HAS_NULL_OR_UNDEFINED_FIELDS",
     RUNTIME_ERROR = "ValidatorError.RUNTIME_ERROR",
+    MALFORMED_COLOR = "ValidatorError.MALFORMED_COLOR",
     MALFORMED_URL = "ValidatorError.MALFORMED_URL",
     MALFORMED_IMAGE_URL = "ValidatorError.MALFORMED_IMAGE_URL",
     MALFORMED_EMAIL = "ValidatorError.MALFORMED_EMAIL",
