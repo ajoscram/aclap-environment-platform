@@ -2,7 +2,7 @@ import { Section, ISection } from "./Section.model";
 
 export interface IImageSection extends ISection{
     footing: string,
-    $url: string,
+    url: string,
     reference: string
 }
 
@@ -20,6 +20,6 @@ export class ImageSection extends Section{
         return super.check(object) &&
             section.footing !== undefined &&
             section.reference !== undefined &&
-            section.$url !== undefined;
+            section.url !== undefined;
     }
 }

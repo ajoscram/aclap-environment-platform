@@ -1,4 +1,4 @@
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { IFile, File as File_ } from '@src/app/models';
 import { Storage } from './Storage.service';

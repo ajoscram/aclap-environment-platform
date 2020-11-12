@@ -1,7 +1,7 @@
 import { Checkable } from '../Checkable.model';
 
 export interface IUser{
-    $imageUrl: string,
+    imageUrl: string,
     name: string,
     lastname: string,
     email: string
@@ -18,7 +18,7 @@ export abstract class User extends Checkable{
 
     public static check(object: any): object is IUser{
         const user: IUser = <IUser>object;
-        return user.$imageUrl !== undefined &&
+        return user.imageUrl !== undefined &&
             user.name !== undefined &&
             user.lastname !== undefined &&
             user.email !== undefined;

@@ -32,14 +32,14 @@ export class MockDatabase implements Database{
         ];
 
         this.modules = [
-            new Module(''+this.ids++, 'MI ENTORNO', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
+            new Module(''+this.ids++, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
             ]),
-            new Module(''+this.ids++, 'MI AGUA', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
+            new Module(''+this.ids++, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),

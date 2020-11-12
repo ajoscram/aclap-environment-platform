@@ -19,7 +19,7 @@ describe('FirebaseAuthenticator', () => {
     });
 
     xit('login(): logs in as an administrator with the correct email and password', async () => {
-        const session: Session = await authenticator.login(ADMINISTRATOR_EMAIL, CORRECT_PASSWORD, Role.ADMINISTRATOR);
+        const session: Session = await authenticator.login(ADMINISTRATOR_EMAIL, CORRECT_PASSWORD);
         expect(session.email).toBe(ADMINISTRATOR_EMAIL);
         expect(session.role).toBe(Role.ADMINISTRATOR);
     });

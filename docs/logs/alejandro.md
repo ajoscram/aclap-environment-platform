@@ -1,8 +1,6 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Implementar `FirebaseStorage` para web
-* Implementar `Pathfinder` para Nativescript
 * Implementar `FirebaseDatabase` para NativeScript
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
@@ -14,11 +12,12 @@
 * Arreglar Diagrama de Control
 * Cambiar Especificación SAD
 * Hacer pruebas unitarias de `Validator`
+* Quitar el `$` de las variables de las interfaces del modelo
 
 ### Completado
-
 | Fecha | Tarea |
 | :---: | :--- |
+| 01/11/2020 | Implementar `FirebaseStorage` para web |
 | 30/10/2020 | Implementar `FirebaseAuthentication` para web |
 | 30/10/2020 | Implementar `Validator` |
 | 29/10/2020 | Implementar `FirebaseDatabase` para web |

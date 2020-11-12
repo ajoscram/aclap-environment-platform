@@ -17,7 +17,7 @@ describe('Factory', () => {
     };
 
     const STUB_EDUCATOR: IEducator = {
-        $imageUrl: 'STUB_EDUCATOR.$imageUrl',
+        imageUrl: 'STUB_EDUCATOR.imageUrl',
         name: 'STUB_EDUCATOR.name',
         lastname: 'STUB_EDUCATOR.lastname',
         email: 'STUB_EDUCATOR.email',
@@ -26,7 +26,7 @@ describe('Factory', () => {
     };
 
     const STUB_ADMINISTRATOR: IAdministrator = {
-        $imageUrl: 'STUB_ADMINISTRATOR.$imageUrl',
+        imageUrl: 'STUB_ADMINISTRATOR.imageUrl',
         name: 'STUB_ADMINISTRATOR.name',
         lastname: 'STUB_ADMINISTRATOR.lastname',
         email: 'STUB_ADMINISTRATOR.email'
@@ -34,11 +34,13 @@ describe('Factory', () => {
 
     const STUB_MODULE: IModule = {
         name: 'name',
-        $imageUrl: '$imageUrl',
+        color: '#Ef6423',
+        imageUrl: 'imageUrl',
         publisherId: 'publisherId',
         publisherName: 'publisherName',
         publisherLastname: 'publisherLastname',
         recommendedAge: 7,
+        mainObjective: 'mainObjective',
         objectives: ['objective 1', 'objective 2', 'objective 3'],
         requirements: ['requirement 1', 'requirement 2'],
         disciplines: [
@@ -69,7 +71,7 @@ describe('Factory', () => {
     const STUB_IMAGE: IImageSection = {
         index: 2,
         footing: "STUB_IMAGE.footing",
-        $url: "STUB_IMAGE.$url",
+        url: "STUB_IMAGE.url",
         reference: "STUB_IMAGE.reference"
     };
 
@@ -100,7 +102,7 @@ describe('Factory', () => {
     });
 
     it('getUser(): incorrectly returns an administrator with an an unknown type of IUser', async () => {
-        const unknown: IUnknownUser = { $imageUrl: 'unknown', name: 'unknown', lastname: 'lastname', email: 'email' };
+        const unknown: IUnknownUser = { imageUrl: 'unknown', name: 'unknown', lastname: 'lastname', email: 'email' };
         const error: Administrator = factory.getUser(STUB_ID, unknown);
         expect(error).toBeTruthy();
     });
@@ -108,7 +110,7 @@ describe('Factory', () => {
     it('getUser(): returns the correct Educator when input an IEducator', async () => {
         const educator: Educator = <Educator>factory.getUser(STUB_ID, STUB_EDUCATOR);
         expect(educator.id).toBe(STUB_ID);
-        expect(educator.imageUrl).toBe(STUB_EDUCATOR.$imageUrl);
+        expect(educator.imageUrl).toBe(STUB_EDUCATOR.imageUrl);
         expect(educator.name).toBe(STUB_EDUCATOR.name);
         expect(educator.lastname).toBe(STUB_EDUCATOR.lastname);
         expect(educator.email).toBe(STUB_EDUCATOR.email);
@@ -119,7 +121,7 @@ describe('Factory', () => {
     it('getUser(): returns the correct Administrator when input an IAdministrator', async () => {
         const administrator: Administrator = <Administrator>factory.getUser(STUB_ID, STUB_ADMINISTRATOR);
         expect(administrator.id).toBe(STUB_ID);
-        expect(administrator.imageUrl).toBe(STUB_ADMINISTRATOR.$imageUrl);
+        expect(administrator.imageUrl).toBe(STUB_ADMINISTRATOR.imageUrl);
         expect(administrator.name).toBe(STUB_ADMINISTRATOR.name);
         expect(administrator.lastname).toBe(STUB_ADMINISTRATOR.lastname);
         expect(administrator.email).toBe(STUB_ADMINISTRATOR.email);
@@ -129,11 +131,13 @@ describe('Factory', () => {
         const module: Module = factory.getModule(STUB_ID, STUB_MODULE);
         expect(module.id).toBe(STUB_ID);
         expect(module.name).toBe(STUB_MODULE.name);
-        expect(module.imageUrl).toBe(STUB_MODULE.$imageUrl);
+        expect(module.color).toBe(STUB_MODULE.color);
+        expect(module.imageUrl).toBe(STUB_MODULE.imageUrl);
         expect(module.publisherId).toBe(STUB_MODULE.publisherId);
         expect(module.publisherName).toBe(STUB_MODULE.publisherName);
         expect(module.publisherLastname).toBe(STUB_MODULE.publisherLastname);
         expect(module.recommendedAge).toBe(STUB_MODULE.recommendedAge);
+        expect(module.mainObjective).toBe(STUB_MODULE.mainObjective);
         expect(module.objectives).toEqual(STUB_MODULE.objectives);
         expect(module.requirements).toBe(STUB_MODULE.requirements);
         expect(module.disciplines.length).toBe(STUB_MODULE.disciplines.length);
@@ -168,7 +172,7 @@ describe('Factory', () => {
         expect(image.id).toBe(STUB_ID);
         expect(image.index).toBe(STUB_IMAGE.index);
         expect(image.footing).toBe(STUB_IMAGE.footing);
-        expect(image.url).toBe(STUB_IMAGE.$url);
+        expect(image.url).toBe(STUB_IMAGE.url);
         expect(image.reference).toBe(STUB_IMAGE.reference);
     });
 
