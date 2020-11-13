@@ -1,1 +1,15 @@
-<p>edit-title works!</p>
+<div class="card mb-2">
+    <div class="card-header"><h3> Título/Subtítulo   </h3></div>
+    <div class="card-body">
+        <form [formGroup]=form>
+            <div class="form-group">
+                <label for="text">Texto</label>
+                <input formControlName=text/>
+            </div>
+            <div class="form-group">
+                <label for="size">Tipo de título</label>
+                <input formControlName=size/>
+            </div>
+        </form>
+    </div>
+</div>

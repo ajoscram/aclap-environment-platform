@@ -1,4 +1,4 @@
-import { Section, DisciplineMetadata, File, ISection, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IModule, Module, User, Implementable, IImplementable, Event } from "../../models";
 import { Role } from "../authentication/Session.model";
 
 export abstract class Controller{
@@ -7,24 +7,26 @@ export abstract class Controller{
     logout: () => Promise<void>;
     getUser: () => Promise<User>;
     
-    //modules
-    getModule: (id: string) => Promise<Module>;
+    //implementables
     getModules: () => Promise<Module[]>;
-    addModule: (module: IModule) => Promise<Module>;
-    updateModule: (id: string, module: IModule) => Promise<Module>;
-    deleteModule: (id: string) => Promise<Module>;
+    getEvents: () => Promise<Event[]>;
+    getImplementable: (id: string) => Promise<Implementable>;
+    addImplementable: (implementable: IImplementable) => Promise<Implementable>;
+    updateImplementable: (id: string, module: IImplementable) => Promise<Implementable>;
+    deleteImplementable: (id: string) => Promise<Implementable>;
 
     //section
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
-    getSections: (moduleId: string) => Promise<Section[]>;
-    addSection: (moduleId: string, section: ISection) => Promise<Section>;
-    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<Section>;
-    deleteSection: (moduleId: string, sectionId: string) => Promise<Section>;
+    getSections: (implementableId: string) => Promise<Section[]>;
+    addSection: (implemntableId: string, section: ISection) => Promise<Section>;
+    updateSection: (implementableId: string, sectionId: string, section: ISection) => Promise<Section>;
+    deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
 
     //files
-    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
-    addFile: (moduleId: string, sectionId: string, file: any) => Promise<File>;
-    deleteFile: (moduleId: string, sectionId: string, file: File) => Promise<File>;
+    getFiles: (implementableId: string, sectionId: string) => Promise<File[]>;
+    addFile: (implementableId: string, sectionId: string, file: any) => Promise<File>;
+    deleteFile: (implementableId: string, sectionId: string, fileId: string) => Promise<File>;
+    upload: (file: any) => Promise<string>; //upload returns a download URL to the uploaded file.
 }
 
 export enum ControllerError{

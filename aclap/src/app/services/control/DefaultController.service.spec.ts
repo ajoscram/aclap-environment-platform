@@ -9,7 +9,7 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, File } from '../../models';
+import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, File, Implementable, Event } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
 
 describe('DefaultController', () => {
@@ -35,16 +35,16 @@ describe('DefaultController', () => {
         await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
         stubIModule = {
             name: 'name',
-            color: '#FFFFFF',
+            color: '#EF6423',
             imageUrl: IMAGE_PATH,
+            bannerImageUrl: IMAGE_PATH,
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
-            recommendedAge: 4,
-            mainObjective: 'mainObjective',
-            objectives: [ 'first objective', 'second objecive' ],
-            requirements: [ 'first requirement', 'second requirement' ],
-            disciplines: [ 
+            recommendedAge: 1,
+            objective: 'objective',
+            antecedents: 'antecedents',
+            disciplines: [
                 {
                     subject: {
                         name: 'Estudios Sociales',
@@ -70,36 +70,41 @@ describe('DefaultController', () => {
         ).toBeResolved();
     });
 
-    it('logout(): logs out an already logged in user', async () => {
-        //an administrator user is logged in on the before each
-        await expectAsync(controller.logout()).toBeResolved();
-    });
-
-    it('addModule(): adds a module', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        expect(module).toBeTruthy();
-    });
-
-    it('getModule(): gets a module given the correct id', async () => {
-        const added: Module = await controller.addModule(stubIModule);
-        const gotten: Module = await controller.getModule(added.id);
-        expect(gotten).toBeTruthy();
-    });
-
     it('getModules(): gets the list of all available modules', async () => {
         const modules: Module[] = await controller.getModules();
         expect(modules).toBeTruthy();
     });
 
-    it('updateModule(): updates an existing module', async () => {
-        const added: Module = await controller.addModule(stubIModule);
-        const updated: Module = await controller.updateModule(added.id, stubIModule);
+    it('getEvents(): gets the list of all available events', async () => {
+        const events: Event[] = await controller.getEvents();
+        expect(events).toBeTruthy();
+    });
+
+    it('logout(): logs out an already logged in user', async () => {
+        //an administrator user is logged in on the before each
+        await expectAsync(controller.logout()).toBeResolved();
+    });
+
+    it('addImplementable(): adds an implementable', async () => {
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        expect(implementable).toBeTruthy();
+    });
+
+    it('getImplementable(): gets an implementable given the correct id', async () => {
+        const added: Implementable = await controller.addImplementable(stubIModule);
+        const gotten: Implementable = await controller.getImplementable(added.id);
+        expect(gotten).toBeTruthy();
+    });
+
+    it('updateImplementable(): updates an existing implementable', async () => {
+        const added: Implementable = await controller.addImplementable(stubIModule);
+        const updated: Implementable = await controller.updateImplementable(added.id, stubIModule);
         expect(updated).toBeTruthy();
     });
 
-    it('deleteModule(): ', async () => {
-        const added: Module = await controller.addModule(stubIModule);
-        const deleted: Module = await controller.deleteModule(added.id);
+    it('deleteImplementable(): deletes an implmentable given the correct id', async () => {
+        const added: Implementable = await controller.addImplementable(stubIModule);
+        const deleted: Implementable = await controller.deleteImplementable(added.id);
         expect(deleted).toBeTruthy();
     });
 
@@ -109,52 +114,52 @@ describe('DefaultController', () => {
     });
 
     it('addSection(): adds a section', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const section: Section = await controller.addSection(module.id, stubISection);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const section: Section = await controller.addSection(implementable.id, stubISection);
         expect(section).toBeTruthy();
     });
 
-    it('getSections(): gets a module\'s list of sections', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        await controller.addSection(module.id, stubISection);
-        const sections: Section[] = await controller.getSections(module.id);
+    it('getSections(): gets an implementable\'s list of sections', async () => {
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        await controller.addSection(implementable.id, stubISection);
+        const sections: Section[] = await controller.getSections(implementable.id);
         expect(sections).toBeTruthy();
     });
 
     it('updateSection(): updates an existing session', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const added: Section = await controller.addSection(module.id, stubISection);
-        const updated: Section = await controller.updateSection(module.id, added.id, stubISection);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const added: Section = await controller.addSection(implementable.id, stubISection);
+        const updated: Section = await controller.updateSection(implementable.id, added.id, stubISection);
         expect(updated).toBeTruthy();
     });
 
     it('deleteSection(): deletes an existing section', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const added: Section = await controller.addSection(module.id, stubISection);
-        const deleted: Section = await controller.deleteSection(module.id, added.id);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const added: Section = await controller.addSection(implementable.id, stubISection);
+        const deleted: Section = await controller.deleteSection(implementable.id, added.id);
         expect(deleted).toBeTruthy();
     });
 
     it('addFile(): adds a file', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const section: Section = await controller.addSection(module.id, stubISection);
-        const file: File = await controller.addFile(module.id, section.id, IMAGE_PATH);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const section: Section = await controller.addSection(implementable.id, stubISection);
+        const file: File = await controller.addFile(implementable.id, section.id, IMAGE_PATH);
         expect(file).toBeTruthy();
     });
 
     it('getFiles(): gets a section\'s files', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const section: Section = await controller.addSection(module.id, stubISection);
-        await controller.addFile(module.id, section.id, IMAGE_PATH);
-        const files: File[] = await controller.getFiles(module.id, section.id);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const section: Section = await controller.addSection(implementable.id, stubISection);
+        await controller.addFile(implementable.id, section.id, IMAGE_PATH);
+        const files: File[] = await controller.getFiles(implementable.id, section.id);
         expect(files).toBeTruthy();
     });
 
     it('deleteFile(): deletes an existing file', async () => {
-        const module: Module = await controller.addModule(stubIModule);
-        const section: Section = await controller.addSection(module.id, stubISection);
-        const added: File = await controller.addFile(module.id, section.id, IMAGE_PATH);
-        const deleted: File = await controller.deleteFile(module.id, section.id, added);
+        const implementable: Implementable = await controller.addImplementable(stubIModule);
+        const section: Section = await controller.addSection(implementable.id, stubISection);
+        const added: File = await controller.addFile(implementable.id, section.id, IMAGE_PATH);
+        const deleted: File = await controller.deleteFile(implementable.id, section.id, added.id);
         expect(deleted).toBeTruthy();
     });
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TitleSection } from '@src/app/models';
+import { Controller } from '../../../services/control/Controller.service';
 
 @Component({
   selector: 'app-edit-title',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditTitleComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  title: TitleSection;
+
+  constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.builder.group({
+      text: [''],
+      size: ['H1']
+    });
   }
 
 }

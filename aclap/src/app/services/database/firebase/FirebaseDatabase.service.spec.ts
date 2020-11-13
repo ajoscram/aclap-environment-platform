@@ -3,7 +3,7 @@ import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
 import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
-import { DisciplineMetadata, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User } from '../../../models';
+import { DisciplineMetadata, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
@@ -15,6 +15,7 @@ describe('FirebaseDatabase', () => {
     let stubAdministrator: IAdministrator;
     let stubEducator: IEducator;
     let stubModule: IModule;
+    let stubEvent: IEvent;
     let stubSection: ISection;
     let stubFile: IFile;
 
@@ -47,13 +48,13 @@ describe('FirebaseDatabase', () => {
             name: 'name',
             color: '#EF6423',
             imageUrl: 'https://example.com/image.jpg',
+            bannerImageUrl: 'https://example.com/image.jpg',
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
             recommendedAge: 1,
-            mainObjective: 'mainObjective',
-            objectives: [ 'first objective', 'second objecive' ],
-            requirements: [ 'first requirement', 'second requirement' ],
+            objective: 'objective',
+            antecedents: 'antecedents',
             disciplines: [ 
                 {
                     subject: {
@@ -64,6 +65,17 @@ describe('FirebaseDatabase', () => {
                     theme: 'Eje temático'
                 }
             ]
+        };
+        stubEvent = {
+            name: 'name',
+            color: '#EF6423',
+            imageUrl: 'https://example.com/image.jpg',
+            bannerImageUrl: 'https://example.com/image.jpg',
+            publisherId: 'publisherId',
+            publisherName: 'publisherName',
+            publisherLastname: 'publisherLastname',
+            objective: 'objective',
+            date: new Date()
         };
         stubSection = {
             index: 1,
@@ -106,102 +118,109 @@ describe('FirebaseDatabase', () => {
         );
     });
 
-    it('addModule(): adds a new module and returns it', async () => {
-        const module: Module = await database.addModule(stubModule);
-        expect(module).toBeTruthy();
+    it('addImplementable(): adds a new implementable and returns it', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        expect(implementable).toBeTruthy();
     });
 
-    it('getModule(): gets an existing module given it\'s id', async () => {
-        const added: Module = await database.addModule(stubModule);
-        const gotten: Module = await database.getModule(added.id);
+    it('getImplementable(): gets an existing implementable given it\'s id', async () => {
+        const added: Implementable = await database.addImplementable(stubModule);
+        const gotten: Implementable = await database.getImplementable(added.id);
         expect(gotten).toBeTruthy();
         expect(gotten.id).toBe(added.id);
     });
 
-    it('getModule(): fails when given an incorrect module id', async () => {
-        await expectAsync(database.getModule(STUB_INCORECT_ID)).toBeRejectedWith(
-            new Error(DatabaseError.MODULE_NOT_FOUND)
+    it('getImplementable(): fails when given an incorrect implementable id', async () => {
+        await expectAsync(database.getImplementable(STUB_INCORECT_ID)).toBeRejectedWith(
+            new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND)
         );
     });
 
     it('getModules(): gets the list of all available modules', async () => {
-        await database.addModule(stubModule);
+        await database.addImplementable(stubModule);
         const modules: Module[] = await database.getModules();
         expect(modules).toBeTruthy();
         expect(modules.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('updateModule(): updates a module and returns the result', async () =>{
-        const added: Module = await database.addModule(stubModule);
+    it('getEvents(): gets the list of all available events', async () => {
+        await database.addImplementable(stubEvent);
+        const events: Event[] = await database.getEvents();
+        expect(events).toBeTruthy();
+        expect(events.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('updateImplementable(): updates an implementable and returns the result', async () =>{
+        const added: Implementable = await database.addImplementable(stubModule);
         stubModule.name = 'new name';
-        const updated: Module = await database.updateModule(added.id, stubModule);
+        const updated: Implementable = await database.updateImplementable(added.id, stubModule);
         expect(updated).toBeTruthy();
         expect(updated.id).toBe(added.id);
         expect(updated.name).toBe(stubModule.name);
     });
 
-    it('deleteModule(): deletes a module and returns it', async () =>{
-        const added: Module = await database.addModule(stubModule);
-        const deleted: Module = await database.deleteModule(added.id);
+    it('deleteImplementable(): deletes an implementable and returns it', async () =>{
+        const added: Implementable = await database.addImplementable(stubModule);
+        const deleted: Implementable = await database.deleteImplementable(added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });
 
     it('addSection(): adds a new section and returns it', async () => {
-        const module_: Module = await database.addModule(stubModule);
-        const section: Section = await database.addSection(module_.id, stubSection);
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const section: Section = await database.addSection(implementable.id, stubSection);
         expect(section).toBeTruthy();
     });
 
-    it('getSections(): gets a module\'s sections', async () => {
-        const module_: Module = await database.addModule(stubModule);
-        await database.addSection(module_.id, stubSection);
-        await database.addSection(module_.id, stubSection);
-        const sections: Section[] = await database.getSections(module_.id);
+    it('getSections(): gets an implementable\'s sections', async () => {
+        const implementable: Implementable = await database.addImplementable(stubEvent);
+        await database.addSection(implementable.id, stubSection);
+        await database.addSection(implementable.id, stubSection);
+        const sections: Section[] = await database.getSections(implementable.id);
         expect(sections).toBeTruthy();
         expect(sections.length).toBe(2);
     });
 
     it('updateSection(): updates a section and returns the result', async () =>{
-        const module_: Module = await database.addModule(stubModule);
-        const added: Section = await database.addSection(module_.id, stubSection);
+        const implementable: Implementable = await database.addImplementable(stubEvent);
+        const added: Section = await database.addSection(implementable.id, stubSection);
         stubSection.index = stubSection.index - 1;
-        const updated: Section = await database.updateSection(module_.id, added.id, stubSection);
+        const updated: Section = await database.updateSection(implementable.id, added.id, stubSection);
         expect(updated).toBeTruthy();
         expect(updated.id).toBe(added.id);
         expect(updated.index).toBe(stubSection.index);
     });
 
     it('deleteSection(): deletes a section and returns it', async () =>{
-        const module_: Module = await database.addModule(stubModule);
-        const added: Section = await database.addSection(module_.id, stubSection);
-        const deleted: Section = await database.deleteSection(module_.id, added.id);
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const added: Section = await database.addSection(implementable.id, stubSection);
+        const deleted: Section = await database.deleteSection(implementable.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });
 
     it('addFile(): adds a new file and returns it', async () => {
-        const module_: Module = await database.addModule(stubModule);
-        const section: Section = await database.addSection(module_.id, stubSection);
-        const file: File = await database.addFile(module_.id, section.id, stubFile);
+        const implementable: Implementable = await database.addImplementable(stubEvent);
+        const section: Section = await database.addSection(implementable.id, stubSection);
+        const file: File = await database.addFile(implementable.id, section.id, stubFile);
         expect(file).toBeTruthy();
     });
 
     it('getFiles(): gets a section\'s files', async () => {
-        const module_: Module = await database.addModule(stubModule);
-        const section: Section = await database.addSection(module_.id, stubSection);
-        await database.addFile(module_.id, section.id, stubFile);
-        await database.addFile(module_.id, section.id, stubFile);
-        const files: File[] = await database.getFiles(module_.id, section.id);
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const section: Section = await database.addSection(implementable.id, stubSection);
+        await database.addFile(implementable.id, section.id, stubFile);
+        await database.addFile(implementable.id, section.id, stubFile);
+        const files: File[] = await database.getFiles(implementable.id, section.id);
         expect(files).toBeTruthy();
         expect(files.length).toBe(2);
     });
 
     it('deleteFile(): deletes a file and returns it', async () =>{
-        const module_: Module = await database.addModule(stubModule);
-        const section: Section  =await database.addSection(module_.id, stubSection);
-        const added: File = await database.addFile(module_.id, section.id, stubFile);
-        const deleted: File = await database.deleteFile(module_.id, section.id, added.id);
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const section: Section = await database.addSection(implementable.id, stubSection);
+        const added: File = await database.addFile(implementable.id, section.id, stubFile);
+        const deleted: File = await database.deleteFile(implementable.id, section.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });

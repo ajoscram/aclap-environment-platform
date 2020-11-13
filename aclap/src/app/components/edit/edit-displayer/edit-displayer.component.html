@@ -1,1 +1,26 @@
-<p>edit-displayer works!</p>
+<!-- <form [formGroup]=form (ngSubmit)="onSubmit()">
+    <app-edit-activity></app-edit-activity>
+    <app-edit-image></app-edit-image>
+    <app-edit-youtube></app-edit-youtube>
+    <app-edit-title></app-edit-title>
+    <app-edit-paragraph></app-edit-paragraph>
+    <button class="btn btn-primary">Confirmar</button>
+</form> -->
+
+<div *ngFor="let section of sections">
+    <div class="col-12" *ngIf="isActivity(section)">
+        <app-edit-activity [activity]=section ></app-edit-activity>
+    </div>
+    <div class="col-12" *ngIf="isImage(section)">
+        <app-edit-image [image]=section></app-edit-image>
+    </div>
+    <div class="col-12" *ngIf="isParagraph(section)">
+        <app-edit-paragraph [paragraph]=section></app-edit-paragraph>
+    </div>
+    <div class="col-12" *ngIf="isTitle(section)">
+        <app-edit-title [title]=section></app-edit-title>
+    </div>
+    <div class="col-12" *ngIf="isYoutube(section)">
+        <app-edit-youtube [video]=section></app-edit-youtube>
+    </div>
+</div>

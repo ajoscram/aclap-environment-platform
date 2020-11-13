@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { YoutubeVideoSection } from '../../../models';
+import { Controller } from '../../../services/control/Controller.service';
 
 @Component({
   selector: 'app-edit-youtube',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditYoutubeComponent implements OnInit {
 
-  constructor() { }
+  private regex: String;
+  form: FormGroup;
+  video: YoutubeVideoSection;
+
+  constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.builder.group({
+      url: ['']
+    });
   }
 
 }

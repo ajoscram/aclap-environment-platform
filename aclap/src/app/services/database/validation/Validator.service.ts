@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import ControlModule from '@src/app/modules/control/control.module.tns';
-import { ActivitySection, Administrator, Educator, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IFile, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
-import { FactoryError } from '../factory/Factory.service';
+import ControlModule from '../../../modules/control/control.module';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEvent, IFile, IImageSection, IImplementable, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -50,7 +49,7 @@ export class Validator{
     validateIUser(user: IUser){
         this.validateNullOrUndefined(user);
         if(!Validator.URL_REGEX.test(user.imageUrl))
-            throw new Error(ValidatorError.MALFORMED_IMAGE_URL)
+            throw new Error(ValidatorError.MALFORMED_URL)
         else if(!Validator.EMAIL_REGEX.test(user.email))
             throw new Error(ValidatorError.MALFORMED_EMAIL)
 
@@ -69,13 +68,12 @@ export class Validator{
             throw new Error(ValidatorError.MALFORMED_COLOR);
     }
 
-    validateIModule(module: IModule){
-        this.validateNullOrUndefined(module);
-        if(!Validator.COLOR_REGEX.test(module.color))
-            throw new Error(ValidatorError.MALFORMED_COLOR)
-        if(!Validator.URL_REGEX.test(module.imageUrl))
-            throw new Error(ValidatorError.MALFORMED_IMAGE_URL);
-        else if(module.recommendedAge < 0)
+    private validateIEvent(event: IEvent){
+        //no further validation needed
+    }
+
+    private validateIModule(module: IModule){
+        if(module.recommendedAge < 0)
             throw new Error(ValidatorError.RECOMMENDED_AGE_LESS_THAN_ZERO);
         else if(module.recommendedAge % 1 !== 0)
             throw new Error(ValidatorError.RECOMMENDED_AGE_NOT_WHOLE_NUMBER);
@@ -84,6 +82,23 @@ export class Validator{
         
         for(let discipline of module.disciplines)
             this.validateSubject(discipline.subject);
+    }
+
+    validateIImplementable(implementable: IImplementable){
+        this.validateNullOrUndefined(implementable);
+        if(!Validator.COLOR_REGEX.test(implementable.color))
+            throw new Error(ValidatorError.MALFORMED_COLOR);
+        else if(!Validator.URL_REGEX.test(implementable.imageUrl))
+            throw new Error(ValidatorError.MALFORMED_URL);
+        else if(!Validator.URL_REGEX.test(implementable.bannerImageUrl))
+            throw new Error(ValidatorError.MALFORMED_URL);
+        
+        if(Module.check(implementable))
+            this.validateIModule(implementable);
+        else if(Event.check(implementable))
+            this.validateIEvent(implementable);
+        else
+            throw new Error(ValidatorError.UNKNOWN_IIMPLEMENTABLE);
     }
 
     private validateIActivitySection(section: IActivitySection){
@@ -147,7 +162,6 @@ export enum ValidatorError{
     RUNTIME_ERROR = "ValidatorError.RUNTIME_ERROR",
     MALFORMED_COLOR = "ValidatorError.MALFORMED_COLOR",
     MALFORMED_URL = "ValidatorError.MALFORMED_URL",
-    MALFORMED_IMAGE_URL = "ValidatorError.MALFORMED_IMAGE_URL",
     MALFORMED_EMAIL = "ValidatorError.MALFORMED_EMAIL",
     MALFORMED_PHONE = "ValidatorError.MALFORMED_PHONE",
     RECOMMENDED_AGE_LESS_THAN_ZERO = "ValidatorError.RECOMMENDED_AGE_LESS_THAN_ZERO",
@@ -160,5 +174,6 @@ export enum ValidatorError{
     UPLOADED_CANT_BE_FUTURE = "ValidatorError.UPLOADED_CANT_BE_FUTURE",
     DATE_CANT_BE_PAST = "ValidatorError.DATE_CANT_BE_PAST",
     UNKNOWN_IUSER = "ValidatorError.UNKNOWN_IUSER",
-    UNKNOWN_ISECTION = "ValidatorError.UNKNOWN_ISECTION"
+    UNKNOWN_ISECTION = "ValidatorError.UNKNOWN_ISECTION",
+    UNKNOWN_IIMPLEMENTABLE = "ValidatorError.UNKNOWN_IIMPLEMENTABLE"
 }

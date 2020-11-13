@@ -5,6 +5,8 @@
 * Crear UI de los componentes de edición de un Módulo
 * Integrar servicios con los components
 * Cambiar los colores y los fonts de la app
+* Aplicar patrones de diseño en en edit sections
+* Subir imágenes del path local antes de subir el section
 
 ### Completado
 | Fecha | Tarea | 
@@ -23,3 +25,7 @@
 | 23/10/2020 | Crear UI de los componentes de un Módulo |
 | 24/10/2020 | Crear UI de los componentes de un Módulo |
 | 27/10/2020 | Crear UI de edición de un módulo |
+| 09/11/2020 | Forms de la pantalla de módulos  |
+| 10/11/2020 | Forms de la pantalla de módulos  |
+| 11/11/2020 | Cards con forms dentro  |
+| 12/11/2020 | Cards con forms dentro  |
