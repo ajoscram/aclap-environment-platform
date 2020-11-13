@@ -4,7 +4,7 @@ import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
-import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser } from '../../../models';
+import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -14,12 +14,17 @@ export class FirebaseDatabase implements Database{
     //collection names
     private static readonly CONSTANTS = 'constants';
     private static readonly USERS: string = 'users';
-    private static readonly MODULES: string = 'modules';
+    private static readonly IMPLEMENTABLES: string = 'implementables';
     private static readonly SECTIONS: string = 'sections';
     private static readonly FILES: string = 'files';
 
     //constant document ids
     private static readonly DISCIPLINE_METADATA = 'DISCIPLINE_METADATA';
+
+    //implementable tags
+    private static readonly IMPLEMENTABLE_TAG_KEY = "tag";
+    private static readonly EVENT_TAG = "EVENT";
+    private static readonly MODULE_TAG = "MODULE";
 
     constructor(
         private factory: Factory,
@@ -70,65 +75,93 @@ export class FirebaseDatabase implements Database{
             return this.factory.getUser(id, user as IUser);
     }
 
-    async getModule(id: string): Promise<Module>{
-        const document: DocumentData = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(id)
-            .get().toPromise();
-        const module_: any = document.data();
-        if(!module_)
-            throw new Error(DatabaseError.MODULE_NOT_FOUND);
-        else
-            return this.factory.getModule(id, module_ as IModule);
-    }
-
     async getModules(): Promise<Module[]>{
         const modules: Module[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
+            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref.where(
+                FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.MODULE_TAG
+            ))
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
-            const module: Module = this.factory.getModule(response.id, response as IModule);
+            const module: Module = <Module>this.factory.getImplementable(response.id, response as IModule);
             modules.push(module);
         });
         return modules;
     }
 
-    async addModule(module: IModule): Promise<Module>{
-        this.validator.validateIModule(module);
-        const id: string = this.firestore.createId();
-        module['id'] = id;
-        await this.firestore
-            .collection(FirebaseDatabase.MODULES)
+    async getEvents(): Promise<Event[]>{
+        const events: Event[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref.where(
+                FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.EVENT_TAG
+            ))
+            .get().toPromise();
+        documents.forEach(document => {
+            const response: any = document.data();
+            const event: Event = <Event>this.factory.getImplementable(response.id, response as IModule);
+            events.push(event);
+        });
+        return events;
+    }
+
+    async getImplementable(id: string): Promise<Implementable>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(id)
-            .set(module);
-        return this.factory.getModule(id, module);
+            .get().toPromise();
+        const implementable: any = document.data();
+        if(!implementable)
+            throw new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND);
+        else
+            return this.factory.getImplementable(id, implementable as IImplementable);
+    }
+
+    private getImplementableTag(implementable: Implementable){
+        if(implementable instanceof Module)
+            return FirebaseDatabase.MODULE_TAG;
+        else if(implementable instanceof Event)
+            return FirebaseDatabase.EVENT_TAG;
+        else
+            throw new Error(DatabaseError.UNKNOWN_IMPLEMENTABLE_TYPE)
+    }
+
+    async addImplementable(implementable: IImplementable): Promise<Implementable>{
+        this.validator.validateIImplementable(implementable);
+        const id: string = this.firestore.createId();
+        const implementable_: Implementable = this.factory.getImplementable(id, implementable);
+        implementable['id'] = id;
+        implementable[FirebaseDatabase.IMPLEMENTABLE_TAG_KEY] = this.getImplementableTag(implementable_);
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(id)
+            .set(implementable);
+        return implementable_;
     }
     
-    async updateModule(id: string, module: IModule): Promise<Module>{
-        this.validator.validateIModule(module);
+    async updateImplementable(id: string, implementable: IImplementable): Promise<Implementable>{
+        this.validator.validateIImplementable(implementable);
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(id)
-            .update(module);
-        return this.factory.getModule(id, module);
+            .update(implementable);
+        return this.factory.getImplementable(id, implementable);
     }
 
-    async deleteModule(id: string): Promise<Module>{
-        const module: Module = await this.getModule(id);
+    async deleteImplementable(id: string): Promise<Implementable>{
+        const implementable: Implementable = await this.getImplementable(id);
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(id)
             .delete();
-        return module;
+        return implementable;
     }
 
-    async getSections(moduleId: string): Promise<Section[]>{
+    async getSections(implementableId: string): Promise<Section[]>{
         const sections: Section[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .get().toPromise();
         documents.forEach(document => {
@@ -139,10 +172,10 @@ export class FirebaseDatabase implements Database{
         return sections;
     }
 
-    private async getSection(moduleId: string, sectionId: string): Promise<Section>{
+    private async getSection(implementableId: string, sectionId: string): Promise<Section>{
         const document: DocumentData = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .get().toPromise();
@@ -153,46 +186,46 @@ export class FirebaseDatabase implements Database{
             return this.factory.getSection(sectionId, section as ISection);
     }
 
-    async addSection(moduleId: string, section: ISection): Promise<Section>{
+    async addSection(implementableId: string, section: ISection): Promise<Section>{
         this.validator.validateISection(section);
         const id: string = this.firestore.createId();
         section['id'] = id;
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(id)
             .set(section);
         return this.factory.getSection(id, section);
     }
     
-    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
+    async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
         this.validator.validateISection(section);
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .update(section);
         return this.factory.getSection(sectionId, section);
     }
 
-    async deleteSection(moduleId: string, sectionId: string): Promise<Section>{
-        const section: Section = await this.getSection(moduleId, sectionId);
+    async deleteSection(implementableId: string, sectionId: string): Promise<Section>{
+        const section: Section = await this.getSection(implementableId, sectionId);
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .delete();
         return section;
     }
     
-    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
+    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
         const files: File[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
@@ -205,10 +238,10 @@ export class FirebaseDatabase implements Database{
         return files;
     }
 
-    async getFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
+    async getFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
         const document: DocumentData = await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
@@ -221,13 +254,13 @@ export class FirebaseDatabase implements Database{
             return this.factory.getFile(fileId, file as IFile);
     }
 
-    async addFile(moduleId: string, sectionId: string, file: IFile): Promise<File>{
+    async addFile(implementableId: string, sectionId: string, file: IFile): Promise<File>{
         this.validator.validateIFile(file);
         const id: string = this.firestore.createId();
         file['id'] = id;
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
@@ -236,11 +269,11 @@ export class FirebaseDatabase implements Database{
         return this.factory.getFile(id, file);
     }
 
-    async deleteFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
-        const file: File = await this.getFile(moduleId, sectionId, fileId);
+    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
+        const file: File = await this.getFile(implementableId, sectionId, fileId);
         await this.firestore
-            .collection(FirebaseDatabase.MODULES)
-            .doc(moduleId)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
             .collection(FirebaseDatabase.SECTIONS)
             .doc(sectionId)
             .collection(FirebaseDatabase.FILES)

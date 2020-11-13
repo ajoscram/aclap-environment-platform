@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser } from '../../models';
+import { Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser, Implementable, Event, IImplementable } from '../../models';
 import ControlModule from '../../modules/control/control.module';
 import { Factory } from './factory/Factory.service';
 import { Database, DatabaseError } from './Database.service';
@@ -12,7 +12,7 @@ export class MockDatabase implements Database{
     private ids: number = 0;
     private disciplineMetadata: DisciplineMetadata;
     private users: User[];
-    private modules: Module[];
+    private implementables: Implementable[];
     private sections: Section[];
     private files: File[];
     
@@ -31,21 +31,24 @@ export class MockDatabase implements Database{
             new Educator('3', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Date()),
         ];
 
-        this.modules = [
-            new Module(''+this.ids++, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
+        this.implementables = [
+            new Module(''+this.ids++, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
             ]),
-            new Module(''+this.ids++, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', ['Hola', 'Cambiar', 'Horas'], ['Nada'], [
+            new Module(''+this.ids++, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
-            ])
+            ]),
+            new Event(''+this.ids++, 'Día de la Danta', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', new Date()),
+            new Event(''+this.ids++, 'Día del Agua', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', new Date()),
+            new Event(''+this.ids++, 'Día del Árbol', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', new Date())
         ];
 
         this.sections = [
@@ -101,45 +104,51 @@ export class MockDatabase implements Database{
         return user_;
     }
 
-    async getModule(id: string): Promise<Module>{
-        for(let module of this.modules)
-            if(module.id === id)
-                return module;
-        throw new Error(DatabaseError.MODULE_NOT_FOUND);
+    async getModules(): Promise<Module[]>{
+        const modules: Module[] = [];
+        for(let implementable of this.implementables)
+            if(implementable instanceof Module)
+                modules.push(implementable);
+        return modules;
     }
 
-    async getModules(): Promise<Module[]>{
-        return this.modules;
+    async getEvents(): Promise<Event[]>{
+        const events: Event[] = [];
+        for(let implementable of this.implementables)
+            if(implementable instanceof Event)
+                events.push(implementable);
+        return events;
+    }
+
+    async getImplementable(id: string): Promise<Implementable>{
+        for(let implementable of this.implementables)
+            if(implementable.id === id)
+                return implementable;
+        throw new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND);
     }
     
-    async addModule(module: IModule): Promise<Module>{
-        const module_: Module = this.factory.getModule(''+this.ids++, module);
-        this.modules.push(module_);
-        return module_;
+    async addImplementable(implementable: IImplementable): Promise<Implementable>{
+        const implementable_: Implementable = this.factory.getImplementable(''+this.ids++, implementable);
+        this.implementables.push(implementable_);
+        return implementable_;
     }
-    
-    async updateModule(id: string, module: IModule): Promise<Module>{
-        for(let module_ of this.modules){
-            if(module_.id === id){
-                module_.name = module.name;
-                module_.publisherId = module.publisherId;
-                module_.publisherName = module.publisherName;
-                module_.publisherLastname = module.publisherLastname;
-                module_.recommendedAge = module.recommendedAge;
-                module_.objectives = module.objectives;
-                module_.requirements = module.requirements;
-                module_.disciplines = module.disciplines;
-                return module_;
+
+    async updateImplementable(id: string, implementable: IImplementable): Promise<Implementable>{
+        for(let i = 0; i < this.implementables.length; i++){
+            if(this.implementables[i].id === id){
+                const implementable_: Implementable = this.factory.getImplementable(id, implementable);
+                this.implementables.splice(i, 1, implementable_);
+                return implementable_;
             }
         }
-        throw new Error(DatabaseError.MODULE_NOT_FOUND);
+        throw new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND);
     }
     
-    async deleteModule(id: string): Promise<Module>{
-        for(let i = 0; i < this.modules.length; i++)
-            if(this.modules[i].id === id)
-                return this.modules.splice(i, 1)[0];
-        throw new Error(DatabaseError.MODULE_NOT_FOUND);
+    async deleteImplementable(id: string): Promise<Implementable>{
+        for(let i = 0; i < this.implementables.length; i++)
+            if(this.implementables[i].id === id)
+                return this.implementables.splice(i, 1)[0];
+        throw new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND);
     }
     
     private getSection(sectionId: string): Section{
@@ -149,21 +158,21 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
 
-    async getSections(moduleId: string): Promise<Section[]>{
-        this.getModule(moduleId);//checking for module existance
+    async getSections(implementableId: string): Promise<Section[]>{
+        this.getImplementable(implementableId);//checking for implementable existance
         return this.sections;
     }
     
-    async addSection(moduleId: string, section: ISection): Promise<Section>{
-        this.getModule(moduleId);//checking for module existance
+    async addSection(implementableId: string, section: ISection): Promise<Section>{
+        this.getImplementable(implementableId);//checking for implementable existance
         const id: string = ''+this.ids++;
         const section_: Section = this.factory.getSection(id, section);
         this.sections.push(section_);
         return section_;
     }
     
-    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
-        this.getModule(moduleId);//checking for module existance
+    async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
+        this.getImplementable(implementableId);//checking for implementable existance
         for(let i = 0; i < this.sections.length; i++){
             if(this.sections[i].id === sectionId){
                 const section_: Section = this.factory.getSection(sectionId, section);
@@ -174,34 +183,34 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
     
-    async deleteSection(moduleId: string, sectionId: string): Promise<Section>{
-        this.getModule(moduleId);//checking for module existance
+    async deleteSection(implementableId: string, sectionId: string): Promise<Section>{
+        this.getImplementable(implementableId);//checking for implementable existance
         for(let i = 0; i < this.sections.length; i++)
             if(this.sections[i].id === sectionId)
                 return this.sections.splice(i, 1)[0];
         throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
     
-    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
-        this.getModule(moduleId);//checking for module existance
+    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
+        this.getImplementable(implementableId);//checking for implementable existance
         this.getSection(sectionId);//checking for section existance
         return this.files;
     }
     
-    async addFile(moduleId: string, sectionId: string, file: IFile): Promise<File>{
-        this.getModule(moduleId);//checking for module existance
+    async addFile(implementableId: string, sectionId: string, file: IFile): Promise<File>{
+        this.getImplementable(implementableId);//checking for implementable existance
         this.getSection(sectionId);//checking for section existance
         const file_: File = new File(''+this.ids++, file.url, file.name, file.uploaded, file.bytes);
         this.files.push(file_);
         return file_;
     }
     
-    async deleteFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
-        this.getModule(moduleId);//checking for module existance
+    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
+        this.getImplementable(implementableId);//checking for module existance
         this.getSection(sectionId);//checking for section existance
         for(let i = 0; i < this.files.length; i++)
             if(this.files[i].id === fileId)
                 return this.files.splice(i, 1)[0];
-        throw new Error(DatabaseError.MODULE_NOT_FOUND);
+        throw new Error(DatabaseError.FILE_NOT_FOUND);
     }
 }

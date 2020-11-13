@@ -1,4 +1,4 @@
-import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile } from "../../../models";
+import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent } from "../../../models";
 import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownUser extends IUser{}
@@ -33,16 +33,16 @@ describe('Factory', () => {
     };
 
     const STUB_MODULE: IModule = {
-        name: 'name',
-        color: '#Ef6423',
-        imageUrl: 'imageUrl',
-        publisherId: 'publisherId',
-        publisherName: 'publisherName',
-        publisherLastname: 'publisherLastname',
+        name: 'STUB_MODULE.name',
+        color: 'STUB_MODULE.#Ef6423',
+        imageUrl: 'STUB_MODULE.imageUrl',
+        bannerImageUrl: 'STUB_MODULE.bannerImageUrl',
+        publisherId: 'STUB_MODULE.publisherId',
+        publisherName: 'STUB_MODULE.publisherName',
+        publisherLastname: 'STUB_MODULE.publisherLastname',
         recommendedAge: 7,
-        mainObjective: 'mainObjective',
-        objectives: ['objective 1', 'objective 2', 'objective 3'],
-        requirements: ['requirement 1', 'requirement 2'],
+        objective: 'STUB_MODULE.objective',
+        antecedents: 'STUB_MODULE.antecedents',
         disciplines: [
             {
                 year: 'year',
@@ -53,6 +53,18 @@ describe('Factory', () => {
                 },
             }
         ]
+    };
+
+    const STUB_EVENT: IEvent = {
+        name: 'STUB_EVENT.name',
+        color: 'STUB_EVENT.#Ef6423',
+        imageUrl: 'STUB_EVENT.imageUrl',
+        bannerImageUrl: 'STUB_EVENT.bannerImageUrl',
+        publisherId: 'STUB_EVENT.publisherId',
+        publisherName: 'STUB_EVENT.publisherName',
+        publisherLastname: 'STUB_EVENT.publisherLastname',
+        objective: 'STUB_EVENT.objective',
+        date: new Date()
     };
 
     const STUB_ACTIVITY: IActivitySection = {
@@ -127,20 +139,34 @@ describe('Factory', () => {
         expect(administrator.email).toBe(STUB_ADMINISTRATOR.email);
     });
 
-    it('getModule(): returns Module correctly', async () => {
-        const module: Module = factory.getModule(STUB_ID, STUB_MODULE);
+    it('getImplementable(): returns the correct Module when input an IModule', async () => {
+        const module: Module = <Module>factory.getImplementable(STUB_ID, STUB_MODULE);
         expect(module.id).toBe(STUB_ID);
         expect(module.name).toBe(STUB_MODULE.name);
         expect(module.color).toBe(STUB_MODULE.color);
         expect(module.imageUrl).toBe(STUB_MODULE.imageUrl);
+        expect(module.bannerImageUrl).toBe(STUB_MODULE.bannerImageUrl);
         expect(module.publisherId).toBe(STUB_MODULE.publisherId);
         expect(module.publisherName).toBe(STUB_MODULE.publisherName);
         expect(module.publisherLastname).toBe(STUB_MODULE.publisherLastname);
         expect(module.recommendedAge).toBe(STUB_MODULE.recommendedAge);
-        expect(module.mainObjective).toBe(STUB_MODULE.mainObjective);
-        expect(module.objectives).toEqual(STUB_MODULE.objectives);
-        expect(module.requirements).toBe(STUB_MODULE.requirements);
+        expect(module.antecedents).toBe(STUB_MODULE.antecedents);
+        expect(module.objective).toEqual(STUB_MODULE.objective);
         expect(module.disciplines.length).toBe(STUB_MODULE.disciplines.length);
+    });
+
+    it('getImplementable(): returns the correct Event when input an IEvent', async () => {
+        const event: Event = <Event>factory.getImplementable(STUB_ID, STUB_EVENT);
+        expect(event.id).toBe(STUB_ID);
+        expect(event.name).toBe(STUB_EVENT.name);
+        expect(event.color).toBe(STUB_EVENT.color);
+        expect(event.imageUrl).toBe(STUB_EVENT.imageUrl);
+        expect(event.bannerImageUrl).toBe(STUB_EVENT.bannerImageUrl);
+        expect(event.publisherId).toBe(STUB_EVENT.publisherId);
+        expect(event.publisherName).toBe(STUB_EVENT.publisherName);
+        expect(event.publisherLastname).toBe(STUB_EVENT.publisherLastname);
+        expect(event.objective).toEqual(STUB_EVENT.objective);
+        expect(event.date).toBe(STUB_EVENT.date);
     });
 
     it('getSection(): fails with an unknown type of ISection', async () => {

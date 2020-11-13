@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File } from '../../../models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -54,22 +54,46 @@ export class Factory{
         return disciplines_;
     }
 
-    public getModule(id: string, module: IModule): Module{
+    private getModule(id: string, module: IModule): Module{
         const disciplines: Discipline[] = this.getDisciplines(module.disciplines);
         return new Module(
             id,
             module.name,
             module.color,
             module.imageUrl,
+            module.bannerImageUrl,
             module.publisherId,
             module.publisherName,
             module.publisherLastname,
             module.recommendedAge,
-            module.mainObjective,
-            module.objectives,
-            module.requirements,
+            module.objective,
+            module.antecedents,
             disciplines
         );
+    }
+
+    private getEvent(id: string, event: IEvent){
+        return new Event(
+            id,
+            event.name,
+            event.color,
+            event.imageUrl,
+            event.bannerImageUrl,
+            event.publisherId,
+            event.publisherName,
+            event.publisherLastname,
+            event.objective,
+            event.date
+        );
+    }
+
+    public getImplementable(id: string, implementable: IImplementable): Implementable{
+        if(Module.check(implementable))
+            return this.getModule(id, implementable);
+        else if(Event.check(implementable))
+            return this.getEvent(id, implementable);
+        else
+            throw new Error(FactoryError.UNKNOWN_IIMPLEMENTABLE);
     }
 
     private getQuestions(questions: IQuestion[]): Question[]{
@@ -135,5 +159,6 @@ export class Factory{
 
 export enum FactoryError{
     UNKNOWN_IUSER = "FactoryError.UNKNOWN_IUSER",
-    UNKNOWN_ISECTION = "FactoryError.UNKNOWN_ISECTION"
+    UNKNOWN_ISECTION = "FactoryError.UNKNOWN_ISECTION",
+    UNKNOWN_IIMPLEMENTABLE = "FactoryError.UNKNOWN_IIMPLEMENTABLE"
 }

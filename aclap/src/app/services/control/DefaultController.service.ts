@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile } from '../../models';
+import { User, Module, DisciplineMetadata, Section, ISection, File, IFile, Implementable, IImplementable, Event } from '../../models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
@@ -32,27 +32,31 @@ export class DefaultController implements Controller{
         return await this.database.getUser(session.user_id);
     }
     
-    async getModule(id: string): Promise<Module>{
-        return await this.database.getModule(id);
-    }
-
     async getModules(): Promise<Module[]>{
         return await this.database.getModules();
     }
 
-    async addModule(module: IModule): Promise<Module>{
-        await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.addModule(module);
+    async getEvents(): Promise<Event[]>{
+        return await this.database.getEvents();
+    };
+
+    async getImplementable(id: string): Promise<Implementable>{
+        return await this.database.getImplementable(id);
     }
 
-    async updateModule(id: string, module: IModule): Promise<Module>{
+    async addImplementable(implementable: IImplementable): Promise<Implementable>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.updateModule(id, module);
+        return await this.database.addImplementable(implementable);
     }
 
-    async deleteModule(id: string): Promise<Module>{
+    async updateImplementable(id: string, implementable: IImplementable): Promise<Implementable>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.deleteModule(id);
+        return await this.database.updateImplementable(id, implementable);
+    }
+
+    async deleteImplementable(id: string): Promise<Implementable>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.deleteImplementable(id);
     }
 
     async getDisciplineMetadata(): Promise<DisciplineMetadata>{
@@ -89,10 +93,16 @@ export class DefaultController implements Controller{
         return await this.database.addFile(moduleId, sectionId, file_);
     }
 
-    async deleteFile(moduleId: string, sectionId: string, file: File): Promise<File>{
+    async deleteFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
         await this.authenticator.validate(Role.ANY);
-        const deleted: File = await this.database.deleteFile(moduleId, sectionId, file.id);
-        await this.storage.delete(file);
+        const deleted: File = await this.database.deleteFile(moduleId, sectionId, fileId);
+        await this.storage.delete(deleted);
         return deleted;
+    }
+
+    async upload(file: any): Promise<string>{
+        await this.authenticator.validate(Role.ANY);
+        const file_: IFile = await this.storage.upload(file);
+        return file_.url;
     }
 }

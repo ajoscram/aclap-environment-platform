@@ -11,7 +11,9 @@ export interface IEducatorRequest{
     lastname: string,
     email: string,
     phone: string,
-    address: ILocation
+    address: ILocation,
+    birthday: Date,
+    organization: string
 }
 
 export class EducatorRequest{
@@ -22,6 +24,8 @@ export class EducatorRequest{
         public email: string,
         public phone: string,
         public address: Location,
+        public birthday: Date,
+        public organization: string,
         public issued: Date,
         public state: EducatorRequestState
     ){}

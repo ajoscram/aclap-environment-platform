@@ -17,6 +17,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 12/11/2020 | Refactor de `Controller` y `Database` para manejar la superclase `Implementable` en lugar de `Module` |
 | 01/11/2020 | Implementar `FirebaseStorage` para web |
 | 30/10/2020 | Implementar `FirebaseAuthentication` para web |
 | 30/10/2020 | Implementar `Validator` |

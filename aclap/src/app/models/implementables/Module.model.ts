@@ -3,7 +3,7 @@ import { IImplementable, Implementable } from "./Implementable.model";
 
 export interface IModule extends IImplementable{
     recommendedAge: number,
-    requirements: string[],
+    antecedents: string,
     disciplines: IDiscipline[]
 }
 
@@ -13,13 +13,13 @@ export class Module extends Implementable{
         public name: string,
         public color: string,
         public imageUrl: string,
+        public bannerImageUrl: string,
         public publisherId: string,
         public publisherName: string,
         public publisherLastname: string,
         public recommendedAge: number,
-        public mainObjective: string,
-        public objectives: string[],
-        public requirements: string[],
+        public objective: string,
+        public antecedents: string,
         public disciplines: Discipline[]
     ){
         super(
@@ -27,11 +27,19 @@ export class Module extends Implementable{
             name,
             color,
             imageUrl,
+            bannerImageUrl,
             publisherId,
             publisherName,
             publisherLastname,
-            mainObjective,
-            objectives
+            objective
         )
+    }
+
+    public static check(object: any): object is IModule{
+        const module: IModule = <IModule>object;
+        return super.check(object) &&
+            module.recommendedAge !== undefined &&
+            module.antecedents !== undefined &&
+            module.disciplines !== undefined;
     }
 }
