@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { YoutubeVideoSection } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
@@ -12,13 +12,13 @@ export class EditYoutubeComponent implements OnInit {
 
   private regex: String;
   form: FormGroup;
-  video: YoutubeVideoSection;
+  @Input() video: YoutubeVideoSection;
 
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      url: ['']
+      url: [this.video.url]
     });
   }
 

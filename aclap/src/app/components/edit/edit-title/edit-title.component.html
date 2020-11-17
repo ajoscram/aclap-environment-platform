@@ -4,11 +4,11 @@
         <form [formGroup]=form>
             <div class="form-group">
                 <label for="text">Texto</label>
-                <input formControlName=text/>
+                <input formControlName=text [(ngModel)]="title.text"/>
             </div>
             <div class="form-group">
                 <label for="size">Tipo de título</label>
-                <input formControlName=size/>
+                <input formControlName=size [(ngModel)]="title.size"/>
             </div>
         </form>
     </div>

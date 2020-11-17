@@ -17,7 +17,7 @@ export class EditDisplayerComponent extends BaseForm implements OnInit {
   }
 
   onSubmit(){
-    alert(this.children.length);
+    
   }
 
   isActivity(component: Section): boolean {

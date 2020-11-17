@@ -4,15 +4,15 @@
         <form [formGroup]=form >
             <div class="form-group">
                 <label for="url">URL de la imagen</label>
-                <input formControlName=url/>
+                <input formControlName=url  [(ngModel)]="image.url"/>
             </div>
             <div class="form-group">
                 <label for="footing">Descripción de la Imagen</label>
-                <input formControlName=footing/>
+                <input formControlName=footing  [(ngModel)]="image.footing"/>
             </div>
             <div class="form-group">
                 <label for="reference">Fuente de la imagen:</label>
-                <input formControlName=reference/>
+                <input formControlName=reference [(ngModel)]="image.reference"/>
             </div>
         </form>
     </div>
