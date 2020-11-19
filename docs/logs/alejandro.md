@@ -1,22 +1,24 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
+* Arreglar diagrama de Modelo
+* Arreglar Diagrama de Control
+* Cambiar Especificación SAD
+* Implementar Cloud Functions para agregar Educators una vez que se aprueba su request
+* Agregar custom claims para Educators mediante Cloud Functions
 * Implementar `FirebaseDatabase` para NativeScript
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
 * Probar `FirebaseAuthenticator` com el emulador
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
-* Agregar custom claims para Educators mediante Cloud Functions
-* Arreglar diagrama de Modelo
-* Arreglar Diagrama de Control
-* Cambiar Especificación SAD
 * Hacer pruebas unitarias de `Validator`
-* Quitar el `$` de las variables de las interfaces del modelo
 
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 18/11/2020 | Crear pruebas unitarias de `DefaultController` y `Factory` para manejo de `Implementation` y `EducatorRequest` | 
+| 17/11/2020 | Agregar métodos de `Controller`, `MockDatabase` y `Factory` para manejo de `Implementation` y `EducatorRequest` |
 | 12/11/2020 | Refactor de `Controller` y `Database` para manejar la superclase `Implementable` en lugar de `Module` |
 | 01/11/2020 | Implementar `FirebaseStorage` para web |
 | 30/10/2020 | Implementar `FirebaseAuthentication` para web |

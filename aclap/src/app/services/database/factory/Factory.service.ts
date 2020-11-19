@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent } from '../../../models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent, IEducatorRequest, Location, EducatorRequest, ILocation, EducatorRequestState, IImplementation, Implementation, IEvaluation, Evaluation, IAnswer, Answer } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -39,6 +39,25 @@ export class Factory{
             );
         else
             throw new Error(FactoryError.UNKNOWN_IUSER);
+    }
+
+    private getLocation(location: ILocation): Location{
+        return new Location(location.name, location.latitude, location.longitude);
+    }
+
+    public getEducatorRequest(id: string, issued: Date, state: EducatorRequestState, request: IEducatorRequest): EducatorRequest{
+        return new EducatorRequest(
+            id,
+            request.name,
+            request.lastname,
+            request.email,
+            request.phone,
+            this.getLocation(request.address),
+            request.birthday,
+            request.organization,
+            issued,
+            state
+        );
     }
 
     private getSubject(subject: ISubject): Subject{
@@ -153,6 +172,38 @@ export class Factory{
             file.name,
             file.uploaded,
             file.bytes
+        );
+    }
+
+    public getImplementation(id: string, deleted: boolean, completed: boolean, implementation: IImplementation): Implementation{
+        return new Implementation(
+            id,
+            deleted,
+            completed,
+            implementation.date,
+            implementation.participants,
+            this.getLocation(implementation.location),
+            implementation.educatorId,
+            implementation.educatorName,
+            implementation.educatorLastname,
+            implementation.implementableId,
+            implementation.implementableName
+        );
+    }
+
+    private getAnswers(answers: IAnswer[]): Answer[]{
+        const answers_: Answer[] = [];
+        for(let answer of answers)
+            answers_.push(new Answer(answer.question, answer.option, answer.score));
+        return answers_;
+    }
+
+    public getEvaluation(id: string, evaluation: IEvaluation){
+        return new Evaluation(
+            id,
+            evaluation.activityId,
+            evaluation.activityName,
+            this.getAnswers(evaluation.answers)
         );
     }
 }

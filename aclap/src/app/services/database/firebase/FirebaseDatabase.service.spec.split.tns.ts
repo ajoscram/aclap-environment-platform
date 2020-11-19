@@ -3,7 +3,7 @@ import { Factory } from '../factory/Factory.service';
 import { FirebaseDatabase } from './FirebaseDatabase.service';
 import { Validator } from '../validation/Validator.service';
 
-export const testModule = {
+export const TEST_MODULE = {
     imports:[],
     providers: [
         Factory,
