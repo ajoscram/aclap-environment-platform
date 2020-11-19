@@ -5,8 +5,25 @@
 * Crear UI de los componentes de edición de un Módulo
 * Integrar servicios con los components
 * Cambiar los colores y los fonts de la app
+* Cambiar 
 * Aplicar patrones de diseño en en edit sections
 * Subir imágenes del path local antes de subir el section
+* Crear Pantalla del Perfil
+* Actualizar el NavBar cuando se inicia sesión
+* Crear Component de Perfil
+* Crear Component de Los diferentes tabs del Pefil
+* Crear Pantalla de Lista de Implementaciones
+* Crear Component de Implementacion
+
+
+1. Agregar una implementación (descripción, fecha, número de participantes, ubicación, evidencias)
+2. Ver implementaciones propias
+3. Ver implementaciones de un módulo
+4. Modificar información y evidencias de una implementación
+5. Eliminar una implementación
+6. Hacer solicitud como Educador Ambiental
+7. Ver lista de solicitudes
+8. Aceptar o rechazar solicitud
 
 ### Completado
 | Fecha | Tarea | 

@@ -30,16 +30,8 @@ export class EditModuleInfoComponent implements OnInit {
     this.controller.getDisciplineMetadata()
       .then( meta => {
         this.disciplines = meta;
-        this.disciplines.subjects.map( sub =>console.log(JSON.stringify(sub)) );
-        this.disciplines.years.map( year => console.log(year));
       })
       .catch( error => { console.error(error) });
-    
-      this.moduleForm.setValue({
-        name: this.module.name,
-        imageUrl: this.module.imageUrl,
-        recommendedAge: this.module.recommendedAge.toString()
-      });
   }
 
 }

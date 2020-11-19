@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ParagraphSection } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
@@ -11,13 +11,13 @@ import { Controller } from '../../../services/control/Controller.service';
 export class EditParagraphComponent implements OnInit {
 
   form: FormGroup;
-  paragraph: ParagraphSection;
+  @Input() paragraph: ParagraphSection;
   
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      text: ['']
+      text: [this.paragraph.text]
     });
   }
 

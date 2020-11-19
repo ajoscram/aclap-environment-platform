@@ -1,30 +1,28 @@
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageSection } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
-import { ChildrenForm } from '../ChildrenForm';
-import { EditDisplayerComponent } from '../edit-displayer/edit-displayer.component';
 
 @Component({
   selector: 'app-edit-image',
   templateUrl: './edit-image.component.html',
   styleUrls: ['./edit-image.component.scss']
 })
-export class EditImageComponent extends ChildrenForm {
+export class EditImageComponent  implements OnInit {
 
   form: FormGroup;
-  image: ImageSection;
+  @Input() image: ImageSection;
 
-  constructor(private controller: Controller, private builder: FormBuilder, @Host() _motherForm: EditDisplayerComponent) { 
-    super(_motherForm);
+  constructor(private controller: Controller, private builder: FormBuilder) { 
+
+  }
+
+  ngOnInit(): void {
     this.form = this.builder.group({
       footing: ['', Validators.required],
       url: ['', Validators.required],
       reference: ['',Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   initializeForm(): FormGroup{

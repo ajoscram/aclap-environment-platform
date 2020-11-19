@@ -1,4 +1,4 @@
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivitySection } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
@@ -13,23 +13,23 @@ import { EditDisplayerComponent } from '../edit-displayer/edit-displayer.compone
 })
 export class EditActivityComponent extends ChildrenForm{
 
-  form: FormGroup; 
-  activity: ActivitySection;
+  @Input() activity: ActivitySection;
+  form: FormGroup;
 
   constructor(private controller: Controller, private builder: FormBuilder, @Host() _motherForm: EditDisplayerComponent) {
     super(_motherForm);
   }
   
   ngOnInit(): void {
-  }
-
-  initializeForm(): FormGroup{
     this.form = new FormGroup({
       description: new FormControl('', Validators.requiredTrue),
       estimatedMinutes: new FormControl('', Validators.requiredTrue),
       tools: new FormControl('', Validators.requiredTrue),
       questions: new FormControl('', Validators.requiredTrue)
     });
+  }
+
+  initializeForm(): FormGroup{
     return this.form;
   }
 

@@ -4,7 +4,7 @@
         <form [formGroup]=form >
             <div class="form-group">
                 <label for="url">Enlace del video de youtube</label>
-                <input formControlName=url/>
+                <input formControlName=url [(ngModel)]="video.url"/>
             </div>
         </form>
     </div>

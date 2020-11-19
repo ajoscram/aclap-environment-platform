@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TitleSection } from '@src/app/models';
 import { Controller } from '../../../services/control/Controller.service';
@@ -11,7 +11,7 @@ import { Controller } from '../../../services/control/Controller.service';
 export class EditTitleComponent implements OnInit {
 
   form: FormGroup;
-  title: TitleSection;
+  @Input() title: TitleSection;
 
   constructor(private controller: Controller, private builder: FormBuilder) { }
 

@@ -1,12 +1,3 @@
-<!-- <form [formGroup]=form (ngSubmit)="onSubmit()">
-    <app-edit-activity></app-edit-activity>
-    <app-edit-image></app-edit-image>
-    <app-edit-youtube></app-edit-youtube>
-    <app-edit-title></app-edit-title>
-    <app-edit-paragraph></app-edit-paragraph>
-    <button class="btn btn-primary">Confirmar</button>
-</form> -->
-
 <div *ngFor="let section of sections">
     <div class="col-12" *ngIf="isActivity(section)">
         <app-edit-activity [activity]=section ></app-edit-activity>
