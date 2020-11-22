@@ -1,0 +1,14 @@
+@use '../../app.component.scss';
+
+.card{
+    margin-bottom: 50px;
+}
+
+.card-header{
+    background-color: app.$nav-color;
+    color: white;
+
+    button{
+        color: white;
+    }
+}

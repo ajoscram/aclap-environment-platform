@@ -1,19 +1,14 @@
-<div class="card mb-2">
-    <div class="card-header"><h3> Imagen</h3></div>
-    <div class="card-body">
-        <form [formGroup]=form >
-            <div class="form-group">
-                <label for="url">URL de la imagen</label>
-                <input formControlName=url  [(ngModel)]="image.url"/>
-            </div>
-            <div class="form-group">
-                <label for="footing">Descripción de la Imagen</label>
-                <input formControlName=footing  [(ngModel)]="image.footing"/>
-            </div>
-            <div class="form-group">
-                <label for="reference">Fuente de la imagen:</label>
-                <input formControlName=reference [(ngModel)]="image.reference"/>
-            </div>
-        </form>
+<form [formGroup]=form >
+    <div class="form-group">
+        <label for="url">URL de la imagen</label>
+        <input formControlName=url  [(ngModel)]="image.url"/>
     </div>
-</div>
+    <div class="form-group">
+        <label for="footing">Descripción de la Imagen</label>
+        <input formControlName=footing  [(ngModel)]="image.footing"/>
+    </div>
+    <div class="form-group">
+        <label for="reference">Fuente de la imagen:</label>
+        <input formControlName=reference [(ngModel)]="image.reference"/>
+    </div>
+</form>

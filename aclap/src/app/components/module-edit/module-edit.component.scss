@@ -5,6 +5,22 @@
     min-width: 1px;
 }
 
+.add-section{
+    background-color: lightgrey;
+    font-size: 43px;
+    min-height: 100px;
+    max-height: 200px;
+}
+
 .jumbotron{
     background-color: app.$nav-color;
+}
+
+.section-option{
+    margin-bottom: 20px;
+    padding-right: 30px;
+    border: app.$nav-color;
+    border-width: 5px;
+    min-height: 100px;
+    max-height: 200px;
 }

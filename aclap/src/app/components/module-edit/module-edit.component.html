@@ -15,15 +15,57 @@
         <div class="col-12 col-md-7">
             <!-- LEFT ROW  -->
             <div class="container">
-                <app-edit-displayer [sections]=sections></app-edit-displayer>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <app-edit-displayer [sections]=sections></app-edit-displayer>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" (click)="sectionButtonsCollapsed = !sectionButtonsCollapsed" aria-controls="collapseExample" [attr.aria-expanded]="!sectionButtonsCollapsed" class="add-section col-12 d-flex justify-content-center">
+                            <p>Agregar Sección</p>
+                        </button>
+                        <div id="collapseExample" [ngbCollapse]="sectionButtonsCollapsed">
+                            <div class="row">
+                                <div (click)="addSection(0)" class="clickable section-option col-12 col-md-6 d-flex justify-content-center align-items-stretch">
+                                    <h2>Actividad</h2>
+                                </div>
+                                <div (click)="addSection(1)" class="clickable section-option col-12 col-md-6 d-flex justify-content-center align-items-stretch">
+                                    <h2>Imagen</h2>
+                                </div>
+                                <div (click)="addSection(2)" class="clickable section-option col-12 col-md-6 d-flex justify-content-center align-items-stretch">
+                                    <h2>Párrafo</h2>
+                                </div>
+                                <div (click)="addSection(3)" class="clickable section-option col-12 col-md-6 d-flex justify-content-center align-items-stretch">
+                                    <h2>Título/Subtítulo</h2>
+                                </div>
+                                <div (click)="addSection(4)" class="clickable section-option col-12 col-md-6 d-flex justify-content-center align-items-stretch">
+                                    <h2>Youtube</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-5 order-first order-md-last">
             <!-- RIGHT ROW  -->
             <div class="container-fluid pt-0 pt-md-5">
                 <app-edit-module-info [module]=module></app-edit-module-info>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-success btn-lg col-12" (click)="checkStatus()">Confirmar Cambios</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-danger btn-lg col-12" (click)="checkStatus()">Descartar Cambios</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-primary" (click)="checkStatus()">test</button>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-primary" (click)="checkStatus()">test</button>
         </div>
     </div>
 </div>

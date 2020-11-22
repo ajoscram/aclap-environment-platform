@@ -16,8 +16,8 @@ export class EditDisplayerComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    
+  deleteSection(index: number){
+    this.sections.splice(index,1);
   }
 
   isActivity(component: Section): boolean {
