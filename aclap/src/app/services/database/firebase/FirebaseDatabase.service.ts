@@ -4,7 +4,7 @@ import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
-import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable } from '../../../models';
+import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, Evaluation, IEducatorRequest, IEvaluation, IImplementation, Implementation } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -31,6 +31,22 @@ export class FirebaseDatabase implements Database{
         private validator: Validator,
         private firestore: AngularFirestore
     ){}
+    addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
+    getEducatorRequests: () => Promise<EducatorRequest[]>;
+    updateEducatorRequestState: (id: string, state: EducatorRequestState) => Promise<EducatorRequest>;
+    getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
+    getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
+    addImplementation: (implementation: IImplementation) => Promise<Implementation>;
+    updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
+    deleteImplementation: (id: string) => Promise<Implementation>;
+    completeImplementation: (id: string) => Promise<Implementation>;
+    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
+    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
+    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
+    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
+    getEvidence: (implementationId: string) => Promise<File[]>;
+    addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
+    deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
 
     async getDisciplineMetadata(): Promise<DisciplineMetadata>{
         const document: DocumentData = await this.firestore

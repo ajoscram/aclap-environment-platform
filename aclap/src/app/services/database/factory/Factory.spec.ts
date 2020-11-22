@@ -1,4 +1,4 @@
-import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent } from "../../../models";
+import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent, IEducatorRequest, Implementation, IImplementation, IEvaluation, Score, EducatorRequest, EducatorRequestState, Evaluation } from "../../../models";
 import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownUser extends IUser{}
@@ -6,6 +6,7 @@ interface IUnknownSection extends ISection{}
 
 describe('Factory', () => {
     const STUB_ID: string = 'id';
+    const STUB_DATE: Date = new Date();
 
     const STUB_DISCIPLINE_METADATA: IDisciplineMetadata = {
         subjects: [
@@ -15,6 +16,20 @@ describe('Factory', () => {
         ],
         years: ['1', '2', '3']
     };
+
+    const STUB_EDUCATOR_REQUEST: IEducatorRequest = {
+        name: 'STUB_EDUCATOR_REQUEST.name',
+        lastname: 'STUB_EDUCATOR_REQUEST.lastname',
+        email: 'STUB_EDUCATOR_REQUEST.email',
+        phone: 'STUB_EDUCATOR_REQUEST.phone',
+        birthday: new Date(),
+        organization: 'STUB_EDUCATOR_REQUEST.organization',
+        address: {
+            name: 'STUB_EDUCATOR_REQUEST.address.name',
+            latitude: 0,
+            longitude: 0
+        }
+    }
 
     const STUB_EDUCATOR: IEducator = {
         imageUrl: 'STUB_EDUCATOR.imageUrl',
@@ -105,6 +120,38 @@ describe('Factory', () => {
         bytes: 1
     }
 
+    const STUB_IMPLEMENTATION: IImplementation = {
+        date: new Date(),
+        participants: 1,
+        location: {
+            name: 'STUB_IMPLEMENTATION.name',
+            latitude: 0,
+            longitude: 2
+        },
+        educatorId: 'STUB_IMPLEMENTATION.educatorId',
+        educatorName: 'STUB_IMPLEMENTATION.educatorName',
+        educatorLastname: 'STUB_IMPLEMENTATION.educatorLastname',
+        implementableId: 'STUB_IMPLEMENTATION.implementableId',
+        implementableName: 'STUB_IMPLEMENTATION.implementableName'
+    }
+
+    const STUB_EVALUATION: IEvaluation = {
+        activityId: 'STUB_EVALUATION.activityId',
+        activityName: 'STUB_EVALUATION.activityName',
+        answers: [
+            {
+                question: 'ANSWER1.question',
+                option: 'ANSWER1.option',
+                score: Score.LOW
+            },
+            {
+                question: 'ANSWER2.question',
+                option: 'ANSWER2.option',
+                score: Score.AVERAGE
+            }
+        ]
+    }
+
     const factory: Factory = new Factory();
 
     it('getDisciplineMetadata(): returns DisciplineMetadata correctly', async () => {
@@ -137,6 +184,23 @@ describe('Factory', () => {
         expect(administrator.name).toBe(STUB_ADMINISTRATOR.name);
         expect(administrator.lastname).toBe(STUB_ADMINISTRATOR.lastname);
         expect(administrator.email).toBe(STUB_ADMINISTRATOR.email);
+    });
+
+    it('getEducatorRequest(): returns the correct EducatorRequest when input an IEducatorRequest', async () => {
+        const STUB_STATE: EducatorRequestState = EducatorRequestState.PENDING;
+        const request: EducatorRequest = factory.getEducatorRequest(STUB_ID, STUB_DATE, STUB_STATE, STUB_EDUCATOR_REQUEST);
+        expect(request.id).toBe(STUB_ID);
+        expect(request.name).toBe(STUB_EDUCATOR_REQUEST.name);
+        expect(request.lastname).toBe(STUB_EDUCATOR_REQUEST.lastname);
+        expect(request.email).toBe(STUB_EDUCATOR_REQUEST.email);
+        expect(request.phone).toBe(STUB_EDUCATOR_REQUEST.phone);
+        expect(request.address.latitude).toBe(STUB_EDUCATOR_REQUEST.address.latitude);
+        expect(request.address.longitude).toBe(STUB_EDUCATOR_REQUEST.address.longitude);
+        expect(request.address.name).toBe(STUB_EDUCATOR_REQUEST.address.name);
+        expect(request.birthday).toBe(STUB_EDUCATOR_REQUEST.birthday);
+        expect(request.organization).toBe(STUB_EDUCATOR_REQUEST.organization);
+        expect(request.issued).toBe(STUB_DATE);
+        expect(request.state).toBe(STUB_STATE);
     });
 
     it('getImplementable(): returns the correct Module when input an IModule', async () => {
@@ -224,5 +288,32 @@ describe('Factory', () => {
         expect(file.name).toBe(STUB_FILE.name);
         expect(file.uploaded).toBe(STUB_FILE.uploaded);
         expect(file.bytes).toBe(STUB_FILE.bytes);
+    });
+
+    it('getImplementation(): returns the correct Implementation when input an IImplementation', async() => {
+        const STUB_DELETED: boolean = false;
+        const STUB_COMPLETED: boolean = false;
+        const implementation: Implementation = factory.getImplementation(STUB_ID, STUB_DELETED, STUB_COMPLETED, STUB_IMPLEMENTATION);
+        expect(implementation.id).toBe(STUB_ID);
+        expect(implementation.deleted).toBe(STUB_DELETED);
+        expect(implementation.completed).toBe(STUB_COMPLETED);
+        expect(implementation.date).toBe(STUB_IMPLEMENTATION.date);
+        expect(implementation.participants).toBe(STUB_IMPLEMENTATION.participants);
+        expect(implementation.location.name).toBe(STUB_IMPLEMENTATION.location.name);
+        expect(implementation.location.latitude).toBe(STUB_IMPLEMENTATION.location.latitude);
+        expect(implementation.location.longitude).toBe(STUB_IMPLEMENTATION.location.longitude);
+        expect(implementation.educatorId).toBe(STUB_IMPLEMENTATION.educatorId);
+        expect(implementation.educatorName).toBe(STUB_IMPLEMENTATION.educatorName);
+        expect(implementation.educatorLastname).toBe(STUB_IMPLEMENTATION.educatorLastname);
+        expect(implementation.implementableId).toBe(STUB_IMPLEMENTATION.implementableId);
+        expect(implementation.implementableName).toBe(STUB_IMPLEMENTATION.implementableName);
+    });
+
+    it('getEvaluation(): returns the correct Evaluation when input an IEvaluation', async () => {
+        const evaluation: Evaluation = factory.getEvaluation(STUB_ID, STUB_EVALUATION);
+        expect(evaluation.id).toBe(STUB_ID);
+        expect(evaluation.activityId).toBe(STUB_EVALUATION.activityId);
+        expect(evaluation.activityName).toBe(STUB_EVALUATION.activityName);
+        expect(evaluation.answers.length).toBe(STUB_EVALUATION.answers.length);
     });
 });
