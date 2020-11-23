@@ -5,6 +5,7 @@ import { HomeComponent } from '../../components/home/home.component';
 import { ModulesComponent } from '../../components/modules/modules.component';
 import { ModulePageComponent } from '../../components/module-page/module-page.component';
 import { ModuleEditComponent } from '../../components/module-edit/module-edit.component';
+import { CreateModuleComponent } from '../../components/create-module/create-module.component';
 
 export const routes: Routes = [
     {
@@ -27,5 +28,9 @@ export const routes: Routes = [
     {
         path: 'modulos/:id/editar',
         component: ModuleEditComponent,
+    },
+    {
+        path: 'crear/modulo',
+        component: CreateModuleComponent
     }
 ];

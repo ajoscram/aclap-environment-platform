@@ -13,6 +13,7 @@ export class ModuleEditComponent implements OnInit {
   id: string;
   module: Module;
   sections: Section[];
+  sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
   constructor(private route:ActivatedRoute, private controller: Controller) {
@@ -26,7 +27,7 @@ export class ModuleEditComponent implements OnInit {
       .catch(error => console.error(error));
     
     this.controller.getSections(this.id)
-      .then(sections => { this.sections = sections; 
+      .then(sections => { this.sections = sections; //Devuelve lista en orden
         this.sections = this.sections.sort(
           (obj1, obj2) => {
             if (obj1.index > obj2.index) {
@@ -47,26 +48,28 @@ export class ModuleEditComponent implements OnInit {
   }
   
   addSection(index: number){
+    let newSection: Section;
     switch (index) {
       case 0: //Activity
-        this.sections.push(new ActivitySection("",-1,"",10,"",new Array<Question>()));
+        newSection = new ActivitySection("",this.sections.length,"",10,"",new Array<Question>());
         break;
       case 1: //Image
-        this.sections.push(new ImageSection("",-1,"","",""));
+        newSection = new ImageSection("",this.sections.length,"","","");
         break;
       case 2: //Paragraph
-        this.sections.push(new ParagraphSection("",-1,""));
+        newSection = new ParagraphSection("",this.sections.length,"")
         break;
       case 3: //Title
-        this.sections.push(new TitleSection("",-1,TitleSectionSize.H1,""));
+        newSection = new TitleSection("",this.sections.length,TitleSectionSize.H1,"");
         break;
       case 4: //Youtube
-        this.sections.push(new YoutubeVideoSection("",-1,""));
+        newSection = new YoutubeVideoSection("",this.sections.length,"");
         break;
       default:
         break;
     }
-    console.log("Button Pressed: AddSection");
+    this.sections.push(newSection);
+    this.sectionButtonsCollapsed=true;
   }
 
   submitSections(){

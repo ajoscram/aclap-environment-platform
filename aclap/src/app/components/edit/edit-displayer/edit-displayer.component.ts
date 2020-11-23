@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Controller } from '../../../services/control/Controller.service';
 import { ActivitySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../models';
 import { BaseForm } from '../BaseForm';
 
@@ -10,8 +11,9 @@ import { BaseForm } from '../BaseForm';
 export class EditDisplayerComponent extends BaseForm implements OnInit {
 
   @Input() sections: Section[];
+  sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   
-  constructor() { super() }
+  constructor(controller: Controller) { super() }
 
   ngOnInit(): void {
   }

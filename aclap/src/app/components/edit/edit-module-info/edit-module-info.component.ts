@@ -14,18 +14,22 @@ export class EditModuleInfoComponent implements OnInit {
   
   disciplines: DisciplineMetadata;
   moduleForm: FormGroup;
+  ageRange: any[];
 
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.moduleForm = this.builder.group({
       name: ['', Validators.required],
+      color: ['', Validators.required],
       imageUrl: ['', Validators.required],
+      bannerImageUrl: ['', Validators.required],
       recommendedAge: ['', Validators.required],
-      objectives: ['', Validators.required],
-      requirements: this.builder.array([['', Validators.required]]),
+      objective: ['', Validators.required],
+      antecedents: ['', Validators.required],
       disciplines: this.builder.array([['', Validators.required]])
     });
+    this.ageRange = Array(15).fill(0).map((_,i) =>(i+6));
 
     this.controller.getDisciplineMetadata()
       .then( meta => {

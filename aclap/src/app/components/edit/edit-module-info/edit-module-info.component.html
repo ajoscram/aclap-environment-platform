@@ -1,53 +1,61 @@
-<div class="card">
-    <div class="card-header">
-        Información general del módulo
+<!-- REFACTORING -->
+<div class="container-fluid">
+    <div class="row">
+        <h3>Información general del Módulo</h3>
     </div>
-    <div class="card-body">
-        <form [formGroup]="moduleForm"> 
-            <div class="col-12">
-                <label>
-                    Nómbre del módulo:
-                    <input type="text" formControlName="name">
-                </label>
-                <label >
-                    Edad recomendada:
-                    <input type="number" formControlName="name">
-                </label>
+    <form [formGroup]="moduleForm">
+        <div class="row mt-3">
+            <div class="form-group col-6">
+                <label class="label" for="name">Nombre del módulo</label>
+                <input type="text" class="form-control" formControlName="name" [(ngModel)]="module.name">
             </div>
+            <div class="col-6">
+                <label class="label" for="recommendedAge">Edad recomendada</label>
+                <select class="form-control" formControlName="recommendedAge" [(ngModel)]="module.recommendedAge">
+                    <option *ngFor="let age of ageRange">
+                        {{age}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Imagen del módulo</label>
+                <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.imageUrl" >
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Imagen del Banner</label>
+                <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.bannerImageUrl">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="form-group col-12">
+                <label for="antecedents">Antecedentes</label>
+                <textarea class="form-control" formControlName="antecedents" [(ngModel)]="module.antecedents" rows="5"></textarea>
+            </div>
+            <div class="form-group col-12">
+            <label for="objective">Objetivo</label>
+            <textarea class="form-control"  formControlName="objective" [(ngModel)]="module.objective" rows="5"></textarea>
+        </div>
+        </div>
+        <div class="row mt-4">
+            <h4>Materias</h4>
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        Asignaturas implicadas
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="drop_subject" ngbDropdownToggle>Seleccionar Asignatura</button>
+                    <div ngbDropdownMenu aria-labelledby="drop_subject">
+                        <div *ngFor="let subject of disciplines.subjects">
+                            <button ngbDropdownItem [value]="subject.name"> {{subject.name}} </button>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="col-6">
-                            Materia
-                            <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary" id="drop_subject" ngbDropdownToggle>Seleccionar Asignatura</button>
-                                <div ngbDropdownMenu aria-labelledby="drop_subject">
-                                    <div *ngFor="let subject of disciplines.subjects">
-                                        <button ngbDropdownItem [value]="subject.name"> {{subject.name}} </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            Año
-                            <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary" id="drop_year" ngbDropdownToggle>Seleccionar Asignatura</button>
-                                <div ngbDropdownMenu aria-labelledby="drop_year">
-                                    <div *ngFor="let year of disciplines.years">
-                                        <button ngbDropdownItem [value]="year"> {{year}} </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            
+                </div>
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="drop_year" ngbDropdownToggle>Seleccionar Asignatura</button>
+                    <div ngbDropdownMenu aria-labelledby="drop_year">
+                        <div *ngFor="let year of disciplines.years">
+                            <button ngbDropdownItem [value]="year"> {{year}} </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>     
+    </form>
 </div>

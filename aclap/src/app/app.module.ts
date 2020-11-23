@@ -40,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+import { CreateModuleComponent} from '@src/app/components/create-module/create-module.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { AboutUsComponent } from '@src/app/components/about-us/about-us.componen
     EditDisplayerComponent,
     LoginComponent,
     RegisterComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CreateModuleComponent
   ],
   imports: [
     BrowserModule,
