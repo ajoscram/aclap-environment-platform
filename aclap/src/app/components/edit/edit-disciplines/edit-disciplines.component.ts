@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Module } from '../../../models';
+import { Discipline, Module } from '../../../models';
 
 @Component({
   selector: 'app-edit-disciplines',
@@ -9,24 +9,17 @@ import { Module } from '../../../models';
 })
 export class EditDisciplinesComponent implements OnInit {
 
-  @Input() module: Module;
+  @Input() discipline: Discipline;
   form: FormGroup;
+  isEditing = false;
 
   constructor( private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      disciplines: this.builder.array([ this.createSubject()])
-    })
-  }
-
-  createSubject(): FormGroup{
-    return this.builder.group({
-      subject: [''],
-      year: [''],
-      theme: ['']
+      subject: ['', Validators.required],
+      year: ['', Validators.required],
+      theme: ['',Validators.required]
     });
-
   }
-
 }

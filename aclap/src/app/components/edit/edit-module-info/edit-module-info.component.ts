@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
-import { DisciplineMetadata, Module } from '../../../models';
+import { Discipline, DisciplineMetadata, Module, Subject } from '../../../models';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,8 @@ export class EditModuleInfoComponent implements OnInit {
   
   disciplines: DisciplineMetadata;
   moduleForm: FormGroup;
+  disciplineForm: FormGroup;
+  discipline: Discipline;
   ageRange: any[];
 
   constructor(private controller: Controller, private builder: FormBuilder) { }
@@ -29,13 +31,29 @@ export class EditModuleInfoComponent implements OnInit {
       antecedents: ['', Validators.required],
       disciplines: this.builder.array([['', Validators.required]])
     });
+    this.disciplineForm = this.builder.group({
+      subject: ['',Validators.required],
+      year: ['',Validators.required],
+      theme: ['',Validators.required]
+    });
     this.ageRange = Array(15).fill(0).map((_,i) =>(i+6));
+    this.refreshDiscipline();
 
     this.controller.getDisciplineMetadata()
       .then( meta => {
         this.disciplines = meta;
+        console.log(meta);
       })
       .catch( error => { console.error(error) });
+  }
+
+  addDiscipline(){
+    this.module.disciplines.push(this.discipline);
+    this.refreshDiscipline();
+  }
+
+  refreshDiscipline(): void{
+    this.discipline = new Discipline(new Subject('',''),'','');
   }
 
 }

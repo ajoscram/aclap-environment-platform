@@ -17,11 +17,11 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group col-6">
                 <label for="imageUrl">Imagen del módulo</label>
                 <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.imageUrl" >
             </div>
-            <div class="form-group">
+            <div class="form-group col-6">
                 <label for="imageUrl">Imagen del Banner</label>
                 <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.bannerImageUrl">
             </div>
@@ -32,30 +32,90 @@
                 <textarea class="form-control" formControlName="antecedents" [(ngModel)]="module.antecedents" rows="5"></textarea>
             </div>
             <div class="form-group col-12">
-            <label for="objective">Objetivo</label>
-            <textarea class="form-control"  formControlName="objective" [(ngModel)]="module.objective" rows="5"></textarea>
-        </div>
-        </div>
-        <div class="row mt-4">
-            <h4>Materias</h4>
-            <div class="col-12">
-                <div ngbDropdown class="d-inline-block">
-                    <button class="btn btn-outline-primary" id="drop_subject" ngbDropdownToggle>Seleccionar Asignatura</button>
-                    <div ngbDropdownMenu aria-labelledby="drop_subject">
-                        <div *ngFor="let subject of disciplines.subjects">
-                            <button ngbDropdownItem [value]="subject.name"> {{subject.name}} </button>
-                        </div>
-                    </div>
-                </div>
-                <div ngbDropdown class="d-inline-block">
-                    <button class="btn btn-outline-primary" id="drop_year" ngbDropdownToggle>Seleccionar Asignatura</button>
-                    <div ngbDropdownMenu aria-labelledby="drop_year">
-                        <div *ngFor="let year of disciplines.years">
-                            <button ngbDropdownItem [value]="year"> {{year}} </button>
-                        </div>
-                    </div>
-                </div>
+                <label for="objective">Objetivo</label>
+                <textarea class="form-control"  formControlName="objective" [(ngModel)]="module.objective" rows="5"></textarea>
             </div>
-        </div>     
+        </div>
     </form>
+    <div class="card">
+        <div class="card-header">
+            <h4>Materias</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="disciplineForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="label"> Materia </label>
+                            <select class="form-control" formControlName="subject" [(ngModel)]="discipline.subject">
+                                <option *ngFor="let sub of disciplines.subjects" [ngValue]="sub"> {{sub.name}} </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="label"> Año </label>
+                            <select class="form-control" formControlName="year" [(ngModel)]="discipline.year">
+                                <option *ngFor="let year of disciplines.years"> {{year}} </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label class="label"> Eje temático </label>
+                        <textarea class="form-control" formControlName="theme" [(ngModel)]="discipline.theme" rows="3"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <span class="btn btn-success" (click)="addDiscipline()"> Añadir Materia</span>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Asignatura</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Eje temático</th>
+                        <th scope="col"></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of module.disciplines; index as i">
+                            <th scope="row">{{i}}</th>
+                            <td>{{d.subject.name}}</td>
+                            <td>{{d.year}}</td>
+                            <td>{{d.theme}}</td>
+                            <td> 
+                                <span class="btn btn-danger" (click)="module.disciplines.splice(i,1)"> Eliminar </span> 
+                            </td>
+                            <!-- <app-edit-disciplines [discipline]="d" ></app-edit-disciplines> -->
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="row" style="margin-top: 200px;">
+        <h2>Zona Peligrosa</h2>
+    </div>
+    <div class="row border rounded border-danger">
+        <div class="col-9 my-3">
+            <div class="row" style="margin-left: 12px;">
+                <h5 class="text-bold">Eliminar módulo</h5>
+            </div>
+            <div class="row" style="margin-left: 12px;">
+                <span class="text">
+                    Posteriormente a esta accion, este módulo será inaccesible
+                </span> 
+            </div>
+        </div>
+        <div class="col-auto my-4">
+            <span class="btn delete border" style="color: brown;">Eliminar módulo</span>
+        </div>
+    </div>
+    
+
+    
 </div>
