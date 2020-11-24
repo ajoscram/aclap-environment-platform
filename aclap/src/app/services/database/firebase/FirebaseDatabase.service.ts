@@ -31,22 +31,6 @@ export class FirebaseDatabase implements Database{
         private validator: Validator,
         private firestore: AngularFirestore
     ){}
-    addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
-    getEducatorRequests: () => Promise<EducatorRequest[]>;
-    updateEducatorRequestState: (id: string, state: EducatorRequestState) => Promise<EducatorRequest>;
-    getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
-    getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
-    addImplementation: (implementation: IImplementation) => Promise<Implementation>;
-    updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
-    deleteImplementation: (id: string) => Promise<Implementation>;
-    completeImplementation: (id: string) => Promise<Implementation>;
-    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
-    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
-    getEvidence: (implementationId: string) => Promise<File[]>;
-    addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
-    deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
 
     async getDisciplineMetadata(): Promise<DisciplineMetadata>{
         const document: DocumentData = await this.firestore
@@ -90,6 +74,10 @@ export class FirebaseDatabase implements Database{
         else
             return this.factory.getUser(id, user as IUser);
     }
+
+    addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
+    getEducatorRequests: () => Promise<EducatorRequest[]>;
+    updateEducatorRequestState: (id: string, state: EducatorRequestState) => Promise<EducatorRequest>;
 
     async getModules(): Promise<Module[]>{
         const modules: Module[] = [];
@@ -178,7 +166,7 @@ export class FirebaseDatabase implements Database{
         const documents: QuerySnapshot<DocumentData> = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS)
+            .collection(FirebaseDatabase.SECTIONS, ref => ref.orderBy('index'))
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
@@ -297,4 +285,18 @@ export class FirebaseDatabase implements Database{
             .delete();
         return file;
     }
+
+    getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
+    getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
+    addImplementation: (implementation: IImplementation) => Promise<Implementation>;
+    updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
+    deleteImplementation: (id: string) => Promise<Implementation>;
+    completeImplementation: (id: string) => Promise<Implementation>;
+    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
+    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
+    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
+    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
+    getEvidence: (implementationId: string) => Promise<File[]>;
+    addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
+    deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
 };

@@ -1,10 +1,11 @@
 import { Section, DisciplineMetadata, File, ISection, Module, User, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, IImplementation, Implementation, IEvaluation, Evaluation } from "../../models";
-import { Role } from "../authentication/Session.model";
+import { Session, Role } from "../authentication/Session.model";
 
 export abstract class Controller{
     //users
     login: (email: string, password: string, role: Role) => Promise<void>;
     logout: () => Promise<void>;
+    getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
     
     //educator requests
@@ -25,6 +26,7 @@ export abstract class Controller{
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
     getSections: (implementableId: string) => Promise<Section[]>;
     addSection: (implemntableId: string, section: ISection) => Promise<Section>;
+    addSections: (implementableId: string, sections: ISection[]) => Promise<Section[]>;
     updateSection: (implementableId: string, sectionId: string, section: ISection) => Promise<Section>;
     deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
 

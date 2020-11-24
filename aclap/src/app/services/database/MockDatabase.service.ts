@@ -214,7 +214,10 @@ export class MockDatabase implements Database{
 
     async getSections(implementableId: string): Promise<Section[]>{
         this.getImplementable(implementableId);//checking for implementable existance
-        return this.sections;
+        const sections: Section[] = this.sections.sort((section1, section2) => 
+            (section1.index > section2.index) ? 1 : -1
+        );
+        return sections;
     }
     
     async addSection(implementableId: string, section: ISection): Promise<Section>{
