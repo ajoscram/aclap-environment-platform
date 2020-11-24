@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ActivitySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../models';
 import { BaseForm } from '../BaseForm';
 
@@ -16,6 +17,22 @@ export class EditDisplayerComponent extends BaseForm implements OnInit {
   constructor(controller: Controller) { super() }
 
   ngOnInit(): void {
+  }
+
+  getTitle(section: Section): string{
+    if(this.isActivity(section)){
+      return "Actividad";
+    }else if(this.isImage(section)){
+      return "Imagen";
+    }else if(this.isParagraph(section)){
+      return "Párrafo";
+    }else if(this.isTitle(section)){
+      return "Título / Subtítulo";
+    }else if(this.isYoutube(section)){
+      return "Youtube";
+    }else{
+      return '';
+    }
   }
 
   deleteSection(index: number){
@@ -41,5 +58,11 @@ export class EditDisplayerComponent extends BaseForm implements OnInit {
   isYoutube(component: Section): boolean {
     return component instanceof YoutubeVideoSection;
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+    this.sections.map((element, i) => { element.index = i });
+  }
+
 
 }

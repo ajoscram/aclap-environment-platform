@@ -1,6 +1,8 @@
 <form [formGroup]=form >
-    <div class="form-group">
-        <label for="url">Enlace del video de youtube</label>
-        <input formControlName=url [(ngModel)]="video.url"/>
+    <div class="form-group row">
+        <label for="url" class="col-xl-4 col-form-label">Enlace del video de youtube</label>
+        <div class="col-xl-8">
+            <input formControlName=url class="form-control" [(ngModel)]="video.url"/>
+        </div>
     </div>
 </form>

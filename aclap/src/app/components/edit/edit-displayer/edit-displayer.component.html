@@ -1,59 +1,24 @@
-<div *ngFor="let section of sections; let i=index">
-    <div class="col-12" *ngIf="isActivity(section)">
-        <div class="card shadow-lg">
-            <div class="card-header">
-                <button type="button" class="close" (click)="deleteSection(i)">&times;</button>
-                <h3 class="modal-title">Actividad</h3>
-            </div>
-            <div class="card-body">
-                <app-edit-activity [activity]=section ></app-edit-activity>  
-            </div>
+<div class="holder" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let section of sections; let i=index" class="card shadow mt-4"  cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <div class="card-header" cdkDragHandle>
+            <button type="button" class="close" (click)="deleteSection(i)" >&times;</button>
+            <span class="modal-title">{{getTitle(section)}}</span>
         </div>
-    </div>
-    <div class="col-12" *ngIf="isImage(section)">
-        <div class="card shadow-lg">
-            <div class="card-header">
-                <button type="button" class="close" (click)="deleteSection(i)">&times;</button>
-                <h3 class="modal-title">Imagen</h3>
-                
+        <div class="card-body">
+            <div *ngIf="isActivity(section)">
+                <app-edit-activity [activity]=section ></app-edit-activity> 
             </div>
-            <div class="card-body">
-               <app-edit-image [image]=section></app-edit-image> 
+            <div *ngIf="isImage(section)">
+                <app-edit-image [image]=section></app-edit-image>
             </div>
-        </div>
-    </div>
-    <div class="col-12" *ngIf="isParagraph(section)">
-        <div class="card shadow-lg">
-            <div class="card-header">
-                <button type="button" class="close" (click)="deleteSection(i)" >&times;</button>
-                <h3 class="modal-title">Párrafo</h3>
-                
-            </div>
-            <div class="card-body">
+            <div *ngIf="isParagraph(section)">
                 <app-edit-paragraph [paragraph]=section></app-edit-paragraph>
             </div>
-        </div>
-    </div>
-    <div class="col-12" *ngIf="isTitle(section)">
-        <div class="card shadow-lg">
-            <div class="card-header">
-                <button type="button" class="close" (click)="deleteSection(i)" >&times;</button>
-                <h3 class="modal-title">Título / Subtítulo</h3>
-                
-            </div>
-            <div class="card-body">
+            <div *ngIf="isTitle(section)">
                 <app-edit-title [title]=section></app-edit-title>
             </div>
-        </div>
-    </div>
-    <div class="col-12" *ngIf="isYoutube(section)">
-        <div class="card shadow">
-            <div class="card-header">
-                <button type="button" class="close" (click)="deleteSection(i)" >&times;</button>
-                <h3 class="modal-title">Link de Youtube</h3>
-                
-            </div>
-            <div class="card-body">
+            <div *ngIf="isYoutube(section)">
                 <app-edit-youtube [video]=section></app-edit-youtube>
             </div>
         </div>

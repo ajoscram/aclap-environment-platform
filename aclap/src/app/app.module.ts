@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -41,6 +42,8 @@ import { LoginComponent } from '@src/app/components/login/login.component';
 import { RegisterComponent } from '@src/app/components/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 import { CreateModuleComponent} from '@src/app/components/create-module/create-module.component';
+import { EditDisciplinesComponent } from '@src/app/components/edit/edit-disciplines/edit-disciplines.component';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +73,8 @@ import { CreateModuleComponent} from '@src/app/components/create-module/create-m
     LoginComponent,
     RegisterComponent,
     AboutUsComponent,
-    CreateModuleComponent
+    CreateModuleComponent,
+    EditDisciplinesComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +83,7 @@ import { CreateModuleComponent} from '@src/app/components/create-module/create-m
     NgbModule,
     ControlModule,
     FormsModule,
+    DragDropModule,
     ReactiveFormsModule
   ],
   providers: [

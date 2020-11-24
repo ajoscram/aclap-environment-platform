@@ -15,6 +15,7 @@ export class EditActivityComponent extends ChildrenForm{
 
   @Input() activity: ActivitySection;
   form: FormGroup;
+  availableMinutes: any[];
 
   constructor(private controller: Controller, private builder: FormBuilder, @Host() _motherForm: EditDisplayerComponent) {
     super(_motherForm);
@@ -27,6 +28,8 @@ export class EditActivityComponent extends ChildrenForm{
       tools: new FormControl('', Validators.requiredTrue),
       questions: new FormControl('', Validators.requiredTrue)
     });
+
+    this.availableMinutes = Array(12).fill(0).map((_, i)=> (i*10 + 10));
   }
 
   initializeForm(): FormGroup{

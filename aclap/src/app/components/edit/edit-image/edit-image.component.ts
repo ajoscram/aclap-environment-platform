@@ -12,6 +12,8 @@ export class EditImageComponent  implements OnInit {
 
   form: FormGroup;
   @Input() image: ImageSection;
+  isOnline = true;
+
 
   constructor(private controller: Controller, private builder: FormBuilder) { 
 
@@ -21,7 +23,8 @@ export class EditImageComponent  implements OnInit {
     this.form = this.builder.group({
       footing: ['', Validators.required],
       url: ['', Validators.required],
-      reference: ['',Validators.required]
+      reference: ['',Validators.required],
+      online: ['',Validators.required]
     });
   }
 

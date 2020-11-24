@@ -1,6 +1,8 @@
 <form [formGroup]=form > 
-    <div class="form-group">
-        <label for="text">Texto</label>
-        <input formControlName=text [(ngModel)]="paragraph.text"/>
+    <div class="form-group row">
+        <label for="text" class="col-xl-2 col-form-label">Texto</label>
+        <div class="col-xl-10">
+            <textarea formControlName=text class="form-control" [(ngModel)]="paragraph.text" rows="5"></textarea>
+        </div>
     </div>
 </form>
