@@ -20,6 +20,18 @@ $l-grey: #d3d8d8;
     min-height: 100px;
 }
 
+.header-image{
+    background-size: cover;
+}
+
+.button{
+    background-color: $nav-color;
+
+    h2{
+        color: $l-grey;
+    }
+}
+
 .jumbotron{
     background-color: $jumbo-color;
     color: whitesmoke;

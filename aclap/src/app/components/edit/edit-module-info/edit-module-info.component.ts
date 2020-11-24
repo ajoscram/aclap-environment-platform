@@ -56,4 +56,8 @@ export class EditModuleInfoComponent implements OnInit {
     this.discipline = new Discipline(new Subject('',''),'','');
   }
 
+  deleteModule():void {
+    //Delete this
+  }
+
 }

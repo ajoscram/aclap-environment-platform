@@ -47,3 +47,4 @@
 | 22/11/2020 | Crear UI de la edición de información general un Módulo |
 | 23/11/2020 | integrar Bootstrap a secciones de un Módulo |
 | 23/11/2020 | lista re-ordenable de secciones de un Módulo |
+| 24/11/2020 | Crear UI de pantalla de inicio |
