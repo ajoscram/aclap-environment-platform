@@ -32,6 +32,10 @@ export class DefaultController implements Controller{
         return await this.database.getUser(session.user_id);
     }
 
+    async getSession(): Promise<Session>{
+        return await this.authenticator.getSession();
+    };
+
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         return await this.database.addEducatorRequest(request);
     }
@@ -90,6 +94,15 @@ export class DefaultController implements Controller{
     async addSection(moduleId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         return await this.database.addSection(moduleId, section);
+    }
+
+    async addSections(implementableId: string, sections: ISection[]): Promise<Section[]>{
+        const sections_: Section[] = [];
+        for(let section of sections){
+            const section_: Section = await this.addSection(implementableId, section);
+            sections_.push(section_);
+        }
+        return sections_.sort((section1, section2) => (section1 > section2) ? 1 : -1);
     }
 
     async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{

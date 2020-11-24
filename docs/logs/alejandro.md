@@ -1,9 +1,12 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
+* Agregar getRole y addSections a Controller
+* Ordenar las sections cuando se devuelven
+* Agregar servicio que haga type checking de sections. Agregar también revisión de Administrador y Educador
+
 ### Pendiente
-* Arreglar diagrama de Modelo
-* Arreglar Diagrama de Control
-* Cambiar Especificación SAD
+* Arreglar diagramas de Modelo y Control para la segunda iteración
+* Crear diagramas de sequencia para la segunda iteración
 * Implementar Cloud Functions para agregar Educators una vez que se aprueba su request
 * Agregar custom claims para Educators mediante Cloud Functions
 * Implementar `FirebaseDatabase` para NativeScript
@@ -17,6 +20,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 24/11/2020 | Se agregaron varias funciones y utilidades necesarias para el frontend |
 | 18/11/2020 | Crear pruebas unitarias de `DefaultController` y `Factory` para manejo de `Implementation` y `EducatorRequest` | 
 | 17/11/2020 | Agregar métodos de `Controller`, `MockDatabase` y `Factory` para manejo de `Implementation` y `EducatorRequest` |
 | 12/11/2020 | Refactor de `Controller` y `Database` para manejar la superclase `Implementable` en lugar de `Module` |
