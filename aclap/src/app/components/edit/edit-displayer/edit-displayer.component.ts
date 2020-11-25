@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Controller } from '../../../services/control/Controller.service';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ActivitySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../models';
 import { BaseForm } from '../BaseForm';
 
@@ -10,14 +12,31 @@ import { BaseForm } from '../BaseForm';
 export class EditDisplayerComponent extends BaseForm implements OnInit {
 
   @Input() sections: Section[];
+  sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   
-  constructor() { super() }
+  constructor(controller: Controller) { super() }
 
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    alert(this.children.length);
+  getTitle(section: Section): string{
+    if(this.isActivity(section)){
+      return "Actividad";
+    }else if(this.isImage(section)){
+      return "Imagen";
+    }else if(this.isParagraph(section)){
+      return "Párrafo";
+    }else if(this.isTitle(section)){
+      return "Título / Subtítulo";
+    }else if(this.isYoutube(section)){
+      return "Youtube";
+    }else{
+      return '';
+    }
+  }
+
+  deleteSection(index: number){
+    this.sections.splice(index,1);
   }
 
   isActivity(component: Section): boolean {
@@ -39,5 +58,11 @@ export class EditDisplayerComponent extends BaseForm implements OnInit {
   isYoutube(component: Section): boolean {
     return component instanceof YoutubeVideoSection;
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+    this.sections.map((element, i) => { element.index = i });
+  }
+
 
 }

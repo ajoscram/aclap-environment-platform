@@ -1,11 +1,8 @@
-<div class="card mb-2">
-    <div class="card-header"><h3> Enlace a Youtube  </h3></div>
-    <div class="card-body">
-        <form [formGroup]=form >
-            <div class="form-group">
-                <label for="url">Enlace del video de youtube</label>
-                <input formControlName=url/>
-            </div>
-        </form>
+<form [formGroup]=form >
+    <div class="form-group row">
+        <label for="url" class="col-xl-4 col-form-label">Enlace del video de youtube</label>
+        <div class="col-xl-8">
+            <input formControlName=url class="form-control" [(ngModel)]="video.url"/>
+        </div>
     </div>
-</div>
+</form>

@@ -3,7 +3,7 @@ import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
 import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
-import { DisciplineMetadata, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event } from '../../../models';
+import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
@@ -78,7 +78,7 @@ describe('FirebaseDatabase', () => {
             date: new Date()
         };
         stubSection = {
-            index: 1,
+            index: 0,
             text: "STUB_SECTION.text" //a paragraph section is used here as an example
         } as ISection;
         stubFile = {
@@ -172,13 +172,21 @@ describe('FirebaseDatabase', () => {
         expect(section).toBeTruthy();
     });
 
-    it('getSections(): gets an implementable\'s sections', async () => {
+    it('getSections(): gets an implementable\'s sections ordered by index', async () => {
         const implementable: Implementable = await database.addImplementable(stubEvent);
+        stubSection.index = 1;
         await database.addSection(implementable.id, stubSection);
+        stubSection.index = 2;
         await database.addSection(implementable.id, stubSection);
         const sections: Section[] = await database.getSections(implementable.id);
         expect(sections).toBeTruthy();
         expect(sections.length).toBe(2);
+        
+        let lastIndex: number = 0;
+        for(let section of sections){
+            expect(section.index).toBeGreaterThanOrEqual(lastIndex);
+            lastIndex = section.index;
+        }
     });
 
     it('updateSection(): updates a section and returns the result', async () =>{

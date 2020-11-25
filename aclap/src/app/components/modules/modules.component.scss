@@ -1,1 +1,11 @@
 @use '../app.component.scss';
+
+.clickable{
+    background-color: app.$nav-color;
+    transition: 300ms;
+    color: whitesmoke;
+}
+
+.clickable:hover{
+    background-color: app.$button-color;
+}

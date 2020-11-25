@@ -1,15 +1,15 @@
-<div class="card mb-2">
-    <div class="card-header"><h3> Título/Subtítulo   </h3></div>
-    <div class="card-body">
-        <form [formGroup]=form>
-            <div class="form-group">
-                <label for="text">Texto</label>
-                <input formControlName=text/>
-            </div>
-            <div class="form-group">
-                <label for="size">Tipo de título</label>
-                <input formControlName=size/>
-            </div>
-        </form>
+<form [formGroup]=form>
+    <div class="form-group row">
+        <label for="text" class="col-xl-2 col-form-label">Texto</label>
+        <div class="col-xl-6">
+            <input formControlName=text class="form-control" [(ngModel)]="title.text"/>
+        </div>
+        <label for="size" class="col-xl-2 col-form-label">Tipo de título</label>
+        <div class="col-xl-2">
+            <select class="form-control" formControlName="size" [(ngModel)]="title.size">
+                <option [ngValue]="titleSize[0]">H1</option>
+                <option [ngValue]="titleSize[1]">H2</option>
+            </select>
+        </div>
     </div>
-</div>
+</form>

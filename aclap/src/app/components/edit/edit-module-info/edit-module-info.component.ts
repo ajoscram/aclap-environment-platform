@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
-import { DisciplineMetadata, Module } from '../../../models';
+import { Discipline, DisciplineMetadata, Module, Subject } from '../../../models';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -14,32 +14,46 @@ export class EditModuleInfoComponent implements OnInit {
   
   disciplines: DisciplineMetadata;
   moduleForm: FormGroup;
+  disciplineForm: FormGroup;
+  discipline: Discipline;
+  ageRange: any[];
 
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.moduleForm = this.builder.group({
       name: ['', Validators.required],
+      color: ['', Validators.required],
       imageUrl: ['', Validators.required],
+      bannerImageUrl: ['', Validators.required],
       recommendedAge: ['', Validators.required],
-      objectives: ['', Validators.required],
-      requirements: this.builder.array([['', Validators.required]]),
+      objective: ['', Validators.required],
+      antecedents: ['', Validators.required],
       disciplines: this.builder.array([['', Validators.required]])
     });
+    this.disciplineForm = this.builder.group({
+      subject: ['',Validators.required],
+      year: ['',Validators.required],
+      theme: ['',Validators.required]
+    });
+    this.ageRange = Array(15).fill(0).map((_,i) =>(i+6));
+    this.refreshDiscipline();
 
     this.controller.getDisciplineMetadata()
       .then( meta => {
         this.disciplines = meta;
-        this.disciplines.subjects.map( sub =>console.log(JSON.stringify(sub)) );
-        this.disciplines.years.map( year => console.log(year));
+        console.log(meta);
       })
       .catch( error => { console.error(error) });
-    
-      this.moduleForm.setValue({
-        name: this.module.name,
-        imageUrl: this.module.imageUrl,
-        recommendedAge: this.module.recommendedAge.toString()
-      });
+  }
+
+  addDiscipline(){
+    this.module.disciplines.push(this.discipline);
+    this.refreshDiscipline();
+  }
+
+  refreshDiscipline(): void{
+    this.discipline = new Discipline(new Subject('',''),'','');
   }
 
 }

@@ -2,21 +2,23 @@
     <div class="container">
         <div class="row">
             <div class="col-11">
-                <h1 style="font-size:50px;">Editar: {{module.name}} </h1>
+                <h1 style="font-size:50px;">Crear: {{module.name}} </h1>
             </div>
+            <!--
             <div class="col-1">
                 <a class="wt" [routerLink]="['../']">VOLVER</a>
             </div>
+            -->
         </div>
     </div>
 </div>
 <div class="container-fluid cont-fluid pt-5">
     <div class="row">
-        <div class="col-12 col-lg-7">
+        <div class="col-12 col-md-7">
             <!-- LEFT ROW  -->
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-xl-10">
+                <div class="row">
+                    <div class="col-12 col-md-12">
                         <app-edit-displayer [sections]=sections></app-edit-displayer>
                     </div>
                 </div>
@@ -38,9 +40,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-5 order-first order-md-last">
+        <div class="col-12 col-md-5 order-first order-md-last">
             <!-- RIGHT ROW  -->
-            <div class="container pt-0 pt-md-5">
+            <div class="container-fluid pt-0 pt-md-5">
                 <div class="row">
                     <div class="col-6">
                         <button class="btn btn-success btn-lg col-12" (click)="checkStatus()">Confirmar Cambios</button>

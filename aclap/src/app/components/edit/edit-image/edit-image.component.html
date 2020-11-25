@@ -1,19 +1,32 @@
-<div class="card mb-2">
-    <div class="card-header"><h3> Imagen</h3></div>
-    <div class="card-body">
-        <form [formGroup]=form >
-            <div class="form-group">
-                <label for="url">URL de la imagen</label>
-                <input formControlName=url/>
-            </div>
-            <div class="form-group">
-                <label for="footing">Descripción de la Imagen</label>
-                <input formControlName=footing/>
-            </div>
-            <div class="form-group">
-                <label for="reference">Fuente de la imagen:</label>
-                <input formControlName=reference/>
-            </div>
-        </form>
+<form [formGroup]=form >
+    <div class="form-group row">
+        <label for="online" class="col-xl-3 col-form-label">Link de imagen de Internet</label>
+        <div class="col-xl-8">
+            <input type="checkbox" [(ngModel)]="isOnline" [ngModelOptions]="{standalone: true}"/>
+        </div>
     </div>
-</div>
+    <div *ngIf="isOnline == true" class="form-group row">
+        <label for="url" class="col-xl-2 col-form-label">URL de la imagen</label>
+        <div class="col-xl-10">
+            <input formControlName="url" class="form-control" [(ngModel)]="image.url"/>
+        </div>
+    </div>
+    <div *ngIf="isOnline == false" class="form-group row">
+        <label for="url" class="col-xl-2 col-form-label">Subir Image</label>
+        <div class="col-xl-10">
+            <input type="file" formControlName="url" class="form-control" [(ngModel)]="image.url"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="footing" class="col-xl-2 col-form-label">Descripción de la Imagen</label>
+        <div class="col-xl-10">
+            <input formControlName=footing class="form-control"  [(ngModel)]="image.footing"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reference" class="col-xl-2 col-form-label">Fuente de la imagen:</label>
+        <div class="col-xl-10">
+            <input formControlName=reference class="form-control" [(ngModel)]="image.reference"/>
+        </div>
+    </div>
+</form>

@@ -1,25 +1,30 @@
-<div class="card">
-    <div class="card-header">
-        <h3>Actividad</h3>
+<form [formGroup]=form >
+    <div class="form-group row">
+        <label for="description" class="col-xl-2 col-form-label">Descripción</label>
+        <div class="col-xl-10">
+            <input formControlName=description class="form-control" [(ngModel)]="activity.description" />
+        </div>
     </div>
-    <div class="card-body">
-        <form [formGroup]=form >
-            <div class="form-group">
-                <label for="description">Contraseña</label>
-                <input formControlName=description/>
-            </div>
-            <div class="form-group">
-                <label for="estimatedMinutes">Minutos Estimados</label>
-                <input formControlName=estimatedMinutes/>
-            </div>
-            <div class="form-group">
-                <label for="tools">Útiles Necesarios</label>
-                <input formControlName=tools/>
-            </div>
-            <div class="form-group">
-                <label for="questions">Preguntas</label>
-                <input formControlName=questions/>
-            </div>
-        </form>
+    <div class="form-group row">
+        <label for="estimatedMinutes" class="col-xl-2 col-form-label">Minutos Estimados</label>
+        <div class="col-xl-2">
+            <select class="form-control" formControlName="estimatedMinutes" [(ngModel)]="activity.estimatedMinutes">
+                <option *ngFor="let minute of availableMinutes">
+                    {{minute}}
+                </option>
+            </select>
+        </div>
     </div>
-</div>
+    <div class="form-group row">
+        <label for="tools" class="col-xl-2 col-form-label">Útiles Necesarios</label>
+        <div class="col-xl-10">
+            <input formControlName=tools class="form-control" [(ngModel)]="activity.tools"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="questions" class="col-xl-2 col-form-label">Preguntas</label>
+        <div class="col-xl-10">
+            <input formControlName=questions class="form-control"/>
+        </div>
+    </div>
+</form>

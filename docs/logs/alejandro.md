@@ -1,22 +1,28 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
+* Agregar getRole y addSections a Controller
+* Ordenar las sections cuando se devuelven
+* Agregar servicio que haga type checking de sections. Agregar también revisión de Administrador y Educador
+
 ### Pendiente
+* Arreglar diagramas de Modelo y Control para la segunda iteración
+* Crear diagramas de sequencia para la segunda iteración
+* Implementar Cloud Functions para agregar Educators una vez que se aprueba su request
+* Agregar custom claims para Educators mediante Cloud Functions
 * Implementar `FirebaseDatabase` para NativeScript
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
 * Probar `FirebaseAuthenticator` com el emulador
 * Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
-* Agregar custom claims para Educators mediante Cloud Functions
-* Arreglar diagrama de Modelo
-* Arreglar Diagrama de Control
-* Cambiar Especificación SAD
 * Hacer pruebas unitarias de `Validator`
-* Quitar el `$` de las variables de las interfaces del modelo
 
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 24/11/2020 | Se agregaron varias funciones y utilidades necesarias para el frontend |
+| 18/11/2020 | Crear pruebas unitarias de `DefaultController` y `Factory` para manejo de `Implementation` y `EducatorRequest` | 
+| 17/11/2020 | Agregar métodos de `Controller`, `MockDatabase` y `Factory` para manejo de `Implementation` y `EducatorRequest` |
 | 12/11/2020 | Refactor de `Controller` y `Database` para manejar la superclase `Implementable` en lugar de `Module` |
 | 01/11/2020 | Implementar `FirebaseStorage` para web |
 | 30/10/2020 | Implementar `FirebaseAuthentication` para web |
