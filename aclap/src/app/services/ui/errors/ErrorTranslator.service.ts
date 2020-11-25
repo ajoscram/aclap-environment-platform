@@ -4,7 +4,7 @@ import ControlModule from '../../../modules/control/control.module';
 @Injectable({
     providedIn: ControlModule
 })
-export class ErrorTransalator{
+export class ErrorTranslator{
     private messages: object;
     private default: string;
 
@@ -13,8 +13,8 @@ export class ErrorTransalator{
         this.default = this.messages["DEFAULT"];
     }
 
-    translate(error: string): string{
-        const translated: string = this.messages[error];
+    translate(error: Error): string{
+        const translated: string = this.messages[error.message];
         if(translated)
             return translated;
         else
