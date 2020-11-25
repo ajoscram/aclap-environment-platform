@@ -13,18 +13,20 @@ export class FirebaseDatabase implements Database{
     
     //collection names
     private static readonly CONSTANTS = 'constants';
+    private static readonly REQUESTS: string = 'requests';
     private static readonly USERS: string = 'users';
     private static readonly IMPLEMENTABLES: string = 'implementables';
     private static readonly SECTIONS: string = 'sections';
     private static readonly FILES: string = 'files';
+    private static readonly IMPLEMENTATIONS: string = 'implementations';
 
     //constant document ids
     private static readonly DISCIPLINE_METADATA = 'DISCIPLINE_METADATA';
 
     //implementable tags
-    private static readonly IMPLEMENTABLE_TAG_KEY = "tag";
-    private static readonly EVENT_TAG = "EVENT";
-    private static readonly MODULE_TAG = "MODULE";
+    private static readonly IMPLEMENTABLE_TAG_KEY = 'tag';
+    private static readonly EVENT_TAG = 'EVENT';
+    private static readonly MODULE_TAG = 'MODULE';
 
     constructor(
         private factory: Factory,
@@ -45,7 +47,7 @@ export class FirebaseDatabase implements Database{
     }
 
     async setDisciplineMetadata(metadata: IDisciplineMetadata): Promise<DisciplineMetadata>{
-        this.validator.validateDisciplineMetadata(metadata);
+        this.validator.validateIDisciplineMetadata(metadata);
         await this.firestore
             .collection(FirebaseDatabase.CONSTANTS)
             .doc(FirebaseDatabase.DISCIPLINE_METADATA)
@@ -75,16 +77,69 @@ export class FirebaseDatabase implements Database{
             return this.factory.getUser(id, user as IUser);
     }
 
-    addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
-    getEducatorRequests: () => Promise<EducatorRequest[]>;
-    updateEducatorRequestState: (id: string, state: EducatorRequestState) => Promise<EducatorRequest>;
+    async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
+        this.validator.validateIEducatorRequest(request);
+        
+        const id: string = this.firestore.createId();
+        const state: EducatorRequestState = EducatorRequestState.PENDING;
+        const issued: Date = new Date();
+
+        request['id'] = id;
+        request['state'] = state;
+        request['issued'] = issued;
+
+        await this.firestore
+            .collection(FirebaseDatabase.REQUESTS)
+            .doc(id)
+            .set(request);
+
+        return this.factory.getEducatorRequest(id, issued, state, request);
+    }
+    
+    async getEducatorRequests(): Promise<EducatorRequest[]>{
+        const requests: EducatorRequest[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.REQUESTS, ref => ref
+                .where('state', '==', EducatorRequestState.PENDING)
+            )
+            .get().toPromise();
+        documents.forEach(document =>{
+            const response: any = document.data();
+            const request: EducatorRequest = this.factory.getEducatorRequest(response.id, response.issued, response.state, response as IEducatorRequest);
+            requests.push(request);
+        });
+        return requests;
+    }
+
+    private async getEducatorRequest(id: string): Promise<EducatorRequest>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.REQUESTS)
+            .doc(id)
+            .get().toPromise();
+        const request: any = document.data();
+        if(!request)
+            throw new Error(DatabaseError.EDUCATOR_REQUEST_NOT_FOUND);
+        else
+            return this.factory.getEducatorRequest(request.id, request.issued, request.state, request as IEducatorRequest);
+    }
+
+    async updateEducatorRequestState(id: string, state: EducatorRequestState): Promise<EducatorRequest>{
+        const request: EducatorRequest = await this.getEducatorRequest(id);
+        const state_: object = { 'state': state };
+        await this.firestore
+            .collection(FirebaseDatabase.REQUESTS)
+            .doc(id)
+            .update(state_);
+        request.state = state; 
+        return request;
+    }
 
     async getModules(): Promise<Module[]>{
         const modules: Module[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref.where(
-                FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.MODULE_TAG
-            ))
+            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref
+                .where(FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.MODULE_TAG)
+            )
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
@@ -97,9 +152,9 @@ export class FirebaseDatabase implements Database{
     async getEvents(): Promise<Event[]>{
         const events: Event[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref.where(
-                FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.EVENT_TAG
-            ))
+            .collection(FirebaseDatabase.IMPLEMENTABLES, ref => ref
+                .where(FirebaseDatabase.IMPLEMENTABLE_TAG_KEY, '==', FirebaseDatabase.EVENT_TAG)
+            )
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
@@ -166,7 +221,9 @@ export class FirebaseDatabase implements Database{
         const documents: QuerySnapshot<DocumentData> = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS, ref => ref.orderBy('index'))
+            .collection(FirebaseDatabase.SECTIONS, ref => ref
+                .orderBy('index')
+            )
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
@@ -286,17 +343,127 @@ export class FirebaseDatabase implements Database{
         return file;
     }
 
-    getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
-    getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
-    addImplementation: (implementation: IImplementation) => Promise<Implementation>;
-    updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
-    deleteImplementation: (id: string) => Promise<Implementation>;
-    completeImplementation: (id: string) => Promise<Implementation>;
-    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
-    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
-    getEvidence: (implementationId: string) => Promise<File[]>;
-    addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
-    deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
+    async getImplementationsByUser(completed: boolean, userId: string): Promise<Implementation[]>{
+        const implementations: Implementation[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
+                .where('deleted', '==', true)
+                .where('completed', '==', completed)
+                .where('educatorId', '==', userId)
+            )
+            .get().toPromise();
+        documents.forEach(document => {
+            const response: any = document.data();
+            const implementation: Implementation = this.factory.getImplementation(response.id, response.deleted, response.completed, response as IImplementation);
+            implementations.push(implementation);
+        });
+        return implementations;
+    }
+
+    async getImplementationsByImplementable(completed: boolean, implementableId: string): Promise<Implementation[]>{
+        const implementations: Implementation[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
+                .where('completed', '==', completed)
+                .where('implementableId', '==', implementableId)
+            )
+            .get().toPromise();
+        documents.forEach(document => {
+            const response: any = document.data();
+            const implementation: Implementation = this.factory.getImplementation(response.id, response.deleted, response.completed, response as IImplementation);
+            implementations.push(implementation);
+        });
+        return implementations;
+    }
+    
+    async addImplementation(implementation: IImplementation): Promise<Implementation>{
+        this.validator.validateIImplementation(implementation);
+        const id: string = this.firestore.createId();
+        const completed: boolean = false;
+        const deleted: boolean = false;
+
+        implementation['id'] = id;
+        implementation['completed'] = completed;
+        implementation['deleted'] = deleted;
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(id)
+            .set(implementation);
+
+        return this.factory.getImplementation(id, deleted, completed, implementation);
+    }
+    
+    private async getImplementation(id: string): Promise<Implementation>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
+                .where('deleted', '==', false)
+            )
+            .doc(id)
+            .get().toPromise();
+        const implementation: any = document.data();
+        if(!implementation)
+            throw new Error(DatabaseError.IMPLEMENTATION_NOT_FOUND);
+        else
+            return this.factory.getImplementation(id, implementation.deleted, implementation.completed, implementation as IImplementation);
+    }
+
+    async updateImplementation(id: string, implementation: IImplementation): Promise<Implementation>{
+        this.validator.validateIImplementation(implementation);
+        const implementation_: Implementation = await this.getImplementation(id);
+        if(implementation_.completed === true)
+            throw new Error(DatabaseError.IMPLEMENTATION_IS_COMPLETE)
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(id)
+            .update(implementation);
+        return this.factory.getImplementation(id, implementation_.deleted, implementation_.completed, implementation);
+    }
+    
+    async deleteImplementation(id: string): Promise<Implementation>{
+        const implementation: Implementation = await this.getImplementation(id);
+        implementation.deleted = true;
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(id)
+            .update({'deleted': implementation.deleted});
+        return implementation;
+    }
+    
+    async completeImplementation(id: string): Promise<Implementation>{
+        const implementation: Implementation = await this.getImplementation(id);
+        implementation.completed = true;
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(id)
+            .update({'completed': implementation.completed});
+        return implementation;
+    }
+    
+    async getEvaluations(implementationId: string): Promise<Evaluation[]>{
+        throw new Error('not implemented yet');
+    }
+    
+    async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+        throw new Error('not implemented yet');
+    }
+    
+    async updateEvaluation(implementationId: string, evaluationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+        throw new Error('not implemented yet');
+    }
+    
+    async deleteEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
+        throw new Error('not implemented yet');
+    }
+    
+    async getEvidence(implementationId: string): Promise<File[]>{
+        throw new Error('not implemented yet');
+    }
+    
+    async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
+        throw new Error('not implemented yet');
+    }
+    
+    async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{
+        throw new Error('not implemented yet');
+    }
 };
