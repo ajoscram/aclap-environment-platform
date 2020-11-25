@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvaluation, IEvent, IFile, IImageSection, IImplementable, IImplementation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -36,7 +36,7 @@ export class Validator{
     
     validateIEducatorRequest(request: IEducatorRequest){
         this.validateNullOrUndefined(request);
-        
+        //CODE HERE!
     }
 
     private validateIAdministrator(administrator: IAdministrator){
@@ -161,6 +161,10 @@ export class Validator{
 
     validateIImplementation(implementation: IImplementation){
         this.validateNullOrUndefined(implementation);
+    }
+
+    validateIEvaluation(evaluation: IEvaluation){
+        this.validateNullOrUndefined(evaluation);
     }
 }
 

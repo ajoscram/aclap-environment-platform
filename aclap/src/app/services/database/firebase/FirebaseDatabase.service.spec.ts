@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
 import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event } from '../../../models';
 
-describe('FirebaseDatabase', () => {
+xdescribe('FirebaseDatabase', () => {
 
     const STUB_ID: string = 'id';
     const STUB_INCORECT_ID: string = 'incorrect';
@@ -116,6 +116,18 @@ describe('FirebaseDatabase', () => {
         await expectAsync(database.getUser(STUB_INCORECT_ID)).toBeRejectedWith(
             new Error(DatabaseError.USER_NOT_FOUND)
         );
+    });
+
+    it('addEducatorRequest(): ', async () => {
+        
+    });
+
+    it('getEducatorRequests(): ', async () => {
+        
+    });
+
+    it('updateEducatorRequestState(): ', async () => {
+        
     });
 
     it('addImplementable(): adds a new implementable and returns it', async () => {
@@ -231,6 +243,62 @@ describe('FirebaseDatabase', () => {
         const deleted: File = await database.deleteFile(implementable.id, section.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
+    });
+
+    it('getImplementationsByUser(): ', async () => {
+        
+    });
+
+    it('getImplementationsByImplementable(): ', async () => {
+        
+    });
+
+    it('addImplementation(): ', async () => {
+        
+    });
+
+    it('updateImplementation(): ', async () => {
+        
+    });
+
+    it('deleteImplementation(): ', async () => {
+        
+    });
+
+    it('completeImplementation(): ', async () => {
+        
+    });
+
+    it('getEvaluations(): ', async () => {
+        
+    });
+
+    it('addEvaluation(): ', async () => {
+        
+    });
+
+    it('updateEvaluation(): ', async () => {
+        
+    });
+
+    it('getEvaluation(): ', async () => {
+        
+    });
+
+    it('deleteEvaluation(): ', async () => {
+        
+    });
+
+    it('getEvidence(): ', async () => {
+        
+    });
+
+    it('addEvidence(): ', async () => {
+        
+    });
+
+    it('deleteEvidence(): ', async () => {
+        
     });
 
     afterAll(async () => {

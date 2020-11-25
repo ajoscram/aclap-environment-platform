@@ -200,7 +200,7 @@ describe('DefaultController', () => {
 
     it('addSections(): adds multiple sections', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const sections: ISection[] = [ STUB_ISECTION, STUB_ISECTION, STUB_ISECTION];
+        const sections: ISection[] = [ STUB_ISECTION, STUB_ISECTION, STUB_ISECTION ];
         const added: Section[] = await controller.addSections(implementable.id, sections);
         expect(added.length).toBe(sections.length);
     });
@@ -212,11 +212,19 @@ describe('DefaultController', () => {
         expect(sections).toBeTruthy();
     });
 
-    it('updateSection(): updates an existing session', async () => {
+    it('updateSection(): updates an existing section', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Section = await controller.addSection(implementable.id, STUB_ISECTION);
         const updated: Section = await controller.updateSection(implementable.id, added.id, STUB_ISECTION);
         expect(updated).toBeTruthy();
+    });
+
+    it('setSection(): adds or updates a section, depending on whether a section id was provided', async () => {
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const added: Section = await controller.setSection(STUB_ISECTION, implementable.id);
+        const updated: Section = await controller.setSection(STUB_ISECTION, implementable.id, added.id);
+        expect(updated).toBeTruthy();
+        expect(updated.id).toBe(added.id);
     });
 
     it('deleteSection(): deletes an existing section', async () => {

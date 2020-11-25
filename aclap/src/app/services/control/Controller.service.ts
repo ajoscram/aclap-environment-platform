@@ -28,6 +28,7 @@ export abstract class Controller{
     addSection: (implemntableId: string, section: ISection) => Promise<Section>;
     addSections: (implementableId: string, sections: ISection[]) => Promise<Section[]>;
     updateSection: (implementableId: string, sectionId: string, section: ISection) => Promise<Section>;
+    setSection: (section: ISection, implementableId: string, sectionId?: string) => Promise<Section>;
     deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
 
     //files

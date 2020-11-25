@@ -1,9 +1,5 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
-* Agregar getRole y addSections a Controller
-* Ordenar las sections cuando se devuelven
-* Agregar servicio que haga type checking de sections. Agregar también revisión de Administrador y Educador
-
 ### Pendiente
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
