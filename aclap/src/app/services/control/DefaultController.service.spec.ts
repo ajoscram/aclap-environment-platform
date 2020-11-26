@@ -9,8 +9,9 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Evaluation, IEvaluation, Score } from '../../models';
+import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, ISection, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Evaluation, IEvaluation, Score } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
+import { Session } from '../authentication/Session.model';
 
 describe('DefaultController', () => {
 
@@ -123,6 +124,12 @@ describe('DefaultController', () => {
         expect(user).toBeTruthy();
     });
 
+    it('getSession(): returns the current session', async () => {
+        //an administrator user is logged in on the before each
+        const session: Session = await controller.getSession();
+        expect(session).toBeTruthy();
+    });
+
     it('addEducatorRequest(): adds an educator request', async () => {
         const request: EducatorRequest = await controller.addEducatorRequest(STUB_IEDUCATORREQUEST);
         expect(request).toBeTruthy();
@@ -191,6 +198,13 @@ describe('DefaultController', () => {
         expect(section).toBeTruthy();
     });
 
+    it('addSections(): adds multiple sections', async () => {
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const sections: ISection[] = [ STUB_ISECTION, STUB_ISECTION, STUB_ISECTION ];
+        const added: Section[] = await controller.addSections(implementable.id, sections);
+        expect(added.length).toBe(sections.length);
+    });
+
     it('getSections(): gets an implementable\'s list of sections', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         await controller.addSection(implementable.id, STUB_ISECTION);
@@ -198,11 +212,19 @@ describe('DefaultController', () => {
         expect(sections).toBeTruthy();
     });
 
-    it('updateSection(): updates an existing session', async () => {
+    it('updateSection(): updates an existing section', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Section = await controller.addSection(implementable.id, STUB_ISECTION);
         const updated: Section = await controller.updateSection(implementable.id, added.id, STUB_ISECTION);
         expect(updated).toBeTruthy();
+    });
+
+    it('setSection(): adds or updates a section, depending on whether a section id was provided', async () => {
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const added: Section = await controller.setSection(STUB_ISECTION, implementable.id);
+        const updated: Section = await controller.setSection(STUB_ISECTION, implementable.id, added.id);
+        expect(updated).toBeTruthy();
+        expect(updated.id).toBe(added.id);
     });
 
     it('deleteSection(): deletes an existing section', async () => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEvent, IFile, IImageSection, IImplementable, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvaluation, IEvent, IFile, IImageSection, IImplementable, IImplementation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -30,10 +30,14 @@ export class Validator{
         }
     }
 
-    validateDisciplineMetadata(metadata: IDisciplineMetadata){
+    validateIDisciplineMetadata(metadata: IDisciplineMetadata){
         this.validateNullOrUndefined(metadata);
     }
     
+    validateIEducatorRequest(request: IEducatorRequest){
+        this.validateNullOrUndefined(request);
+        //CODE HERE!
+    }
 
     private validateIAdministrator(administrator: IAdministrator){
         //no further validation needed
@@ -153,6 +157,14 @@ export class Validator{
             throw new Error(ValidatorError.BYTES_LESS_THAN_ZERO);
         else if(!Validator.URL_REGEX.test(file.url))
             throw new Error(ValidatorError.MALFORMED_URL);
+    }
+
+    validateIImplementation(implementation: IImplementation){
+        this.validateNullOrUndefined(implementation);
+    }
+
+    validateIEvaluation(evaluation: IEvaluation){
+        this.validateNullOrUndefined(evaluation);
     }
 }
 
