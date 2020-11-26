@@ -87,13 +87,13 @@ export class DefaultController implements Controller{
         return await this.database.getDisciplineMetadata();
     }
 
-    async getSections(moduleId: string): Promise<Section[]>{
-        return await this.database.getSections(moduleId);
+    async getSections(implementableId: string): Promise<Section[]>{
+        return await this.database.getSections(implementableId);
     }
 
-    async addSection(moduleId: string, section: ISection): Promise<Section>{
+    async addSection(implementableId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.addSection(moduleId, section);
+        return await this.database.addSection(implementableId, section);
     }
 
     async addSections(implementableId: string, sections: ISection[]): Promise<Section[]>{
@@ -102,32 +102,39 @@ export class DefaultController implements Controller{
             const section_: Section = await this.addSection(implementableId, section);
             sections_.push(section_);
         }
-        return sections_.sort((section1, section2) => (section1 > section2) ? 1 : -1);
+        return sections_;
     }
 
-    async updateSection(moduleId: string, sectionId: string, section: ISection): Promise<Section>{
+    async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.updateSection(moduleId, sectionId, section);
+        return await this.database.updateSection(implementableId, sectionId, section);
     }
 
-    async deleteSection(moduleId: string, sectionId: string): Promise<Section>{
+    async setSection(section: ISection, implementableId: string, sectionId?: string): Promise<Section>{
+        if(sectionId)
+            return await this.updateSection(implementableId, sectionId, section);
+        else
+            return await this.addSection(implementableId, section);
+    }
+
+    async deleteSection(implementableId: string, sectionId: string): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.deleteSection(moduleId, sectionId);
+        return await this.database.deleteSection(implementableId, sectionId);
     }
 
-    async getFiles(moduleId: string, sectionId: string): Promise<File[]>{
-        return await this.database.getFiles(moduleId, sectionId);
+    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
+        return await this.database.getFiles(implementableId, sectionId);
     }
 
-    async addFile(moduleId: string, sectionId: string, file: any): Promise<File>{
+    async addFile(implementableId: string, sectionId: string, file: any): Promise<File>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         const file_: IFile = await this.storage.upload(file);
-        return await this.database.addFile(moduleId, sectionId, file_);
+        return await this.database.addFile(implementableId, sectionId, file_);
     }
 
-    async deleteFile(moduleId: string, sectionId: string, fileId: string): Promise<File>{
+    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
         await this.authenticator.validate(Role.ANY);
-        const deleted: File = await this.database.deleteFile(moduleId, sectionId, fileId);
+        const deleted: File = await this.database.deleteFile(implementableId, sectionId, fileId);
         await this.storage.delete(deleted);
         return deleted;
     }

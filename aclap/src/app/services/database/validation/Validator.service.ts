@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvaluation, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -8,7 +8,7 @@ import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdm
 export class Validator{
     private static readonly URL_REGEX: RegExp = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
     private static readonly EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    private static readonly PHONE_REGEX: RegExp = /^[[+][(][0-9]{1,4}[)]]?[/0-9]{8}$/;
+    private static readonly PHONE_REGEX: RegExp = /^(\+\(\d{1,4}\))?[0-9]{8}$/;
     private static readonly COLOR_REGEX: RegExp = /^#[\dabcdefABCDEF]{6}$/;
     private static readonly OBJECT_TYPE: string = 'object';
 
@@ -33,10 +33,24 @@ export class Validator{
     validateIDisciplineMetadata(metadata: IDisciplineMetadata){
         this.validateNullOrUndefined(metadata);
     }
+
+    private validateILocation(location: ILocation){
+        if(location.latitude > 90 || location.latitude < -90)
+            throw new Error(ValidatorError.LATITUDE_OUT_OF_BOUNDS)
+        else if(location.longitude > 180 || location.longitude < -180)
+            throw new Error(ValidatorError.LONGITUDE_OUT_OF_BOUNDS)
+    }
     
     validateIEducatorRequest(request: IEducatorRequest){
         this.validateNullOrUndefined(request);
+        if(!Validator.EMAIL_REGEX.test(request.email))
+            throw new Error(ValidatorError.MALFORMED_EMAIL)
+        else if(!Validator.PHONE_REGEX.test(request.phone))
+            throw new Error(ValidatorError.MALFORMED_PHONE)
+        else if(request.birthday > new Date())
+            throw new Error(ValidatorError.BIRTHDAY_CANT_BE_FUTURE)
         
+        this.validateILocation(request.address);
     }
 
     private validateIAdministrator(administrator: IAdministrator){
@@ -161,6 +175,16 @@ export class Validator{
 
     validateIImplementation(implementation: IImplementation){
         this.validateNullOrUndefined(implementation);
+        if(implementation.date > new Date())
+            throw new Error(ValidatorError.DATE_CANT_BE_FUTURE)
+        else if(implementation.participants < 0)
+            throw new Error(ValidatorError.PARTICIPANTS_LESS_THAN_ZERO)
+        
+        this.validateILocation(implementation.location)
+    }
+
+    validateIEvaluation(evaluation: IEvaluation){
+        this.validateNullOrUndefined(evaluation);
     }
 }
 
@@ -174,14 +198,19 @@ export enum ValidatorError{
     MALFORMED_PHONE = "ValidatorError.MALFORMED_PHONE",
     RECOMMENDED_AGE_LESS_THAN_ZERO = "ValidatorError.RECOMMENDED_AGE_LESS_THAN_ZERO",
     RECOMMENDED_AGE_NOT_WHOLE_NUMBER = "ValidatorError.RECOMMENDED_AGE_NOT_WHOLE_NUMBER",
+    PARTICIPANTS_LESS_THAN_ZERO = "ValidatorError.PARTICIPANTS_LESS_THAN_ZERO",
     BYTES_LESS_THAN_ZERO = "ValidatorError.BYTES_LESS_THAN_ZERO",
     INDEX_LESS_THAN_ZERO = "ValidatorError.INDEX_LESS_THAN_ZERO",
     ESTIMATED_MINUTES_LESS_THAN_ZERO = "ValidatorError.ESTIMATED_MINUTES_LESS_THAN_ZERO",
     EMPTY_PUBLISHER_ID = "ValidatorError.EMPTY_PUBLISHER_ID",
     JOINED_CANT_BE_FUTURE = "ValidatorError.JOINED_CANT_BE_FUTURE",
     UPLOADED_CANT_BE_FUTURE = "ValidatorError.UPLOADED_CANT_BE_FUTURE",
+    BIRTHDAY_CANT_BE_FUTURE = "ValidatorError.BIRTHDAY_CANT_BE_FUTURE",
+    DATE_CANT_BE_FUTURE = "ValidatorError.DATE_CANT_BE_FUTURE",
     DATE_CANT_BE_PAST = "ValidatorError.DATE_CANT_BE_PAST",
     UNKNOWN_IUSER = "ValidatorError.UNKNOWN_IUSER",
     UNKNOWN_ISECTION = "ValidatorError.UNKNOWN_ISECTION",
-    UNKNOWN_IIMPLEMENTABLE = "ValidatorError.UNKNOWN_IIMPLEMENTABLE"
+    UNKNOWN_IIMPLEMENTABLE = "ValidatorError.UNKNOWN_IIMPLEMENTABLE",
+    LATITUDE_OUT_OF_BOUNDS = "ValidatorError.LATITUDE_OUT_OF_BOUNDS",
+    LONGITUDE_OUT_OF_BOUNDS = "ValidatorError.LONGITUDE_OUT_OF_BOUNDS"
 }
