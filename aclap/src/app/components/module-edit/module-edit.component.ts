@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Controller } from '../../services/control/Controller.service';
 import { Section, Module, Implementable, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../models';
 
@@ -16,7 +16,7 @@ export class ModuleEditComponent implements OnInit {
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private route:ActivatedRoute, private controller: Controller) {
+  constructor(private route:ActivatedRoute, private controller: Controller, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -43,6 +43,7 @@ export class ModuleEditComponent implements OnInit {
       .catch(error => console.error(error));
   }
 
+  
   checkStatus(){
     console.log(this.sections);
   }
@@ -73,6 +74,29 @@ export class ModuleEditComponent implements OnInit {
   }
 
   submitSections(){
+    //Submit Module
+    //Submit Sections
+    //Go to module Display Page
+
+    this.controller.addSections(this.module.id, this.sections).then(
+      sections => {
+        //All Good
+        console.log("Sections");
+      }).
+      catch(err => {
+        //TODO: Display Error
+        console.log(err);
+    });
+    this.controller.updateImplementable(this.module.id, this.module).then(
+      module => {
+        //All Good
+        console.log("module");
+        this.router.navigate(["/modulos"]);
+      }).
+      catch(err => {
+      //TODO: Display Error
+      console.log(err);
+    });
 
   }
 
