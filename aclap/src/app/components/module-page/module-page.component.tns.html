@@ -1,1 +1,13 @@
-<Button text="module-page works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical">
+        <StackLayout orientation="vertical">
+
+            <GridLayout rows="*, *, *, *" columns="*">
+                <Label row="0" col="0" text="Modulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
+                <Label row="1" col="0" text="" textWrap="true"></Label>
+                <Label row="2" col="0" text="Requisitos previos" class="title-text" textWrap="true"></Label>
+            </GridLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

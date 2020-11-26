@@ -1,1 +1,27 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    background-color: $jumbo-color;
+    color: #fff;
+    text-align: center;
+}
+
+.title-text{
+    font-size: 14;
+    font-weight: bold;
+    text-align: center;
+    background-color: $jumbo-color;
+    background-color: $l-grey;
+}
+
+.body-text{
+    font-size: 12;
+    background-color: $l-grey;
+}

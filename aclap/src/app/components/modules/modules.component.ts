@@ -7,6 +7,8 @@ import { Module } from '../../models/implementables/Module.model';
   templateUrl: './modules.component.html',
   styleUrls: ['./modules.component.scss']
 })
+
+
 export class ModulesComponent implements OnInit {
 
   modules: Module[];
