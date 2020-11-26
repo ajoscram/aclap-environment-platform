@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TitleSection, TitleSectionSize } from '@src/app/models';
+import { TitleSection, TitleSectionSize } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
 
 @Component({
