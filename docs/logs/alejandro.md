@@ -3,6 +3,8 @@
 ### Pendiente
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
+* Escribir las reglas de seguridad para firebase
+* Implementar `ErrorTranslator`
 * Implementar Cloud Functions para agregar Educators una vez que se aprueba su request
 * Agregar custom claims para Educators mediante Cloud Functions
 * Implementar `FirebaseDatabase` para NativeScript
@@ -16,6 +18,8 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 25/11/2020 | Implementar casos de prueba para nuevas funcionalidades de `FirebaseDatabase` |
+| 25/11/2020 | Implementar nuevas funciones de `Validator` |
 | 24/11/2020 | Se agregaron varias funciones y utilidades necesarias para el frontend |
 | 18/11/2020 | Crear pruebas unitarias de `DefaultController` y `Factory` para manejo de `Implementation` y `EducatorRequest` | 
 | 17/11/2020 | Agregar métodos de `Controller`, `MockDatabase` y `Factory` para manejo de `Implementation` y `EducatorRequest` |

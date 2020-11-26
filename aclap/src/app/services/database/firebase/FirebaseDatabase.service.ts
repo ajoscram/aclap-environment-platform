@@ -79,8 +79,20 @@ export class FirebaseDatabase implements Database{
             return this.factory.getUser(id, user as IUser);
     }
 
+    private async checkRequestIsNotPending(email: string): Promise<void>{
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+        .collection(FirebaseDatabase.REQUESTS, ref => ref
+            .where('state', '==', EducatorRequestState.PENDING)
+            .where('email', '==', email)
+        )
+        .get().toPromise();
+        if(!documents.empty)
+            throw new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING);
+    }
+
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         this.validator.validateIEducatorRequest(request);
+        await this.checkRequestIsNotPending(request.email);
         
         const id: string = this.firestore.createId();
         const state: EducatorRequestState = EducatorRequestState.PENDING;
@@ -349,7 +361,7 @@ export class FirebaseDatabase implements Database{
         const implementations: Implementation[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
-                .where('deleted', '==', true)
+                .where('deleted', '==', false)
                 .where('completed', '==', completed)
                 .where('educatorId', '==', userId)
             )
@@ -456,6 +468,20 @@ export class FirebaseDatabase implements Database{
         return evaluations;
     }
     
+    private async getEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(implementationId)
+            .collection(FirebaseDatabase.EVALUATIONS)
+            .doc(evaluationId)
+            .get().toPromise();
+        const evaluation: any = document.data();
+        if(!evaluation)
+            throw new Error(DatabaseError.EVALUATION_NOT_FOUND);
+        else
+            return this.factory.getEvaluation(evaluationId, evaluation as IEvaluation);
+    }
+
     async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
         this.validator.validateIEvaluation(evaluation);
         const id: string = this.firestore.createId();
@@ -478,20 +504,6 @@ export class FirebaseDatabase implements Database{
             .doc(evaluationId)
             .update(evaluation);
         return this.factory.getEvaluation(evaluationId, evaluation);
-    }
-    
-    private async getEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
-        const document: DocumentData = await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTATIONS)
-            .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
-            .doc(evaluationId)
-            .get().toPromise();
-        const evaluation: any = document.data();
-        if(!evaluation)
-            throw new Error(DatabaseError.EVALUATION_NOT_FOUND);
-        else
-            return this.factory.getEvaluation(evaluationId, evaluation as IEvaluation);
     }
 
     async deleteEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{

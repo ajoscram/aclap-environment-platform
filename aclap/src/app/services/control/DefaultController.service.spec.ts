@@ -15,7 +15,7 @@ import { Session } from '../authentication/Session.model';
 
 describe('DefaultController', () => {
 
-    const STUB_IEDUCATORREQUEST: IEducatorRequest= {
+    const STUB_IEDUCATORREQUEST: IEducatorRequest = {
         name: 'STUB_IEDUCATORREQUEST.name',
         lastname: 'STUB_IEDUCATORREQUEST.lastname',
         email: 'STUB_IEDUCATORREQUEST.email',
