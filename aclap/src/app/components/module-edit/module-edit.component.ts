@@ -27,18 +27,7 @@ export class ModuleEditComponent implements OnInit {
       .catch(error => console.error(error));
     
     this.controller.getSections(this.id)
-      .then(sections => { this.sections = sections; //Devuelve lista en orden
-        this.sections = this.sections.sort(
-          (obj1, obj2) => {
-            if (obj1.index > obj2.index) {
-              return 1;
-            }
-            if (obj1.index < obj2.index){
-              return -1;
-            } 
-            return 0;
-          }
-        );
+      .then(sections => { this.sections = sections; //Returns ordered list
       })
       .catch(error => console.error(error));
   }
@@ -52,19 +41,19 @@ export class ModuleEditComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Activity
-        newSection = new ActivitySection("",this.sections.length,"",10,"",new Array<Question>());
+        newSection = new ActivitySection(null,this.sections.length,"",10,"",new Array<Question>());
         break;
       case 1: //Image
-        newSection = new ImageSection("",this.sections.length,"","","");
+        newSection = new ImageSection(null,this.sections.length,"","","");
         break;
       case 2: //Paragraph
-        newSection = new ParagraphSection("",this.sections.length,"")
+        newSection = new ParagraphSection(null,this.sections.length,"")
         break;
       case 3: //Title
-        newSection = new TitleSection("",this.sections.length,TitleSectionSize.H1,"");
+        newSection = new TitleSection(null,this.sections.length,TitleSectionSize.H1,"");
         break;
       case 4: //Youtube
-        newSection = new YoutubeVideoSection("",this.sections.length,"");
+        newSection = new YoutubeVideoSection(null,this.sections.length,"");
         break;
       default:
         break;
@@ -73,30 +62,30 @@ export class ModuleEditComponent implements OnInit {
     this.sectionButtonsCollapsed=true;
   }
 
-  submitSections(){
+  async submitSections(){
     //Submit Module
     //Submit Sections
     //Go to module Display Page
-
-    this.controller.addSections(this.module.id, this.sections).then(
-      sections => {
-        //All Good
-        console.log("Sections");
-      }).
-      catch(err => {
-        //TODO: Display Error
-        console.log(err);
-    });
+    
     this.controller.updateImplementable(this.module.id, this.module).then(
-      module => {
+      _ => {
         //All Good
         console.log("module");
-        this.router.navigate(["/modulos"]);
       }).
       catch(err => {
       //TODO: Display Error
       console.log(err);
     });
+
+    const sect = this.sections.map(async (section:Section) => {
+      const sect_response = await this.controller.setSection(section, this.id, section.id);
+      return sect_response;
+    });
+
+    const sects = await Promise.all(sect);
+    console.log(sects);
+
+    //Display modal that everithing worked fine
 
   }
 

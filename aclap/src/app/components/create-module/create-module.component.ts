@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Controller } from '../../services/control/Controller.service';
 import { ActivitySection, Discipline, ImageSection, 
   Module, ParagraphSection, Question, Section, 
   TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../models';
@@ -11,11 +12,12 @@ import { ActivitySection, Discipline, ImageSection,
 export class CreateModuleComponent implements OnInit {
 
   module: Module;
+  id: string;
   sections: Section[];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor() { }
+  constructor(private controller: Controller) { }
 
   ngOnInit(): void {
     this.module = new Module("","","","","","","","",12,"","", new Array<Discipline>());
@@ -47,8 +49,31 @@ export class CreateModuleComponent implements OnInit {
     this.sectionButtonsCollapsed=true;
   }
 
-  checkStatus(){
-    console.log(this.sections);
+  async submitSections(){
+    //Submit Module
+    //Submit Sections
+    //Go to module Display Page
+    
+    const uploadingModule = this.controller.addImplementable(this.module).then(
+      module => {
+        this.id = module.id;
+      }
+    );
+
+    await uploadingModule;
+
+
+    const sect = this.sections.map(async (section:Section) => {
+      const sect_response = await this.controller.setSection(section, this.id, section.id);
+      return sect_response;
+    });
+
+    const sects = await Promise.all(sect);
+    console.log(sects);
+
+
+    //Display modal that everithing worked fine
+
   }
 
 }
