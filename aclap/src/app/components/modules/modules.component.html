@@ -51,7 +51,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2" *ngFor="let module of modules" [routerLink]="['/modulos',module.id]">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2" *ngFor="let module of modules" [routerLink]="['/modulos',module.id]">
             <app-module-card [module]="module"></app-module-card>
         </div>
     </div>

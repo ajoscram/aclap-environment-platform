@@ -3,6 +3,7 @@ import { Controller } from '../../services/control/Controller.service';
 import { ActivitySection, Discipline, ImageSection, 
   Module, ParagraphSection, Question, Section, 
   TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-module',
@@ -17,7 +18,7 @@ export class CreateModuleComponent implements OnInit {
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private controller: Controller) { }
+  constructor(private controller: Controller, private router: Router) { }
 
   ngOnInit(): void {
     this.module = new Module("","","","","","","","",12,"","", new Array<Discipline>());
@@ -61,6 +62,7 @@ export class CreateModuleComponent implements OnInit {
     );
 
     await uploadingModule;
+    console.log(this.id);
 
 
     const sect = this.sections.map(async (section:Section) => {
@@ -71,7 +73,7 @@ export class CreateModuleComponent implements OnInit {
     const sects = await Promise.all(sect);
     console.log(sects);
 
-
+    this.router.navigateByUrl("/modulos");
     //Display modal that everithing worked fine
 
   }

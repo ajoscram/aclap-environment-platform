@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Controller } from '../../services/control/Controller.service';
-import { Section, Module, Implementable, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../models';
+import { Section, Module, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../models';
 
 @Component({
   selector: 'app-module-edit',
@@ -13,6 +13,7 @@ export class ModuleEditComponent implements OnInit {
   id: string;
   module: Module;
   sections: Section[];
+  imageProxy: Map<String, File>;
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -29,7 +30,9 @@ export class ModuleEditComponent implements OnInit {
     this.controller.getSections(this.id)
       .then(sections => { this.sections = sections; //Returns ordered list
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error(error)
+    );
+    this.imageProxy = new Map();
   }
 
   
@@ -78,7 +81,22 @@ export class ModuleEditComponent implements OnInit {
     });
 
     const sect = this.sections.map(async (section:Section) => {
-      const sect_response = await this.controller.setSection(section, this.id, section.id);
+      let sect_response: Section;
+      if(section instanceof ImageSection && !section.url.startsWith("http")){
+        const imagetarget = this.imageProxy[section.url];
+        const imgUrl = await this.controller.upload(imagetarget).then(id => {
+          return id;
+        });
+        const _section = {
+          "id": section.id, 
+          "index": section.index, 
+          "footing": section.footing,
+          "url": imgUrl, 
+          "reference": section.reference};
+          sect_response = await this.controller.setSection(_section, this.id, section.id);
+      }else{
+        sect_response = await this.controller.setSection(section, this.id, section.id);
+      }
       return sect_response;
     });
 
