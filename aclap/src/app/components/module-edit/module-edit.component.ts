@@ -14,6 +14,8 @@ export class ModuleEditComponent implements OnInit {
   module: Module;
   sections: Section[];
   imageProxy: Map<String, File>;
+  moduleImage: ImageSection;
+  bannerImage: ImageSection;
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 

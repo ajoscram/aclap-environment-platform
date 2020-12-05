@@ -17,13 +17,33 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group col-6">
-                <label for="imageUrl">Imagen del módulo</label>
-                <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.imageUrl" >
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="modal-title">
+                            Foto de módulo
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <app-edit-image [image]=moduleImage [imageProxy]="imageProxy"></app-edit-image>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-6">
-                <label for="imageUrl">Imagen del Banner</label>
-                <input type="file" class="form-control-file" formControlName="imageUrl" [(ngModel)]="module.bannerImageUrl">
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="modal-title">
+                            Foto de Banner
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <app-edit-image [image]=bannerImage [imageProxy]="imageProxy"></app-edit-image>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row mt-3">

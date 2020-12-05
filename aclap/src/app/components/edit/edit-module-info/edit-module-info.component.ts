@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
-import { Discipline, DisciplineMetadata, Module, Subject } from '../../../models';
+import { Discipline, DisciplineMetadata, ImageSection, Module, Subject } from '../../../models';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 export class EditModuleInfoComponent implements OnInit {
 
   @Input() module: Module;
+  @Input() imageProxy: Map<String, File>;
+
+  @Input() moduleImage: ImageSection;
+  @Input() bannerImage: ImageSection;
   
   disciplines: DisciplineMetadata;
   moduleForm: FormGroup;

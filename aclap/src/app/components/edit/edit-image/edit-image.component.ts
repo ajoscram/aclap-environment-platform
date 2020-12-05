@@ -28,6 +28,7 @@ export class EditImageComponent  implements OnInit {
       reference: ['',Validators.required],
       online: ['',Validators.required]
     });
+    this.isOnline = true;
   }
 
   initializeForm(): FormGroup{
