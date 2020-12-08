@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 
 
 import { HomeComponent } from '../../components/home/home.component';
-import { ModulesComponent } from '../../components/modules/modules.component';
-import { ModulePageComponent } from '../../components/module-page/module-page.component';
-import { ModuleEditComponent } from '../../components/module-edit/module-edit.component';
-import { CreateModuleComponent } from '../../components/create-module/create-module.component';
+import { ModulesComponent } from '../../components/module-shared/modules/modules.component';
+import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
+import { ModuleEditComponent } from '../../components/module-shared/module-edit/module-edit.component';
+import { CreateModuleComponent } from '../../components/module-shared/create-module/create-module.component';
 import { ImplementableStatComponent } from '../../components/profile-shared/implementable-stat/implementable-stat.component';
 import { ImplementationEditComponent } from '../../components/profile-shared/implementation-edit/implementation-edit.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';

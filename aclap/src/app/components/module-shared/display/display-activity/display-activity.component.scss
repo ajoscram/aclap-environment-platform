@@ -1,0 +1,14 @@
+@use '../../../app.component.scss';
+
+.active{
+    background-color: app.$nav-color;
+    
+    .active li{
+        font-size: 10px;
+    }
+}
+
+.header{
+    background-color: app.$nav-color;
+    color: azure;
+}

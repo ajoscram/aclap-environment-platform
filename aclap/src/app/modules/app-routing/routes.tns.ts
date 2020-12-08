@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 
 import { HomeComponent } from '../../components/home/home.component.tns';
-import { ModulesComponent } from '../../components/modules/modules.component';
-import { ModulePageComponent } from '../../components/module-page/module-page.component';
-import { ModuleEditComponent } from '../../components/module-edit/module-edit.component';
+import { ModulesComponent } from '../../components/module-shared/modules/modules.component';
+import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
+import { ModuleEditComponent } from '../../components/module-shared/module-edit/module-edit.component';
 
 export const routes: Routes = [
     {
