@@ -30,3 +30,15 @@ $l-grey: #d3d8d8;
     color: rgb(0, 0, 0);
     text-align: center;
 }
+
+.my-button {
+    background-color: $nav-color;
+    border-radius: 20;
+    color: whitesmoke;
+    font-size: 18;
+    font-weight: bold;
+    width: auto;
+    height: 100;
+    margin-left: 30;
+    margin-right: 30;
+}

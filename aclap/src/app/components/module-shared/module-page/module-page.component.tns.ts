@@ -3,6 +3,8 @@ import { Section, Module } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
 
+import { RouterExtensions } from '@nativescript/angular';
+
 @Component({
   selector: 'app-module-page',
   templateUrl: './module-page.component.html',
@@ -14,7 +16,7 @@ export class ModulePageComponent implements OnInit {
   sections: Section[];
   id: string;
 
-  constructor(private route:ActivatedRoute, private controller: Controller) { 
+  constructor(private route:ActivatedRoute, private controller: Controller, private routerExtensions: RouterExtensions) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -39,5 +41,9 @@ export class ModulePageComponent implements OnInit {
       })
       .catch(error => console.error(error));
   }
+
+  navigateToDisplayer(): void {
+    this.routerExtensions.navigate(['guia'], { clearHistory: false });
+  } 
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Controller } from '../../services/control/Controller.service';
-import { Module } from '../../models/implementables/Module.model';
+import { Controller } from '../../../services/control/Controller.service';
+import { Module } from '../../../models/implementables/Module.model';
 import { RouterExtensions } from '@nativescript/angular';
 
 import { registerElement } from '@nativescript/angular';

@@ -27,4 +27,9 @@ export class AppComponent {
       this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
+  navigateToProfile(): void {
+    this.routerExtensions.navigate(['perfil'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
 }
