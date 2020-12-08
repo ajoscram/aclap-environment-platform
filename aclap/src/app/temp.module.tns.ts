@@ -8,7 +8,7 @@ import { ModulesComponent } from './components/modules/modules.component';
 @NgModule({
   declarations: [
     ModulePageComponent,
-    ModulesComponent
+    ModulesComponent,
   ],
   imports: [
     NativeScriptCommonModule

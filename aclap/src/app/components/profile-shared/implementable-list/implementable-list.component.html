@@ -1,0 +1,10 @@
+<ul>
+    <li class="list-group-item" *ngFor="let implementable of list">
+        <div *ngIf="isAdmin">
+            <h3 class="clickable" [routerLink]="['/implementable','estadisticas',implementable.id]">{{ implementable.name }}</h3>
+        </div>
+        <div *ngIf="!isAdmin">
+            <h3 class="clickable" [routerLink]="['/implementacion','editar',implementable.id]">{{ implementable.name }}</h3>
+        </div>
+    </li>
+ </ul>

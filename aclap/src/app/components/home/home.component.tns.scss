@@ -8,12 +8,28 @@ $l-grey: #d3d8d8;
 .welcome-text{
     font-size: 24;
     font-weight: bold;
-    background-color: $jumbo-color;
-    color: #fff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
 .welcome-img{
     height: 100;
     width: 100;
+}
+
+.my-button {
+    android-elevation: 4;
+    background-color: $nav-color;
+    border-radius: 20;
+    color: whitesmoke;
+    font-size: 18;
+    font-weight: bold;
+    width: auto;
+    height: 100;
 }

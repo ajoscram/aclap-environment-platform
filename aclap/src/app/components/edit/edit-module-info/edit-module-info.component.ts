@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
-import { Discipline, DisciplineMetadata, Module, Subject } from '../../../models';
+import { Discipline, DisciplineMetadata, ImageSection, Module, Subject } from '../../../models';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-module-info',
@@ -11,6 +12,10 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 export class EditModuleInfoComponent implements OnInit {
 
   @Input() module: Module;
+  @Input() imageProxy: Map<String, File>;
+
+  @Input() moduleImage: ImageSection;
+  @Input() bannerImage: ImageSection;
   
   disciplines: DisciplineMetadata;
   moduleForm: FormGroup;
@@ -18,7 +23,7 @@ export class EditModuleInfoComponent implements OnInit {
   discipline: Discipline;
   ageRange: any[];
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private controller: Controller, private builder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.moduleForm = this.builder.group({
@@ -54,6 +59,14 @@ export class EditModuleInfoComponent implements OnInit {
 
   refreshDiscipline(): void{
     this.discipline = new Discipline(new Subject('',''),'','');
+  }
+
+  deleteModule():void {
+    this.controller.deleteImplementable(this.module.id).then(
+      _ => {
+        this.router.navigateByUrl("/modulos");
+      }
+    );
   }
 
 }

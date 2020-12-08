@@ -11,6 +11,7 @@ $jumbo-color: #23AEE5;
 $button-color: #Ef6423;
 $lime-color: #FAB521;
 $nav-color:#1c81a9;
+$green-color: #528f41;
 $gray-dark: #596668;
 $l-grey: #d3d8d8;
 
@@ -20,8 +21,20 @@ $l-grey: #d3d8d8;
     min-height: 100px;
 }
 
+.header-image{
+    background-size: cover;
+}
+
+.button{
+    background-color: $nav-color;
+
+    h2{
+        color: $l-grey;
+    }
+}
+
 .jumbotron{
-    background-color: $jumbo-color;
+    background-color: $nav-color;
     color: whitesmoke;
     padding: 90px 30px 20px 30px;
     margin: 0px auto;

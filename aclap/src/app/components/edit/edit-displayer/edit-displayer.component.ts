@@ -12,6 +12,7 @@ import { BaseForm } from '../BaseForm';
 export class EditDisplayerComponent extends BaseForm implements OnInit {
 
   @Input() sections: Section[];
+  @Input() imageProxy: Map<String, File>;
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   
   constructor(controller: Controller) { super() }

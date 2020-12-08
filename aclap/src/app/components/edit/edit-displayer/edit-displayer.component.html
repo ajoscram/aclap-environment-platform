@@ -10,7 +10,7 @@
                 <app-edit-activity [activity]=section ></app-edit-activity> 
             </div>
             <div *ngIf="isImage(section)">
-                <app-edit-image [image]=section></app-edit-image>
+                <app-edit-image [image]=section [imageProxy]="imageProxy"></app-edit-image>
             </div>
             <div *ngIf="isParagraph(section)">
                 <app-edit-paragraph [paragraph]=section></app-edit-paragraph>

@@ -1,0 +1,17 @@
+@use '../../app.component.scss';
+
+.jumbotron{
+    max-height: fit-content;
+
+    background-color: app.$green-color;
+
+    img{
+        max-height: 100px;
+    }
+}
+
+.nav-pills{
+    .active{
+        background-color: app.$button-color;
+    }
+}

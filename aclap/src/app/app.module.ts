@@ -43,7 +43,12 @@ import { RegisterComponent } from '@src/app/components/register/register.compone
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 import { CreateModuleComponent} from '@src/app/components/create-module/create-module.component';
 import { EditDisciplinesComponent } from '@src/app/components/edit/edit-disciplines/edit-disciplines.component';
-
+import { EducatorApplicationComponent } from '@src/app/components/profile-shared/educator-application/educator-application.component';
+import { ImplementableListComponent } from '@src/app/components/profile-shared/implementable-list/implementable-list.component';
+import { ImplementableStatComponent } from '@src/app/components/profile-shared/implementable-stat/implementable-stat.component';
+import { ImplementationEditComponent } from '@src/app/components/profile-shared/implementation-edit/implementation-edit.component';
+import { ImplementationPageComponent } from '@src/app/components/profile-shared/implementation-page/implementation-page.component';
+import { ProfileComponent } from '@src/app/components/profile-shared/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,13 @@ import { EditDisciplinesComponent } from '@src/app/components/edit/edit-discipli
     RegisterComponent,
     AboutUsComponent,
     CreateModuleComponent,
-    EditDisciplinesComponent
+    EditDisciplinesComponent,
+    EducatorApplicationComponent,
+    ImplementableListComponent,
+    ImplementableStatComponent,
+    ImplementationEditComponent,
+    ImplementationPageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

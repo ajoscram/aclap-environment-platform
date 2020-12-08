@@ -12,6 +12,8 @@ export class EditImageComponent  implements OnInit {
 
   form: FormGroup;
   @Input() image: ImageSection;
+  @Input() imageProxy: Map<String, File>;
+  file: File;
   isOnline = true;
 
 
@@ -26,6 +28,7 @@ export class EditImageComponent  implements OnInit {
       reference: ['',Validators.required],
       online: ['',Validators.required]
     });
+    this.isOnline = true;
   }
 
   initializeForm(): FormGroup{
@@ -34,6 +37,11 @@ export class EditImageComponent  implements OnInit {
 
   getFormName(): string {
     return "Image";
+  }
+
+  onFileSelected(event){
+    console.log(event.target.files[0], this.image.url);
+    this.imageProxy[this.image.url] = <File> event.target.files[0];
   }
 
 }

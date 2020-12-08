@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 col-xl-10">
-                        <app-edit-displayer [sections]=sections></app-edit-displayer>
+                        <app-edit-displayer [sections]=sections [imageProxy]="imageProxy"></app-edit-displayer>
                     </div>
                 </div>
                 <div class="row">
@@ -38,19 +38,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-5 order-first order-md-last">
+        <div class="col-12 col-lg order-first order-md-last">
             <!-- RIGHT ROW  -->
             <div class="container pt-0 pt-md-5">
                 <div class="row">
                     <div class="col-6">
-                        <button class="btn btn-success btn-lg col-12" (click)="checkStatus()">Confirmar Cambios</button>
+                        <button class="btn btn-success btn-lg col-12" (click)="submitSections()">Confirmar Cambios</button>
                     </div>
                     <div class="col-6">
                         <button class="btn btn-danger btn-lg col-12" (click)="checkStatus()">Descartar Cambios</button>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <app-edit-module-info class="mt-4" [module]=module></app-edit-module-info>
+                    <app-edit-module-info class="mt-4" [module]=module [imageProxy]="imageProxy" [moduleImage]=moduleImage [bannerImage]=bannerImage></app-edit-module-info>
                 </div>
             </div>
         </div>
