@@ -2,7 +2,8 @@
 
 ### Pendiente
 
-* Empezar el UI nuevo de modulos y eventos en NS
+* Empezar el UI de perfil
+* Mostrar el material didactico de los modulos
 
 ### Completado
 
@@ -16,3 +17,5 @@
 | 30/10/2020 | Programar la pantalla de Inicio en Nativescript |
 | 12/11/2020 | Tener listo todos los fixes para avanzar en Nativescript |
 | 27/11/2020 | Cambiar UI de pagina de inicio en NS |
+| 05/12/2020 | Empezar el UI nuevo de modulos en NS |
+| 08/12/2020 | Terminar el UI de modulos |

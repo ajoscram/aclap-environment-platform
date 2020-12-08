@@ -77,7 +77,7 @@ import { TempModule } from './temp.module.tns';
     AboutUsComponent
   ],
   imports: [
-    TempModule,
+    //TempModule,
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,

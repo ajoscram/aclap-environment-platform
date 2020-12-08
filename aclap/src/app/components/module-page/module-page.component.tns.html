@@ -1,12 +1,17 @@
 <StackLayout>
-    <ScrollView orientation="vertical">
+    <ScrollView orientation="vertical"  height="1000">
         <StackLayout orientation="vertical">
 
             <GridLayout rows="*, *, *, *" columns="*">
-                <Label row="0" col="0" text="Modulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
-                <Label row="1" col="0" text="" textWrap="true"></Label>
-                <Label row="2" col="0" text="Requisitos previos" class="title-text" textWrap="true"></Label>
+                <Image rowspan="3" col="0" src="{{ module.bannerImageUrl }}"></Image>
+                <Label row="1" col="0" text="Modulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
             </GridLayout>
+            <Label text="Antecedentes" class="title-text" textWrap="true"></Label>
+            <StackLayout *ngFor="let part of module.antecedents.split('\n')">
+                <Label text="{{ part }}" textWrap="true"></Label>
+            </StackLayout>
+            <Label text="Objetivo" class="title-text" textWrap="true"></Label>
+            <Label text="{{ module.objective }}" textWrap="true"></Label>
 
         </StackLayout>
     </ScrollView>
