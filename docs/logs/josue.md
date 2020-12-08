@@ -1,7 +1,6 @@
 ## Josué Canales Mena{docsify-ignore}
 
 ### Pendiente
-* Crear UI de pantalla de inicio
 * Cambiar los colores y los fonts de la app
 * Crear Pantalla del Perfil
 * Actualizar el NavBar cuando se inicia sesión
@@ -48,3 +47,9 @@
 | 23/11/2020 | integrar Bootstrap a secciones de un Módulo |
 | 23/11/2020 | lista re-ordenable de secciones de un Módulo |
 | 24/11/2020 | Crear UI de pantalla de inicio |
+| 25/11/2020 | UI de los cards de módulos |
+| 26/11/2020 | Implementar Crear Nuevo Módulo |
+| 26/11/2020 | Implementar Editar Módulo |
+| 26/11/2020 | Implementar Eliminar Módulo |
+| 27/11/2020 | Implementar Subir Imágenes de Módulo |
+| 05/12/2020 | Agregados los componentes del Perfil |

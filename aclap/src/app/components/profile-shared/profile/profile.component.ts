@@ -10,12 +10,12 @@ import { Controller } from '../../../services/control/Controller.service';
 })
 export class ProfileComponent implements OnInit {
   tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"]
-  tabIndex = -1
+  tabIndex = 1
   user: User;
   events: Event[];
   modules: Module[];
   isAdmin: Boolean;
-
+  len = 2;
 
   constructor(private controller: Controller) { }
 
@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
       session => {
         if(session.role === Role.ADMINISTRATOR){
           this.isAdmin = true;
+          this.len = 3;
         }else{
           this.isAdmin = false;
         }

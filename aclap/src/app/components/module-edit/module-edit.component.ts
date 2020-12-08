@@ -99,7 +99,7 @@ export class ModuleEditComponent implements OnInit {
       }else{
         sect_response = await this.controller.setSection(section, this.id, section.id);
       }
-      return sect_response;
+      section = sect_response;
     });
 
     const sects = await Promise.all(sect);

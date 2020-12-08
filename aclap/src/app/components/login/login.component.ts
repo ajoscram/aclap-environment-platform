@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
     let password:string = this.loginForm.get('password').value;
     let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
     this.controller.login(usrname, password, role)
-      .then(non => {  })
+      .then(non => { 
+        window.location.reload();
+       })
       .catch( );
   }
 
