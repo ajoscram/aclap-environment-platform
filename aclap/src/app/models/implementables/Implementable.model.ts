@@ -11,7 +11,7 @@ export interface IImplementable{
     objective: string
 }
 
-export abstract class Implementable extends Checkable{
+export abstract class Implementable extends Checkable implements IImplementable{
     constructor(
         public id: string,
         public name: string,

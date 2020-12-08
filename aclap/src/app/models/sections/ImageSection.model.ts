@@ -6,7 +6,7 @@ export interface IImageSection extends ISection{
     reference: string
 }
 
-export class ImageSection extends Section{
+export class ImageSection extends Section implements IImageSection{
     constructor(
         public id: string,
         public index: number,

@@ -6,7 +6,7 @@ export interface IDiscipline{
     theme: string
 }
 
-export class Discipline {
+export class Discipline implements IDiscipline{
     constructor(
         public subject: Subject,
         public year: string,

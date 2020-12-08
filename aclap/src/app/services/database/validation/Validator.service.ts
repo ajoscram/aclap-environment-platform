@@ -58,10 +58,13 @@ export class Validator{
     }
 
     private validateIEducator(educator: IEducator){
+        this.validateILocation(educator.address);
         if(!Validator.PHONE_REGEX.test(educator.phone))
             throw new Error(ValidatorError.MALFORMED_PHONE);
         else if(educator.joined > new Date())
             throw new Error(ValidatorError.JOINED_CANT_BE_FUTURE);
+        else if(educator.birthday > new Date())
+            throw new Error(ValidatorError.BIRTHDAY_CANT_BE_FUTURE);
     }
 
     validateIUser(user: IUser){

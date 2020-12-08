@@ -4,7 +4,7 @@ export interface ISection{
     index: number
 }
 
-export abstract class Section extends Checkable{
+export abstract class Section extends Checkable implements ISection{
     
     constructor(
         public id: string,

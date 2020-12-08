@@ -5,7 +5,7 @@ export interface IDisciplineMetadata{
     years: string[]
 }
 
-export class DisciplineMetadata {
+export class DisciplineMetadata implements IDisciplineMetadata{
     constructor(
         public subjects: Subject[],
         public years: string[]

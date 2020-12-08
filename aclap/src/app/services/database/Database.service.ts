@@ -30,9 +30,9 @@ export abstract class Database{
     deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
 
     //files
-    getFiles: (implementableId: string, sectionId: string) => Promise<File[]>;
-    addFile: (implementableId: string, sectionId: string, file: IFile) => Promise<File>;
-    deleteFile: (implementableId: string, sectionId: string, fileId: string) => Promise<File>;
+    getFiles: (implementableId: string) => Promise<File[]>;
+    addFile: (implementableId: string, file: IFile) => Promise<File>;
+    deleteFile: (implementableId: string, fileId: string) => Promise<File>;
 
     //implementations
     getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;

@@ -4,7 +4,7 @@ export interface IYoutubeVideoSection extends ISection{
     url: string
 }
 
-export class YoutubeVideoSection extends Section{
+export class YoutubeVideoSection extends Section implements IYoutubeVideoSection{
     constructor(
         public id: string,
         public index: number,

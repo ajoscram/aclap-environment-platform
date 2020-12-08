@@ -6,7 +6,7 @@ export interface IAnswer{
     score: Score
 }
 
-export class Answer {
+export class Answer implements IAnswer{
     constructor(
         public question: string,
         public option: string,

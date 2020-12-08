@@ -4,7 +4,7 @@ export interface IParagraphSection extends ISection{
     text: string
 }
 
-export class ParagraphSection extends Section{
+export class ParagraphSection extends Section implements IParagraphSection{
     constructor(
         public id: string,
         public index: number,

@@ -236,24 +236,21 @@ describe('DefaultController', () => {
 
     it('addFile(): adds a file', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const section: Section = await controller.addSection(implementable.id, STUB_ISECTION);
-        const file: File = await controller.addFile(implementable.id, section.id, STUB_FILE);
+        const file: File = await controller.addFile(implementable.id, STUB_FILE);
         expect(file).toBeTruthy();
     });
 
-    it('getFiles(): gets a section\'s files', async () => {
+    it('getFiles(): gets a implementable\'s files', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const section: Section = await controller.addSection(implementable.id, STUB_ISECTION);
-        await controller.addFile(implementable.id, section.id, STUB_FILE);
-        const files: File[] = await controller.getFiles(implementable.id, section.id);
+        await controller.addFile(implementable.id, STUB_FILE);
+        const files: File[] = await controller.getFiles(implementable.id);
         expect(files).toBeTruthy();
     });
 
     it('deleteFile(): deletes an existing file', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const section: Section = await controller.addSection(implementable.id, STUB_ISECTION);
-        const added: File = await controller.addFile(implementable.id, section.id, STUB_FILE);
-        const deleted: File = await controller.deleteFile(implementable.id, section.id, added.id);
+        const added: File = await controller.addFile(implementable.id, STUB_FILE);
+        const deleted: File = await controller.deleteFile(implementable.id, added.id);
         expect(deleted).toBeTruthy();
     });
 

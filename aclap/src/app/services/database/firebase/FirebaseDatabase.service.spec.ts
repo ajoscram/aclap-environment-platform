@@ -53,11 +53,18 @@ describe('FirebaseDatabase', () => {
             email: 'example@email.com'
         };
         stubEducator = {
-            imageUrl: 'https://example.com/image.jpg',
+            imageUrl: 'STUB_EDUCATOR.imageUrl',
             name: 'STUB_EDUCATOR.name',
             lastname: 'STUB_EDUCATOR.lastname',
-            email: 'example@email.com',
-            phone: '+(506)12345678',
+            email: 'STUB_EDUCATOR.email',
+            phone: 'STUB_EDUCATOR.phone',
+            birthday: new Date(),
+            organization: 'STUB_EDUCATOR.organization',
+            address: {
+                name: 'STUB_EDUCATOR.address.name',
+                latitude: 0,
+                longitude: 0
+            },
             joined: new Date()
         };
         stubModule = {
@@ -297,26 +304,23 @@ describe('FirebaseDatabase', () => {
 
     it('addFile(): adds a new file and returns it', async () => {
         const implementable: Implementable = await database.addImplementable(stubEvent);
-        const section: Section = await database.addSection(implementable.id, stubSection);
-        const file: File = await database.addFile(implementable.id, section.id, stubFile);
+        const file: File = await database.addFile(implementable.id, stubFile);
         expect(file).toBeTruthy();
     });
 
-    it('getFiles(): gets a section\'s files', async () => {
+    it('getFiles(): gets a implementable\'s files', async () => {
         const implementable: Implementable = await database.addImplementable(stubModule);
-        const section: Section = await database.addSection(implementable.id, stubSection);
-        await database.addFile(implementable.id, section.id, stubFile);
-        await database.addFile(implementable.id, section.id, stubFile);
-        const files: File[] = await database.getFiles(implementable.id, section.id);
+        await database.addFile(implementable.id, stubFile);
+        await database.addFile(implementable.id, stubFile);
+        const files: File[] = await database.getFiles(implementable.id);
         expect(files).toBeTruthy();
         expect(files.length).toBe(2);
     });
 
     it('deleteFile(): deletes a file and returns it', async () =>{
         const implementable: Implementable = await database.addImplementable(stubModule);
-        const section: Section = await database.addSection(implementable.id, stubSection);
-        const added: File = await database.addFile(implementable.id, section.id, stubFile);
-        const deleted: File = await database.deleteFile(implementable.id, section.id, added.id);
+        const added: File = await database.addFile(implementable.id, stubFile);
+        const deleted: File = await database.deleteFile(implementable.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });

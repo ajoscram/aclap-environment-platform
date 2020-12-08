@@ -36,7 +36,14 @@ describe('Factory', () => {
         name: 'STUB_EDUCATOR.name',
         lastname: 'STUB_EDUCATOR.lastname',
         email: 'STUB_EDUCATOR.email',
-        phone: 'phone',
+        phone: 'STUB_EDUCATOR.phone',
+        birthday: new Date(),
+        organization: 'STUB_EDUCATOR.organization',
+        address: {
+            name: 'STUB_EDUCATOR.address.name',
+            latitude: 0,
+            longitude: 0
+        },
         joined: new Date()
     };
 

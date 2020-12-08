@@ -296,13 +296,11 @@ export class FirebaseDatabase implements Database{
         return section;
     }
     
-    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
+    async getFiles(implementableId: string): Promise<File[]>{
         const files: File[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS)
-            .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
             .get().toPromise();
         documents.forEach(document => {
@@ -313,12 +311,10 @@ export class FirebaseDatabase implements Database{
         return files;
     }
 
-    async getFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
+    private async getFile(implementableId: string, fileId: string): Promise<File>{
         const document: DocumentData = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS)
-            .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
             .doc(fileId)
             .get().toPromise();
@@ -329,28 +325,24 @@ export class FirebaseDatabase implements Database{
             return this.factory.getFile(fileId, file as IFile);
     }
 
-    async addFile(implementableId: string, sectionId: string, file: IFile): Promise<File>{
+    async addFile(implementableId: string, file: IFile): Promise<File>{
         this.validator.validateIFile(file);
         const id: string = this.firestore.createId();
         file['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS)
-            .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
             .doc(id)
             .set(file);
         return this.factory.getFile(id, file);
     }
 
-    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
-        const file: File = await this.getFile(implementableId, sectionId, fileId);
+    async deleteFile(implementableId: string, fileId: string): Promise<File>{
+        const file: File = await this.getFile(implementableId, fileId);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
-            .collection(FirebaseDatabase.SECTIONS)
-            .doc(sectionId)
             .collection(FirebaseDatabase.FILES)
             .doc(fileId)
             .delete();

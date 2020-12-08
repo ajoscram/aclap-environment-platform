@@ -11,7 +11,7 @@ export interface IImplementation{
     implementableName: string
 }
 
-export class Implementation {
+export class Implementation implements IImplementation{
     constructor(
         public id: string,
         public deleted: boolean,
@@ -25,5 +25,4 @@ export class Implementation {
         public implementableId: string,
         public implementableName: string
     ){}
-
 }

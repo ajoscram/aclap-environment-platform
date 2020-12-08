@@ -3,7 +3,7 @@ export interface ISubject{
     color: string
 }
 
-export class Subject {
+export class Subject implements ISubject{
     constructor(
         public name: string,
         public color: string

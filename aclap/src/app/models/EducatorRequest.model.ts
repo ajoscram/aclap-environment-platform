@@ -16,7 +16,7 @@ export interface IEducatorRequest{
     organization: string
 }
 
-export class EducatorRequest{
+export class EducatorRequest implements IEducatorRequest{
     constructor(
         public id: string,
         public name: string,

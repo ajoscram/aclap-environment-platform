@@ -8,7 +8,7 @@ export interface IActivitySection extends ISection{
     questions: IQuestion[]
 }
 
-export class ActivitySection extends Section{
+export class ActivitySection extends Section implements IActivitySection{
     constructor(
         public id: string,
         public index: number,

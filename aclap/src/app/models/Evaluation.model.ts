@@ -6,7 +6,7 @@ export interface IEvaluation{
     answers: IAnswer[]
 }
 
-export class Evaluation {
+export class Evaluation implements IEvaluation{
     constructor(
         public id: string,
         public activityId: string,

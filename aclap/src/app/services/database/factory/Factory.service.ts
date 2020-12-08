@@ -25,6 +25,9 @@ export class Factory{
                 user.lastname,
                 user.email,
                 user.phone,
+                this.getLocation(user.address),
+                user.birthday,
+                user.organization,
                 user.joined
             );
         //WARNING: IUser and Administrator have the same fields!
@@ -122,44 +125,44 @@ export class Factory{
         return questions_;
     }
 
-    public getSection(id: string, iSection: ISection): Section{
+    public getSection(id: string, section: ISection): Section{
         //WARNING: The order of thesse if statements matters
         //since the checks could return false positives
-        if(ActivitySection.check(iSection))
+        if(ActivitySection.check(section))
             return new ActivitySection(
                 id,
-                iSection.index,
-                iSection.description,
-                iSection.estimatedMinutes,
-                iSection.tools,
-                this.getQuestions(iSection.questions)
+                section.index,
+                section.description,
+                section.estimatedMinutes,
+                section.tools,
+                this.getQuestions(section.questions)
             );
-        else if(ImageSection.check(iSection))
+        else if(ImageSection.check(section))
             return new ImageSection(
                 id,
-                iSection.index,
-                iSection.footing,
-                iSection.url,
-                iSection.reference,
+                section.index,
+                section.footing,
+                section.url,
+                section.reference,
             );
-        else if(TitleSection.check(iSection))
+        else if(TitleSection.check(section))
             return new TitleSection(
                 id,
-                iSection.index,
-                iSection.size,
-                iSection.text
+                section.index,
+                section.size,
+                section.text
             );
-        else if(ParagraphSection.check(iSection))
+        else if(ParagraphSection.check(section))
             return new ParagraphSection(
                 id,
-                iSection.index,
-                iSection.text
+                section.index,
+                section.text
             );
-        else if(YoutubeVideoSection.check(iSection))
+        else if(YoutubeVideoSection.check(section))
             return new YoutubeVideoSection(
                 id,
-                iSection.index,
-                iSection.url
+                section.index,
+                section.url
             );
         else
             throw new Error(FactoryError.UNKNOWN_ISECTION);

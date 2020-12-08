@@ -122,19 +122,19 @@ export class DefaultController implements Controller{
         return await this.database.deleteSection(implementableId, sectionId);
     }
 
-    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
-        return await this.database.getFiles(implementableId, sectionId);
+    async getFiles(implementableId: string): Promise<File[]>{
+        return await this.database.getFiles(implementableId);
     }
 
-    async addFile(implementableId: string, sectionId: string, file: any): Promise<File>{
+    async addFile(implementableId: string, file: any): Promise<File>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         const file_: IFile = await this.storage.upload(file);
-        return await this.database.addFile(implementableId, sectionId, file_);
+        return await this.database.addFile(implementableId, file_);
     }
 
-    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
+    async deleteFile(implementableId: string, fileId: string): Promise<File>{
         await this.authenticator.validate(Role.ANY);
-        const deleted: File = await this.database.deleteFile(implementableId, sectionId, fileId);
+        const deleted: File = await this.database.deleteFile(implementableId, fileId);
         await this.storage.delete(deleted);
         return deleted;
     }

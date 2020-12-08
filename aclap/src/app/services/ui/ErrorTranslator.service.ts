@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import ControlModule from '../../../modules/control/control.module';
+import ControlModule from '../../modules/control/control.module';
 
 @Injectable({
     providedIn: ControlModule

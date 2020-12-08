@@ -7,7 +7,7 @@ export interface IUser{
     email: string
 }
 
-export abstract class User extends Checkable{
+export abstract class User extends Checkable implements IUser{
     constructor(
         public id: string,
         public imageUrl: string,

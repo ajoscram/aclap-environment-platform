@@ -34,9 +34,9 @@ export class MockDatabase implements Database{
 
         this.users = [
             new Administrator('0', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Admin', 'McUsername', 'admin@example.com'),
-            new Educator('1', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator1', 'McUsername', 'educator1@example.com', '88888888', new Date()),
-            new Educator('2', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator2', 'McUsername', 'educator2@example.com', '88888888', new Date()),
-            new Educator('3', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Date()),
+            new Educator('1', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator1', 'McUsername', 'educator1@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
+            new Educator('2', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator2', 'McUsername', 'educator2@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
+            new Educator('3', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
         ];
 
         this.requests = [
@@ -248,23 +248,20 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
     
-    async getFiles(implementableId: string, sectionId: string): Promise<File[]>{
+    async getFiles(implementableId: string): Promise<File[]>{
         this.getImplementable(implementableId);//checking for implementable existance
-        this.getSection(sectionId);//checking for section existance
         return this.files;
     }
     
-    async addFile(implementableId: string, sectionId: string, file: IFile): Promise<File>{
+    async addFile(implementableId: string, file: IFile): Promise<File>{
         this.getImplementable(implementableId);//checking for implementable existance
-        this.getSection(sectionId);//checking for section existance
         const file_: File = this.factory.getFile(this.nextId, file);
         this.files.push(file_);
         return file_;
     }
     
-    async deleteFile(implementableId: string, sectionId: string, fileId: string): Promise<File>{
+    async deleteFile(implementableId: string, fileId: string): Promise<File>{
         this.getImplementable(implementableId);//checking for implementable existance
-        this.getSection(sectionId);//checking for section existance
         for(let i = 0; i < this.files.length; i++)
             if(this.files[i].id === fileId)
                 return this.files.splice(i, 1)[0];

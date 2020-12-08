@@ -2,7 +2,7 @@ import { IUser, User } from "./User.model";
 
 export interface IAdministrator extends IUser{ }
 
-export class Administrator extends User{
+export class Administrator extends User implements IAdministrator{
     constructor(
         public id: string,
         public imageUrl: string,

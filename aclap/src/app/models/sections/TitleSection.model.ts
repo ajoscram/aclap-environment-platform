@@ -10,7 +10,7 @@ export interface ITitleSection extends ISection{
     text: string
 }
 
-export class TitleSection extends Section{
+export class TitleSection extends Section implements ITitleSection{
     constructor(
         public id: string,
         public index: number,
