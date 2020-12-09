@@ -26,7 +26,7 @@ export const routes: Routes = [
         component: ModulePageComponent
     },
     {
-        path: 'guia',
+        path: 'guia/:id',
         component: DisplayerComponent,
     },
     {

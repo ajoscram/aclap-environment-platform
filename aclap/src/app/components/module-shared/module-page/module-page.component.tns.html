@@ -2,8 +2,8 @@
     <ScrollView orientation="vertical"  height="1000">
         <StackLayout orientation="vertical">
 
-            <GridLayout rows="*, *, *, *" columns="*">
-                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}"></Image>
+            <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}" class="img-banner"></Image>
                 <Label row="1" col="0" text="Modulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
             </GridLayout>
             <Label text="Antecedentes" class="title-text" textWrap="true"></Label>
@@ -12,7 +12,7 @@
             </StackLayout>
             <Label text="Objetivo" class="title-text" textWrap="true"></Label>
             <Label text="{{ module.objective }}" textWrap="true"></Label>
-            <Button text="Guía didáctica" class="my-button" (tap)="navigateToDisplayer()"></Button>
+            <Button text="Guía didáctica" class="my-button" (tap)="navigateToDisplayer(module.id)"></Button>
             <Button text="Materiales de apoyo" class="my-button"></Button>
             <Button text="Implementa este módulo" class="my-button"></Button>
         </StackLayout>

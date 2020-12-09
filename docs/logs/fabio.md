@@ -2,8 +2,9 @@
 
 ### Pendiente
 
-* Empezar el UI de perfil
-* Mostrar el material didactico de los modulos
+* Empezar el UI de perfil en NS
+* Empezar el UI de login en NS
+* Mejorar el UI de guia didactica en NS
 
 ### Completado
 
@@ -18,4 +19,5 @@
 | 12/11/2020 | Tener listo todos los fixes para avanzar en Nativescript |
 | 27/11/2020 | Cambiar UI de pagina de inicio en NS |
 | 05/12/2020 | Empezar el UI nuevo de modulos en NS |
-| 08/12/2020 | Terminar el UI de modulos |
+| 08/12/2020 | Terminar el UI de modulos en NS|
+| 12/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |

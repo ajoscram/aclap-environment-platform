@@ -42,8 +42,8 @@ export class ModulePageComponent implements OnInit {
       .catch(error => console.error(error));
   }
 
-  navigateToDisplayer(): void {
-    this.routerExtensions.navigate(['guia'], { clearHistory: false });
+  navigateToDisplayer(id): void {
+    this.routerExtensions.navigate(['guia', id], { clearHistory: false });
   } 
 
 }
