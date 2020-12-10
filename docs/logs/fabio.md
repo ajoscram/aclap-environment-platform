@@ -2,9 +2,10 @@
 
 ### Pendiente
 
-* Empezar el UI de perfil en NS
+* Completar la vista de implementables de perfil en NS
 * Empezar el UI de login en NS
 * Mejorar el UI de guia didactica en NS
+* Agregar el embedded Youtube de Guias en NS
 
 ### Completado
 
@@ -21,3 +22,4 @@
 | 05/12/2020 | Empezar el UI nuevo de modulos en NS |
 | 08/12/2020 | Terminar el UI de modulos en NS|
 | 12/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |
+| 12/12/2020 | Empezar el UI de perfil en NS |
