@@ -21,6 +21,9 @@
             <a ngbNavLink>{{ tabTags[0] }}</a>
             <ng-template ngbNavContent>
                 <div class="row">
+                    <h1> Lista de Módulos de aprendizaje </h1>
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <app-implementable-list [list]="modules" [isAdmin]="isAdmin"></app-implementable-list>
                     </div>
@@ -31,22 +34,46 @@
             <a ngbNavLink>{{ tabTags[1] }}</a>
             <ng-template ngbNavContent>
                 <div class="row">
+                    <h1> Lista de Eventos </h1>
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <app-implementable-list [list]="events" [isAdmin]="isAdmin"></app-implementable-list>
                     </div>
                 </div>
             </ng-template>
         </li>
-        <div *ngIf="isAdmin">
-            <li [ngbNavItem]="3">
-                <a ngbNavLink>{{ tabTags[2] }}</a>
-                <ng-template ngbNavContent>
-                    
-                </ng-template>
-            </li>
-        </div>
+        <li [ngbNavItem]="3">
+            <a ngbNavLink>{{ tabTags[2] }}</a>
+            <ng-template ngbNavContent>
+                <div class="row">
+                    <h1> Solicitudes Pendientes</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <ngb-accordion [closeOthers]="true" activeIds="request-0">
+                            <ngb-panel class="btn-success"  *ngFor="let req of pendingRequests; index as i" id="request-{{i}}" title="Solicitud: {{req.name}} {{req.lastname}} - {{req.email}}" >
+                                
+                                <ng-template ngbPanelContent>
+                                    <app-educator-application [application]="req" >
+                                    </app-educator-application>
+                                    <div class="row">
+                                        <div class="col">
+                                            <span (click)="onDeclineResquest(i)" class="btn btn-danger">Rechazar socilitud</span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span (click)="onAcceptResquest(i)" class="btn btn-success">Aceptar socilitud</span>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-panel>
+                        </ngb-accordion>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
     </ul>
 </div>
-<div class="container">
+<div id="main-content" class="container">
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
 </div>
