@@ -18,13 +18,18 @@ export class AppComponent {
   @ViewChild(RadSideDrawerComponent) sideDrawerComponent: RadSideDrawerComponent;
 
   navigateToHome(): void {
-      this.routerExtensions.navigate(['inicio'], { clearHistory: true });
+      this.routerExtensions.navigate(['inicio'], { clearHistory: false });
       this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
   navigateToModules(): void {
-      this.routerExtensions.navigate(['modulos'], { clearHistory: true });
+      this.routerExtensions.navigate(['modulos'], { clearHistory: false });
       this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
+  navigateToProfile(): void {
+    this.routerExtensions.navigate(['perfil'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
 }

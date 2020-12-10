@@ -1,1 +1,30 @@
-<Button text="profile works!" class="btn btn-primary"></Button>
+<BottomNavigation>
+
+    <TabStrip>
+        <TabStripItem>
+            <Label text="Módulos y Eventos"></Label>
+        </TabStripItem>
+        <TabStripItem>
+            <Label text="Solicitudes de Educadores"></Label>
+        </TabStripItem>
+    </TabStrip>
+
+    <TabContentItem>
+        <StackLayout>
+            <ScrollView orientation="vertical"  height="1000">
+                <StackLayout orientation="vertical">
+                    <StackLayout orientation="horizontal" backgroundColor="#1c81a9">
+                        <Image row="0" col="0" src="https://image.flaticon.com/icons/png/512/20/20863.png" class="user-img"></Image>
+                        <Label row="0" col="1" text="{{ user.name }}" class="user-text"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </TabContentItem>
+
+    <TabContentItem>
+        <GridLayout>
+            <Label text="Content 2" class="text"></Label>
+        </GridLayout>
+    </TabContentItem>
+</BottomNavigation>

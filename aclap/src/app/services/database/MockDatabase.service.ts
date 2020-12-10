@@ -33,10 +33,10 @@ export class MockDatabase implements Database{
         );
 
         this.users = [
-            new Administrator('0', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Susana Oria', 'McUsername', 'admin@example.com'),
-            new Educator('1', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator1', 'McUsername', 'educator1@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
-            new Educator('2', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator2', 'McUsername', 'educator2@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
-            new Educator('3', 'https://www.flaticon.com/svg/static/icons/svg/21/21104.svg', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
+            new Administrator('0', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Susana Oria', 'McUsername', 'admin@example.com'),
+            new Educator('1', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator1', 'McUsername', 'educator1@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
+            new Educator('2', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator2', 'McUsername', 'educator2@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
+            new Educator('3', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
         ];
 
         this.requests = [

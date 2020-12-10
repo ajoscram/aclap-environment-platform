@@ -1,1 +1,47 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.cardStyle {
+    background-color: #fff;
+    color: #fff;
+}
+
+.cardContent {
+    padding: 20;
+    font-weight: bold;
+    font-size: 12;
+}
+
+.moduleHeader {
+    font-size: 16;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background-color: #fff;
+}
+
+.welcome-text{
+    font-size: 24;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.module-img{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+}

@@ -1,7 +1,3 @@
-<Card:CardView class="cardStyle" ripple="true" elevation="200" radius="30" [nsRouterLink]="['/modulos',module.id]">
-    <StackLayout class="cardContent">
-        <Image src="{{ module.imageUrl }}"></Image>
-        <Label text="{{ module.name }}" class="moduleHeader" textWrap="true" [nsRouterLink]="['/modulos',module.id]"></Label>
-        <app-discipline *ngFor="let d of module.disciplines" [discipline]="d" ></app-discipline>
-    </StackLayout>
+<Card:CardView>
+    <Label text="{{ module.name }}" [nsRouterLink]="['/modulos',module.id]"></Label>
 </Card:CardView>

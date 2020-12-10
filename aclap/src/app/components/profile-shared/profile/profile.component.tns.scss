@@ -1,1 +1,62 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.bg-title-text{
+    background-color: $nav-color;
+    font-size: 16;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.title-text{
+    font-size: 24;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.user-text{
+    font-size: 14;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 17;
+    margin-left: 5;
+}
+
+.user-img{
+    height: 50;
+    width: 50;
+    border-radius: 50%;
+    margin: 5;
+}
+
+TabStripItem {
+    font-size: 12;
+    color: #ffffff;
+    background-color: #1c81a9;
+}
+
+TabStripItem:active {
+    font-size: 12;
+    color: #ffffff;
+    background-color: #0f5875;
+}

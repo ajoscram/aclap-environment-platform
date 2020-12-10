@@ -1,1 +1,45 @@
-<Button text="displayer works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout orientation="vertical">
+
+            <Label text="GUIA" class="title-text" textWrap="true"></Label>
+            <StackLayout *ngFor="let section of sections" orientation="vertical">
+                
+                <StackLayout *ngIf="isTitle(section)">
+
+                    <Label *ngIf="section.size === 0" text="{{ section.text }}" textWrap="true" class="title-text"></Label>
+                    <Label *ngIf="section.size === 1" text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
+
+                </StackLayout>
+
+                <StackLayout *ngIf="isActivity(section)">
+                    <Label text="ACTIVIDAD - Tiempo estimado {{ section.estimatedMinutes }} min." textWrap="true"></Label>
+                    <Label text="Descripción"></Label>
+                    <Label text="{{ section.description }}" textWrap="true"></Label>
+                </StackLayout>
+
+                <StackLayout *ngIf="isImage(section)">
+                    <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true>
+                        <StackLayout>
+                            <Image src="{{ section.url}}" stretch="aspectFill"></Image>
+                            <Label text="{{ section.footing }}" class="text"></Label>
+                            <Label text="Fuente: {{ section.reference }}" class="text"></Label>
+                        </StackLayout>
+                    </Card:CardView>
+                </StackLayout>
+
+                <StackLayout *ngIf="isParagraph(section)">
+                    <StackLayout *ngFor="let part of section.text.split('\n')">
+                        <Label text="{{ part.text }}" textWrap="true"></Label>
+                    </StackLayout>
+                </StackLayout>
+
+                <!-- <StackLayout *ngIf="isYoutube(section)">
+                    <Label text="{{ section.text }}" textWrap="true"></Label>
+                </StackLayout> -->
+
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

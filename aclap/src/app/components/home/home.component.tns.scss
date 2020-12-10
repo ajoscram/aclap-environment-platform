@@ -24,7 +24,6 @@ $l-grey: #d3d8d8;
 }
 
 .my-button {
-    android-elevation: 4;
     background-color: $nav-color;
     border-radius: 20;
     color: whitesmoke;
@@ -32,4 +31,6 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     width: auto;
     height: 100;
+    margin-left: 30;
+    margin-right: 30;
 }

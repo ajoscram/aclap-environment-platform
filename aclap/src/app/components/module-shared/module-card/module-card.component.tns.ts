@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Module } from '@src/app/models/implementables/Module.model';
+
 import { registerElement } from '@nativescript/angular';
 import { CardView } from '@nstudio/nativescript-cardview';
 

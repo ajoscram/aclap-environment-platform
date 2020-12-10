@@ -4,7 +4,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '../../components/home/home.component.tns';
 import { ModulesComponent } from '../../components/module-shared/modules/modules.component';
 import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
-import { ModuleEditComponent } from '../../components/module-shared/module-edit/module-edit.component';
+import { DisplayerComponent } from '../../components/module-shared/display/displayer/displayer.component';
+import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -25,7 +26,11 @@ export const routes: Routes = [
         component: ModulePageComponent
     },
     {
-        path: 'modulos/:id/editar',
-        component: ModuleEditComponent
+        path: 'guia/:id',
+        component: DisplayerComponent,
+    },
+    {
+        path: 'perfil',
+        component: ProfileComponent,
     }
 ];
