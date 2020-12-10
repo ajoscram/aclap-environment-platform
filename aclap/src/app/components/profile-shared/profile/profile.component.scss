@@ -15,3 +15,19 @@
         background-color: app.$button-color;
     }
 }
+
+#main-content{
+    min-height: 800px;
+}
+
+
+ngb-accordion ::ng-deep .card-header button {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  text-decoration: none;
+  text-align: left;
+
+}
+ngb-accordion ::ng-deep .card-header button:focus {
+  box-shadow: none;
+}
