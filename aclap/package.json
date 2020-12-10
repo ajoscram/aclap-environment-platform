@@ -38,6 +38,7 @@
     "nativescript-cardview": "^3.2.0",
     "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-ui-sidedrawer": "^9.0.3",
+    "nativescript-youtube-parser": "^2.0.1",
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.3",

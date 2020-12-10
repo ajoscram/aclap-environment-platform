@@ -32,4 +32,9 @@ export class AppComponent {
     this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
+  navigateToLogin(): void {
+    this.routerExtensions.navigate(['login'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
 }

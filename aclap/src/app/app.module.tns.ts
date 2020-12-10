@@ -1,6 +1,8 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from '@nativescript/angular';
-import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular'
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -81,7 +83,9 @@ import { TempModule } from './temp.module.tns';
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,
-    ControlModule
+    ControlModule,
+    ReactiveFormsModule,
+    NativeScriptFormsModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },

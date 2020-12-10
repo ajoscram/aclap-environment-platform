@@ -1,13 +1,11 @@
 <StackLayout>
     <ScrollView orientation="vertical" height="1000">
         <StackLayout orientation="vertical">
-
-            <Label text="GUIA" class="title-text" textWrap="true"></Label>
             <StackLayout *ngFor="let section of sections" orientation="vertical">
                 
                 <StackLayout *ngIf="isTitle(section)">
 
-                    <Label *ngIf="section.size === 0" text="{{ section.text }}" textWrap="true" class="title-text"></Label>
+                    <Label *ngIf="section.size === 0" text="{{ section.text }}" textWrap="true" class="title-text" backgroundColor="#1c81a9"></Label>
                     <Label *ngIf="section.size === 1" text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
 
                 </StackLayout>
@@ -34,9 +32,10 @@
                     </StackLayout>
                 </StackLayout>
 
-                <!-- <StackLayout *ngIf="isYoutube(section)">
-                    <Label text="{{ section.text }}" textWrap="true"></Label>
-                </StackLayout> -->
+                <StackLayout *ngIf="isYoutube(section)">
+                    <WebView src="{{ section.url }}" height="400">
+                    </WebView>
+                </StackLayout>
 
             </StackLayout>
 

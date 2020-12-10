@@ -1,1 +1,31 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$green-color: #528f41;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+  
+.logo {
+  margin: 10;
+  height: 100;
+  width: 100;
+}
+
+.input-login {
+  border-radius: 5;
+  width: 90%;
+  color: black;
+  font-size: 18;
+  placeholder-color: #bbbbbb;
+  margin: 10;
+}
+
+.btn-login {
+  color: #ffffff;
+  border-radius: 3;
+  background-color: #1c81a9;
+  font-size: 16;
+  width: 90%;
+}
+  

@@ -6,6 +6,7 @@ import { ModulesComponent } from '../../components/module-shared/modules/modules
 import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
 import { DisplayerComponent } from '../../components/module-shared/display/displayer/displayer.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
+import { LoginComponent } from '../../components/shared/login/login.component';
 
 export const routes: Routes = [
     {
@@ -32,5 +33,9 @@ export const routes: Routes = [
     {
         path: 'perfil',
         component: ProfileComponent,
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
     }
 ];

@@ -3,9 +3,7 @@
 ### Pendiente
 
 * Completar la vista de implementables de perfil en NS
-* Empezar el UI de login en NS
-* Mejorar el UI de guia didactica en NS
-* Agregar el embedded Youtube de Guias en NS
+* Hacer pruebas de login en NS
 
 ### Completado
 
@@ -21,5 +19,8 @@
 | 27/11/2020 | Cambiar UI de pagina de inicio en NS |
 | 05/12/2020 | Empezar el UI nuevo de modulos en NS |
 | 08/12/2020 | Terminar el UI de modulos en NS|
-| 12/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |
-| 12/12/2020 | Empezar el UI de perfil en NS |
+| 9/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |
+| 9/12/2020 | Empezar el UI de perfil en NS |
+| 10/12/2020 | Agregar el embedded Youtube de Guias en NS |
+| 10/12/2020 | Mejorar el UI de guia didactica en NS |
+| 10/12/2020 | Empezar el UI de login en NS |

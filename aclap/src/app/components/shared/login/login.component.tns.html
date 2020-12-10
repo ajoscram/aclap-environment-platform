@@ -1,1 +1,9 @@
-<Button text="login works!" class="btn btn-primary"></Button>
+
+<StackLayout>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <Image src="res://logo" class="logo"></Image>
+        <TextField formControlName="username" hint="Correo electrónico" class="input input-border input-login"></TextField>
+        <TextField formControlName="password" hint="Contraseña" secure="true" class="input input-border input-login"></TextField>
+        <Button text="Ingresar" class="btn btn-primary btn-login"></Button>
+    </form>
+</StackLayout>
