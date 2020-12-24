@@ -25,8 +25,7 @@ export class EditActivityComponent extends ChildrenForm{
     this.form = new FormGroup({
       description: new FormControl('', Validators.requiredTrue),
       estimatedMinutes: new FormControl('', Validators.requiredTrue),
-      tools: new FormControl('', Validators.requiredTrue),
-      questions: new FormControl('', Validators.requiredTrue)
+      tools: new FormControl('', Validators.requiredTrue)
     });
 
     this.availableMinutes = Array(12).fill(0).map((_, i)=> (i*10 + 10));

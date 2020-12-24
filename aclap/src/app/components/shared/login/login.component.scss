@@ -10,3 +10,25 @@
     top: 0px;
     bottom: 0px
 }
+
+#main-content{
+    min-height: 1000px;
+}
+
+span{
+    a{
+        color: white;
+        text-decoration: underline;
+    }
+}
+
+#log-card{
+    background-color: app.$nav-color;
+    color: white;
+    .card-body{
+        .btn{
+            background-color: app.$button-color;
+            color: white;
+        }
+    }
+}

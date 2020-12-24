@@ -9,6 +9,7 @@ import { CreateModuleComponent } from '../../components/module-shared/create-mod
 import { ImplementableStatComponent } from '../../components/profile-shared/implementable-stat/implementable-stat.component';
 import { ImplementationEditComponent } from '../../components/profile-shared/implementation-edit/implementation-edit.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
+import { LoginComponent } from '@src/app/components/shared/login/login.component';
 
 export const routes: Routes = [
     {
@@ -47,5 +48,9 @@ export const routes: Routes = [
     {
         path: 'implementacion/editar/:id',
         component: ImplementationEditComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
     }
 ];

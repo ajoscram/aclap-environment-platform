@@ -2,7 +2,6 @@
 
 ### Pendiente
 * Cambiar los colores y los fonts de la app
-* Crear Pantalla del Perfil
 * Actualizar el NavBar cuando se inicia sesión
 * Crear Component de Perfil
 * Crear Component de Los diferentes tabs del Pefil
@@ -52,4 +51,7 @@
 | 26/11/2020 | Implementar Editar Módulo |
 | 26/11/2020 | Implementar Eliminar Módulo |
 | 27/11/2020 | Implementar Subir Imágenes de Módulo |
-| 05/12/2020 | Agregados los componentes del Perfil |
+| 05/12/2020 | Agregados los componentes del Perfil | 
+| 07/12/2020 | Crear Pantalla del Perfil |
+| 09/12/2020 | Aceptar y Rechazar solicitud |
+| 22/12/2020 | Corregir Activity Section |

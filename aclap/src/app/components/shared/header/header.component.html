@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-sm fixed-top" [ngStyle]="{'background-color': colors[index]}">
+<nav class="navbar navbar-dark navbar-expand-sm fixed-top">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
             <span class="navbar-toggler-icon order-xs-1"></span>
@@ -17,7 +17,7 @@
                 <a *ngIf="!loggedIn" id="singupButton" class="btn">Persona Educadora</a>
             </span>
             <span class="navbar-text">
-                <a *ngIf="!loggedIn" id="loginButton" (click)="openLogin()" class="btn">Ingresar</a>
+                <a *ngIf="!loggedIn" id="loginButton" [routerLink]="['/login']" class="btn">Ingresar</a>
                 <a *ngIf="loggedIn" id="loginButton" (click)="logout()" class="btn">Cerrar Sesión</a>
             </span>
         </div>

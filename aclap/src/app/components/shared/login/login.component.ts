@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
 import { Role } from '../../../services/authentication/Session.model';
 import { Controller } from '../../../services/control/Controller.service';
 
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isAdmin: boolean;
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private controller: Controller, private builder: FormBuilder,private route: ActivatedRoute, private router: Router, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
     this.loginForm = this.builder.group({
@@ -20,6 +22,12 @@ export class LoginComponent implements OnInit {
       password: ['',Validators.required]
     });
     this.isAdmin = true;
+
+    this.controller.getSession().then(
+      session => {
+        this.router.navigateByUrl("/inicio");
+      }
+    );
   }
 
   onSubmit() {
@@ -27,10 +35,15 @@ export class LoginComponent implements OnInit {
     let password:string = this.loginForm.get('password').value;
     let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
     this.controller.login(usrname, password, role)
-      .then(non => { 
+      .then(non => {
+        window.location.replace("");
         window.location.reload();
        })
-      .catch( );
+      .catch( 
+        error => {
+          alert(this.translator.translate(error));
+        }
+      );
   }
 
 }
