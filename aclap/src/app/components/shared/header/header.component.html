@@ -14,7 +14,7 @@
                 <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Acerca de</a></li>
             </ul>
             <span class="navbar-text">
-                <a *ngIf="!loggedIn" id="singupButton" class="btn">Persona Educadora</a>
+                <a *ngIf="!loggedIn" id="singupButton" [routerLink]="['/persona-educadora']" class="btn btn-accend">Persona Educadora</a>
             </span>
             <span class="navbar-text">
                 <a *ngIf="!loggedIn" id="loginButton" [routerLink]="['/login']" class="btn">Ingresar</a>

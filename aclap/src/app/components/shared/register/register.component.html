@@ -1,1 +1,57 @@
-<p>register works!</p>
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url(https://images.unsplash.com/photo-1604390254113-b1b9e87bdf11?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=400&ixlib=rb-1.2.1&q=80&w=1280)'}">
+    <div class="container fill d-flex align-items-center">
+        <div class="col d-flex justify-content-center title">
+            <h1>
+                PERSONA EDUCADORA
+            </h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row row-content">
+        <app-displayer [sections]="texts"></app-displayer>
+    </div>
+    <div class="card shadow-lg mb-4">
+        <div class="card-header">
+            <div class="card-title">
+                <h2>Llená este formulario para volverte una Persona Eucadora</h2>
+            </div>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="form">
+                <div class="row mt-3">
+                    <div class="form-group col-6">
+                        <label class="label" for="name">Nombre</label>
+                        <input type="text" class="form-control" formControlName="name" [ngModel]="request.name">
+                    </div>
+                    <div class="col-6">
+                        <label class="label" for="lastname">Apellidos</label>
+                        <input type="text" class="form-control" formControlName="lastname" [ngModel]="request.lastname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="label" for="birthdate">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" formControlName="birthdate">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="label" for="phone">Número de teléfono</label>
+                        <input type="tel" class="form-control" formControlName="phone" [ngModel]="request.phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="email">Correo electrónico</label>
+                    <input type="email" class="form-control" placeholder="jose.rodriguez@correo.com" formControlName="email" [ngModel]="request.email">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span (click)="onSubmit()" class="btn button">
+                            <h2>Enviar Formulario</h2>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

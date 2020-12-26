@@ -3,8 +3,6 @@
 ### Pendiente
 * Cambiar los colores y los fonts de la app
 * Actualizar el NavBar cuando se inicia sesión
-* Crear Component de Perfil
-* Crear Component de Los diferentes tabs del Pefil
 * Crear Pantalla de Lista de Implementaciones
 * Crear Component de Implementacion
 
@@ -48,10 +46,13 @@
 | 24/11/2020 | Crear UI de pantalla de inicio |
 | 25/11/2020 | UI de los cards de módulos |
 | 26/11/2020 | Implementar Crear Nuevo Módulo |
-| 26/11/2020 | Implementar Editar Módulo |
+| 26/11/2020 | Implementar Editar Módulo | 
 | 26/11/2020 | Implementar Eliminar Módulo |
 | 27/11/2020 | Implementar Subir Imágenes de Módulo |
 | 05/12/2020 | Agregados los componentes del Perfil | 
 | 07/12/2020 | Crear Pantalla del Perfil |
 | 09/12/2020 | Aceptar y Rechazar solicitud |
+| 10/12/2020 | Actualizar el NavBar cuando se inicia sesión |
 | 22/12/2020 | Corregir Activity Section |
+| 23/12/2020 | Pantalla Login |
+| 25/12/2020 | Pantalla Persona Educadora |

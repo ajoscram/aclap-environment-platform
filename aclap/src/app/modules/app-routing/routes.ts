@@ -10,6 +10,7 @@ import { ImplementableStatComponent } from '../../components/profile-shared/impl
 import { ImplementationEditComponent } from '../../components/profile-shared/implementation-edit/implementation-edit.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
+import { RegisterComponent} from '@src/app/components/shared/register/register.component';
 
 export const routes: Routes = [
     {
@@ -52,5 +53,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'persona-educadora',
+        component: RegisterComponent,
     }
 ];
