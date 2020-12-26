@@ -49,6 +49,7 @@ import { ImplementableStatComponent } from '@src/app/components/profile-shared/i
 import { ImplementationEditComponent } from '@src/app/components/profile-shared/implementation-edit/implementation-edit.component';
 import { ImplementationPageComponent } from '@src/app/components/profile-shared/implementation-page/implementation-page.component';
 import { ProfileComponent } from '@src/app/components/profile-shared/profile/profile.component';
+import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/edit-questions/edit-questions.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ProfileComponent } from '@src/app/components/profile-shared/profile/pro
     AboutUsComponent,
     CreateModuleComponent,
     EditDisciplinesComponent,
+    EditQuestionsComponent,
     EducatorApplicationComponent,
     ImplementableListComponent,
     ImplementableStatComponent,

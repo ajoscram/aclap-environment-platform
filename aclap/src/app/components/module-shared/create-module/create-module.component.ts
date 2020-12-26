@@ -15,6 +15,7 @@ export class CreateModuleComponent implements OnInit {
   module: Module;
   id: string;
   sections: Section[];
+  questions: Question[];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -23,6 +24,7 @@ export class CreateModuleComponent implements OnInit {
   ngOnInit(): void {
     this.module = new Module("","","","","","","","",12,"","", new Array<Discipline>());
     this.sections = new Array<Section>();
+    this.questions = new Array<Question>();
   }
 
   addSection(index: number){

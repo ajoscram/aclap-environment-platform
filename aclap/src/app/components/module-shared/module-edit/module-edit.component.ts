@@ -16,6 +16,7 @@ export class ModuleEditComponent implements OnInit {
   imageProxy: Map<String, File>;
   moduleImage: ImageSection;
   bannerImage: ImageSection;
+  questions: Question[];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -35,6 +36,7 @@ export class ModuleEditComponent implements OnInit {
       .catch(error => console.error(error)
     );
     this.imageProxy = new Map();
+    this.questions = new Array();
   }
 
   

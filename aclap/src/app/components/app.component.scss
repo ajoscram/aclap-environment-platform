@@ -28,6 +28,7 @@ $l-grey: #d3d8d8;
 .button{
     background-color: $nav-color;
 
+    color: white;
     h2{
         color: $l-grey;
     }
@@ -57,4 +58,9 @@ $l-grey: #d3d8d8;
 .fill { 
     min-height: 100%;
     height: 100%;
+}
+
+.btn-accend{
+    background-color: $button-color;
+    color: white;
 }
