@@ -39,9 +39,21 @@
                         <input type="tel" class="form-control" formControlName="phone" [ngModel]="request.phone">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="label" for="email">Correo electrónico</label>
-                    <input type="email" class="form-control" placeholder="jose.rodriguez@correo.com" formControlName="email" [ngModel]="request.email">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="label" for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" placeholder="jose.rodriguez@correo.com" formControlName="email" [ngModel]="request.email">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="label" for="locationName">Dirección</label>
+                        <div *ngIf="!gotLocation">
+                            <input type="text" class="form-control" placeholder="Santa María, Dota" formControlName="locationName" [ngModel]="request.address.name">
+                            <span (click)="getLocation()" class="btn button">Obtener Ubicación</span>
+                        </div>
+                        <div *ngIf="gotLocation">
+                            <span class="">{{request.address.name}}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">

@@ -56,3 +56,5 @@
 | 22/12/2020 | Corregir Activity Section |
 | 23/12/2020 | Pantalla Login |
 | 25/12/2020 | Pantalla Persona Educadora |
+| 26/12/2020 | Implementar función de subida de Questions |
+| 27/12/2020 | Solicitud de educador implementado 100% |

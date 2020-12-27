@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EducatorRequest, EducatorRequestState, Location, ParagraphSection, Section, TitleSection, TitleSectionSize } from '@src/app/models';
+import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { Validator } from '@src/app/services/database/validation/Validator.service';
 import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
@@ -16,14 +17,15 @@ export class RegisterComponent implements OnInit {
 
   texts: Section[];
   form: FormGroup;
+  gotLocation: boolean;
   request: EducatorRequest;
 
 
 
-  constructor(private controller: Controller,private builder: FormBuilder, private translator: ErrorTranslator, private router: Router) { }
+  constructor(private controller: Controller,private builder: FormBuilder, private translator: ErrorTranslator, private router: Router, private geoApi: GeoApiService) { }
 
   ngOnInit(): void {
-    this.request = new EducatorRequest("","","","","",new Location("",0,0),null,"",null,EducatorRequestState.PENDING);
+    this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),null,"",null,EducatorRequestState.PENDING);
 
     let titles:TitleSection[] = [new TitleSection("_-", 0, TitleSectionSize.H1, "¿Qué es una persona educadora?"), new TitleSection("__", 2, TitleSectionSize.H1, "Beneficios de una persona educadora")];
     const parags: ParagraphSection[] = [new ParagraphSection("__",1,""), new ParagraphSection("__",3,"- Poder subir evidencias de un módulo o evento\n- Ser un agente de cambio.")];
@@ -61,6 +63,8 @@ export class RegisterComponent implements OnInit {
       ]),
       organization: ['', Validators.requiredTrue],      
     });
+
+    this.gotLocation = false;
   }
 
   onSubmit(): void{
@@ -69,7 +73,7 @@ export class RegisterComponent implements OnInit {
     this.request.birthday = birthday;
 
     this.controller.addEducatorRequest(this.request).then(
-      res => {
+      _ => {
         alert("Solicitud Enviada satisfactoriamente");
         this.router.navigateByUrl("inicio");
       }
@@ -79,6 +83,27 @@ export class RegisterComponent implements OnInit {
       }
     )
 
+  }
+
+  getLocation(){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+        this.request.address.latitude = position.coords.latitude;
+        this.request.address.longitude = position.coords.longitude;
+        this.gotLocation = true;
+
+        this.geoApi.getReverseGeocoding(position.coords.latitude, position.coords.longitude).subscribe(
+          (response) => {
+            const localityInfo = response["localityInfo"];
+            this.request.address.name = `${localityInfo.administrative[3].name}, ${localityInfo.administrative[2].name}, ${localityInfo.administrative[1].name}`; 
+          }
+        );
+      },(error)=>{
+        alert(error.message);
+      },{
+        timeout:10000
+    });
   }
 
 }

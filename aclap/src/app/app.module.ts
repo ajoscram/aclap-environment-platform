@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -97,7 +97,8 @@ import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/e
     ControlModule,
     FormsModule,
     DragDropModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },
