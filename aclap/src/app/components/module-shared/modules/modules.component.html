@@ -43,9 +43,9 @@
     </div>
     <div class="row row-content">
         <div class="col-12">
-            <div class="btn clickable btn-lg col-12" [routerLink]="['/crear','modulo']">
+            <a *ngIf="isAdmin" class="btn clickable btn-lg col-12" [routerLink]="['/crear','modulo']">
                 Agregar Módulo
-            </div>
+            </a>
         </div>
     </div>
 </div>

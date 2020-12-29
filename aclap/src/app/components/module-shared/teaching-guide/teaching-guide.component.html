@@ -1,0 +1,26 @@
+<div class="jumbotron jumbotron-fluid header-image" [style.background-image]="'url(' + module.bannerImageUrl + ')'">
+    <div class="container fill d-flex align-items-center">
+        <div class="col d-flex justify-content-center title">
+            <div class="row my-5">
+                <div class="col-2">
+                    <img class="img-fluid" [src]="module.imageUrl">
+                </div>
+                <div class="col">
+                    <h1>
+                        {{module.name}}
+                    </h1>
+                </div>
+                <div *ngIf="isAdmin" class="col-2">
+                    <a class="wt"  [routerLink]="['..']"> DEVOLVERSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <app-displayer [sections]="sections"></app-displayer>
+        </div>
+    </div>
+</div>

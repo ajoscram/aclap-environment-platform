@@ -1,13 +1,5 @@
 @use '../../app.component.scss';
 
-.jumbotron{
-    background-color: app.$jumbo-color;
-}
-
-.container-fluid{
-    max-width: 1250px;
-}
-
 @media (min-width: 768px) {
     .jumbotron {
         height: 300px;
@@ -24,14 +16,4 @@
     .jumbotron {
         height: 500px;
     }
-}
-
-
-.header{
-    background-color: app.$nav-color;
-    border-style: none;
-}
-
-.body-text{
-    background-color: app.$l-grey;
 }

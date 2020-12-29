@@ -11,6 +11,7 @@ import { ImplementationEditComponent } from '../../components/profile-shared/imp
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 import { RegisterComponent} from '@src/app/components/shared/register/register.component';
+import { TeachingGuideComponent} from '../../components/module-shared/teaching-guide/teaching-guide.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
     {
         path: 'modulos/:id/editar',
         component: ModuleEditComponent,
+    },
+    {
+        path: 'modulos/:id/guia-didactica',
+        component: TeachingGuideComponent
     },
     {
         path: 'crear/modulo',

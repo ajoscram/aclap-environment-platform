@@ -1,35 +1,58 @@
-<div>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-11">
-                    <h1 style="font-size:50px;">Módulo: {{ module.name }}</h1>
+<div class="jumbotron jumbotron-fluid header-image" [style.background-image]="'url(' + module.bannerImageUrl + ')'">
+    <div class="container-fluid fill d-flex align-items-center">
+        <div class="col d-flex justify-content-center title">
+            <div class="row my-5">
+                <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                    <img class="img-fluid" [src]="module.imageUrl">
                 </div>
-                <div class="col-1">
+                <div class="col">
+                    <h1>
+                        {{module.name}}
+                    </h1>
+                </div>
+                <div *ngIf="isAdmin" class="col">
                     <a class="wt"  [routerLink]="['/modulos',module.id,'editar']"> EDITAR</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row mt-4">
+</div>
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <!--List of subjects-->
+            <app-display-disciplines [disciplines]="module.disciplines" ></app-display-disciplines>
+        </div>
+        <div class="col">
             <div class="col-12">
+                <h3>Antecedentes</h3>
                 <ul class="list-group">
-                    <li class="list-group-item active header"><h3>Antecedentes</h3></li>
-                    <div *ngFor="let part of module.antecedents.split('\n')">
-                        <li class="list-group-item"> {{part}} </li>
-                    </div>
+                    <p *ngFor="let part of module.antecedents.split('\n')"> 
+                        {{part}}
+                    </p>
                 </ul>
             </div>
             <div class="col-12 pt-3">
-                <ul class="list-group">
-                    <li class="list-group-item active header"><h3>Objetivos</h3></li>
-                    <li class="list-group-item"> {{module.objective}} </li>
-                </ul>
+                <h3>Objetivo</h3>
+                <p>{{ module.objective }}</p>
             </div>
         </div>
-        <div class="row row-content">
-            <app-displayer [sections]=sections></app-displayer>
+    </div>
+    <div class="row row-content" style="margin-bottom: 50px;">
+        <div class="col-md-4 mb-3"  style="height: 250px;">
+            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'guia-didactica']">
+                <h2 class="my-auto text-center">Guía Didáctica</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color">
+                <h2 class="my-auto text-center">Material descargables</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'implementacion']">
+                <h2 class="my-auto text-center">Implementá el módulo</h2>
+            </div>
         </div>
     </div>
 </div>

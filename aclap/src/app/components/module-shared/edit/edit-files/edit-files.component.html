@@ -1,22 +1,21 @@
-<div>
-  <div class="container" appDragAndDrop (fileDropped)="onFileDropped($event)">
-      <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
-      <h3>Arrastrar un archivo aquí</h3>
-      <h3>o</h3>
-      <label for="fileDropRef">Buscar un archivo</label>
-  </div>
-  <div class="files-list">
-      <div class="single-file" *ngFor="let file of files; let i = index">
-        <div class="info">
-          <h4 class="name">
-            {{ file?.name }}
-          </h4>
-          <p class="size">
-            {{ formatBytes(file?.size) }}
-          </p>
-          <app-progress [progress]="file?.progress"></app-progress>
-        </div>
-        <span class="delete" alt="file" (click)="deleteFile(i)">Eliminar</span>
+<h2 class="card-header">Material descargable del módulo</h2>
+<div class="container" appDragAndDrop (fileDropped)="onFileDropped($event)">
+    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+    <h3>Arrastrar un archivo aquí</h3>
+    <h3>o</h3>
+    <label for="fileDropRef">Buscar un archivo</label>
+</div>
+<div class="files-list">
+    <div class="single-file" *ngFor="let file of files; let i = index">
+      <div class="info">
+        <h4 class="name">
+          {{ file?.name }}
+        </h4>
+        <p class="size">
+          {{ formatBytes(file?.size) }}
+        </p>
+        <app-progress [progress]="file?.progress"></app-progress>
       </div>
-  </div>
+      <span class="delete" alt="file" (click)="deleteFile(i)">Eliminar</span>
+    </div>
 </div>

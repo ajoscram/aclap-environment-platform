@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
 import { Module } from '../../../models/implementables/Module.model';
+import { Role } from '@src/app/services/authentication/Session.model';
 
 @Component({
   selector: 'app-modules',
@@ -12,10 +13,19 @@ import { Module } from '../../../models/implementables/Module.model';
 export class ModulesComponent implements OnInit {
 
   modules: Module[];
+  isAdmin: boolean = false;
 
   constructor(private controller: Controller) { }
 
   ngOnInit(): void {
+    this.controller.getSession().then(
+      session => {
+        if (session.role === Role.ADMINISTRATOR){
+          this.isAdmin = true;
+        }
+      }
+    );
+
     this.controller.getModules()
       .then( modules => { this.modules = modules; })
       //este console error hay que cambiarlo eventualmente por un mensaje de error

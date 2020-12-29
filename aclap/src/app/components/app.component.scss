@@ -15,6 +15,16 @@ $green-color: #528f41;
 $gray-dark: #596668;
 $l-grey: #d3d8d8;
 
+@font-face{
+    font-family: 'Lora';
+    src: url('../../assets/fonts/Lora-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../../assets/fonts/proxima-nova-bold-5943e828c876a.otf') format('opentype');
+}
+
 .row-content{
     margin: 0px auto;
     padding: 15px 0px 50px 0px;
@@ -30,7 +40,7 @@ $l-grey: #d3d8d8;
 
     color: white;
     h2{
-        color: $l-grey;
+        color: white;
     }
 }
 
@@ -47,12 +57,21 @@ $l-grey: #d3d8d8;
     color: whitesmoke;
 }
 
+.title{
+    backdrop-filter: blur(5px)  brightness(50%) drop-shadow(4px 4px 10px black);
+}
+
 .wt{
     color: whitesmoke;
 }
 
 .clickable{
-    cursor: pointer;
+    transition: 300ms;
+}
+
+.clickable:hover{
+    background-color: $button-color;
+    color: whitesmoke;
 }
 
 .fill { 
@@ -63,4 +82,12 @@ $l-grey: #d3d8d8;
 .btn-accend{
     background-color: $button-color;
     color: white;
+}
+
+p, span, label{
+    font-family: 'Lora' !important;
+}
+
+h1, h2, h3, h4, h5, li, a, button {
+    font-family: "Proxima Nova";
 }

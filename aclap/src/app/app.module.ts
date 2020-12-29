@@ -15,6 +15,7 @@ import { ModuleCardComponent } from '@src/app/components/module-shared/module-ca
 import { EditTitleComponent } from '@src/app/components/module-shared/edit/edit-title/edit-title.component';
 import { EditParagraphComponent } from '@src/app/components/module-shared/edit/edit-paragraph/edit-paragraph.component';
 import { EditActivityComponent } from '@src/app/components/module-shared/edit/edit-activity/edit-activity.component';
+import { DisplayDisciplinesComponent } from '@src/app/components/module-shared/display/display-disciplines/display-disciplines.component';
 import { EditModuleInfoComponent } from '@src/app/components/module-shared/edit/edit-module-info/edit-module-info.component';
 import { EditImageComponent } from '@src/app/components/module-shared/edit/edit-image/edit-image.component';
 import { EditYoutubeComponent } from '@src/app/components/module-shared/edit/edit-youtube/edit-youtube.component';
@@ -53,6 +54,8 @@ import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/e
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { ProgressComponent} from '@src/app/components/module-shared/edit/progress/progress.component';
 import { EditFilesComponent } from '@src/app/components/module-shared/edit/edit-files/edit-files.component';
+import { TeachingGuideComponent} from '@src/app/components/module-shared/teaching-guide/teaching-guide.component';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { EditFilesComponent } from '@src/app/components/module-shared/edit/edit-
     ModulesComponent,
     ModulePageComponent,
     ModuleEditComponent,
+    TeachingGuideComponent,
     ModuleCardComponent,
     EditTitleComponent,
     EditParagraphComponent,
@@ -74,6 +78,7 @@ import { EditFilesComponent } from '@src/app/components/module-shared/edit/edit-
     DisciplineComponent,
     DisplayImageComponent,
     DisplayActivityComponent,
+    DisplayDisciplinesComponent,
     DisplayTitleComponent,
     DisplayParagraphComponent,
     DisplayYoutubeComponent,

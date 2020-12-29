@@ -2,7 +2,6 @@
 
 ### Pendiente
 * Cambiar los colores y los fonts de la app
-* Actualizar el NavBar cuando se inicia sesión
 * Crear Pantalla de Lista de Implementaciones
 * Crear Component de Implementacion
 
@@ -59,3 +58,5 @@
 | 26/12/2020 | Implementar función de subida de Questions |
 | 27/12/2020 | Solicitud de educador implementado 100% |
 | 28/12/2020 | Edición de archivos de módulo |
+| 28/12/2020 | Rediseño de Módulos |
+| 28/12/2020 | Fonts Añadidos y aplicados |
