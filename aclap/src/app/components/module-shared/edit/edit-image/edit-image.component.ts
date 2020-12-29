@@ -13,11 +13,12 @@ export class EditImageComponent  implements OnInit {
   form: FormGroup;
   @Input() image: ImageSection;
   @Input() imageProxy: Map<String, File>;
+  @Input() noMetadata: boolean = false;
   file: File;
   isOnline = true;
 
 
-  constructor(private controller: Controller, private builder: FormBuilder) { 
+  constructor(private builder: FormBuilder) { 
 
   }
 

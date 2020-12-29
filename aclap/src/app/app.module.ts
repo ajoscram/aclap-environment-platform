@@ -50,6 +50,9 @@ import { ImplementationEditComponent } from '@src/app/components/profile-shared/
 import { ImplementationPageComponent } from '@src/app/components/profile-shared/implementation-page/implementation-page.component';
 import { ProfileComponent } from '@src/app/components/profile-shared/profile/profile.component';
 import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/edit-questions/edit-questions.component';
+import { DragAndDropDirective } from './directives/drag-and-drop.directive';
+import { ProgressComponent} from '@src/app/components/module-shared/edit/progress/progress.component';
+import { EditFilesComponent } from '@src/app/components/module-shared/edit/edit-files/edit-files.component';
 
 @NgModule({
   declarations: [
@@ -82,12 +85,15 @@ import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/e
     CreateModuleComponent,
     EditDisciplinesComponent,
     EditQuestionsComponent,
+    EditFilesComponent,
     EducatorApplicationComponent,
     ImplementableListComponent,
     ImplementableStatComponent,
     ImplementationEditComponent,
     ImplementationPageComponent,
-    ProfileComponent
+    ProfileComponent,
+    DragAndDropDirective,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,

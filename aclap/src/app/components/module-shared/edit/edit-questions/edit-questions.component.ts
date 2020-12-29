@@ -18,10 +18,7 @@ export class EditQuestionsComponent implements OnInit {
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.options = new Array();
-    for (let index = 0; index < 5; index++) {
-      this.options.push(""); 
-    }
+    this.options = ["Muy bajo", "Bajo", "Promedio", "Alto", "Muy Alto"];
     
     this.initQuestion();
 
@@ -38,20 +35,11 @@ export class EditQuestionsComponent implements OnInit {
   initQuestion(){
     this.tempQuestion = new Question("",null);
 
-    let ordinal = new Map<Score,string>();
-    
-    ordinal[Score.VERY_LOW] = "Muy bajo";
-    ordinal[Score.LOW] = "Bajo";
-    ordinal[Score.AVERAGE] = "Promedio";
-    ordinal[Score.HIGH] = "Alto";
-    ordinal[Score.VERY_HIGH] = "Muy Alto";
-
-    this.tempQuestion.options = ordinal; 
+    this.tempQuestion.options = new Map(); 
   }
 
   addQuestion(){
     let qstn = new Question("", new Map());
-
 
     qstn.options[Score.VERY_LOW] = this.options[0];
     qstn.options[Score.LOW] = this.options[1];
@@ -62,7 +50,6 @@ export class EditQuestionsComponent implements OnInit {
 
     this.questions.push(qstn);
     this.initQuestion();
-    console.log(this.questions);
   }
 
 }

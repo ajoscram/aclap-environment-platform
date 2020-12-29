@@ -14,6 +14,7 @@ export class ModuleEditComponent implements OnInit {
   module: Module;
   sections: Section[];
   imageProxy: Map<String, File>;
+  files: any[] = [];
   moduleImage: ImageSection;
   bannerImage: ImageSection;
   questions: Question[];
@@ -27,7 +28,11 @@ export class ModuleEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.controller.getImplementable(this.id)
-      .then(module => { this.module = <Module> module })
+      .then(module => { 
+        this.module = <Module> module 
+        this.moduleImage = new ImageSection("",0,"",module.imageUrl,"");
+        this.bannerImage = new ImageSection("",0,"",module.bannerImageUrl,"");
+      })
       .catch(error => console.error(error));
     
     this.controller.getSections(this.id)
