@@ -80,17 +80,20 @@ export class ModuleEditComponent implements OnInit {
     //Go to module Display Page
 
     /* Upload image and banner of the module */
-    this.module.imageUrl = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-      url => {
-        return url;
+    const moduleImgArray = [this.moduleImage, this.bannerImage];
+    moduleImgArray.forEach( async (imageSection: ImageSection) => {
+        if (!imageSection.url.startsWith("http")){
+          imageSection.url = await this.controller.upload(this.imageProxy[imageSection.url]).then(
+            url => {
+              return url;
+            }
+          );
+        }
       }
     );
 
-    this.module.bannerImageUrl = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
-      url => {
-        return url;
-      }
-    ) 
+    this.module.imageUrl = moduleImgArray[0].url;
+    this.module.bannerImageUrl = moduleImgArray[1].url;
     /* */
 
     console.log(this.sections);

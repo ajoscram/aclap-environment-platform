@@ -25,7 +25,7 @@ export class CreateModuleComponent implements OnInit {
   constructor(private controller: Controller, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.module = new Module("","","","","","","","",12,"","", new Array<Discipline>());
+    this.module = new Module("","","rgb(35,175,229)","","","","","",12,"","", new Array<Discipline>());
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
     this.moduleImage = new ImageSection("",0,"",this.module.imageUrl,"");
@@ -61,17 +61,20 @@ export class CreateModuleComponent implements OnInit {
   async submitSections(){
 
     /* Upload image and banner of the module */
-    this.module.imageUrl = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-      url => {
-        return url;
+    const moduleImgArray = [this.moduleImage, this.bannerImage];
+    moduleImgArray.forEach( async (imageSection: ImageSection) => {
+        if (!imageSection.url.startsWith("http")){
+          imageSection.url = await this.controller.upload(this.imageProxy[imageSection.url]).then(
+            url => {
+              return url;
+            }
+          );
+        }
       }
     );
 
-    this.module.bannerImageUrl = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
-      url => {
-        return url;
-      }
-    ) 
+    this.module.imageUrl = moduleImgArray[0].url;
+    this.module.bannerImageUrl = moduleImgArray[1].url;
     /* */
     
     const uploadingModule = this.controller.addImplementable(this.module).then(

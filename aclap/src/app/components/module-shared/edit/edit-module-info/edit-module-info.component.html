@@ -17,7 +17,21 @@
             </select>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row d-flex align-items-center mb-3">
+        <div class="form-group col-9">
+            <label class="label" for="name">Color del Módulo</label>
+            <div class="row">
+                <div (click)="setColor(i)" *ngFor="let color of colors; index as i" class="col color-option" style="height: 30px; width: 30px;" [style.background-color]="color">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <label class="label">Color seleccionado</label>
+            <div class="color-picked" style="width: 100%; height: 100px;" [style.background-color]="module.color">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -31,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -43,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row">
         <div class="form-group col-12">
             <label for="antecedents">Antecedentes</label>
             <textarea class="form-control" formControlName="antecedents" [(ngModel)]="module.antecedents" rows="5"></textarea>
