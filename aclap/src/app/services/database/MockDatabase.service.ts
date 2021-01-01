@@ -332,7 +332,7 @@ export class MockDatabase implements Database{
 
     async getEvaluations(implementationId: string): Promise<Evaluation[]>{
         this.getImplementation(implementationId);//checking for implementation existance
-        return this.evaluations;
+        return [...this.evaluations];
     }
 
     async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
@@ -364,7 +364,7 @@ export class MockDatabase implements Database{
 
     async getEvidence(implementationId: string): Promise<File[]>{
         this.getImplementation(implementationId);//checking for implementation existance
-        return this.evidence;
+        return [...this.evidence];
     }
 
     async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
