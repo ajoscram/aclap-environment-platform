@@ -214,7 +214,7 @@ export class MockDatabase implements Database{
 
     async getSections(implementableId: string): Promise<Section[]>{
         this.getImplementable(implementableId);//checking for implementable existance
-        const sections: Section[] = this.sections.sort((section1, section2) => 
+        const sections: Section[] = [...this.sections].sort((section1, section2) => 
             (section1.index > section2.index) ? 1 : -1
         );
         return sections;
@@ -227,7 +227,7 @@ export class MockDatabase implements Database{
         this.sections.push(section_);
         return section_;
     }
-    
+
     async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
         this.getImplementable(implementableId);//checking for implementable existance
         for(let i = 0; i < this.sections.length; i++){
