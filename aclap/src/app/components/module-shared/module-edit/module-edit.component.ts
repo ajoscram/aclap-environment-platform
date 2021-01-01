@@ -78,7 +78,22 @@ export class ModuleEditComponent implements OnInit {
     //Submit Module
     //Submit Sections
     //Go to module Display Page
-    
+
+    /* Upload image and banner of the module */
+    this.module.imageUrl = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+      url => {
+        return url;
+      }
+    );
+
+    this.module.bannerImageUrl = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+      url => {
+        return url;
+      }
+    ) 
+    /* */
+
+    console.log(this.sections);
     this.controller.updateImplementable(this.module.id, this.module).then(
       _ => {
         //All Good
@@ -89,7 +104,29 @@ export class ModuleEditComponent implements OnInit {
       console.log(err);
     });
 
-    const sect = this.sections.map(async (section:Section) => {
+
+    for (let i = 0; i < this.sections.length; i++) {
+      const section = this.sections[i];
+      if(section instanceof ImageSection && !section.url.startsWith("http")){
+        const imagetarget = this.imageProxy[section.url];
+        const imgUrl = await this.controller.upload(imagetarget).then(id => {
+          return id;
+        });
+        const _section = {
+          "id": section.id, 
+          "index": section.index, 
+          "footing": section.footing,
+          "url": imgUrl, 
+          "reference": section.reference
+        };
+        this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
+      }else{
+        this.sections[i] = await this.controller.setSection(section, this.id, section.id);
+      }
+    }
+
+    /*
+    this.sections.forEach(async (section:Section) => {
       let sect_response: Section;
       if(section instanceof ImageSection && !section.url.startsWith("http")){
         const imagetarget = this.imageProxy[section.url];
@@ -106,13 +143,12 @@ export class ModuleEditComponent implements OnInit {
       }else{
         sect_response = await this.controller.setSection(section, this.id, section.id);
       }
-      section = sect_response;
     });
-
-    const sects = await Promise.all(sect);
-    console.log(sects);
+    */
 
     //Display modal that everithing worked fine
+    alert("Contenido del módulo actualizado de manera correcta");
+    this.router.navigateByUrl(`/modulos/${this.route.snapshot.paramMap.get('id')}`);
 
   }
 

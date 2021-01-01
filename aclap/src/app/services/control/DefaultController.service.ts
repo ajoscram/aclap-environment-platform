@@ -111,6 +111,7 @@ export class DefaultController implements Controller{
     }
 
     async setSection(section: ISection, implementableId: string, sectionId?: string): Promise<Section>{
+        console.log("Set Section");
         if(sectionId)
             return await this.updateSection(implementableId, sectionId, section);
         else

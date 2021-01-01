@@ -3,7 +3,7 @@ import { Controller } from '../../../services/control/Controller.service';
 import { ActivitySection, Discipline, ImageSection, 
   Module, ParagraphSection, Question, Section, 
   TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../../models';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-module',
@@ -16,15 +16,21 @@ export class CreateModuleComponent implements OnInit {
   id: string;
   sections: Section[];
   questions: Question[];
+  moduleImage: ImageSection;
+  bannerImage: ImageSection;
+  imageProxy: Map<String, File>;
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private controller: Controller, private router: Router) { }
+  constructor(private controller: Controller, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.module = new Module("","","","","","","","",12,"","", new Array<Discipline>());
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
+    this.moduleImage = new ImageSection("",0,"",this.module.imageUrl,"");
+    this.bannerImage = new ImageSection("",0,"",this.module.bannerImageUrl,"");
+    this.imageProxy = new Map();
   }
 
   addSection(index: number){
@@ -53,9 +59,20 @@ export class CreateModuleComponent implements OnInit {
   }
 
   async submitSections(){
-    //Submit Module
-    //Submit Sections
-    //Go to module Display Page
+
+    /* Upload image and banner of the module */
+    this.module.imageUrl = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+      url => {
+        return url;
+      }
+    );
+
+    this.module.bannerImageUrl = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+      url => {
+        return url;
+      }
+    ) 
+    /* */
     
     const uploadingModule = this.controller.addImplementable(this.module).then(
       module => {
@@ -75,8 +92,8 @@ export class CreateModuleComponent implements OnInit {
     const sects = await Promise.all(sect);
     console.log(sects);
 
-    this.router.navigateByUrl("/modulos");
-    //Display modal that everithing worked fine
+    alert("Contenido del módulo actualizado de manera correcta");
+    this.router.navigateByUrl(`/modulos/${this.id}`);
 
   }
 

@@ -10,7 +10,7 @@
                         {{module.name}}
                     </h1>
                 </div>
-                <div *ngIf="isAdmin" class="col">
+                <div *ngIf="isAdmin" class="col d-flex justify-content-end">
                     <a class="wt"  [routerLink]="['/modulos',module.id,'editar']"> EDITAR</a>
                 </div>
             </div>
@@ -40,17 +40,17 @@
     </div>
     <div class="row row-content" style="margin-bottom: 50px;">
         <div class="col-md-4 mb-3"  style="height: 250px;">
-            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'guia-didactica']">
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'guia-didactica']">
                 <h2 class="my-auto text-center">Guía Didáctica</h2>
             </div>
         </div>
         <div class="col-md-4 mb-3" style="height: 250px;">
-            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color">
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color">
                 <h2 class="my-auto text-center">Material descargables</h2>
             </div>
         </div>
         <div class="col-md-4 mb-3" style="height: 250px;">
-            <div class="card h-100 button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'implementacion']">
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'implementacion']">
                 <h2 class="my-auto text-center">Implementá el módulo</h2>
             </div>
         </div>
