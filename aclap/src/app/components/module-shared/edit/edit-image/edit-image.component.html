@@ -12,9 +12,9 @@
         </div>
     </div>
     <div *ngIf="isOnline == false" class="form-group row">
-        <label for="url" class="col-xl-2 col-form-label">Subir Image</label>
+        <label for="url" class="col-xl-2 col-form-label">Subir Imagen</label>
         <div class="col-xl-10">
-            <input type="file" formControlName="url" class="form-control" (change)="onFileSelected($event)" [(ngModel)]="image.url"/>
+            <input type="file" formControlName="url" class="form-control" (change)="onFileSelected($event)" >
         </div>
     </div>
     <div *ngIf="!noMetadata">

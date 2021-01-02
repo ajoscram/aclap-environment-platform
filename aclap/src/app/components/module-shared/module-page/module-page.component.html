@@ -34,7 +34,9 @@
             </div>
             <div class="col-12 pt-3">
                 <h3>Objetivo</h3>
-                <p>{{ module.objective }}</p>
+                <p *ngFor="let objective of module.objective.split('\n')">
+                    {{ objective }}
+                </p>
             </div>
         </div>
     </div>

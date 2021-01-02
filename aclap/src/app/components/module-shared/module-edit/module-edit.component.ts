@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
-import { Section, Module, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../../models';
+import { Section, Module, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File } from '../../../models';
 
 @Component({
   selector: 'app-module-edit',
@@ -17,6 +17,8 @@ export class ModuleEditComponent implements OnInit {
   files: any[] = [];
   moduleImage: ImageSection;
   bannerImage: ImageSection;
+  moduleFiles: File[] = [];
+  deletedModuleFiles: File[] = [];
   questions: Question[];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
@@ -42,6 +44,13 @@ export class ModuleEditComponent implements OnInit {
     );
     this.imageProxy = new Map();
     this.questions = new Array();
+
+    this.controller.getFiles(this.id)
+    .then(
+      (files) =>{
+        this.moduleFiles = files;
+      }
+    )
   }
 
   
@@ -80,33 +89,24 @@ export class ModuleEditComponent implements OnInit {
     //Go to module Display Page
 
     /* Upload image and banner of the module */
-    const moduleImgArray = [this.moduleImage, this.bannerImage];
-    moduleImgArray.forEach( async (imageSection: ImageSection) => {
-        if (!imageSection.url.startsWith("http")){
-          imageSection.url = await this.controller.upload(this.imageProxy[imageSection.url]).then(
-            url => {
-              return url;
-            }
-          );
+    if(!this.moduleImage.url.startsWith('http')){
+      this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+        url => {
+          return url;
         }
-      }
-    );
+      );
+    }
+    if(!this.bannerImage.url.startsWith('http')){
+      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+        url => {
+          return url;
+        }
+      );
+    }
 
-    this.module.imageUrl = moduleImgArray[0].url;
-    this.module.bannerImageUrl = moduleImgArray[1].url;
+    this.module.imageUrl = this.moduleImage.url;
+    this.module.bannerImageUrl = this.bannerImage.url;
     /* */
-
-    console.log(this.sections);
-    this.controller.updateImplementable(this.module.id, this.module).then(
-      _ => {
-        //All Good
-        console.log("module");
-      }).
-      catch(err => {
-      //TODO: Display Error
-      console.log(err);
-    });
-
 
     for (let i = 0; i < this.sections.length; i++) {
       const section = this.sections[i];
@@ -126,28 +126,36 @@ export class ModuleEditComponent implements OnInit {
       }else{
         this.sections[i] = await this.controller.setSection(section, this.id, section.id);
       }
-    }
+    };
 
-    /*
-    this.sections.forEach(async (section:Section) => {
-      let sect_response: Section;
-      if(section instanceof ImageSection && !section.url.startsWith("http")){
-        const imagetarget = this.imageProxy[section.url];
-        const imgUrl = await this.controller.upload(imagetarget).then(id => {
-          return id;
-        });
-        const _section = {
-          "id": section.id, 
-          "index": section.index, 
-          "footing": section.footing,
-          "url": imgUrl, 
-          "reference": section.reference};
-          sect_response = await this.controller.setSection(_section, this.id, section.id);
-      }else{
-        sect_response = await this.controller.setSection(section, this.id, section.id);
-      }
+    this.controller.updateImplementable(this.module.id, this.module).then(
+      module => {
+        //All Good
+        console.log(module);
+      }).
+      catch(err => {
+      //TODO: Display Error
+      console.log(err);
     });
-    */
+
+    this.deletedModuleFiles.forEach(
+      (file: File) => {
+        this.controller.deleteFile(this.id, file.id)
+        .then(_ => {})
+        .catch(error => {})
+      }
+    );
+
+    this.files.forEach(
+      (file) => {
+        this.controller.addFile(this.id, file)
+        .then(
+          f1 => {
+            console.log("File 1: ", f1);
+          }
+        )
+      }
+    );
 
     //Display modal that everithing worked fine
     alert("Contenido del módulo actualizado de manera correcta");

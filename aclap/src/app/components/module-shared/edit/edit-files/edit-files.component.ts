@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { File } from '@src/app/models';
 
 @Component({
   selector: 'app-edit-files',
@@ -11,6 +12,8 @@ export class EditFilesComponent implements OnInit {
   form: FormGroup;
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   @Input() files: any[] = [];
+  @Input() moduleFiles: File[] = [];
+  @Input() deletedModuleFiles: File[] = [];
 
   constructor(private builder: FormBuilder) { }
 
@@ -40,7 +43,10 @@ export class EditFilesComponent implements OnInit {
     }
     this.fileDropEl.nativeElement.value = "";
     this.uploadFilesSimulator(0);
-    console.log(this.files)
+  }
+
+  deleteModuleFile(index: number){
+    this.deletedModuleFiles.push(this.moduleFiles.splice(index, 1)[0]);
   }
 
   uploadFilesSimulator(index: number) {
@@ -55,9 +61,9 @@ export class EditFilesComponent implements OnInit {
           } else {
             this.files[index].progress += 5;
           }
-        }, 200);
+        }, 50);
       }
-    }, 1000);
+    }, 200);
   }
 
   formatBytes(bytes, decimals = 2) {

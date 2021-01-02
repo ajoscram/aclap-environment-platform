@@ -16,6 +16,7 @@ export class CreateModuleComponent implements OnInit {
   id: string;
   sections: Section[];
   questions: Question[];
+  files: any[] = [];
   moduleImage: ImageSection;
   bannerImage: ImageSection;
   imageProxy: Map<String, File>;
@@ -61,20 +62,23 @@ export class CreateModuleComponent implements OnInit {
   async submitSections(){
 
     /* Upload image and banner of the module */
-    const moduleImgArray = [this.moduleImage, this.bannerImage];
-    moduleImgArray.forEach( async (imageSection: ImageSection) => {
-        if (!imageSection.url.startsWith("http")){
-          imageSection.url = await this.controller.upload(this.imageProxy[imageSection.url]).then(
-            url => {
-              return url;
-            }
-          );
+    if(!this.moduleImage.url.startsWith('http')){
+      this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+        url => {
+          return url;
         }
-      }
-    );
+      );
+    }
+    if(!this.bannerImage.url.startsWith('http')){
+      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
+        url => {
+          return url;
+        }
+      );
+    }
 
-    this.module.imageUrl = moduleImgArray[0].url;
-    this.module.bannerImageUrl = moduleImgArray[1].url;
+    this.module.imageUrl = this.moduleImage.url;
+    this.module.bannerImageUrl = this.bannerImage.url;
     /* */
     
     const uploadingModule = this.controller.addImplementable(this.module).then(
@@ -84,7 +88,6 @@ export class CreateModuleComponent implements OnInit {
     );
 
     await uploadingModule;
-    console.log(this.id);
 
 
     const sect = this.sections.map(async (section:Section) => {
