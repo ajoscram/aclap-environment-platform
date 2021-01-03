@@ -44,6 +44,14 @@ export class ModulePageComponent implements OnInit {
 
   navigateToDisplayer(id): void {
     this.routerExtensions.navigate(['guia', id], { clearHistory: false });
+  }
+  
+  navigateToDisplayFiles(id): void {
+    this.routerExtensions.navigate(['material', id], { clearHistory: false });
+  } 
+
+  navigateToQuestions(id): void {
+    this.routerExtensions.navigate(['preguntas', id], { clearHistory: false });
   } 
 
 }

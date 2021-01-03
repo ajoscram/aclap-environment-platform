@@ -11,13 +11,14 @@
                 </StackLayout>
 
                 <StackLayout *ngIf="isActivity(section)">
-                    <Label text="ACTIVIDAD - Tiempo estimado {{ section.estimatedMinutes }} min." textWrap="true"></Label>
-                    <Label text="Descripción"></Label>
-                    <Label text="{{ section.description }}" textWrap="true"></Label>
+                    <Label text="Actividad" textWrap="true" class="title-activity"></Label>
+                    <Label text="Tiempo estimado: {{ section.estimatedMinutes }} min." textWrap="true" class="text-time"></Label>
+                    <Label text="Descripción" class="sub-subtitle-text"></Label>
+                    <Label text="{{ section.description }}" textWrap="true" class="text"></Label>
                 </StackLayout>
 
                 <StackLayout *ngIf="isImage(section)">
-                    <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true>
+                    <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=false>
                         <StackLayout>
                             <Image src="{{ section.url}}" stretch="aspectFill"></Image>
                             <Label text="{{ section.footing }}" class="text"></Label>

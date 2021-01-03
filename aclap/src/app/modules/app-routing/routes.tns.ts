@@ -5,6 +5,7 @@ import { HomeComponent } from '../../components/home/home.component.tns';
 import { ModulesComponent } from '../../components/module-shared/modules/modules.component';
 import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
 import { DisplayerComponent } from '../../components/module-shared/display/displayer/displayer.component';
+import { DisplayFilesComponent } from '../../components/module-shared/display/display-files/display-files.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '../../components/shared/login/login.component';
 
@@ -28,6 +29,14 @@ export const routes: Routes = [
     },
     {
         path: 'guia/:id',
+        component: DisplayerComponent,
+    },
+    {
+        path: 'material/:id',
+        component: DisplayFilesComponent,
+    },
+    {
+        path: 'preguntas/:id',
         component: DisplayerComponent,
     },
     {
