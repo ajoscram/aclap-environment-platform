@@ -1,1 +1,21 @@
-<p>display-files works!</p>
+<div class="row">
+    <div class="col">
+        <h1>
+            Material Descargable
+        </h1>
+    </div>
+</div>
+<div *ngFor="let file of files; index as i"  class="card">
+    <div class="row">
+        <div class="col">
+            <span class="text-center">{{ file.name}} </span>
+        </div>
+        <div class="col">
+            <span class="text-center">{{ file.bytes }} </span>
+        </div>
+        <div class="col">
+            <span class="btn btn-success" (click)="onDownload(i)" > Descargar/Abrir </span>
+        </div>
+    </div>
+</div>
+

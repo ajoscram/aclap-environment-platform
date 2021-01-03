@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Section, Module, Implementable } from '../../../models';
+import { Section, Module, Implementable, File } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
 import { Role } from '@src/app/services/authentication/Session.model';
@@ -13,6 +13,8 @@ export class ModulePageComponent implements OnInit {
 
   module: Module;
   id: string;
+  files: File[];
+  showingFiles: boolean = false;
   isAdmin: boolean;
 
   constructor(private route:ActivatedRoute, private controller: Controller) { 
@@ -30,9 +32,23 @@ export class ModulePageComponent implements OnInit {
       }
     );
 
+    this.controller.getFiles(this.id)
+      .then(
+        files => {
+          this.files = files;
+        }
+      )
+
+    this.showingFiles = false;
+
     this.controller.getImplementable(this.id)
       .then(module => { this.module = <Module> module })
       .catch(error => console.error(error));
+  }
+
+  switchFiles(){
+    this.showingFiles = !this.showingFiles;
+    console.log(this.files)
   }
 
 }
