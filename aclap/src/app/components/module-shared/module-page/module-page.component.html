@@ -51,9 +51,19 @@
                 <h2 class="my-auto text-center">Material descargables</h2>
             </div>
         </div>
-        <div class="col-md-4 mb-3" style="height: 250px;">
+        <div *ngIf="isEducator" class="col-md-4 mb-3" style="height: 250px;">
             <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'implementacion']">
                 <h2 class="my-auto text-center">Implementá el módulo</h2>
+            </div>
+        </div>
+        <div *ngIf="isAdmin" class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'implementacion']">
+                <h2 class="my-auto text-center">Ver Implementaciones de Módulo</h2>
+            </div>
+        </div>
+        <div *ngIf="isAnonymous" class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button clickable d-flex justify-content-center" [style.background-color]="module.color" [routerLink]="['/persona-educadora']">
+                <h2 class="my-auto text-center">¿Qué significa ser una persona educadora?</h2>
             </div>
         </div>
     </div>

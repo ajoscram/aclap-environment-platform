@@ -62,7 +62,7 @@ export class ModuleEditComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Activity
-        newSection = new ActivitySection(null,this.sections.length,"",10,"",new Array<Question>());
+        newSection = new ActivitySection(null,this.sections.length,"",10,"");
         break;
       case 1: //Image
         newSection = new ImageSection(null,this.sections.length,"","","");

@@ -15,7 +15,9 @@ export class ModulePageComponent implements OnInit {
   id: string;
   files: File[];
   showingFiles: boolean = false;
-  isAdmin: boolean;
+  isAdmin: boolean = false;
+  isEducator: boolean = false;
+  isAnonymous: boolean = false;
 
   constructor(private route:ActivatedRoute, private controller: Controller) { 
     this.id = this.route.snapshot.paramMap.get('id');
@@ -26,11 +28,14 @@ export class ModulePageComponent implements OnInit {
       res => {
         if(res.role == Role.ADMINISTRATOR){
           this.isAdmin = true;
-        }else{
-          this.isAdmin = false;
+        }else if(res.role == Role.EDUCATOR){
+          this.isEducator = true;
         }
       }
-    );
+    )
+    .catch(_ => {
+      this.isAnonymous = true;
+    });
 
     this.controller.getFiles(this.id)
       .then(
