@@ -63,3 +63,4 @@
 | 01/01/2021 | Subida de Imágenes de Creación y Edición de Módulo |
 | 01/01/2021 | Edición de Colores en módulos |
 | 02/01/2021 | Sincronización de imágenes |
+| 02/01/2021 | Despliegue de archivos en página de Módulo |

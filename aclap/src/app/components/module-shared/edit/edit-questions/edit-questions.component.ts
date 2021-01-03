@@ -33,13 +33,13 @@ export class EditQuestionsComponent implements OnInit {
   }
 
   initQuestion(){
-    this.tempQuestion = new Question("",null);
+    this.tempQuestion = new Question("","",null);
 
     this.tempQuestion.options = new Map(); 
   }
 
   addQuestion(){
-    let qstn = new Question("", new Map());
+    let qstn = new Question("","", new Map());
 
     qstn.options[Score.VERY_LOW] = this.options[0];
     qstn.options[Score.LOW] = this.options[1];

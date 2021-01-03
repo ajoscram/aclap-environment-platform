@@ -38,7 +38,7 @@ export class CreateModuleComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Activity
-        newSection = new ActivitySection("",this.sections.length,"",10,"",new Array<Question>());
+        newSection = new ActivitySection("",this.sections.length,"",10,"");
         break;
       case 1: //Image
         newSection = new ImageSection("",this.sections.length,"","","");

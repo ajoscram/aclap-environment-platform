@@ -4,3 +4,22 @@
     background-color: app.$nav-color;
     color: white;
 }
+
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+    }
+}
