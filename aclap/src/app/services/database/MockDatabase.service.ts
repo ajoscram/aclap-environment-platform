@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Module, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser, Implementable, Event, IImplementable, EducatorRequest, Implementation, Evaluation, Location, EducatorRequestState, Answer, IEducatorRequest, IEvaluation, IImplementation } from '../../models';
+import { Module, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, IQuestion, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser, Implementable, Event, IImplementable, EducatorRequest, Implementation, Location, EducatorRequestState, Answer, IAnswer, IEducatorRequest, IImplementation } from '../../models';
 import ControlModule from '../../modules/control/control.module';
 import { Factory } from './factory/Factory.service';
 import { Database, DatabaseError } from './Database.service';
@@ -16,8 +16,9 @@ export class MockDatabase implements Database{
     private implementables: Implementable[];
     private sections: Section[];
     private files: File[];
+    private questions: Question[];
     private implementations: Implementation[];
-    private evaluations: Evaluation[];
+    private answers: Answer[];
     private evidence: File[];
 
     private get nextId(): string{
@@ -70,11 +71,7 @@ export class MockDatabase implements Database{
             new ImageSection(this.nextId, 1, 'Pie de foto', 'https://media.nationalgeographic.org/assets/photos/000/284/28446.jpg', 'Referencia'),
             new TitleSection(this.nextId, 2, TitleSectionSize.H2, 'Subtítulo'),
             new ParagraphSection(this.nextId, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-            new ActivitySection(this.nextId, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 30, 'Herramientas listadas acá',[
-                this.generateQuestion('¿Esto es una pregunta?'),
-                this.generateQuestion('¿Cómo se sintió al leer esa pregunta?'),
-                this.generateQuestion('¿Y al leer esa otra?'),
-            ]),
+            new ActivitySection(this.nextId, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 30, 'Herramientas listadas acá'),
             new TitleSection(this.nextId, 5, TitleSectionSize.H2, 'Otro subtítulo'),
             new ParagraphSection(this.nextId, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
             new YoutubeVideoSection(this.nextId, 7, 'https://www.youtube.com/watch?v=XqZsoesa55w')
@@ -84,16 +81,20 @@ export class MockDatabase implements Database{
             new File(this.nextId, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
         ];
 
+        this.questions = [
+            this.generateQuestion('¿Esto es una pregunta?'),
+            this.generateQuestion('¿Cómo se sintió al leer esa pregunta?'),
+            this.generateQuestion('¿Y al leer esa otra?'),
+        ];
+
         this.implementations = [
             new Implementation(this.nextId, false, false, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), '1', 'Educator1', 'McUsername', this.implementables[0].id, this.implementables[0].name),
             new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), '1', 'Educator1', 'McUsername', this.implementables[0].id, this.implementables[0].name)
         ];
-        this.evaluations = [
-            new Evaluation(this.nextId, this.sections[4].id, 'Nombre de la actividad.', [
-                new Answer('¿Esto es una pregunta?', 'Mal', Score.LOW),
-                new Answer('¿Cómo se sintió al leer esa pregunta?', 'Regular', Score.AVERAGE),
-                new Answer('¿Y al leer esa otra?', 'Muy bien', Score.VERY_HIGH)
-            ])
+        this.answers = [
+            new Answer(this.nextId, '¿Esto es una pregunta?', 'Mal', Score.LOW),
+            new Answer(this.nextId, '¿Cómo se sintió al leer esa pregunta?', 'Regular', Score.AVERAGE),
+            new Answer(this.nextId, '¿Y al leer esa otra?', 'Muy bien', Score.VERY_HIGH)
         ];
         this.evidence = [
             new File(this.nextId, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
@@ -107,7 +108,7 @@ export class MockDatabase implements Database{
         map.set(Score.AVERAGE, 'Regular');
         map.set(Score.HIGH, 'Bien');
         map.set(Score.VERY_HIGH, 'Muy bien');
-        return new Question(question, map);
+        return new Question(this.nextId, question, map);
     }
 
     async getDisciplineMetadata(): Promise<DisciplineMetadata>{
@@ -268,6 +269,38 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.FILE_NOT_FOUND);
     }
 
+    async getQuestions(implementableId: string): Promise<Question[]>{
+        this.getImplementable(implementableId);//checking for implementable existance
+        return [...this.questions];
+    }
+
+    async addQuestion(implementableId: string, question: IQuestion): Promise<Question>{
+        this.getImplementable(implementableId);//checking for implementable existance
+        const question_: Question = this.factory.getQuestion(this.nextId, question);
+        this.questions.push(question_);
+        return question_;
+    }
+
+    async updateQuestion(implementableId: string, questionId: string, question: IQuestion): Promise<Question>{
+        this.getImplementable(implementableId);//checking for implementable existance
+        for(let i = 0; i < this.questions.length; i++){
+            if(this.questions[i].id === questionId){
+                const question_: Question = this.factory.getQuestion(questionId, question);
+                this.questions.splice(i, 1, question_);
+                return question_;
+            }
+        }
+        throw new Error(DatabaseError.QUESTION_NOT_FOUND);
+    }
+
+    async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
+        this.getImplementation(implementableId);//checking for implementable existance
+        for(let i = 0; i < this.questions.length; i++)
+            if(this.questions[i].id === questionId)
+                return this.questions.splice(i, 1)[0];
+        throw new Error(DatabaseError.QUESTION_NOT_FOUND);
+    }
+
     async getImplementationsByUser(completed: boolean, userId: string): Promise<Implementation[]>{
         const implementations: Implementation[] = [];
         for(let implementation of this.implementations)
@@ -330,36 +363,36 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.IMPLEMENTATION_NOT_FOUND);
     }
 
-    async getEvaluations(implementationId: string): Promise<Evaluation[]>{
+    async getAnswers(implementationId: string): Promise<Answer[]>{
         this.getImplementation(implementationId);//checking for implementation existance
-        return [...this.evaluations];
+        return [...this.answers];
     }
 
-    async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+    async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
         this.getImplementation(implementationId);//checking for implementation existance
-        const evaluation_: Evaluation = this.factory.getEvaluation(this.nextId, evaluation);
-        this.evaluations.push(evaluation_);
-        return evaluation_;
+        const answer_: Answer = this.factory.getAnswer(this.nextId, answer);
+        this.answers.push(answer_);
+        return answer_;
     }
 
-    async updateEvaluation(implementationId: string, evaluationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+    async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
         this.getImplementation(implementationId);//checking for implementation existance
-        for(let i = 0; i < this.evaluations.length; i++){
-            if(this.evaluations[i].id === evaluationId){
-                const evaluation_: Evaluation = this.factory.getEvaluation(evaluationId, evaluation);
-                this.evaluations.splice(i, 1, evaluation_);
-                return evaluation_;
+        for(let i = 0; i < this.answers.length; i++){
+            if(this.answers[i].id === answerId){
+                const answer_: Answer = this.factory.getAnswer(answerId, answer);
+                this.answers.splice(i, 1, answer_);
+                return answer_;
             }
         }
-        throw new Error(DatabaseError.EVALUATION_NOT_FOUND);
+        throw new Error(DatabaseError.ANSWER_NOT_FOUND);
     }
 
-    async deleteEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
+    async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{
         this.getImplementation(implementationId);//checking for implementation existance
-        for(let i = 0; i < this.evaluations.length; i++)
-            if(this.evaluations[i].id === evaluationId)
-                return this.evaluations.splice(i, 1)[0];
-        throw new Error(DatabaseError.EVALUATION_NOT_FOUND);
+        for(let i = 0; i < this.answers.length; i++)
+            if(this.answers[i].id === answerId)
+                return this.answers.splice(i, 1)[0];
+        throw new Error(DatabaseError.ANSWER_NOT_FOUND);
     }
 
     async getEvidence(implementationId: string): Promise<File[]>{
@@ -368,6 +401,7 @@ export class MockDatabase implements Database{
     }
 
     async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
+        this.getImplementation(implementationId);//checking for implementation existance
         const evidence_: File = this.factory.getFile(this.nextId, evidence);
         this.evidence.push(evidence_);
         return evidence_;

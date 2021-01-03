@@ -3,7 +3,7 @@ import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
 import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
-import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, IEvaluation, Score, Implementation, Evaluation } from '../../../models';
+import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
@@ -19,8 +19,9 @@ describe('FirebaseDatabase', () => {
     let stubEvent: IEvent;
     let stubSection: ISection;
     let stubFile: IFile;
+    let stubQuestion: IQuestion;
     let stubImplementation: IImplementation;
-    let stubEvaluation: IEvaluation;
+    let stubAnswer: IAnswer;
 
     beforeEach(() => {
         TestBed.configureTestingModule(TEST_MODULE);
@@ -110,6 +111,10 @@ describe('FirebaseDatabase', () => {
             uploaded: new Date(),
             bytes: 1
         }
+        stubQuestion = {
+            question: "is this a question?",
+            options: new Map()
+        };
         stubImplementation = {
             date: new Date(),
             participants: 1,
@@ -124,21 +129,10 @@ describe('FirebaseDatabase', () => {
             implementableId: 'stubIImplementation.implementableId',
             implementableName: 'stubIImplementation.implementableName'
         };
-        stubEvaluation = {
-            activityId: 'STUB_EVALUATION.activityId',
-            activityName: 'STUB_EVALUATION.activityName',
-            answers: [
-                {
-                    question: 'ANSWER1.question',
-                    option: 'ANSWER1.option',
-                    score: Score.LOW
-                },
-                {
-                    question: 'ANSWER2.question',
-                    option: 'ANSWER2.option',
-                    score: Score.AVERAGE
-                }
-            ]
+        stubAnswer  = {
+            question: 'ANSWER1.question',
+            option: 'ANSWER1.option',
+            score: Score.LOW
         };
     });
 
@@ -325,6 +319,44 @@ describe('FirebaseDatabase', () => {
         expect(deleted.id).toBe(added.id);
     });
 
+    it('getQuestions(): gets a list of an implementable\'s questions', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        await database.addQuestion(implementable.id, stubQuestion);
+        await database.addQuestion(implementable.id, stubQuestion);
+        const questions: Question[] = await database.getQuestions(implementable.id);
+        expect(questions).toBeTruthy();
+        expect(questions.length).toBe(2);
+    });
+
+    it('addQuestion(): adds a question and returns it', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const question: Question = await database.addQuestion(implementable.id, stubQuestion);
+        expect(question).toBeTruthy();
+    });
+
+    it('updateQuestion(): updates a question and returns it', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const added: Question = await database.addQuestion(implementable.id, stubQuestion);
+        const updated: Question = await database.updateQuestion(implementable.id, added.id, stubQuestion);
+        expect(updated).toBeTruthy();
+        expect(updated.id).toBe(added.id);
+    });
+
+    it('deleteQuestion(): deletes a question and returns it', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        const added: Question = await database.addQuestion(implementable.id, stubQuestion);
+        const deleted: Question = await database.deleteQuestion(implementable.id, added.id);
+        expect(deleted).toBeTruthy();
+        expect(deleted.id).toBe(added.id);
+    });
+
+    it('deleteQuestion(): fails when given an incorrect question id', async () => {
+        const implementable: Implementable = await database.addImplementable(stubModule);
+        await expectAsync(database.deleteQuestion(implementable.id, STUB_INCORRECT_ID)).toBeRejectedWith(
+            new Error(DatabaseError.QUESTION_NOT_FOUND)
+        );
+    });    
+
     it('getImplementationsByUser(): gets a list of implementables by userID', async () => {
         await database.addImplementation(stubImplementation);
         await database.addImplementation(stubImplementation);
@@ -397,41 +429,41 @@ describe('FirebaseDatabase', () => {
         );
     });
 
-    it('getEvaluations(): gets a list of an implementation\'s evaluations', async () => {
+    it('getAnswers(): gets a list of an implementation\'s answers', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await database.addEvaluation(implementation.id, stubEvaluation);
-        await database.addEvaluation(implementation.id, stubEvaluation);
-        const evaluations: Evaluation[] = await database.getEvaluations(implementation.id);
-        expect(evaluations).toBeTruthy();
-        expect(evaluations.length).toBe(2);
+        await database.addAnswer(implementation.id, stubAnswer);
+        await database.addAnswer(implementation.id, stubAnswer);
+        const answers: Answer[] = await database.getAnswers(implementation.id);
+        expect(answers).toBeTruthy();
+        expect(answers.length).toBe(2);
     });
 
-    it('addEvaluation(): adds an evaluation and returns it', async () => {
+    it('addAnswers(): adds an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const evaluation: Evaluation = await database.addEvaluation(implementation.id, stubEvaluation);
-        expect(evaluation).toBeTruthy();
+        const answer: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        expect(answer).toBeTruthy();
     });
 
-    it('updateEvaluation(): updates an evaluation and returns it', async () => {
+    it('updateAnswer(): updates an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Evaluation = await database.addEvaluation(implementation.id, stubEvaluation);
-        const updated: Evaluation = await database.updateEvaluation(implementation.id, added.id, stubEvaluation);
+        const added: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        const updated: Answer = await database.updateAnswer(implementation.id, added.id, stubAnswer);
         expect(updated).toBeTruthy();
         expect(updated.id).toBe(added.id);
     });
 
-    it('deleteEvaluation(): deletes an evaluation and returns it', async () => {
+    it('deleteAnswer(): deletes an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Evaluation = await database.addEvaluation(implementation.id, stubEvaluation);
-        const deleted: Evaluation = await database.deleteEvaluation(implementation.id, added.id);
+        const added: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        const deleted: Answer = await database.deleteAnswer(implementation.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
     });
 
-    it('deleteEvaluation(): fails when given an incorrect evaluation id', async () => {
+    it('deleteAnswer(): fails when given an incorrect answer id', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await expectAsync(database.deleteEvaluation(implementation.id, STUB_INCORRECT_ID)).toBeRejectedWith(
-            new Error(DatabaseError.EVALUATION_NOT_FOUND)
+        await expectAsync(database.deleteAnswer(implementation.id, STUB_INCORRECT_ID)).toBeRejectedWith(
+            new Error(DatabaseError.ANSWER_NOT_FOUND)
         );
     });
 

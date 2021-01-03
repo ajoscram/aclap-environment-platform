@@ -1,5 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-
 export abstract class Checkable{
     private static readonly CHECK_ERROR = 'Checkable children classes must override the check() method.';
 

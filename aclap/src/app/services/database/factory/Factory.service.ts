@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent, IEducatorRequest, Location, EducatorRequest, ILocation, EducatorRequestState, IImplementation, Implementation, IEvaluation, Evaluation, IAnswer, Answer } from '../../../models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent, IEducatorRequest, Location, EducatorRequest, ILocation, EducatorRequestState, IImplementation, Implementation, IAnswer, Answer } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -118,13 +118,6 @@ export class Factory{
             throw new Error(FactoryError.UNKNOWN_IIMPLEMENTABLE);
     }
 
-    private getQuestions(questions: IQuestion[]): Question[]{
-        const questions_: Question[] = [];
-        for(let question of questions)
-            questions_.push(new Question(question.question, question.options))
-        return questions_;
-    }
-
     public getSection(id: string, section: ISection): Section{
         //WARNING: The order of thesse if statements matters
         //since the checks could return false positives
@@ -134,8 +127,7 @@ export class Factory{
                 section.index,
                 section.description,
                 section.estimatedMinutes,
-                section.tools,
-                this.getQuestions(section.questions)
+                section.tools
             );
         else if(ImageSection.check(section))
             return new ImageSection(
@@ -178,6 +170,14 @@ export class Factory{
         );
     }
 
+    public getQuestion(id: string, question: IQuestion){
+        return new Question(
+            id,
+            question.question,
+            question.options
+        );
+    }
+
     public getImplementation(id: string, deleted: boolean, completed: boolean, implementation: IImplementation): Implementation{
         return new Implementation(
             id,
@@ -194,19 +194,12 @@ export class Factory{
         );
     }
 
-    private getAnswers(answers: IAnswer[]): Answer[]{
-        const answers_: Answer[] = [];
-        for(let answer of answers)
-            answers_.push(new Answer(answer.question, answer.option, answer.score));
-        return answers_;
-    }
-
-    public getEvaluation(id: string, evaluation: IEvaluation){
-        return new Evaluation(
+    public getAnswer(id: string, answer: IAnswer){
+        return new Answer(
             id,
-            evaluation.activityId,
-            evaluation.activityName,
-            this.getAnswers(evaluation.answers)
+            answer.question,
+            answer.option,
+            answer.score
         );
     }
 }

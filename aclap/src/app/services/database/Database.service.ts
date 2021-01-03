@@ -1,4 +1,4 @@
-import { Section, DisciplineMetadata, File, ISection, IFile, Module, User, IDisciplineMetadata, IUser, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, Implementation, IImplementation, Evaluation, IEvaluation } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IFile, Module, User, IDisciplineMetadata, IUser, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, Implementation, IImplementation, Answer, IAnswer, Question, IQuestion } from "../../models";
 
 export abstract class Database{
 
@@ -34,6 +34,12 @@ export abstract class Database{
     addFile: (implementableId: string, file: IFile) => Promise<File>;
     deleteFile: (implementableId: string, fileId: string) => Promise<File>;
 
+    //questions
+    getQuestions: (implementableId: string) => Promise<Question[]>;
+    addQuestion: (implementableId: string, question: IQuestion) => Promise<Question>;
+    updateQuestion: (implementableId: string, questionId: string, question: IQuestion) => Promise<Question>;
+    deleteQuestion: (implementableId: string, questionId: string) => Promise<Question>;
+
     //implementations
     getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
     getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
@@ -42,11 +48,11 @@ export abstract class Database{
     deleteImplementation: (id: string) => Promise<Implementation>;
     completeImplementation: (id: string) => Promise<Implementation>;
 
-    //evaluations
-    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
-    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
+    //answers
+    getAnswers: (implementationId: string) => Promise<Answer[]>;
+    addAnswer: (implementationId: string, answer: IAnswer) => Promise<Answer>;
+    updateAnswer: (implementationId: string, answerId: string, answer: IAnswer) => Promise<Answer>;
+    deleteAnswer: (implementationId: string, answerId: string) => Promise<Answer>;
 
     //evidence
     getEvidence: (implementationId: string) => Promise<File[]>;
@@ -64,8 +70,9 @@ export enum DatabaseError{
     IMPLEMENTABLE_NOT_FOUND = "DatabaseError.IMPLEMENTABLE_NOT_FOUND",
     SECTION_NOT_FOUND = "DatabaseError.SECTION_NOT_FOUND",
     FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND",
+    QUESTION_NOT_FOUND = "DatabaseError.QUESTION_NOT_FOUND",
     IMPLEMENTATION_NOT_FOUND = "DatabaseError.IMPLEMENTATION_NOT_FOUND",
     IMPLEMENTATION_IS_COMPLETE = "DatabaseError.IMPLEMENTATION_IS_COMPLETE",
-    EVALUATION_NOT_FOUND = "DatabaseError.EVALUATION_NOT_FOUND",
+    ANSWER_NOT_FOUND = "DatabaseError.EVALUATION_NOT_FOUND",
     EVIDENCE_NOT_FOUND = "DatabaseError.EVIDENCE_NOT_FOUND"
 }

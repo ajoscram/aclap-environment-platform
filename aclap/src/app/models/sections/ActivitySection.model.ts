@@ -4,8 +4,7 @@ import { Section, ISection } from "./Section.model";
 export interface IActivitySection extends ISection{
     description: string,
     estimatedMinutes: number,
-    tools: string,
-    questions: IQuestion[]
+    tools: string
 }
 
 export class ActivitySection extends Section implements IActivitySection{
@@ -14,8 +13,7 @@ export class ActivitySection extends Section implements IActivitySection{
         public index: number,
         public description: string,
         public estimatedMinutes: number,
-        public tools: string,
-        public questions: Question[]
+        public tools: string
     ){ super(id, index); }
 
     public static check(object: any): object is IActivitySection{
@@ -23,7 +21,6 @@ export class ActivitySection extends Section implements IActivitySection{
         return super.check(object) && 
             section.description !== undefined &&
             section.estimatedMinutes !== undefined &&
-            section.questions !== undefined &&
             section.tools !== undefined;
     }
 }

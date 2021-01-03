@@ -7,6 +7,7 @@ export interface IQuestion{
 
 export class Question implements IQuestion{
     constructor(
+        public id: string,
         public question: string,
         public options: Map<Score, string>
     ){}

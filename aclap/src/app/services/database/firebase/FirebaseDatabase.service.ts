@@ -4,7 +4,7 @@ import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
-import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, Evaluation, IEducatorRequest, IEvaluation, IImplementation, Implementation } from '../../../models';
+import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -18,8 +18,9 @@ export class FirebaseDatabase implements Database{
     private static readonly IMPLEMENTABLES: string = 'implementables';
     private static readonly SECTIONS: string = 'sections';
     private static readonly FILES: string = 'files';
+    private static readonly QUESTIONS: string = 'questions';
     private static readonly IMPLEMENTATIONS: string = 'implementations';
-    private static readonly EVALUATIONS: string = 'evaluations';
+    private static readonly ANSWERS: string = 'answers';
     private static readonly EVIDENCE: string = 'evidence';
 
     //constant document ids
@@ -349,6 +350,70 @@ export class FirebaseDatabase implements Database{
         return file;
     }
 
+    async getQuestions(implementableId: string): Promise<Question[]>{
+        const questions: Question[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
+            .collection(FirebaseDatabase.QUESTIONS)
+            .get().toPromise();
+        documents.forEach(document => {
+            const response: any = document.data();
+            const question: Question = this.factory.getQuestion(response.id, response as IQuestion);
+            questions.push(question);
+        });
+        return questions;
+    }
+
+    private async getQuestion(implementableId: string, questionId: string): Promise<Question>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
+            .collection(FirebaseDatabase.QUESTIONS)
+            .doc(questionId)
+            .get().toPromise();
+        const question: any = document.data();
+        if(!question)
+            throw new Error(DatabaseError.QUESTION_NOT_FOUND);
+        else
+        return this.factory.getQuestion(questionId, question as IQuestion);
+    }
+
+    async addQuestion(implementableId: string, question: IQuestion): Promise<Question>{
+        this.validator.validateIQuestion(question);
+        const id: string = this.firestore.createId();
+        question['id'] = id;
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
+            .collection(FirebaseDatabase.QUESTIONS)
+            .doc(id)
+            .set(question);
+        return this.factory.getQuestion(id, question);
+    }
+
+    async updateQuestion(implementableId: string, questionId: string, question: IQuestion): Promise<Question>{
+        this.validator.validateIQuestion(question);
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
+            .doc(implementableId)
+            .collection(FirebaseDatabase.QUESTIONS)
+            .doc(questionId)
+            .update(question);
+        return this.factory.getQuestion(questionId, question);
+    }
+
+    async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
+        const question: Question = await this.getQuestion(implementableId, questionId);
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(implementableId)
+            .collection(FirebaseDatabase.QUESTIONS)
+            .doc(questionId)
+            .delete();
+        return question;
+    }
+
     async getImplementationsByUser(completed: boolean, userId: string): Promise<Implementation[]>{
         const implementations: Implementation[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
@@ -445,68 +510,68 @@ export class FirebaseDatabase implements Database{
         return implementation;
     }
     
-    async getEvaluations(implementationId: string): Promise<Evaluation[]>{
-        const evaluations: Evaluation[] = [];
+    async getAnswers(implementationId: string): Promise<Answer[]>{
+        const answers: Answer[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
+            .collection(FirebaseDatabase.ANSWERS)
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
-            const evaluation: Evaluation = this.factory.getEvaluation(response.id, response as IEvaluation);
-            evaluations.push(evaluation);
+            const answer: Answer = this.factory.getAnswer(response.id, response as IAnswer);
+            answers.push(answer);
         });
-        return evaluations;
+        return answers;
     }
-    
-    private async getEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
+
+    private async getAnswer(implementationId: string, answerId: string): Promise<Answer>{
         const document: DocumentData = await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
-            .doc(evaluationId)
+            .collection(FirebaseDatabase.ANSWERS)
+            .doc(answerId)
             .get().toPromise();
-        const evaluation: any = document.data();
-        if(!evaluation)
-            throw new Error(DatabaseError.EVALUATION_NOT_FOUND);
+        const answer: any = document.data();
+        if(!answer)
+            throw new Error(DatabaseError.ANSWER_NOT_FOUND);
         else
-            return this.factory.getEvaluation(evaluationId, evaluation as IEvaluation);
+            return this.factory.getAnswer(answerId, answer as IAnswer);
     }
 
-    async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
-        this.validator.validateIEvaluation(evaluation);
+    async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
+        this.validator.validateIAnswer(answer);
         const id: string = this.firestore.createId();
-        evaluation['id'] = id;
+        answer['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
+            .collection(FirebaseDatabase.ANSWERS)
             .doc(id)
-            .set(evaluation);
-        return this.factory.getEvaluation(id, evaluation);
-    }
-    
-    async updateEvaluation(implementationId: string, evaluationId: string, evaluation: IEvaluation): Promise<Evaluation>{
-        this.validator.validateIEvaluation(evaluation);
-        await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTATIONS)
-            .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
-            .doc(evaluationId)
-            .update(evaluation);
-        return this.factory.getEvaluation(evaluationId, evaluation);
+            .set(answer);
+        return this.factory.getAnswer(id, answer);
     }
 
-    async deleteEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
-        const evaluation: Evaluation = await this.getEvaluation(implementationId, evaluationId);
+    async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
+        this.validator.validateIAnswer(answer);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
-            .collection(FirebaseDatabase.EVALUATIONS)
-            .doc(evaluationId)
+            .collection(FirebaseDatabase.ANSWERS)
+            .doc(answerId)
+            .update(answer);
+        return this.factory.getAnswer(answerId, answer);
+    }
+
+    async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{
+        const answer: Answer = await this.getAnswer(implementationId, answerId);
+        await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .doc(implementationId)
+            .collection(FirebaseDatabase.ANSWERS)
+            .doc(answerId)
             .delete();
-        return evaluation;
+        return answer;
     }
     
     async getEvidence(implementationId: string): Promise<File[]>{

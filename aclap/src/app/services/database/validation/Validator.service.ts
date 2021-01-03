@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvaluation, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IAnswer, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, IQuestion, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -176,6 +176,10 @@ export class Validator{
             throw new Error(ValidatorError.MALFORMED_URL);
     }
 
+    validateIQuestion(question: IQuestion){
+        this.validateNullOrUndefined(question);
+    }
+
     validateIImplementation(implementation: IImplementation){
         this.validateNullOrUndefined(implementation);
         if(implementation.date > new Date())
@@ -186,8 +190,8 @@ export class Validator{
         this.validateILocation(implementation.location)
     }
 
-    validateIEvaluation(evaluation: IEvaluation){
-        this.validateNullOrUndefined(evaluation);
+    validateIAnswer(answer: IAnswer){
+        this.validateNullOrUndefined(answer);
     }
 }
 

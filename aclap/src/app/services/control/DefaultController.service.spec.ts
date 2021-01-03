@@ -9,7 +9,7 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, ISection, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Evaluation, IEvaluation, Score } from '../../models';
+import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, ISection, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Score, IAnswer, IQuestion, Question, Answer } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
 import { Session } from '../authentication/Session.model';
 
@@ -50,6 +50,10 @@ describe('DefaultController', () => {
             }
         ]
     };
+    const STUB_IQUESTION: IQuestion = {
+        question: "is this a question?",
+        options: new Map()
+    };
     const STUB_IIMPLEMENTATION: IImplementation = {
         date: new Date(),
         participants: 1,
@@ -68,21 +72,10 @@ describe('DefaultController', () => {
         index: 0,
         text: 'text'
     };
-    const STUB_IEVALUATION: IEvaluation = {
-        activityId: 'STUB_EVALUATION.activityId',
-        activityName: 'STUB_EVALUATION.activityName',
-        answers: [
-            {
-                question: 'ANSWER1.question',
-                option: 'ANSWER1.option',
-                score: Score.LOW
-            },
-            {
-                question: 'ANSWER2.question',
-                option: 'ANSWER2.option',
-                score: Score.AVERAGE
-            }
-        ]
+    const STUB_IANSWER: IAnswer = {
+        question: 'ANSWER1.question',
+        option: 'ANSWER1.option',
+        score: Score.LOW
     };
     //This represents a file, because MockStorage actually ignores it altogether.
     const STUB_FILE: any = {};
@@ -198,13 +191,6 @@ describe('DefaultController', () => {
         expect(section).toBeTruthy();
     });
 
-    it('addSections(): adds multiple sections', async () => {
-        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const sections: ISection[] = [ STUB_ISECTION, STUB_ISECTION, STUB_ISECTION ];
-        const added: Section[] = await controller.addSections(implementable.id, sections);
-        expect(added.length).toBe(sections.length);
-    });
-
     it('getSections(): gets an implementable\'s list of sections', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         await controller.addSection(implementable.id, STUB_ISECTION);
@@ -259,6 +245,45 @@ describe('DefaultController', () => {
         expect(url).toBeTruthy();
     });
 
+    it('completeImplementation(): completes and returns a completed implementation', async () => {
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
+        const completed: Implementation = await controller.completeImplementation(added.id);
+        expect(completed).toBeTruthy();
+    });
+
+    it('addQuestion(): adds a question to an implementable', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const question: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        expect(question).toBeTruthy();
+    });
+
+    it('getQuestions(): gets an implementable\'s questions', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        const questions: Question[] = await controller.getQuestions(implementable.id);
+        expect(questions.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('updateQuestion(): updates a question', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        const updated: Question = await controller.updateQuestion(implementable.id, added.id, STUB_IQUESTION);
+        expect(updated).toBeTruthy();
+    });
+
+    it('deleteQuestion(): deletes a question', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        const deleted: Question = await controller.deleteQuestion(implementable.id, added.id);
+        expect(deleted).toBeTruthy();
+    });
+
     it('addImplementation(): adds an implementation', async () => {
        const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
        expect(implementation).toBeTruthy();
@@ -299,35 +324,35 @@ describe('DefaultController', () => {
         expect(completed).toBeTruthy();
     });
 
-    it('addEvaluation(): adds an evaluation', async () => {
+    it('addAnswer(): adds an answer to an implementation', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const evaluation: Evaluation = await controller.addEvaluation(implementation.id, STUB_IEVALUATION);
-        expect(evaluation).toBeTruthy();
+        const answer: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
+        expect(answer).toBeTruthy();
     });
 
-    it('getEvaluations(): gets an implementation\'s evaluations', async () => {
+    it('getAnswers(): gets an implementation\'s answers', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        await controller.addEvaluation(implementation.id, STUB_IEVALUATION);
-        await controller.addEvaluation(implementation.id, STUB_IEVALUATION);
-        const evaluations: Evaluation[] = await controller.getEvaluations(implementation.id);
-        expect(evaluations.length).toBeGreaterThanOrEqual(2);
+        await controller.addAnswer(implementation.id, STUB_IANSWER);
+        await controller.addAnswer(implementation.id, STUB_IANSWER);
+        const answers: Answer[] = await controller.getAnswers(implementation.id);
+        expect(answers.length).toBeGreaterThanOrEqual(2);
     });
 
-    it('updateEvaluation(): updates an evaluation', async () => {
+    it('updateAnswer(): updates an answer', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const added: Evaluation = await controller.addEvaluation(implementation.id, STUB_IEVALUATION);
-        const updated: Evaluation = await controller.updateEvaluation(implementation.id, added.id, STUB_IEVALUATION);
+        const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
+        const updated: Answer = await controller.updateAnswer(implementation.id, added.id, STUB_IANSWER);
         expect(updated).toBeTruthy();
     });
 
-    it('deleteEvaluation(): deletes an evaluation', async () => {
+    it('deleteAnswer(): deletes an answer', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const added: Evaluation = await controller.addEvaluation(implementation.id, STUB_IEVALUATION);
-        const deleted: Evaluation = await controller.deleteEvaluation(implementation.id, added.id);
+        const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
+        const deleted: Answer = await controller.deleteAnswer(implementation.id, added.id);
         expect(deleted).toBeTruthy();
     });
 

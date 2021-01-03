@@ -8,6 +8,7 @@ export interface IAnswer{
 
 export class Answer implements IAnswer{
     constructor(
+        public id: string,
         public question: string,
         public option: string,
         public score: Score
