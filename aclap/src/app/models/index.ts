@@ -4,7 +4,6 @@ export { Subject, ISubject } from './Subject.model';
 export { Discipline, IDiscipline } from './Discipline.model';
 export { DisciplineMetadata, IDisciplineMetadata } from './DisciplineMetadata.model';
 export { EducatorRequest, IEducatorRequest, EducatorRequestState } from './EducatorRequest.model';
-export { Evaluation, IEvaluation } from './Evaluation.model';
 export { File, IFile } from './File.model';
 export { Implementation, IImplementation } from './Implementation.model';
 export { Location, ILocation } from './Location.model';

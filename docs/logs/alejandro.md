@@ -1,6 +1,7 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
+* Recuperar contraseña
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
 * Escribir las reglas de seguridad para firebase
@@ -18,6 +19,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 02/11/2020 | Ligar `Question` a `Implementable` en lugar de `ActivitySection` |
 | 25/11/2020 | Implementar casos de prueba para nuevas funcionalidades de `FirebaseDatabase` |
 | 25/11/2020 | Implementar nuevas funciones de `Validator` |
 | 24/11/2020 | Se agregaron varias funciones y utilidades necesarias para el frontend |

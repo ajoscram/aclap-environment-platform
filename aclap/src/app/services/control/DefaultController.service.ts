@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Module, DisciplineMetadata, Section, ISection, File, IFile, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Implementation, IEvaluation, Evaluation } from '../../models';
+import { User, Module, DisciplineMetadata, Section, ISection, File, IFile, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Answer, IAnswer, IQuestion, Question } from '../../models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
@@ -35,6 +35,11 @@ export class DefaultController implements Controller{
     async getSession(): Promise<Session>{
         return await this.authenticator.getSession();
     };
+
+    async resetPassword(email: string): Promise<void>{
+        await this.authenticator.validate(Role.ANY);
+        throw new Error('not implemented yet');
+    }
 
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         return await this.database.addEducatorRequest(request);
@@ -96,15 +101,6 @@ export class DefaultController implements Controller{
         return await this.database.addSection(implementableId, section);
     }
 
-    async addSections(implementableId: string, sections: ISection[]): Promise<Section[]>{
-        const sections_: Section[] = [];
-        for(let section of sections){
-            const section_: Section = await this.addSection(implementableId, section);
-            sections_.push(section_);
-        }
-        return sections_;
-    }
-
     async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         return await this.database.updateSection(implementableId, sectionId, section);
@@ -146,6 +142,26 @@ export class DefaultController implements Controller{
         return file_.url;
     }
 
+    async getQuestions(implementableId: string): Promise<Question[]>{
+        await this.authenticator.validate(Role.ANY);
+        return await this.database.getQuestions(implementableId);
+    }
+
+    async addQuestion(implementableId: string, question: IQuestion): Promise<Question>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.addQuestion(implementableId, question);
+    }
+
+    async updateQuestion(implementableId: string, questionId: string, question: IQuestion): Promise<Question>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.updateQuestion(implementableId, questionId, question);
+    }
+
+    async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.deleteQuestion(implementableId, questionId);
+    }
+
     async getImplementations(completed: boolean, implementableId?: string): Promise<Implementation[]>{
         if(implementableId){
             await this.authenticator.validate(Role.ADMINISTRATOR);
@@ -175,26 +191,26 @@ export class DefaultController implements Controller{
     async completeImplementation(id: string): Promise<Implementation>{
         await this.authenticator.validate(Role.EDUCATOR);
         return await this.database.completeImplementation(id);
-    } 
+    }
 
-    async getEvaluations(implementationId: string): Promise<Evaluation[]>{
+    async getAnswers(implementationId: string): Promise<Answer[]>{
         await this.authenticator.validate(Role.ANY);
-        return await this.database.getEvaluations(implementationId);
+        return await this.database.getAnswers(implementationId);
     }
 
-    async addEvaluation(implementationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+    async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
         await this.authenticator.validate(Role.EDUCATOR);
-        return await this.database.addEvaluation(implementationId, evaluation);
+        return await this.database.addAnswer(implementationId, answer);
     }
 
-    async updateEvaluation(implementationId: string, evaluationId: string, evaluation: IEvaluation): Promise<Evaluation>{
+    async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
         await this.authenticator.validate(Role.EDUCATOR);
-        return await this.database.updateEvaluation(implementationId, evaluationId, evaluation);
+        return await this.database.updateAnswer(implementationId, answerId, answer);
     }
 
-    async deleteEvaluation(implementationId: string, evaluationId: string): Promise<Evaluation>{
+    async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{
         await this.authenticator.validate(Role.EDUCATOR);
-        return await this.database.deleteEvaluation(implementationId, evaluationId);
+        return await this.database.deleteAnswer(implementationId, answerId);
     }
 
     async getEvidence(implementationId: string): Promise<File[]>{

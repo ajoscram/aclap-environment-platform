@@ -1,4 +1,4 @@
-import { Section, DisciplineMetadata, File, ISection, Module, User, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, IImplementation, Implementation, IEvaluation, Evaluation } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, Module, User, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, IImplementation, Implementation, Answer, IAnswer, Question, IQuestion } from "../../models";
 import { Session, Role } from "../authentication/Session.model";
 
 export abstract class Controller{
@@ -7,6 +7,7 @@ export abstract class Controller{
     logout: () => Promise<void>;
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
+    resetPassword: (email: string) => Promise<void>;
     
     //educator requests
     getEducatorRequests: () => Promise<EducatorRequest[]>;
@@ -26,7 +27,6 @@ export abstract class Controller{
     getDisciplineMetadata: () => Promise<DisciplineMetadata>;
     getSections: (implementableId: string) => Promise<Section[]>;
     addSection: (implementableId: string, section: ISection) => Promise<Section>;
-    addSections: (implementableId: string, sections: ISection[]) => Promise<Section[]>;
     updateSection: (implementableId: string, sectionId: string, section: ISection) => Promise<Section>;
     setSection: (section: ISection, implementableId: string, sectionId?: string) => Promise<Section>;
     deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
@@ -37,6 +37,12 @@ export abstract class Controller{
     deleteFile: (implementableId: string, fileId: string) => Promise<File>;
     upload: (file: any) => Promise<string>; //upload returns a download URL to the uploaded file.
 
+    //questions
+    getQuestions: (implementableId: string) => Promise<Question[]>;
+    addQuestion: (implementableId: string, question: IQuestion) => Promise<Question>;
+    updateQuestion: (implementableId: string, questionId: string, question: IQuestion) => Promise<Question>;
+    deleteQuestion: (implementableId: string, questionId: string) => Promise<Question>;
+
     //implementations
     getImplementations: (completed: boolean, implementableId?: string) => Promise<Implementation[]>;
     addImplementation: (implementation: IImplementation) => Promise<Implementation>;
@@ -44,11 +50,11 @@ export abstract class Controller{
     deleteImplementation: (id: string) => Promise<Implementation>;
     completeImplementation: (id: string) => Promise<Implementation>;
 
-    //evaluations
-    getEvaluations: (implementationId: string) => Promise<Evaluation[]>;
-    addEvaluation: (implementationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    updateEvaluation: (implementationId: string, evaluationId: string, evaluation: IEvaluation) => Promise<Evaluation>;
-    deleteEvaluation: (implementationId: string, evaluationId: string) => Promise<Evaluation>;
+    //answers
+    getAnswers: (implementationId: string) => Promise<Answer[]>;
+    addAnswer: (implementationId: string, answer: IAnswer) => Promise<Answer>;
+    updateAnswer: (implementationId: string, answerId: string, answer: IAnswer) => Promise<Answer>;
+    deleteAnswer: (implementationId: string, answerId: string) => Promise<Answer>;
 
     //evidence
     getEvidence: (implementationId: string) => Promise<File[]>;

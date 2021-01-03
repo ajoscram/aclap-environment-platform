@@ -1,4 +1,4 @@
-import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent, IEducatorRequest, Implementation, IImplementation, IEvaluation, Score, EducatorRequest, EducatorRequestState, Evaluation } from "../../../models";
+import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent, IEducatorRequest, Implementation, IImplementation, Score, EducatorRequest, EducatorRequestState, IQuestion, IAnswer, Answer, Question } from "../../../models";
 import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownUser extends IUser{}
@@ -93,8 +93,7 @@ describe('Factory', () => {
         index: 0,
         description: "STUB_ACTIVITY.description",
         estimatedMinutes: 2,
-        tools: "STUB_ACTIVITY.tools",
-        questions: [ { question: "is this a question?", options: new Map() } ]
+        tools: "STUB_ACTIVITY.tools"
     };
     
     const STUB_PARAGRAPH: IParagraphSection = {
@@ -125,7 +124,12 @@ describe('Factory', () => {
         name: 'name',
         uploaded: new Date(),
         bytes: 1
-    }
+    };
+
+    const STUB_QUESTION: IQuestion = {
+        question: "is this a question?",
+        options: new Map()
+    };
 
     const STUB_IMPLEMENTATION: IImplementation = {
         date: new Date(),
@@ -140,24 +144,13 @@ describe('Factory', () => {
         educatorLastname: 'STUB_IMPLEMENTATION.educatorLastname',
         implementableId: 'STUB_IMPLEMENTATION.implementableId',
         implementableName: 'STUB_IMPLEMENTATION.implementableName'
-    }
-
-    const STUB_EVALUATION: IEvaluation = {
-        activityId: 'STUB_EVALUATION.activityId',
-        activityName: 'STUB_EVALUATION.activityName',
-        answers: [
-            {
-                question: 'ANSWER1.question',
-                option: 'ANSWER1.option',
-                score: Score.LOW
-            },
-            {
-                question: 'ANSWER2.question',
-                option: 'ANSWER2.option',
-                score: Score.AVERAGE
-            }
-        ]
-    }
+    };
+    
+    const STUB_ANSWER: IAnswer = {
+        question: 'ANSWER1.question',
+        option: 'ANSWER1.option',
+        score: Score.LOW
+    };
 
     const factory: Factory = new Factory();
 
@@ -254,7 +247,6 @@ describe('Factory', () => {
         expect(activity.description).toBe(STUB_ACTIVITY.description);
         expect(activity.estimatedMinutes).toBe(STUB_ACTIVITY.estimatedMinutes);
         expect(activity.tools).toBe(STUB_ACTIVITY.tools);
-        expect(activity.questions[0].question).toBe(STUB_ACTIVITY.questions[0].question);
     });
 
     it('getSection(): returns the correct ParagraphSection when input an IParagraphSection', async () => {
@@ -297,6 +289,13 @@ describe('Factory', () => {
         expect(file.bytes).toBe(STUB_FILE.bytes);
     });
 
+    it('getQuestion(): returns the correct Question when input an IQuestion', async () => {
+        const question: Question = factory.getQuestion(STUB_ID, STUB_QUESTION);
+        expect(question.id).toBe(STUB_ID);
+        expect(question.question).toBe(STUB_QUESTION.question);
+        expect(question.options).toBe(STUB_QUESTION.options);
+    });
+
     it('getImplementation(): returns the correct Implementation when input an IImplementation', async() => {
         const STUB_DELETED: boolean = false;
         const STUB_COMPLETED: boolean = false;
@@ -316,11 +315,11 @@ describe('Factory', () => {
         expect(implementation.implementableName).toBe(STUB_IMPLEMENTATION.implementableName);
     });
 
-    it('getEvaluation(): returns the correct Evaluation when input an IEvaluation', async () => {
-        const evaluation: Evaluation = factory.getEvaluation(STUB_ID, STUB_EVALUATION);
-        expect(evaluation.id).toBe(STUB_ID);
-        expect(evaluation.activityId).toBe(STUB_EVALUATION.activityId);
-        expect(evaluation.activityName).toBe(STUB_EVALUATION.activityName);
-        expect(evaluation.answers.length).toBe(STUB_EVALUATION.answers.length);
+    it('getAnswer(): returns the correct Answer when input an IAnswer', async () => {
+        const answer: Answer = factory.getAnswer(STUB_ID, STUB_ANSWER);
+        expect(answer.id).toBe(STUB_ID);
+        expect(answer.question).toBe(STUB_ANSWER.question);
+        expect(answer.option).toBe(STUB_ANSWER.option);
+        expect(answer.score).toBe(STUB_ANSWER.score);
     });
 });
