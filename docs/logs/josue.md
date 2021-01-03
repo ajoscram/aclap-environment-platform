@@ -60,3 +60,6 @@
 | 28/12/2020 | Edición de archivos de módulo |
 | 28/12/2020 | Rediseño de Módulos |
 | 28/12/2020 | Fonts Añadidos y aplicados |
+| 01/01/2021 | Subida de Imágenes de Creación y Edición de Módulo |
+| 01/01/2021 | Edición de Colores en módulos |
+| 02/01/2021 | Sincronización de imágenes |

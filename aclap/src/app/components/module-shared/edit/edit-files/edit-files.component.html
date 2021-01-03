@@ -16,6 +16,17 @@
         </p>
         <app-progress [progress]="file?.progress"></app-progress>
       </div>
-      <span class="delete" alt="file" (click)="deleteFile(i)">Eliminar</span>
+      <span class="delete btn btn-warning" alt="file" (click)="deleteFile(i)">Eliminar</span>
+    </div>
+    <div class="single-file" *ngFor="let f of moduleFiles; let m = index">
+      <div class="info">
+        <h4 class="name">
+          {{ f.name }}
+        </h4>
+        <p class="size">
+          {{ formatBytes(f.bytes) }}
+        </p>
+      </div>
+      <span class="delete btn btn-danger" alt="file" (click)="deleteModuleFile(m)">Eliminar</span>
     </div>
 </div>

@@ -41,7 +41,7 @@ export class EditImageComponent  implements OnInit {
   }
 
   onFileSelected(event){
-    console.log(event.target.files[0], this.image.url);
+    this.image.url = event.target.value;
     this.imageProxy[this.image.url] = <File> event.target.files[0];
   }
 
