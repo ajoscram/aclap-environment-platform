@@ -92,9 +92,9 @@ export class MockDatabase implements Database{
             new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), '1', 'Educator1', 'McUsername', this.implementables[0].id, this.implementables[0].name)
         ];
         this.answers = [
-            new Answer(this.nextId, '¿Esto es una pregunta?', 'Mal', Score.LOW),
-            new Answer(this.nextId, '¿Cómo se sintió al leer esa pregunta?', 'Regular', Score.AVERAGE),
-            new Answer(this.nextId, '¿Y al leer esa otra?', 'Muy bien', Score.VERY_HIGH)
+            new Answer(this.nextId, this.questions[0].id, '¿Esto es una pregunta?', 'Mal', Score.LOW),
+            new Answer(this.nextId, this.questions[1].id, '¿Cómo se sintió al leer esa pregunta?', 'Regular', Score.AVERAGE),
+            new Answer(this.nextId, this.questions[2].id, '¿Y al leer esa otra?', 'Muy bien', Score.VERY_HIGH)
         ];
         this.evidence = [
             new File(this.nextId, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
@@ -294,7 +294,7 @@ export class MockDatabase implements Database{
     }
 
     async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
-        this.getImplementation(implementableId);//checking for implementable existance
+        this.getImplementable(implementableId);//checking for implementable existance
         for(let i = 0; i < this.questions.length; i++)
             if(this.questions[i].id === questionId)
                 return this.questions.splice(i, 1)[0];

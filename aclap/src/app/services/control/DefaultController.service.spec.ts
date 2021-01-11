@@ -73,8 +73,9 @@ describe('DefaultController', () => {
         text: 'text'
     };
     const STUB_IANSWER: IAnswer = {
-        question: 'ANSWER1.question',
-        option: 'ANSWER1.option',
+        questionId: 'ANSWER.questionId',
+        question: 'ANSWER.question',
+        option: 'ANSWER.option',
         score: Score.LOW
     };
     //This represents a file, because MockStorage actually ignores it altogether.
@@ -276,12 +277,35 @@ describe('DefaultController', () => {
         expect(updated).toBeTruthy();
     });
 
+    it('setQuestion(): adds a question to an implementable if no id is provided', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const question: Question = await controller.setQuestion(STUB_IQUESTION, implementable.id);
+        expect(question).toBeTruthy();
+    });
+
+    it('setQuestion(): updates a question to an implementable if an id is provided', async () => {
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
+        const set: Question = await controller.setQuestion(STUB_IQUESTION, implementable.id, added.id);
+        expect(set).toBeTruthy();
+        expect(set.id).toBe(added.id);
+    });
+
     it('deleteQuestion(): deletes a question', async () => {
         await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
         const deleted: Question = await controller.deleteQuestion(implementable.id, added.id);
         expect(deleted).toBeTruthy();
+    });
+
+    it('draftImplementation(): returns an incomplete IImplementation with basic profile information', async () => {
+        const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementation: IImplementation = await controller.draftImplementation(implementable.id);
+        expect(implementation).toBeTruthy();
     });
 
     it('addImplementation(): adds an implementation', async () => {
@@ -346,6 +370,22 @@ describe('DefaultController', () => {
         const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
         const updated: Answer = await controller.updateAnswer(implementation.id, added.id, STUB_IANSWER);
         expect(updated).toBeTruthy();
+    });
+
+    it('setAnswer(): adds an answer to an implementation if no id is provided', async () => {
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
+        const answer: Answer = await controller.setAnswer(STUB_IANSWER, implementation.id);
+        expect(answer).toBeTruthy();
+    });
+
+    it('setAnswer(): updates an implementation\'s answer if an id is provided', async () => {
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
+        const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
+        const set: Answer = await controller.setAnswer(STUB_IANSWER, implementation.id, added.id);
+        expect(set).toBeTruthy();
+        expect(set.id).toBe(added.id);
     });
 
     it('deleteAnswer(): deletes an answer', async () => {
