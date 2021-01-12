@@ -45,6 +45,7 @@ export abstract class Controller{
     deleteQuestion: (implementableId: string, questionId: string) => Promise<Question>;
 
     //implementations
+    draftImplementation: (implementableId: string) => Promise<IImplementation>;
     getImplementations: (completed: boolean, implementableId?: string) => Promise<Implementation[]>;
     addImplementation: (implementation: IImplementation) => Promise<Implementation>;
     updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;

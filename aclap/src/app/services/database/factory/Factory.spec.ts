@@ -147,6 +147,7 @@ describe('Factory', () => {
     };
     
     const STUB_ANSWER: IAnswer = {
+        questionId: 'ANSWER.questionId',
         question: 'ANSWER1.question',
         option: 'ANSWER1.option',
         score: Score.LOW

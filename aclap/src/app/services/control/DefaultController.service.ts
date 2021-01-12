@@ -179,6 +179,22 @@ export class DefaultController implements Controller{
         }
     }
 
+    async draftImplementation(implementableId: string): Promise<IImplementation>{
+        const session: Session = await this.authenticator.getSession();
+        const user: User = await this.database.getUser(session.user_id);
+        const implementable: Implementable = await this.database.getImplementable(implementableId);
+        return {
+            date: new Date(),
+            participants: null,
+            location: null,
+            educatorId: user.id,
+            educatorName: user.name,
+            educatorLastname: user.lastname,
+            implementableId: implementable.id,
+            implementableName: implementable.name
+        }
+    }
+
     async addImplementation(implementation: IImplementation): Promise<Implementation>{
         await this.authenticator.validate(Role.ANY);
         return await this.database.addImplementation(implementation);

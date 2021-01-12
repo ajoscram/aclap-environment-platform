@@ -170,7 +170,7 @@ export class Factory{
         );
     }
 
-    public getQuestion(id: string, question: IQuestion){
+    public getQuestion(id: string, question: IQuestion): Question{
         return new Question(
             id,
             question.question,
@@ -197,6 +197,7 @@ export class Factory{
     public getAnswer(id: string, answer: IAnswer){
         return new Answer(
             id,
+            answer.questionId,
             answer.question,
             answer.option,
             answer.score

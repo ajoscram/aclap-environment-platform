@@ -4,7 +4,7 @@ import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
-import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer } from '../../../models';
+import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer, Score } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -350,6 +350,13 @@ export class FirebaseDatabase implements Database{
         return file;
     }
 
+    private getOptionsMap(obj: object): Map<Score, string>{
+        const map: Map<Score, string> = new Map();
+        for(let option in obj)
+            map.set(option as Score, obj[option]);
+        return map;
+    }
+
     async getQuestions(implementableId: string): Promise<Question[]>{
         const questions: Question[] = [];
         const documents: QuerySnapshot<DocumentData> = await this.firestore
@@ -359,6 +366,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         documents.forEach(document => {
             const response: any = document.data();
+            response.options = this.getOptionsMap(response.options);
             const question: Question = this.factory.getQuestion(response.id, response as IQuestion);
             questions.push(question);
         });
@@ -375,38 +383,55 @@ export class FirebaseDatabase implements Database{
         const question: any = document.data();
         if(!question)
             throw new Error(DatabaseError.QUESTION_NOT_FOUND);
-        else
-        return this.factory.getQuestion(questionId, question as IQuestion);
+        else{
+            question.options = this.getOptionsMap(question.options);
+            return this.factory.getQuestion(questionId, question as IQuestion);
+        }
+    }
+
+    private getOptionsObject(map: Map<Score, string>): object{
+        const obj: object = {}
+        for(let score of map.keys())
+            obj[score] = map.get(score)
+        return obj;
     }
 
     async addQuestion(implementableId: string, question: IQuestion): Promise<Question>{
         this.validator.validateIQuestion(question);
         const id: string = this.firestore.createId();
-        question['id'] = id;
+        const options = this.getOptionsObject(question.options);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
             .collection(FirebaseDatabase.QUESTIONS)
             .doc(id)
-            .set(question);
+            .set({
+                id: id,
+                question: question.question,
+                options: options
+            });
         return this.factory.getQuestion(id, question);
     }
 
     async updateQuestion(implementableId: string, questionId: string, question: IQuestion): Promise<Question>{
         this.validator.validateIQuestion(question);
+        const options = this.getOptionsObject(question.options);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
             .collection(FirebaseDatabase.QUESTIONS)
             .doc(questionId)
-            .update(question);
+            .update({
+                question: question.question,
+                options: options
+            });
         return this.factory.getQuestion(questionId, question);
     }
 
     async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
         const question: Question = await this.getQuestion(implementableId, questionId);
         await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTATIONS)
+            .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
             .collection(FirebaseDatabase.QUESTIONS)
             .doc(questionId)

@@ -9,6 +9,12 @@ describe('FirebaseDatabase', () => {
 
     const STUB_ID: string = 'id';
     const STUB_INCORRECT_ID: string = 'incorrect';
+    const STUB_OPTIONS: Map<Score, string> = new Map();
+    STUB_OPTIONS.set(Score.VERY_LOW, 'STUB_OPTIONS.VERY_LOW');
+    STUB_OPTIONS.set(Score.LOW, 'STUB_OPTIONS.LOW');
+    STUB_OPTIONS.set(Score.AVERAGE, 'STUB_OPTIONS.AVERAGE');
+    STUB_OPTIONS.set(Score.HIGH, 'STUB_OPTIONS.HIGH');
+    STUB_OPTIONS.set(Score.VERY_HIGH, 'STUB_OPTIONS.VERY_HIGH');
     
     let database: Database;
     let stubDisciplineMetadata: IDisciplineMetadata;
@@ -113,7 +119,7 @@ describe('FirebaseDatabase', () => {
         }
         stubQuestion = {
             question: "is this a question?",
-            options: new Map()
+            options: STUB_OPTIONS
         };
         stubImplementation = {
             date: new Date(),
@@ -130,8 +136,9 @@ describe('FirebaseDatabase', () => {
             implementableName: 'stubIImplementation.implementableName'
         };
         stubAnswer  = {
-            question: 'ANSWER1.question',
-            option: 'ANSWER1.option',
+            questionId: 'ANSWER.questionId',
+            question: 'ANSWER.question',
+            option: 'ANSWER.option',
             score: Score.LOW
         };
     });
