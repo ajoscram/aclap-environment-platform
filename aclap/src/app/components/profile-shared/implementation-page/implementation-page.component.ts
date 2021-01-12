@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Implementation } from '@src/app/models';
+import { Controller } from '@src/app/services/control/Controller.service';
 
 @Component({
   selector: 'app-implementation-page',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImplementationPageComponent implements OnInit {
 
-  constructor() { }
+  implementation: Implementation;
+
+  constructor(private controller: Controller) { }
 
   ngOnInit(): void {
+    
+  }
+
+  statusFormat(completed: boolean){
+    return completed ? "Completado" : "En proceso" 
+  }
+
+  getRange(topLimit: number){
+    return [...Array(topLimit).keys()].map(element => {element + 1});
   }
 
 }

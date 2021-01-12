@@ -12,6 +12,7 @@ import { ProfileComponent } from '../../components/profile-shared/profile/profil
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 import { RegisterComponent} from '@src/app/components/shared/register/register.component';
 import { TeachingGuideComponent} from '../../components/module-shared/teaching-guide/teaching-guide.component';
+import { ImplementationPageComponent } from '../../components/profile-shared/implementation-page/implementation-page.component';
 
 export const routes: Routes = [
     {
@@ -62,5 +63,9 @@ export const routes: Routes = [
     {
         path: 'persona-educadora',
         component: RegisterComponent,
+    },
+    {
+        path: 'modulos/:id/nueva-implementacion',
+        component: ImplementationPageComponent,
     }
 ];

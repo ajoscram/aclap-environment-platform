@@ -1,1 +1,43 @@
-<p>implementation-page works!</p>
+<div class="jumbotron jumbotron-fluid header-image">
+    <div class="container-fluid fill d-flex align-items-center">
+        <div class="col d-flex justify-content-center title">
+            <div class="row my-5">
+            </div>
+        </div>
+        <div class="row mt-5 d-flex justify-content-center ">
+            <div class="col">
+                <h1> {{ implementation.implementableName}} </h1>
+                <span> {{ implementation.date }}  </span>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-6">
+                <p>Realizado por: {{ implementation.educatorName }}</p>
+                <p>Estado: {{ statusFormat(implementation.completed) }}</p>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <span class="btn btn-sucess">
+                    Guardar Cambios
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-8 col-xl-10">
+            <h4>Ubicación</h4>
+            <!-- MAP API -->
+        </div>
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <label for="estimatedMinutes" class="col-2 col-form-label">Participantes</label>
+            <div class="col">
+                <select class="form-control" >
+                    <option *ngFor="let n of getRange(75)">
+                        {{n}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

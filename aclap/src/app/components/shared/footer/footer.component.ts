@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+
+  allies: string[] = ["MINAE", "SINAC", "ACLAP", "PAISAJES PRODUCTIVOS", "PNUD", "GEF", "TEC"];
   constructor() { }
 
   ngOnInit(): void {
