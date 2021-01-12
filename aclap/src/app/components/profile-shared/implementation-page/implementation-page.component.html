@@ -1,13 +1,17 @@
 <div class="jumbotron jumbotron-fluid header-image">
-    <div class="container-fluid fill d-flex align-items-center">
-        <div class="col d-flex justify-content-center title">
-            <div class="row my-5">
-            </div>
-        </div>
-        <div class="row mt-5 d-flex justify-content-center ">
+    <div class="container-fluid">
+        <div class="row">
             <div class="col">
-                <h1> {{ implementation.implementableName}} </h1>
-                <span> {{ implementation.date }}  </span>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1> {{ implementation.implementableName}} </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col  d-flex justify-content-center">
+                        <span> {{ implementation.date | date: 'dd/MM/yyyy'  }}  </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row my-4">
@@ -15,10 +19,13 @@
                 <p>Realizado por: {{ implementation.educatorName }}</p>
                 <p>Estado: {{ statusFormat(implementation.completed) }}</p>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-                <span class="btn btn-sucess">
-                    Guardar Cambios
-                </span>
+            <div class="col-6">
+                <div class="row d-flex justify-content-end">
+                    <span class="btn btn-warning"> Guardar Cambios </span>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <span class="btn btn-primary"> Completar Implementación </span>
+                </div>
             </div>
         </div>
     </div>
@@ -33,7 +40,7 @@
             <label for="estimatedMinutes" class="col-2 col-form-label">Participantes</label>
             <div class="col">
                 <select class="form-control" >
-                    <option *ngFor="let n of getRange(75)">
+                    <option *ngFor="let n of getRange(50)" value="n">
                         {{n}}
                     </option>
                 </select>
@@ -46,12 +53,12 @@
                 <h3>Preguntas de evaluación</h3>
             </div>
             <div class="col">
-                
+                <app-display-questions [questions]="questions" [answers]="answers" ></app-display-questions>
             </div>
         </div>
         <div class="col-md-5">
             <h3> Evidencias de trabajo </h3>
+            <app-edit-files [files]="files"></app-edit-files>
         </div>
-        <app-edit-files [files]="files"></app-edit-files>
     </div>
 </div>

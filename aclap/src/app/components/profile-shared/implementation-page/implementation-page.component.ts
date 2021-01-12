@@ -35,8 +35,9 @@ export class ImplementationPageComponent implements OnInit {
     return completed ? "Completado" : "En proceso" 
   }
 
+
   getRange(topLimit: number){
-    return [...Array(topLimit).keys()].map(element => {element + 1});
+    return Array(topLimit).fill(0).map((_, i)=> (i*3 + 3 ));
   }
 
   onsubmit(){
