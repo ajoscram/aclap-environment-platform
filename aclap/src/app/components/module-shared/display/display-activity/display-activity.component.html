@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-8">
                 <h3>Descripción</h3>
                 <p class="text-justify">
                     {{ activity.description }}
@@ -15,29 +15,13 @@
                     <div class="row">
                         <div class="col-12">
                             <ul class="list-group">
-                                <li class="list-group-item active">Material digital</li>
-                                <!--TODO: THERE IS NO DOWNLOADABLE MATERIAL FIELD IN ACTIVITY-->
-                                <li class="list-group-item">Esta actividad no posee material descargable</li>
+                                <li class="list-group-item active">Materiales</li>
+                                <li *ngFor="let tool of activity.tools.split('\n')">
+                                    {{tool}}
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="row pt-4">
-                        <div class="col-12">
-                            <ul class="list-group">
-                                <li class="list-group-item active">Útiles necesarios</li>
-                                <!--TODO: THERE IS NO DOWNLOADABLE MATERIAL FIELD IN ACTIVITY-->
-                                <li class="list-group-item"> {{activity.tools}} </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-3 d-flex flex-column">
-                <div class="row">
-                    <h3 class="col-12">Subir Actividad</h3>
-                </div>
-                <div class="row align-items-center flex-grow-1 justify-content-center">
-                    <button class="btn btn-lg lime" style="color: white;">Subir Actividad</button>
                 </div>
             </div>
         </div>
