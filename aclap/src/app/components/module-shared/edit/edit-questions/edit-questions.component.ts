@@ -52,4 +52,8 @@ export class EditQuestionsComponent implements OnInit {
     this.initQuestion();
   }
 
+  public get score(): typeof Score{
+    return Score;
+  }
+
 }

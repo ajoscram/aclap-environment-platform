@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { Answer, Question } from '@src/app/models';
+import { Answer, Question, Score } from '@src/app/models';
 
 @Component({
   selector: 'app-display-questions',
@@ -18,13 +18,46 @@ export class DisplayQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     for (let index = 0; index < this.questions.length; index++) {
-      this.q_colors.push({color: this.colors[0], status: false});
+      this.q_colors.push({color: this.colors[0], status: false, option: 0});
     }
   }
 
   selectOption(index: number, option: number){
-    this.q_colors[index] = {color: this.colors[option], status: true};
-    console.log(this.q_colors);
+    if(this.q_colors[index].status === true && this.q_colors[index].option === option){
+      /* UNSELECTED */
+      this.q_colors[index] = {color: this.colors[0], status: false, option: option};
+      this.answers[index].score = null;
+      this.answers[index].option = null;
+    }else{
+      /* NEW SELECTION */
+      this.q_colors[index] = {color: this.colors[option], status: true, option: option};
+      this.answers[index].score = this.ntoscore(option);
+      this.answers[index].option = this.questions[index].options[this.ntoscore(option)];
+    }
+    console.log(this.answers);
   }
+
+  public get score(): typeof Score{
+    return Score;
+  }
+
+  ntoscore(n: number){
+    if(n == 1) {
+      return Score.VERY_LOW;
+    }
+    if(n == 2) {
+      return Score.LOW;
+    }
+    if(n == 3) {
+      return Score.AVERAGE;
+    }
+    if(n == 4) {
+      return Score.HIGH;
+    }
+    if(n == 5) {
+      return Score.VERY_HIGH;
+    }
+  }
+
 
 }
