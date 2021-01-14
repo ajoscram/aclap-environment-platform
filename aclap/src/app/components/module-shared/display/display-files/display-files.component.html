@@ -11,7 +11,7 @@
             <span class="text-center">{{ file.name}} </span>
         </div>
         <div class="col">
-            <span class="text-center">{{ file.bytes }} </span>
+            <span class="text-center">{{ formatBytes(file.bytes) }} </span>
         </div>
         <div class="col">
             <span class="btn btn-success" (click)="onDownload(i)" > Descargar/Abrir </span>

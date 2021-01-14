@@ -107,7 +107,6 @@ export class DefaultController implements Controller{
     }
 
     async setSection(section: ISection, implementableId: string, sectionId?: string): Promise<Section>{
-        console.log("Set Section");
         if(sectionId)
             return await this.updateSection(implementableId, sectionId, section);
         else
@@ -157,6 +156,13 @@ export class DefaultController implements Controller{
         return await this.database.updateQuestion(implementableId, questionId, question);
     }
 
+    async setQuestion(question: IQuestion, implementableId: string, questionId?: string): Promise<Question>{
+        if(questionId)
+            return await this.updateQuestion(implementableId, questionId, question);
+        else
+            return await this.addQuestion(implementableId, question);
+    }
+
     async deleteQuestion(implementableId: string, questionId: string): Promise<Question>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         return await this.database.deleteQuestion(implementableId, questionId);
@@ -170,6 +176,22 @@ export class DefaultController implements Controller{
         else{
             const session: Session = await this.authenticator.getSession();
             return await this.database.getImplementationsByUser(completed, session.user_id);
+        }
+    }
+
+    async draftImplementation(implementableId: string): Promise<IImplementation>{
+        const session: Session = await this.authenticator.getSession();
+        const user: User = await this.database.getUser(session.user_id);
+        const implementable: Implementable = await this.database.getImplementable(implementableId);
+        return {
+            date: new Date(),
+            participants: null,
+            location: null,
+            educatorId: user.id,
+            educatorName: user.name,
+            educatorLastname: user.lastname,
+            implementableId: implementable.id,
+            implementableName: implementable.name
         }
     }
 
@@ -206,6 +228,13 @@ export class DefaultController implements Controller{
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
         await this.authenticator.validate(Role.EDUCATOR);
         return await this.database.updateAnswer(implementationId, answerId, answer);
+    }
+
+    async setAnswer(answer: IAnswer, implementableId: string, answerId?: string): Promise<Answer>{
+        if(answerId)
+            return await this.updateAnswer(implementableId, answerId, answer);
+        else
+            return await this.addAnswer(implementableId, answer);
     }
 
     async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{

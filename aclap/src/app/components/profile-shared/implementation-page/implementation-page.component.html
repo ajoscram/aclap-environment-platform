@@ -1,1 +1,64 @@
-<p>implementation-page works!</p>
+<div class="jumbotron jumbotron-fluid header-image">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1> {{ implementation.implementableName}} </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col  d-flex justify-content-center">
+                        <span> {{ implementation.date | date: 'dd/MM/yyyy'  }}  </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-6">
+                <p>Realizado por: {{ implementation.educatorName }}</p>
+                <p>Estado: {{ statusFormat(implementation.completed) }}</p>
+            </div>
+            <div class="col-6">
+                <div class="row d-flex justify-content-end">
+                    <span class="btn btn-warning"> Guardar Cambios </span>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <span class="btn btn-primary"> Completar Implementación </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-8 col-xl-10">
+            <h4>Ubicación</h4>
+            <!-- MAP API -->
+        </div>
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <label for="estimatedMinutes" class="col-2 col-form-label">Participantes</label>
+            <div class="col">
+                <select class="form-control" >
+                    <option *ngFor="let n of getRange(50)" value="n">
+                        {{n}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="col-12">
+                <h3>Preguntas de evaluación</h3>
+            </div>
+            <div class="col">
+                <app-display-questions [questions]="questions" [answers]="answers" ></app-display-questions>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h3> Evidencias de trabajo </h3>
+            <app-edit-files [files]="files"></app-edit-files>
+        </div>
+    </div>
+</div>

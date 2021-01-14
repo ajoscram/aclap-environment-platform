@@ -64,3 +64,8 @@
 | 01/01/2021 | Edición de Colores en módulos |
 | 02/01/2021 | Sincronización de imágenes |
 | 02/01/2021 | Despliegue de archivos en página de Módulo |
+| 11/01/2021 | Footer y Question |
+| 11/01/2021 | Arreglos menores de UI (Perfil, Sección de Actividad ) |
+| 11/01/2021 | Preguntas de módulo |
+| 12/01/2021 | Continuación Página de implementación |
+| 12/01/2021 | Diseño y Creación de Emoji para calificación |

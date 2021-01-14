@@ -27,6 +27,7 @@ import { DisplayTitleComponent } from '@src/app/components/module-shared/display
 import { DisplayParagraphComponent } from '@src/app/components/module-shared/display/display-paragraph/display-paragraph.component';
 import { DisplayYoutubeComponent } from '@src/app/components/module-shared/display/display-youtube/display-youtube.component';
 import { DisplayFilesComponent } from '@src/app/components/module-shared/display/display-files/display-files.component';
+import { DisplayQuestionsComponent } from '@src/app/components/module-shared/display/display-questions/display-questions.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import ControlModule from '@src/app/modules/control/control.module';
 import { Controller } from '@src/app/services/control/Controller.service';
@@ -84,6 +85,7 @@ import { TeachingGuideComponent} from '@src/app/components/module-shared/teachin
     DisplayFilesComponent,
     DisplayParagraphComponent,
     DisplayYoutubeComponent,
+    DisplayQuestionsComponent,
     DisplayerComponent,
     EditDisplayerComponent,
     LoginComponent,

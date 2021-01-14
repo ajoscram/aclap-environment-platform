@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
 import { Section, Module, ParagraphSection, ActivitySection, Question, ImageSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File } from '../../../models';
+import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
 
 @Component({
   selector: 'app-module-edit',
@@ -23,7 +24,7 @@ export class ModuleEditComponent implements OnInit {
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private route:ActivatedRoute, private controller: Controller, private router: Router) {
+  constructor(private route:ActivatedRoute, private controller: Controller, private router: Router, private translator: ErrorTranslator) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -35,13 +36,20 @@ export class ModuleEditComponent implements OnInit {
         this.moduleImage = new ImageSection("",0,"",module.imageUrl,"");
         this.bannerImage = new ImageSection("",0,"",module.bannerImageUrl,"");
       })
-      .catch(error => console.error(error));
+      .catch(
+        err => {
+          console.log(this.translator.translate(err));
+        }
+      );
     
     this.controller.getSections(this.id)
       .then(sections => { this.sections = sections; //Returns ordered list
       })
-      .catch(error => console.error(error)
-    );
+      .catch(
+        err => {
+          console.log(this.translator.translate(err));
+        }
+      );
     this.imageProxy = new Map();
     this.questions = new Array();
 
@@ -50,7 +58,23 @@ export class ModuleEditComponent implements OnInit {
       (files) =>{
         this.moduleFiles = files;
       }
-    )
+    ).catch(
+      err => {
+        console.log(this.translator.translate(err));
+      }
+    );
+
+    this.controller.getQuestions(this.id)
+      .then(
+        (questions) => {
+          this.questions = questions;
+        }
+      )
+      .catch(
+        err => {
+          console.log(this.translator.translate(err));
+        }
+      );
   }
 
   
@@ -132,17 +156,22 @@ export class ModuleEditComponent implements OnInit {
       module => {
         //All Good
         console.log(module);
-      }).
-      catch(err => {
-      //TODO: Display Error
-      console.log(err);
-    });
+      })
+      .catch(
+        err => {
+          console.log(this.translator.translate(err));
+        }
+      );
 
     this.deletedModuleFiles.forEach(
       (file: File) => {
         this.controller.deleteFile(this.id, file.id)
         .then(_ => {})
-        .catch(error => {})
+        .catch(
+          err => {
+            console.log(this.translator.translate(err));
+          }
+        );
       }
     );
 
@@ -154,8 +183,24 @@ export class ModuleEditComponent implements OnInit {
             console.log("File 1: ", f1);
           }
         )
+        .catch(
+          err => {
+            console.log(this.translator.translate(err));
+          }
+        );
       }
     );
+
+    this.questions.forEach(
+      (question) => {
+        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
+        .catch(
+          err => {
+            console.log(this.translator.translate(err));
+          }
+        );
+      }
+    )
 
     //Display modal that everithing worked fine
     alert("Contenido del módulo actualizado de manera correcta");

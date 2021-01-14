@@ -5,12 +5,18 @@
                 <h1 class="text-center col-12">Administrador</h1>
             </div>
         </div>
+        <div *ngIf="isEducator" class="">
+            <div class="row">
+                <h1 class="text-center col-12">Persona Educadora</h1>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12 col-sm-5 col-md-3">
-                <h1>{{ user.name }}</h1>
+                <h1>{{ user.name }} {{ user.lastname }}</h1>
             </div>
             <div class="col-12 col-sm-5 col-md-2 offset-sm-2 offset-md-7 ">
-                <img class="img-responsive" [src]="user.imageUrl" [alt]="'image de perfil de' + user.name">
+                <img class="img-responsive rounded-circle
+                7" [src]="user.imageUrl" [alt]="'image de perfil de' + user.name">
             </div>
         </div>
     </div>

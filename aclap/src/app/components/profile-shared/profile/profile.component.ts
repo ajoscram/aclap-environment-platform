@@ -1,4 +1,5 @@
 import { Component, OnInit, ɵAPP_ID_RANDOM_PROVIDER } from '@angular/core';
+import { Router } from '@angular/router';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { EducatorRequest, EducatorRequestState, Event, Module, User } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
@@ -17,10 +18,11 @@ export class ProfileComponent implements OnInit {
   pendingRequests: EducatorRequest[];
   approvedRequests: EducatorRequest[];
   deniedRequests: EducatorRequest[];
-  isAdmin: Boolean;
+  isAdmin: Boolean = false;
+  isEducator: Boolean = false;
   len = 2;
 
-  constructor(private controller: Controller) { }
+  constructor(private controller: Controller, private router: Router) { }
 
   ngOnInit(): void {
     this.pendingRequests = new Array();
@@ -33,7 +35,9 @@ export class ProfileComponent implements OnInit {
         this.user = user;
       }
     )
-    .catch();
+    .catch(_ => {
+      this.router.navigateByUrl("/inicio");
+    });
 
     this.controller.getModules().then(
       modules => {this.modules = modules}
@@ -44,17 +48,20 @@ export class ProfileComponent implements OnInit {
     ).
     catch();
 
-    this.controller.getSession().then(
+    this.controller.getSession()
+    .then(
       session => {
         if(session.role === Role.ADMINISTRATOR){
           this.isAdmin = true;
           this.len = 3;
-        }else{
-          this.isAdmin = false;
+        }else if(session.role === Role.EDUCATOR){
+          this.isEducator = true;
         }
       }
-    ).
-    catch();
+    )
+    .catch(_ => {
+      this.router.navigateByUrl("/inicio");
+    });
 
     this.controller.getEducatorRequests().then(
       (requests) => {

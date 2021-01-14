@@ -41,9 +41,11 @@ export abstract class Controller{
     getQuestions: (implementableId: string) => Promise<Question[]>;
     addQuestion: (implementableId: string, question: IQuestion) => Promise<Question>;
     updateQuestion: (implementableId: string, questionId: string, question: IQuestion) => Promise<Question>;
+    setQuestion: (question: IQuestion, implementableId: string, questionId?: string) => Promise<Question>;
     deleteQuestion: (implementableId: string, questionId: string) => Promise<Question>;
 
     //implementations
+    draftImplementation: (implementableId: string) => Promise<IImplementation>;
     getImplementations: (completed: boolean, implementableId?: string) => Promise<Implementation[]>;
     addImplementation: (implementation: IImplementation) => Promise<Implementation>;
     updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
@@ -54,6 +56,7 @@ export abstract class Controller{
     getAnswers: (implementationId: string) => Promise<Answer[]>;
     addAnswer: (implementationId: string, answer: IAnswer) => Promise<Answer>;
     updateAnswer: (implementationId: string, answerId: string, answer: IAnswer) => Promise<Answer>;
+    setAnswer: (answer: IAnswer, implementationId: string, answerId?: string) => Promise<Answer>;
     deleteAnswer: (implementationId: string, answerId: string) => Promise<Answer>;
 
     //evidence
