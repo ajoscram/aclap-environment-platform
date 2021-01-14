@@ -19,8 +19,8 @@
 | 27/11/2020 | Cambiar UI de pagina de inicio en NS |
 | 05/12/2020 | Empezar el UI nuevo de modulos en NS |
 | 08/12/2020 | Terminar el UI de modulos en NS|
-| 9/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |
-| 9/12/2020 | Empezar el UI de perfil en NS |
+| 09/12/2020 | Mostrar el guia didactica de los modulos del UI en NS |
+| 09/12/2020 | Empezar el UI de perfil en NS |
 | 10/12/2020 | Agregar el embedded Youtube de Guias en NS |
 | 10/12/2020 | Mejorar el UI de guia didactica en NS |
 | 10/12/2020 | Empezar el UI de login en NS |

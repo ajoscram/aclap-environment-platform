@@ -1,1 +1,54 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$green-color: #528f41;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+  font-size: 36;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-left: 10;
+  margin-right: 10;
+}
+
+.img-banner{
+  opacity: 0.75;
+}
+
+.input-form {
+  border-radius: 5;
+  color: black;
+  font-size: 14;
+  placeholder-color: #bbbbbb;
+  margin: 15;
+}
+
+.btn-send {
+  color: #ffffff;
+  border-radius: 3;
+  background-color: #Ef6423;
+  font-size: 16;
+  width: 90%;
+  margin: 10;
+}
+  
+.text-subtitle {
+  color: #000000;
+  font-weight: bold;
+  font-size: 14;
+  margin-left: 15;
+  text-align: left;
+}
+
+.text-subtitle-first {
+  color: #000000;
+  font-size: 18;
+  margin-left: 15;
+  text-align: left;
+  margin-top: 5;
+  margin-bottom: 5;
+}

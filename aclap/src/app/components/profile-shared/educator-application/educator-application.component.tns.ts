@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DatePicker } from '@nativescript/core/ui/date-picker';
 import { EducatorRequest } from '../../../models';
 
 @Component({
@@ -14,5 +15,9 @@ export class EducatorApplicationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  minDate: Date = new Date(1975, 0, 29);
+  maxDate: Date = new Date(2045, 4, 12);
+  
 
 }
