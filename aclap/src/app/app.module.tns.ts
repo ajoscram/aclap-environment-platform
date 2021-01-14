@@ -3,6 +3,7 @@ import { NativeScriptModule } from '@nativescript/angular';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeScriptFormsModule } from '@nativescript/angular'
+// import { Downloader } from 'nativescript-downloader';
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -79,13 +80,14 @@ import { TempModule } from './temp.module.tns';
     AboutUsComponent
   ],
   imports: [
-    TempModule,
+    //TempModule,
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,
     ControlModule,
     ReactiveFormsModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    //Downloader
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },

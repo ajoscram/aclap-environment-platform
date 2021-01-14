@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { File } from '@src/app/models';
+import { File } from '../../../../models';
 
 @Component({
   selector: 'app-display-files',

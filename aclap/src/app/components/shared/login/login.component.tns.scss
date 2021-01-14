@@ -24,8 +24,23 @@ $l-grey: #d3d8d8;
 .btn-login {
   color: #ffffff;
   border-radius: 3;
-  background-color: #1c81a9;
+  background-color: #Ef6423;
   font-size: 16;
   width: 90%;
 }
   
+.password-recov-text-link {
+  color: #1c81a9;
+  font-weight: bold;
+  font-size: 14;
+  text-decoration: underline;
+}
+
+.password-recov-text {
+  color: #1c81a9;
+  font-size: 14;
+}
+
+.center {
+  text-align: center;
+}

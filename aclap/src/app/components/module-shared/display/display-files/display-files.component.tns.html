@@ -4,12 +4,11 @@
             <Label text="Material de apoyo descargable" textWrap="true" class="header-text" backgroundColor="#1c81a9"></Label>
             <StackLayout *ngFor="let file of files" orientation="vertical">
 
-                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=false>
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true (tap)="startDownload(file.url, file.name)">
                     <GridLayout columns="auto, *, auto" rows="auto, *, auto">
                         <Image rowSpan="3" col="0" src="https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/2725159511543238876-512.png" class="download-img"></Image>
                         <Label row="0" col="1" text="{{ file.name }}" class="title-text" textWrap="true" ></Label>
-                        <Label row="1" col="1" text="Subido: {{ file.uploaded }}" class="text" textWrap="true" ></Label>
-                        <Label row="2" col="1" text="Tamaño: {{ file.bytes }} bytes" class="size-text" textWrap="true" ></Label>
+                        <Label row="1" col="1" text="Tamaño: {{ formatBytes(file.bytes) }}" class="size-text" textWrap="true" ></Label>
                     </GridLayout>
                 </Card:CardView>
 

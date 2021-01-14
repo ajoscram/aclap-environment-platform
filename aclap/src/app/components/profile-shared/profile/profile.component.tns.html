@@ -1,30 +1,14 @@
-<BottomNavigation>
 
-    <TabStrip>
-        <TabStripItem>
-            <Label text="Módulos y Eventos"></Label>
-        </TabStripItem>
-        <TabStripItem>
-            <Label text="Solicitudes de Educadores"></Label>
-        </TabStripItem>
-    </TabStrip>
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout orientation="vertical">
 
-    <TabContentItem>
-        <StackLayout>
-            <ScrollView orientation="vertical"  height="1000">
-                <StackLayout orientation="vertical">
-                    <StackLayout orientation="horizontal" backgroundColor="#1c81a9">
-                        <Image row="0" col="0" src="{{ user.imageUrl }}" class="user-img"></Image>
-                        <Label row="0" col="1" text="{{ user.name }}" class="user-text"></Label>
-                    </StackLayout>
-                </StackLayout>
-            </ScrollView>
+            <Gridlayout height="50" columns="auto, *, auto" rows="auto, 25" backgroundColor="#1c81a9">
+                <Label col="1" rowSpan="2" text="{{ user.name }}" horizontalAlignment="left" class="user-text"></Label>
+                <Button col="2" rowSpan="2" text="Logout" horizontalAlignment="right" class="btn btn-primary btn-logout"></Button>
+            </Gridlayout>
+
+            <Label text="Content 1" class="text"></Label>
         </StackLayout>
-    </TabContentItem>
-
-    <TabContentItem>
-        <GridLayout>
-            <Label text="Content 2" class="text"></Label>
-        </GridLayout>
-    </TabContentItem>
-</BottomNavigation>
+    </ScrollView>
+</StackLayout>

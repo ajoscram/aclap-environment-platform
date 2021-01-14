@@ -1,1 +1,42 @@
-<Button text="educator-application works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                    <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="https://costaricaexperts.com/wp-content/uploads/2014/05/Manuel-Antonio-National-Park-1.jpg" class="img-banner"></Image>
+                    <Label row="1" col="0" text="Persona Educadora" class="header-text" textWrap="true"></Label>
+                </GridLayout>
+
+                <Label text="Llená este formulario para volverte una Persona Eucadora" class="text-subtitle-first" textWrap="true" ></Label>
+
+                <Label text="Nombre" class="text-subtitle"></Label>
+                <TextField formControlName="firstName" hint="Nombre" class="input input-border input-form"></TextField>
+                
+                <Label text="Apellidos" class="text-subtitle"></Label>
+                <TextField formControlName="lastName" hint="Apellidos" secure="true" class="input input-border input-form"></TextField>
+                
+                <Label text="Número de teléfono" class="text-subtitle"></Label>
+                <TextField formControlName="number" hint="8888-4444" secure="true" class="input input-border input-form"></TextField>
+
+                <Label text="Correo electrónico" class="text-subtitle"></Label>
+                <TextField formControlName="email" hint="usuario@correo.com" secure="true" class="input input-border input-form"></TextField>
+
+                <Label text="Dirección" class="text-subtitle"></Label>
+                <TextField formControlName="address" hint="Distrito, Canton, Provincia" secure="true" class="input input-border input-form"></TextField>
+                
+                <Label text="Fecha de nacimiento" class="text-subtitle"></Label>
+                <DatePicker formControlName="birthDate" 
+                    year="1980" month="4" day="20"
+                    [minDate]="minDate" [maxDate]="maxDate"
+                    verticalAlignment="center">
+                </DatePicker>
+
+                <Button text="Enviar" class="btn btn-primary btn-send"></Button>
+
+            </form>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

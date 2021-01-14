@@ -8,6 +8,7 @@ import { DisplayerComponent } from '../../components/module-shared/display/displ
 import { DisplayFilesComponent } from '../../components/module-shared/display/display-files/display-files.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '../../components/shared/login/login.component';
+import { EducatorApplicationComponent } from '../../components/profile-shared/educator-application/educator-application.component';
 
 export const routes: Routes = [
     {
@@ -46,5 +47,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'educatorApplication',
+        component: EducatorApplicationComponent,
     }
 ];

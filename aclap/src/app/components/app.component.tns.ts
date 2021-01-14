@@ -37,4 +37,9 @@ export class AppComponent {
     this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
+  navigateToEducatorApplication(): void {
+    this.routerExtensions.navigate(['educatorApplication'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
 }
