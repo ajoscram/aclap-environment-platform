@@ -14,41 +14,47 @@
     <div class="card shadow-lg mb-4">
         <div class="card-header">
             <div class="card-title">
-                <h2>Llená este formulario para volverte una Persona Eucadora</h2>
+                <h5>Complete este formulario para registrarse como Persona Eucadora</h5>
             </div>
         </div>
         <div class="card-body">
             <form [formGroup]="form">
                 <div class="row mt-3">
+                    <div class="col">
+                        <label class="label" for="birthdate">Organización</label>
+                        <input type="text" class="form-control form-control-sm" formControlName="organization" [(ngModel)]="request.organization">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="form-group col-6">
                         <label class="label" for="name">Nombre</label>
-                        <input type="text" class="form-control" formControlName="name" [ngModel]="request.name">
+                        <input type="text" class="form-control form-control-sm" formControlName="name" [(ngModel)]="request.name">
                     </div>
                     <div class="col-6">
                         <label class="label" for="lastname">Apellidos</label>
-                        <input type="text" class="form-control" formControlName="lastname" [ngModel]="request.lastname">
+                        <input type="text" class="form-control form-control-sm" formControlName="lastname" [(ngModel)]="request.lastname">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label class="label" for="birthdate">Fecha de nacimiento</label>
-                        <input type="date" class="form-control" formControlName="birthdate">
+                        <input type="date" class="form-control form-control-sm" formControlName="birthdate">
                     </div>
                     <div class="form-group col-6">
                         <label class="label" for="phone">Número de teléfono</label>
-                        <input type="tel" class="form-control" formControlName="phone" [ngModel]="request.phone">
+                        <input type="tel" class="form-control form-control-sm" formControlName="phone" [(ngModel)]="request.phone">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label class="label" for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" placeholder="jose.rodriguez@correo.com" formControlName="email" [ngModel]="request.email">
+                        <input type="email" class="form-control form-control-sm" placeholder="jose.rodriguez@correo.com" formControlName="email" [(ngModel)]="request.email">
                     </div>
                     <div class="form-group col-6">
                         <label class="label" for="locationName">Dirección</label>
                         <div *ngIf="!gotLocation">
-                            <input type="text" class="form-control" placeholder="Santa María, Dota" formControlName="locationName" [ngModel]="request.address.name">
-                            <span (click)="getLocation()" class="btn button">Obtener Ubicación</span>
+                            <input type="text" class="form-control form-control-sm" placeholder="Santa María, Dota" formControlName="locationName" [(ngModel)]="request.address.name">
+                            <span (click)="getLocation()" class="btn-sm button">Obtener Ubicación</span>
                         </div>
                         <div *ngIf="gotLocation">
                             <span class="">{{request.address.name}}</span>
@@ -57,8 +63,8 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <span (click)="onSubmit()" class="btn button">
-                            <h2>Enviar Formulario</h2>
+                        <span (click)="onSubmit()" class="btn btn-success">
+                            Enviar Formulario
                         </span>
                     </div>
                 </div>
