@@ -12,8 +12,8 @@ export class FirebaseAuthenticator implements Authenticator{
         this.session = null;
     }
 
-    private async getRole(user: firebase.User): Promise<Role>{
-        const token: firebase.auth.IdTokenResult = await user.getIdTokenResult();
+    private async getRole(user: firebase.default.User): Promise<Role>{
+        const token: firebase.default.auth.IdTokenResult = await user.getIdTokenResult();
         const role: Role = token.claims.role;
         if(role === Role.ADMINISTRATOR || role === Role.EDUCATOR)
             return role;
@@ -24,7 +24,7 @@ export class FirebaseAuthenticator implements Authenticator{
     async login(email: string, password: string): Promise<Session>{
         try{
             await this.auth.signInWithEmailAndPassword(email, password);
-            const user: firebase.User = await this.auth.currentUser;
+            const user: firebase.default.User = await this.auth.currentUser;
             const id: string = user.uid;
             const role: Role = await this.getRole(user);
             this.session = new Session(id, email, role);
@@ -37,7 +37,7 @@ export class FirebaseAuthenticator implements Authenticator{
 
     private async validateLogged(){
         if(this.session === null){
-            const user: firebase.User = await this.auth.currentUser;
+            const user: firebase.default.User = await this.auth.currentUser;
             if(!user)
                 throw new Error(AuthenticatorError.NOT_AUTHENTICATED);
             else{
@@ -68,7 +68,7 @@ export class FirebaseAuthenticator implements Authenticator{
 
     async setPassword(password: string): Promise<void>{
         await this.validateLogged();
-        const user: firebase.User = await this.auth.currentUser;
+        const user: firebase.default.User = await this.auth.currentUser;
         try {
             await user.updatePassword(password);
         } catch(error) {
