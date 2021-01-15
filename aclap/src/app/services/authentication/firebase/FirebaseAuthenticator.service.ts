@@ -48,7 +48,7 @@ export class FirebaseAuthenticator implements Authenticator{
     }
 
     async validate(role: Role): Promise<void>{
-        this.validateLogged();
+        await this.validateLogged();
         if(role === Role.ADMINISTRATOR && this.session.role !== Role.ADMINISTRATOR)
             throw new Error(AuthenticatorError.USER_NOT_ADMINISTRATOR);
         else if(role === Role.EDUCATOR && this.session.role !== Role.EDUCATOR)
@@ -61,12 +61,25 @@ export class FirebaseAuthenticator implements Authenticator{
     }
 
     async logout(): Promise<void>{
-        this.validateLogged();
+        await this.validateLogged();
         await this.auth.signOut();
         this.session = null;
+    }
+
+    async setPassword(password: string): Promise<void>{
+        await this.validateLogged();
+        const user: firebase.User = await this.auth.currentUser;
+        try {
+            await user.updatePassword(password);
+        } catch(error) {
+            if(error['code'] === 'auth/requires-recent-login')
+                throw new Error(FirebaseAuthenticatorError.REAUTHENTICATION_REQUIRED)
+            throw error;
+        }
     }
 }
 
 export enum FirebaseAuthenticatorError{
-    USER_ROLE_COULD_NOT_BE_RESOLVED = "FirebaseAuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED"
+    USER_ROLE_COULD_NOT_BE_RESOLVED = "FirebaseAuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED",
+    REAUTHENTICATION_REQUIRED = "FirebaseAuthenticatorError.REAUTHENTICATION_REQUIRED"
 }

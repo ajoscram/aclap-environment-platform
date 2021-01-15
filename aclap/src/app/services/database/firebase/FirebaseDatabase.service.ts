@@ -4,7 +4,7 @@ import ControlModule from '@src/app/modules/control/control.module.tns';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
-import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer, Score } from '../../../models';
+import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer, Score, Ally, IAlly } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -22,6 +22,7 @@ export class FirebaseDatabase implements Database{
     private static readonly IMPLEMENTATIONS: string = 'implementations';
     private static readonly ANSWERS: string = 'answers';
     private static readonly EVIDENCE: string = 'evidence';
+    private static readonly ALLIES: string = 'allies';
 
     //constant document ids
     private static readonly DISCIPLINE_METADATA = 'DISCIPLINE_METADATA';
@@ -650,5 +651,50 @@ export class FirebaseDatabase implements Database{
             .doc(evidenceId)
             .delete();
         return evidence;
+    }
+
+    async getAllies(): Promise<Ally[]>{
+        const allies: Ally[] = [];
+        const documents: QuerySnapshot<DocumentData> = await this.firestore
+            .collection(FirebaseDatabase.ALLIES)
+            .get().toPromise();
+        documents.forEach(document => {
+            const response: any = document.data();
+            const ally: Ally = this.factory.getAlly(response.id, response as IAlly);
+            allies.push(ally);
+        });
+        return allies;
+    }
+
+    async addAlly(ally: IAlly): Promise<Ally>{
+        this.validator.validateIAlly(ally);
+        const id: string = this.firestore.createId();
+        ally['id'] = id;
+        await this.firestore
+            .collection(FirebaseDatabase.ALLIES)
+            .doc(id)
+            .set(ally);
+        return this.factory.getAlly(id, ally);
+    }
+
+    private async getAlly(allyId: string): Promise<Ally>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.ALLIES)
+            .doc(allyId)
+            .get().toPromise();
+        const ally: any = document.data();
+        if(!ally)
+            throw new Error(DatabaseError.ALLY_NOT_FOUND);
+        else
+            return this.factory.getAlly(allyId, ally as IAlly);
+    }
+
+    async deleteAlly(allyId: string): Promise<Ally>{
+        const ally: Ally = await this.getAlly(allyId);
+        await this.firestore
+            .collection(FirebaseDatabase.ALLIES)
+            .doc(allyId)
+            .delete();
+        return ally;
     }
 };

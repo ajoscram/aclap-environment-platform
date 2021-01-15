@@ -9,7 +9,7 @@ import { Storage } from '../storage/Storage.service';
 import { MockStorage } from '../storage/MockStorage.service';
 import { Controller } from "./Controller.service";
 import { DefaultController } from './DefaultController.service';
-import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, ISection, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Score, IAnswer, IQuestion, Question, Answer } from '../../models';
+import { DisciplineMetadata, IModule, IParagraphSection, Module, Section, ISection, File, Implementable, Event, IEducatorRequest, User, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Score, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../models';
 import { Factory } from '../database/factory/Factory.service';
 import { Session } from '../authentication/Session.model';
 
@@ -36,7 +36,7 @@ describe('DefaultController', () => {
         publisherId: 'publisherId',
         publisherName: 'publisherName',
         publisherLastname: 'publisherLastname',
-        recommendedAge: 1,
+        recommendedAge: '1',
         objective: 'objective',
         antecedents: 'antecedents',
         disciplines: [
@@ -78,8 +78,16 @@ describe('DefaultController', () => {
         option: 'ANSWER.option',
         score: Score.LOW
     };
+
+    const STUB_IALLY: IAlly = {
+        name: 'STUB_ALLY.name',
+        description: 'STUB_ALLY.description',
+        imageUrl: 'STUB_ALLY.imageUrl',
+        link: 'STUB_ALLY.link'
+    }
+
     //This represents a file, because MockStorage actually ignores it altogether.
-    const STUB_FILE: any = {};
+    const STUB_IFILE: any = {};
     
     let controller: Controller;
 
@@ -223,26 +231,26 @@ describe('DefaultController', () => {
 
     it('addFile(): adds a file', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const file: File = await controller.addFile(implementable.id, STUB_FILE);
+        const file: File = await controller.addFile(implementable.id, STUB_IFILE);
         expect(file).toBeTruthy();
     });
 
     it('getFiles(): gets a implementable\'s files', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        await controller.addFile(implementable.id, STUB_FILE);
+        await controller.addFile(implementable.id, STUB_IFILE);
         const files: File[] = await controller.getFiles(implementable.id);
         expect(files).toBeTruthy();
     });
 
     it('deleteFile(): deletes an existing file', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        const added: File = await controller.addFile(implementable.id, STUB_FILE);
+        const added: File = await controller.addFile(implementable.id, STUB_IFILE);
         const deleted: File = await controller.deleteFile(implementable.id, added.id);
         expect(deleted).toBeTruthy();
     });
 
     it('upload(): uploads a file to storage and returns a link to that file', async () => {
-        const url: string = await controller.upload(STUB_FILE);
+        const url: string = await controller.upload(STUB_IFILE);
         expect(url).toBeTruthy();
     });
 
@@ -399,15 +407,15 @@ describe('DefaultController', () => {
     it('addEvidence(): add\'s an evidence file', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const evidence: File = await controller.addEvidence(implementation.id, STUB_FILE);
+        const evidence: File = await controller.addEvidence(implementation.id, STUB_IFILE);
         expect(evidence).toBeTruthy();
     });
 
     it('getEvidence(): gets an implementation\'s evidence', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        await controller.addEvidence(implementation.id, STUB_FILE);
-        await controller.addEvidence(implementation.id, STUB_FILE);
+        await controller.addEvidence(implementation.id, STUB_IFILE);
+        await controller.addEvidence(implementation.id, STUB_IFILE);
         const evidence: File[] = await controller.getEvidence(implementation.id);
         expect(evidence.length).toBeGreaterThanOrEqual(2);
     });
@@ -415,9 +423,29 @@ describe('DefaultController', () => {
     it('deleteEvidence(): deletes an existing evidence file', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const added: File = await controller.addEvidence(implementation.id, STUB_FILE);
+        const added: File = await controller.addEvidence(implementation.id, STUB_IFILE);
         const deleted: File = await controller.deleteEvidence(implementation.id, added.id);
         expect(deleted).toBeTruthy();
+    });
+
+    it('getAllies(): returns the list of existing allies', async () => {
+        await controller.addAlly(STUB_IALLY);
+        await controller.addAlly(STUB_IALLY);
+        const allies: Ally[] = await controller.getAllies();
+        expect(allies).toBeTruthy();
+        expect(allies.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('addAlly(): adds a new ally and returns it', async () => {
+        const ally: Ally = await controller.addAlly(STUB_IALLY);
+        expect(ally).toBeTruthy();
+    });
+
+    it('deleteAlly(): deletes an ally and returns it', async () => {
+        const added: Ally = await controller.addAlly(STUB_IALLY);
+        const deleted: Ally = await controller.deleteAlly(added.id);
+        expect(deleted).toBeTruthy();
+        expect(deleted.id).toBe(added.id);
     });
 
     /*

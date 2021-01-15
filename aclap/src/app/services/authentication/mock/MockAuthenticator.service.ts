@@ -13,7 +13,7 @@ export class MockAuthenticator implements Authenticator{
 
     public static readonly ADMIN_USERNAME: string = 'admin@example.com';
     public static readonly EDUCATOR_USERNAME: string = 'educator1@example.com';
-    public static readonly PASSWORD: string = 'password';
+    public static PASSWORD: string = 'password';
 
     private sessions: Session[];
     private current: Session;
@@ -63,4 +63,8 @@ export class MockAuthenticator implements Authenticator{
         this.current = null;
     }
 
+    async setPassword(password: string): Promise<void> {
+        this.validateSession();
+        MockAuthenticator.PASSWORD = password;
+    }
 }

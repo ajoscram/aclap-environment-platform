@@ -5,11 +5,13 @@ export abstract class Authenticator{
     logout: () => Promise<void>;
     validate: (role: Role) => Promise<void>;
     getSession: () => Promise<Session>;
+    setPassword: (password: string) => Promise<void>;
 }
 
 export enum AuthenticatorError{
     AUTHENTICATION_FAILED = "AuthenticatorError.AUTHENTICATION_FAILED",
     NOT_AUTHENTICATED = "AuthenticatorError.NOT_AUTHENTICATED",
     USER_NOT_ADMINISTRATOR = "AuthenticatorError.USER_NOT_ADMINISTRATOR",
-    USER_NOT_EDUCATOR = "AuthenticatorError.USER_NOT_EDUCATOR"
+    USER_NOT_EDUCATOR = "AuthenticatorError.USER_NOT_EDUCATOR",
+    INVALID_PASSWORD = "AuthenticatorError.INVALID_PASSWORD"
 }

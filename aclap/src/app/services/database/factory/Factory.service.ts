@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent, IEducatorRequest, Location, EducatorRequest, ILocation, EducatorRequestState, IImplementation, Implementation, IAnswer, Answer } from '../../../models';
+import { ISection, Section, ActivitySection, ImageSection, YoutubeVideoSection, TitleSection, ParagraphSection, IModule, Module, IQuestion, Question, IDiscipline, Discipline, Subject, ISubject, IUser, IDisciplineMetadata, DisciplineMetadata, Educator, Administrator, User, IFile, File, IImplementable, Implementable, Event, IEvent, IEducatorRequest, Location, EducatorRequest, ILocation, EducatorRequestState, IImplementation, Implementation, IAnswer, Answer, IAlly, Ally } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -201,6 +201,16 @@ export class Factory{
             answer.question,
             answer.option,
             answer.score
+        );
+    }
+
+    public getAlly(id: string, ally: IAlly){
+        return new Ally(
+            id,
+            ally.name,
+            ally.description,
+            ally.imageUrl,
+            ally.link
         );
     }
 }

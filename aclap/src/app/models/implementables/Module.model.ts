@@ -2,7 +2,7 @@ import { IDiscipline, Discipline } from "../Discipline.model";
 import { IImplementable, Implementable } from "./Implementable.model";
 
 export interface IModule extends IImplementable{
-    recommendedAge: number,
+    recommendedAge: string,
     antecedents: string,
     disciplines: IDiscipline[]
 }
@@ -17,7 +17,7 @@ export class Module extends Implementable implements IModule{
         public publisherId: string,
         public publisherName: string,
         public publisherLastname: string,
-        public recommendedAge: number,
+        public recommendedAge: string,
         public objective: string,
         public antecedents: string,
         public disciplines: Discipline[]

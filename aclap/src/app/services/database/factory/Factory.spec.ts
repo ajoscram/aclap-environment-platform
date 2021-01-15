@@ -1,4 +1,4 @@
-import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent, IEducatorRequest, Implementation, IImplementation, Score, EducatorRequest, EducatorRequestState, IQuestion, IAnswer, Answer, Question } from "../../../models";
+import { ActivitySection, Administrator, DisciplineMetadata, Educator, IActivitySection, IAdministrator, IDisciplineMetadata, IEducator, IImageSection, ImageSection, IModule, IParagraphSection, ISection, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, TitleSectionSize, YoutubeVideoSection, File, IFile, Event, IEvent, IEducatorRequest, Implementation, IImplementation, Score, EducatorRequest, EducatorRequestState, IQuestion, IAnswer, Answer, Question, IAlly, Ally } from "../../../models";
 import { Factory, FactoryError } from './Factory.service';
 
 interface IUnknownUser extends IUser{}
@@ -62,7 +62,7 @@ describe('Factory', () => {
         publisherId: 'STUB_MODULE.publisherId',
         publisherName: 'STUB_MODULE.publisherName',
         publisherLastname: 'STUB_MODULE.publisherLastname',
-        recommendedAge: 7,
+        recommendedAge: '7',
         objective: 'STUB_MODULE.objective',
         antecedents: 'STUB_MODULE.antecedents',
         disciplines: [
@@ -147,11 +147,18 @@ describe('Factory', () => {
     };
     
     const STUB_ANSWER: IAnswer = {
-        questionId: 'ANSWER.questionId',
-        question: 'ANSWER1.question',
-        option: 'ANSWER1.option',
+        questionId: 'STUB_ANSWER.questionId',
+        question: 'STUB_ANSWER.question',
+        option: 'STUB_ANSWER.option',
         score: Score.LOW
     };
+
+    const STUB_ALLY: IAlly = {
+        name: 'STUB_ALLY.name',
+        description: 'STUB_ALLY.description',
+        imageUrl: 'STUB_ALLY.imageUrl',
+        link: 'STUB_ALLY.link'
+    }
 
     const factory: Factory = new Factory();
 
@@ -322,5 +329,14 @@ describe('Factory', () => {
         expect(answer.question).toBe(STUB_ANSWER.question);
         expect(answer.option).toBe(STUB_ANSWER.option);
         expect(answer.score).toBe(STUB_ANSWER.score);
+    });
+
+    it('getAlly(): returns the correct Ally when input an IAlly', async () => {
+        const ally: Ally = factory.getAlly(STUB_ID, STUB_ALLY);
+        expect(ally.id).toBe(STUB_ID);
+        expect(ally.name).toBe(STUB_ALLY.name);
+        expect(ally.description).toBe(STUB_ALLY.description);
+        expect(ally.imageUrl).toBe(STUB_ALLY.imageUrl);
+        expect(ally.link).toBe(STUB_ALLY.link);
     });
 });
