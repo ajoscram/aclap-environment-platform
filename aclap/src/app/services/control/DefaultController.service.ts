@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Module, DisciplineMetadata, Section, ISection, File, IFile, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Answer, IAnswer, IQuestion, Question } from '../../models';
+import { User, Module, DisciplineMetadata, Section, ISection, File, IFile, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Implementation, Answer, IAnswer, IQuestion, Question, Ally, IAlly } from '../../models';
 import { Role, Session } from '../authentication/Session.model';
 import { Controller } from './Controller.service';
 import { Authenticator } from '../authentication/Authenticator.service';
@@ -36,9 +36,8 @@ export class DefaultController implements Controller{
         return await this.authenticator.getSession();
     };
 
-    async resetPassword(email: string): Promise<void>{
-        await this.authenticator.validate(Role.ANY);
-        throw new Error('not implemented yet');
+    async setPassword(password: string): Promise<void>{
+        await this.authenticator.setPassword(password);
     }
 
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
@@ -256,5 +255,19 @@ export class DefaultController implements Controller{
     async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{
         await this.authenticator.validate(Role.EDUCATOR);
         return await this.database.deleteEvidence(implementationId, evidenceId);
+    }
+
+    async getAllies(): Promise<Ally[]>{
+        return await this.database.getAllies();
+    }
+
+    async addAlly(ally: IAlly): Promise<Ally>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.addAlly(ally);
+    }
+    
+    async deleteAlly(allyId: string): Promise<Ally>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.deleteAlly(allyId);
     }
 }

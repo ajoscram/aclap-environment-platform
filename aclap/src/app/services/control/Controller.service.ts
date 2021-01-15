@@ -1,4 +1,4 @@
-import { Section, DisciplineMetadata, File, ISection, Module, User, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, IImplementation, Implementation, Answer, IAnswer, Question, IQuestion } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, Module, User, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, IImplementation, Implementation, Answer, IAnswer, Question, IQuestion, Ally, IAlly } from "../../models";
 import { Session, Role } from "../authentication/Session.model";
 
 export abstract class Controller{
@@ -7,7 +7,7 @@ export abstract class Controller{
     logout: () => Promise<void>;
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
-    resetPassword: (email: string) => Promise<void>;
+    setPassword: (password: string) => Promise<void>;
     
     //educator requests
     getEducatorRequests: () => Promise<EducatorRequest[]>;
@@ -63,6 +63,11 @@ export abstract class Controller{
     getEvidence: (implementationId: string) => Promise<File[]>;
     addEvidence: (implementationId: string, evidence: any) => Promise<File>;
     deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
+
+    //allies
+    getAllies: () => Promise<Ally[]>;
+    addAlly: (ally: IAlly) => Promise<Ally>;
+    deleteAlly: (allyId: string) => Promise<Ally>;
 }
 
 export enum ControllerError{

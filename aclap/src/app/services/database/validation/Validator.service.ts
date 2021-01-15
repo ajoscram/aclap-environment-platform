@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IAnswer, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, IQuestion, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IAlly, IAnswer, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, IQuestion, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -94,13 +94,8 @@ export class Validator{
     }
 
     private validateIModule(module: IModule){
-        if(module.recommendedAge < 0)
-            throw new Error(ValidatorError.RECOMMENDED_AGE_LESS_THAN_ZERO);
-        else if(module.recommendedAge % 1 !== 0)
-            throw new Error(ValidatorError.RECOMMENDED_AGE_NOT_WHOLE_NUMBER);
-        else if(module.publisherId === "")
+        if(module.publisherId === "")
             throw new Error(ValidatorError.EMPTY_PUBLISHER_ID);
-        
         for(let discipline of module.disciplines)
             this.validateSubject(discipline.subject);
     }
@@ -192,6 +187,14 @@ export class Validator{
 
     validateIAnswer(answer: IAnswer){
         this.validateNullOrUndefined(answer);
+    }
+
+    validateIAlly(ally: IAlly){
+        this.validateNullOrUndefined(ally);
+        if(!Validator.URL_REGEX.test(ally.imageUrl))
+            throw new Error(ValidatorError.MALFORMED_URL)
+        else if(!Validator.URL_REGEX.test(ally.link))
+            throw new Error(ValidatorError.MALFORMED_URL)
     }
 }
 

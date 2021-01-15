@@ -26,7 +26,7 @@ export class CreateModuleComponent implements OnInit {
   constructor(private controller: Controller, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.module = new Module("","","rgb(35,175,229)","","","","","",12,"","", new Array<Discipline>());
+    this.module = new Module("","","rgb(35,175,229)","","","","","","6 a 9 años","","", new Array<Discipline>());
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
     this.moduleImage = new ImageSection("",0,"",this.module.imageUrl,"");

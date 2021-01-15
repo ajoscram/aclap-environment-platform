@@ -9,6 +9,7 @@ export { Implementation, IImplementation } from './Implementation.model';
 export { Location, ILocation } from './Location.model';
 export { Question, IQuestion } from './Question.model';
 export { Score } from './Score.model';
+export { Ally, IAlly } from './Ally.model';
 
 //Sections
 export { Section, ISection } from './sections/Section.model';
