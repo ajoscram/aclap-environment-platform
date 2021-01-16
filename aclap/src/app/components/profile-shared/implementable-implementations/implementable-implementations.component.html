@@ -1,0 +1,55 @@
+<div class="jumbotron">
+    <div class="container">
+        <div *ngIf="isAdmin" class="">
+            <div class="row">
+                <h1 class="text-center col-12">Administrador</h1>
+            </div>
+        </div>
+        <div *ngIf="isEducator" class="">
+            <div class="row">
+                <h1 class="text-center col-12">Persona Educadora</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-5 col-md-3">
+                <h1>{{ user.name }} {{ user.lastname }}</h1>
+            </div>
+            <div class="col-12 col-sm-5 col-md-2 offset-sm-2 offset-md-7 ">
+                <img class="img-responsive rounded-circle
+                7" [src]="user.imageUrl" [alt]="'image de perfil de' + user.name">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h1> Implementaciones de {{ implementable.name }}  </h1>
+        </div>
+    </div>
+    <div *ngFor="let imp of implementations" class="row">
+        <div class="card shadow">
+            <div class="row">
+                <div class="col-md-6">
+                    <span>Realizado por: {{ imp.educatorName }} {{ imp.educatorLastname }} </span>
+                </div>
+                <div class="col">
+                    <span>Fecha: {{ imp.date | date: 'dd/MM/yyyy' }} </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Cantidad de participantes: {{ imp.participants }} </span>
+                </div>  
+                <div class="col">
+                    <span>Ubicación: {{ imp.location.name }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <span>Tocar para ver detalles</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

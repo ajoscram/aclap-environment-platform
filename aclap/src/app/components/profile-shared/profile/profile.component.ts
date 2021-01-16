@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
   onDeclineRequest(index: number) {
     this.controller.denyEducatorRequest(this.pendingRequests[index].id)
       .then((response: EducatorRequest) => {
-        if(response.state == EducatorRequestState.APPROVED){
+        if(response.state == EducatorRequestState.DENIED){
           alert(`Solicitud de ${response.name} ${response.lastname} : ${response.email} Rechazada`);
           this.pendingRequests.splice(index, 1);
         }

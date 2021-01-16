@@ -1,0 +1,6 @@
+@use '../../app.component.scss';
+
+.card{
+    background-color: app.$button-color;
+    color: white;
+}

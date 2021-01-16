@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <ngb-accordion [closeOthers]="true" activeIds="request-0">
+                        <ngb-accordion [closeOthers]="true">
                             <ngb-panel class="btn-success"  *ngFor="let req of pendingRequests; index as i" id="request-{{i}}" title="Solicitud: {{req.name}} {{req.lastname}} - {{req.email}}" >
                                 
                                 <ng-template ngbPanelContent>
@@ -65,7 +65,7 @@
                                     </app-educator-application>
                                     <div class="row">
                                         <div class="col">
-                                            <span (click)="onDeclineResquest(i)" class="btn btn-danger">Rechazar socilitud</span>
+                                            <span (click)="onDeclineRequest(i)" class="btn btn-danger">Rechazar socilitud</span>
                                         </div>
                                         <div class="col d-flex justify-content-end">
                                             <span (click)="onAcceptResquest(i)" class="btn btn-success">Aceptar socilitud</span>
