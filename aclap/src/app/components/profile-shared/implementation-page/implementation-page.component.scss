@@ -3,3 +3,14 @@
 .container-fluid{
     max-width: 1250px;
 }
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
+
+ .centering{
+    margin: auto;
+    position: relative;
+    top: 0;
+ }

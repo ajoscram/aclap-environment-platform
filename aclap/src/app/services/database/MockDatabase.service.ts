@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Module, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, IQuestion, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser, Implementable, Event, IImplementable, EducatorRequest, Implementation, Location, EducatorRequestState, Answer, IAnswer, IEducatorRequest, IImplementation } from '../../models';
+import { Module, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, Discipline, Subject, ImageSection, TitleSection, TitleSectionSize, ParagraphSection, ActivitySection, Question, IQuestion, Score, YoutubeVideoSection, IParagraphSection, IDisciplineMetadata, IUser, Implementable, Event, IImplementable, EducatorRequest, Implementation, Location, EducatorRequestState, Answer, IAnswer, IEducatorRequest, IImplementation, Ally, IAlly } from '../../models';
 import ControlModule from '../../modules/control/control.module';
 import { Factory } from './factory/Factory.service';
 import { Database, DatabaseError } from './Database.service';
@@ -20,6 +20,7 @@ export class MockDatabase implements Database{
     private implementations: Implementation[];
     private answers: Answer[];
     private evidence: File[];
+    private allies: Ally[];
 
     private get nextId(): string{
         return ''+this.ids++;
@@ -47,14 +48,14 @@ export class MockDatabase implements Database{
         ];
 
         this.implementables = [
-            new Module(this.nextId, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
+            new Module(this.nextId, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
             ]),
-            new Module(this.nextId, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
+            new Module(this.nextId, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
                 new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
                 new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
@@ -99,15 +100,20 @@ export class MockDatabase implements Database{
         this.evidence = [
             new File(this.nextId, 'https://www.cs.ubc.ca/~gregor/teaching/papers/4+1view-architecture.pdf', 'PDF_Ejemplo.pdf', new Date(), 114688)
         ];
+
+        this.allies = [
+            new Ally(this.nextId, 'Gobierno de Costa Rica', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'https://pbs.twimg.com/profile_images/997218681221349376/bfAbN2Bh.jpg', 'https://www.presidencia.go.cr/'),
+            new Ally(this.nextId, 'Programa de las Naciones Unidas para el Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'https://inventariandocr.files.wordpress.com/2015/07/pnud.jpg', 'https://www.cr.undp.org/')
+        ]
     }
 
     private generateQuestion(question: string): Question{
         const map: Map<Score, string> = new Map();
-        map.set(Score.VERY_LOW, 'Muy mal');
-        map.set(Score.LOW, 'Mal');
-        map.set(Score.AVERAGE, 'Regular');
-        map.set(Score.HIGH, 'Bien');
-        map.set(Score.VERY_HIGH, 'Muy bien');
+        map[Score.VERY_LOW] = 'Muy mal';
+        map[Score.LOW] = 'Mal';
+        map[Score.AVERAGE] = 'Regular';
+        map[Score.HIGH] = 'Bien';
+        map[Score.VERY_HIGH] = 'Muy bien';
         return new Question(this.nextId, question, map);
     }
 
@@ -413,5 +419,22 @@ export class MockDatabase implements Database{
             if(this.evidence[i].id === evidenceId)
                 return this.evidence.splice(i, 1)[0];
         throw new Error(DatabaseError.EVIDENCE_NOT_FOUND);
+    }
+
+    async getAllies(): Promise<Ally[]>{
+        return [...this.allies];
+    }
+
+    async addAlly(ally: IAlly): Promise<Ally>{
+        const ally_: Ally = this.factory.getAlly(this.nextId, ally);
+        this.allies.push(ally_);
+        return ally_;
+    }
+
+    async deleteAlly(allyId: string): Promise<Ally>{
+        for(let i = 0; i < this.allies.length; i++)
+            if(this.allies[i].id == allyId)
+                return this.allies.splice(i, 1)[0];
+        throw new Error(DatabaseError.ALLY_NOT_FOUND);
     }
 }

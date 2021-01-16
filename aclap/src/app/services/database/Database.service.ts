@@ -1,4 +1,4 @@
-import { Section, DisciplineMetadata, File, ISection, IFile, Module, User, IDisciplineMetadata, IUser, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, Implementation, IImplementation, Answer, IAnswer, Question, IQuestion } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IFile, Module, User, IDisciplineMetadata, IUser, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, Implementation, IImplementation, Answer, IAnswer, Question, IQuestion, Ally, IAlly } from "../../models";
 
 export abstract class Database{
 
@@ -58,6 +58,11 @@ export abstract class Database{
     getEvidence: (implementationId: string) => Promise<File[]>;
     addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
     deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
+
+    //allies
+    getAllies: () => Promise<Ally[]>;
+    addAlly: (ally: IAlly) => Promise<Ally>;
+    deleteAlly: (allyId: string) => Promise<Ally>;
 }
 
 export enum DatabaseError{
@@ -74,5 +79,6 @@ export enum DatabaseError{
     IMPLEMENTATION_NOT_FOUND = "DatabaseError.IMPLEMENTATION_NOT_FOUND",
     IMPLEMENTATION_IS_COMPLETE = "DatabaseError.IMPLEMENTATION_IS_COMPLETE",
     ANSWER_NOT_FOUND = "DatabaseError.EVALUATION_NOT_FOUND",
-    EVIDENCE_NOT_FOUND = "DatabaseError.EVIDENCE_NOT_FOUND"
+    EVIDENCE_NOT_FOUND = "DatabaseError.EVIDENCE_NOT_FOUND",
+    ALLY_NOT_FOUND = 'DatabaseError.ALLY_NOT_FOUND'
 }

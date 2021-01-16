@@ -3,7 +3,7 @@ import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
 import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
-import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer } from '../../../models';
+import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
@@ -28,6 +28,7 @@ describe('FirebaseDatabase', () => {
     let stubQuestion: IQuestion;
     let stubImplementation: IImplementation;
     let stubAnswer: IAnswer;
+    let stubAlly: IAlly;
 
     beforeEach(() => {
         TestBed.configureTestingModule(TEST_MODULE);
@@ -82,7 +83,7 @@ describe('FirebaseDatabase', () => {
             publisherId: 'publisherId',
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
-            recommendedAge: 1,
+            recommendedAge: '1',
             objective: 'objective',
             antecedents: 'antecedents',
             disciplines: [ 
@@ -141,6 +142,12 @@ describe('FirebaseDatabase', () => {
             option: 'ANSWER.option',
             score: Score.LOW
         };
+        stubAlly = {
+            name: 'STUB_ALLY.name',
+            description: 'STUB_ALLY.description',
+            imageUrl: 'https://example.com/image.jpg',
+            link: 'https://example.com',
+        }
     });
 
     it('getDisciplineMetadata(): gets the discipline metadata constants', async () => {
@@ -501,6 +508,32 @@ describe('FirebaseDatabase', () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
         await expectAsync(database.deleteEvidence(implementation.id, STUB_INCORRECT_ID)).toBeRejectedWith(
             new Error(DatabaseError.EVIDENCE_NOT_FOUND)
+        );
+    });
+
+    it('getAllies(): returns the list of existing allies', async () => {
+        await database.addAlly(stubAlly);
+        await database.addAlly(stubAlly);
+        const allies: Ally[] = await database.getAllies();
+        expect(allies).toBeTruthy();
+        expect(allies.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('addAlly(): adds a new ally and returns it', async () => {
+        const ally: Ally = await database.addAlly(stubAlly);
+        expect(ally).toBeTruthy();
+    });
+
+    it('deleteAlly(): deletes an ally and returns it', async () => {
+        const added: Ally = await database.addAlly(stubAlly);
+        const deleted: Ally = await database.deleteAlly(added.id);
+        expect(deleted).toBeTruthy();
+        expect(deleted.id).toBe(added.id);
+    });
+
+    it('deleteAlly(): fails when given an incorrect ally id', async () => {
+        await expectAsync(database.deleteAlly(STUB_INCORRECT_ID)).toBeRejectedWith(
+            new Error(DatabaseError.ALLY_NOT_FOUND)
         );
     });
 

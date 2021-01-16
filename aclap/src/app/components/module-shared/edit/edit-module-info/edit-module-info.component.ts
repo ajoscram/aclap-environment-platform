@@ -44,7 +44,7 @@ export class EditModuleInfoComponent implements OnInit {
       year: ['',Validators.required],
       theme: ['',Validators.required]
     });
-    this.ageRange = Array(15).fill(0).map((_,i) =>(i+6));
+    this.ageRange = ["6 a 9 años", "10 a 12 años", "13 a 15 años", "16 a 18 años", "18 años en adelante"];
     this.refreshDiscipline();
 
     this.controller.getDisciplineMetadata()

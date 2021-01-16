@@ -1,7 +1,6 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Recuperar contraseña
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
 * Escribir las reglas de seguridad para firebase
@@ -12,13 +11,14 @@
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
 * Probar `FirebaseAuthenticator` com el emulador
-* Borrar subcolecciones mediante Cloud Functions
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Hacer pruebas unitarias de `Validator`
 
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 15/1/2021 | Agregar soporte para cambiar la contraseña de un usuario en el `Controller` |
+| 15/1/2021 | Agregar soporte en el `Controller` para `Ally` | 
 | 10/1/2021 | Agregar `setQuestion`, `setAnswer` y `draftImplementation` en el `Controller` |
 | 02/1/2021 | Ligar `Question` a `Implementable` en lugar de `ActivitySection` |
 | 25/11/2020 | Implementar casos de prueba para nuevas funcionalidades de `FirebaseDatabase` |

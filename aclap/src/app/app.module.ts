@@ -57,6 +57,7 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { ProgressComponent} from '@src/app/components/module-shared/edit/progress/progress.component';
 import { EditFilesComponent } from '@src/app/components/module-shared/edit/edit-files/edit-files.component';
 import { TeachingGuideComponent} from '@src/app/components/module-shared/teaching-guide/teaching-guide.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
 @NgModule({
@@ -113,7 +114,8 @@ import { TeachingGuideComponent} from '@src/app/components/module-shared/teachin
     FormsModule,
     DragDropModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LeafletModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },

@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
+import { AngularFirestoreModule, USE_EMULATOR } from '@angular/fire/firestore';
 import { environment } from '@src/environments/environment';
 import { Database } from '../Database.service';
 import { Factory } from '../factory/Factory.service';
@@ -17,6 +17,6 @@ export const TEST_MODULE = {
         Factory,
         Validator,
         { provide: Database, useClass: FirebaseDatabase },
-        { provide: SETTINGS, useValue: { host: 'localhost:8080', ssl: false } }
+        { provide: USE_EMULATOR, useValue: [ 'localhost', 8080 ] }
     ]
 }

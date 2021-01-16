@@ -18,7 +18,7 @@ export class EditQuestionsComponent implements OnInit {
   constructor(private controller: Controller, private builder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.options = ["Muy bajo", "Bajo", "Promedio", "Alto", "Muy Alto"];
+    this.options = ["Muy bajo", "Bajo", "Medio", "Alto", "Muy Alto"];
     
     this.initQuestion();
 
@@ -50,6 +50,10 @@ export class EditQuestionsComponent implements OnInit {
 
     this.questions.push(qstn);
     this.initQuestion();
+  }
+
+  public get score(): typeof Score{
+    return Score;
   }
 
 }
