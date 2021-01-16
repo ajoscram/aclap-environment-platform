@@ -24,10 +24,10 @@ $l-grey: #d3d8d8;
     background-color: #fff;
 }
 
-.welcome-text{
-    font-size: 24;
+.header-text{
+    font-size: 36;
     font-weight: bold;
-    color: rgb(0, 0, 0);
+    color: #fff;
     text-align: center;
 }
 
@@ -35,6 +35,10 @@ $l-grey: #d3d8d8;
     font-size: 12;
     color: rgb(0, 0, 0);
     text-align: center;
+}
+
+.img-banner{
+    opacity: 0.85;
 }
 
 .module-img{

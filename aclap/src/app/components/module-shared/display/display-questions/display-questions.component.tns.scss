@@ -1,1 +1,148 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.title-text{
+    font-size: 18;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin-left: 10;
+}
+
+.title-text-questions{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 28;
+    text-align: center;
+    margin-top: 10;
+    background-color: #1c81a9;
+}
+
+.subtitle-text{
+    color: #000000;
+    font-weight: bold;
+    font-size: 14;
+    margin-left: 15;
+    text-align: left;
+}
+
+.subtitle-text-picker{
+    color: #000000;
+    font-weight: bold;
+    font-size: 14;
+    margin-left: 15;
+    margin-top: 37;
+    text-align: left;
+}
+
+.text-subtitle-first {
+    color: #000000;
+    font-size: 18;
+    margin-left: 15;
+    text-align: left;
+    margin-top: 5;
+    margin-bottom: 5;
+  }
+
+.subtitle-text-question{
+    color: #000000;
+    font-size: 18;
+    text-align: center;
+    margin-top: 5;
+}
+
+.madeby-text{
+    font-size: 16;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 20;
+    margin-left: 10;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.participant-picker{
+    width: 100;
+    height: 100;
+    margin-left: 20;
+}
+
+.date-picker{
+    width: 300;
+    height: 100;
+}
+
+.answer-picker{
+    width: 100;
+    height: 100;
+    margin-left: 80;
+}
+
+.img-banner{
+    opacity: 0.75;
+}
+
+.img-answer-icon{
+    height: 50;
+    width: 50;
+    margin-left: 10;
+}
+
+.input-form {
+    border-radius: 5;
+    color: black;
+    font-size: 14;
+    placeholder-color: #bbbbbb;
+    margin: 15;
+}
+  
+.btn-save {
+    color: #ffffff;
+    border-radius: 3;
+    background-color: #FAB521;
+    font-size: 16;
+    font-weight: bold;
+    width: 125;
+    margin-left: 30;
+    margin-right: 5;
+    margin-top: 10;
+    margin-bottom: 10;
+}
+
+.btn-send {
+    color: #ffffff;
+    border-radius: 3;
+    background-color: #Ef6423;
+    font-size: 16;
+    font-weight: bold;
+    width: 125;
+    margin-left: 5;
+    margin-right: 10;
+    margin-top: 10;
+    margin-bottom: 10;
+}
+
+.btn-fileFinder {
+    color: #ffffff;
+    border-radius: 3;
+    background-color: #23AEE5;
+    font-size: 16;
+    font-weight: bold;
+    width: 200;
+    margin: 10;
+}
