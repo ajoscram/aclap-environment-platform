@@ -178,11 +178,7 @@ export class ModuleEditComponent implements OnInit {
     this.files.forEach(
       (file) => {
         this.controller.addFile(this.id, file)
-        .then(
-          f1 => {
-            console.log("File 1: ", f1);
-          }
-        )
+        .then( _ => {})
         .catch(
           err => {
             console.log(this.translator.translate(err));

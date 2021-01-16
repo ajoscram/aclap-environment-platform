@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ActivitySection, Answer, Implementation, Question } from '@src/app/models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivitySection, Answer, Implementation, Location, Question } from '@src/app/models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
@@ -43,7 +43,7 @@ export class ImplementationPageComponent implements OnInit {
 
 
 
-  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService) { 
+  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -79,8 +79,36 @@ export class ImplementationPageComponent implements OnInit {
     return Array(topLimit).fill(0).map((_, i)=> (i*3 + 3 ));
   }
 
-  onSubmit(){
+  async onSubmit(){
+    this.implementation.location = new Location(this.currentPosition, this.center.lat, this.center.lng);
 
+    await this.controller.addImplementation(this.implementation)
+      .then(implementation => { this.implementation = implementation })
+      .catch(err => { console.log(this.translator.translate(err));});
+
+    this.answers.forEach( ans => {
+      this.controller.setAnswer(ans, this.implementation.id, ans.id)
+        .then(_ => {})
+        .catch(err => { console.log(this.translator.translate(err));});
+    });
+
+    this.files.forEach(
+      (file) => {
+        this.controller.addEvidence(this.implementation.id, file)
+        .then( _ => {})
+        .catch(err => { console.log(this.translator.translate(err));});
+      }
+    );
+  }
+
+  async onComplete(){
+    await this.onSubmit();
+    this.controller.completeImplementation(this.implementation.id)
+      .then(implementation => {
+        alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
+        this.router.navigateByUrl(`/modulos/`);
+      })
+      .catch()
   }
 
   showPos(){
