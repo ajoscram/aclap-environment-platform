@@ -109,11 +109,11 @@ export class MockDatabase implements Database{
 
     private generateQuestion(question: string): Question{
         const map: Map<Score, string> = new Map();
-        map.set(Score.VERY_LOW, 'Muy mal');
-        map.set(Score.LOW, 'Mal');
-        map.set(Score.AVERAGE, 'Regular');
-        map.set(Score.HIGH, 'Bien');
-        map.set(Score.VERY_HIGH, 'Muy bien');
+        map[Score.VERY_LOW] = 'Muy mal';
+        map[Score.LOW] = 'Mal';
+        map[Score.AVERAGE] = 'Regular';
+        map[Score.HIGH] = 'Bien';
+        map[Score.VERY_HIGH] = 'Muy bien';
         return new Question(this.nextId, question, map);
     }
 

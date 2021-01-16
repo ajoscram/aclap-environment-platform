@@ -1,7 +1,6 @@
 ## Josué Canales Mena{docsify-ignore}
 
 ### Pendiente
-* Cambiar los colores y los fonts de la app
 * Crear Pantalla de Lista de Implementaciones
 * Crear Component de Implementacion
 
@@ -69,3 +68,4 @@
 | 11/01/2021 | Preguntas de módulo |
 | 12/01/2021 | Continuación Página de implementación |
 | 12/01/2021 | Diseño y Creación de Emoji para calificación |
+| 12/01/2021 | Lógica de respuesta a pregunstas en Implementación |

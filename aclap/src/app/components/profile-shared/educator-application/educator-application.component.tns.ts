@@ -16,7 +16,7 @@ export class EducatorApplicationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  minDate: Date = new Date(1975, 0, 29);
+  minDate: Date = new Date(1940, 0, 29);
   maxDate: Date = new Date(2045, 4, 12);
   
 
