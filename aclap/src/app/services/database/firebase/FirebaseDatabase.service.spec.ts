@@ -389,6 +389,19 @@ describe('FirebaseDatabase', () => {
         expect(implementations.length).toBeGreaterThanOrEqual(2);
     });
 
+    it('getImplementation(): gets an existing implementation given it\'s id', async () => {
+        const added: Implementation = await database.addImplementation(stubImplementation);
+        const gotten: Implementation = await database.getImplementation(added.id);
+        expect(gotten).toBeTruthy();
+        expect(gotten.id).toBe(added.id);
+    });
+
+    it('getImplementation(): fails when given an incorrect implementation id', async () => {
+        await expectAsync(database.getImplementation(STUB_INCORRECT_ID)).toBeRejectedWith(
+            new Error(DatabaseError.IMPLEMENTATION_NOT_FOUND)
+        );
+    });
+
     it('addImplementation(): adds an implementation', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
         expect(implementation).toBeTruthy();

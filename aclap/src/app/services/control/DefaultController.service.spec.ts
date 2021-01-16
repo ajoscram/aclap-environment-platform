@@ -132,6 +132,15 @@ describe('DefaultController', () => {
         expect(session).toBeTruthy();
     });
 
+    it('setPassword(): changes the current user\'s password', async () => {
+        //an administrator user is logged in on the before each
+        const OLD_PASSWORD: string = MockAuthenticator.PASSWORD;
+        const NEW_PASSWORD: string = 'new';
+        await controller.setPassword(NEW_PASSWORD);
+        expect(MockAuthenticator.PASSWORD).toBe(NEW_PASSWORD);
+        await controller.setPassword(OLD_PASSWORD);
+    });
+
     it('addEducatorRequest(): adds an educator request', async () => {
         const request: EducatorRequest = await controller.addEducatorRequest(STUB_IEDUCATORREQUEST);
         expect(request).toBeTruthy();
@@ -254,13 +263,6 @@ describe('DefaultController', () => {
         expect(url).toBeTruthy();
     });
 
-    it('completeImplementation(): completes and returns a completed implementation', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
-        const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
-        const completed: Implementation = await controller.completeImplementation(added.id);
-        expect(completed).toBeTruthy();
-    });
-
     it('addQuestion(): adds a question to an implementable', async () => {
         await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
@@ -333,6 +335,12 @@ describe('DefaultController', () => {
         await controller.addImplementation(STUB_IIMPLEMENTATION);
         const implementations: Implementation[] = await controller.getImplementations(false, STUB_IIMPLEMENTATION.implementableId);
         expect(implementations.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('getImplementation(): gets an implementation given the correct id', async () => {
+        const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
+        const gotten: Implementation = await controller.getImplementation(added.id);
+        expect(gotten).toBeTruthy();
     });
 
     it('updateImplementation(): updates an existing implementation', async () => {

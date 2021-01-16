@@ -17,6 +17,9 @@ export const TEST_MODULE = {
         Factory,
         Validator,
         { provide: Database, useClass: FirebaseDatabase },
-        { provide: USE_EMULATOR, useValue: [ 'localhost', 8080 ] }
+        { provide: USE_EMULATOR, useValue: [ 
+            environment.emulator.address,
+            environment.emulator.ports.FIRESTORE 
+        ] }
     ]
 }
