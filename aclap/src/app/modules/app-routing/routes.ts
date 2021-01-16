@@ -13,6 +13,7 @@ import { LoginComponent } from '@src/app/components/shared/login/login.component
 import { RegisterComponent} from '@src/app/components/shared/register/register.component';
 import { TeachingGuideComponent} from '../../components/module-shared/teaching-guide/teaching-guide.component';
 import { ImplementationPageComponent } from '../../components/profile-shared/implementation-page/implementation-page.component';
+import { ImplementableImplementationsComponent } from '../../components/profile-shared/implementable-implementations/implementable-implementations.component';
 
 export const routes: Routes = [
     {
@@ -67,5 +68,9 @@ export const routes: Routes = [
     {
         path: 'modulos/:id/nueva-implementacion',
         component: ImplementationPageComponent,
+    },
+    {
+        path: 'perfil/:name/:id/implementaciones',
+        component: ImplementableImplementationsComponent
     }
 ];

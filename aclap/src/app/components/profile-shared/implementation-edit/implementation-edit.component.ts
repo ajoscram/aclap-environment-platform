@@ -53,6 +53,10 @@ export class ImplementationEditComponent implements OnInit {
 
     /* AWAIT FOR THE IMPLEMENTATION */
 
+    this.controller.getImplementation(this.id)
+      .then(implementation => { this.implementation = implementation })
+      .catch()
+
     this.controller.getEvidence(this.id)
       .then( files => { this.moduleFiles = files;} )
       .catch( err => { console.log(this.translator.translate(err)); } );

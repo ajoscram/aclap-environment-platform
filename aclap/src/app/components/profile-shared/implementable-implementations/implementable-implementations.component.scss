@@ -4,3 +4,13 @@
     background-color: app.$button-color;
     color: white;
 }
+
+.jumbotron{
+    max-height: fit-content;
+
+    background-color: app.$nav-color;
+
+    img{
+        max-height: 100px;
+    }
+}
