@@ -9,6 +9,7 @@ import { DisplayFilesComponent } from '../../components/module-shared/display/di
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '../../components/shared/login/login.component';
 import { EducatorApplicationComponent } from '../../components/profile-shared/educator-application/educator-application.component';
+import { DisplayQuestionsComponent } from '../../components/module-shared/display/display-questions/display-questions.component';
 
 export const routes: Routes = [
     {
@@ -38,7 +39,7 @@ export const routes: Routes = [
     },
     {
         path: 'preguntas/:id',
-        component: DisplayerComponent,
+        component: DisplayQuestionsComponent,
     },
     {
         path: 'perfil',
@@ -52,4 +53,4 @@ export const routes: Routes = [
         path: 'educatorApplication',
         component: EducatorApplicationComponent,
     }
-];
+]

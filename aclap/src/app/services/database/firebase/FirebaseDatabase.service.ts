@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
-import ControlModule from '@src/app/modules/control/control.module.tns';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Database, DatabaseError } from '../Database.service';   
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
@@ -472,6 +472,20 @@ export class FirebaseDatabase implements Database{
         });
         return implementations;
     }
+
+    async getImplementation(id: string): Promise<Implementation>{
+        const document: DocumentData = await this.firestore
+            .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
+                .where('deleted', '==', false)
+            )
+            .doc(id)
+            .get().toPromise();
+        const implementation: any = document.data();
+        if(!implementation)
+            throw new Error(DatabaseError.IMPLEMENTATION_NOT_FOUND);
+        else
+            return this.factory.getImplementation(id, implementation.deleted, implementation.completed, implementation as IImplementation);
+    }
     
     async addImplementation(implementation: IImplementation): Promise<Implementation>{
         this.validator.validateIImplementation(implementation);
@@ -488,20 +502,6 @@ export class FirebaseDatabase implements Database{
             .set(implementation);
 
         return this.factory.getImplementation(id, deleted, completed, implementation);
-    }
-    
-    private async getImplementation(id: string): Promise<Implementation>{
-        const document: DocumentData = await this.firestore
-            .collection(FirebaseDatabase.IMPLEMENTATIONS, ref => ref
-                .where('deleted', '==', false)
-            )
-            .doc(id)
-            .get().toPromise();
-        const implementation: any = document.data();
-        if(!implementation)
-            throw new Error(DatabaseError.IMPLEMENTATION_NOT_FOUND);
-        else
-            return this.factory.getImplementation(id, implementation.deleted, implementation.completed, implementation as IImplementation);
     }
 
     async updateImplementation(id: string, implementation: IImplementation): Promise<Implementation>{

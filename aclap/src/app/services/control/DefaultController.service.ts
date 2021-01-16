@@ -167,17 +167,6 @@ export class DefaultController implements Controller{
         return await this.database.deleteQuestion(implementableId, questionId);
     }
 
-    async getImplementations(completed: boolean, implementableId?: string): Promise<Implementation[]>{
-        if(implementableId){
-            await this.authenticator.validate(Role.ADMINISTRATOR);
-            return await this.database.getImplementationsByImplementable(completed, implementableId);
-        }
-        else{
-            const session: Session = await this.authenticator.getSession();
-            return await this.database.getImplementationsByUser(completed, session.user_id);
-        }
-    }
-
     async draftImplementation(implementableId: string): Promise<IImplementation>{
         const session: Session = await this.authenticator.getSession();
         const user: User = await this.database.getUser(session.user_id);
@@ -194,13 +183,29 @@ export class DefaultController implements Controller{
         }
     }
 
+    async getImplementations(completed: boolean, implementableId?: string): Promise<Implementation[]>{
+        if(implementableId){
+            await this.authenticator.validate(Role.ADMINISTRATOR);
+            return await this.database.getImplementationsByImplementable(completed, implementableId);
+        }
+        else{
+            const session: Session = await this.authenticator.getSession();
+            return await this.database.getImplementationsByUser(completed, session.user_id);
+        }
+    }
+
+    async getImplementation(implementationId: string): Promise<Implementation>{
+        await this.authenticator.validate(Role.ANY);
+        return await this.database.getImplementation(implementationId);
+    }
+
     async addImplementation(implementation: IImplementation): Promise<Implementation>{
         await this.authenticator.validate(Role.ANY);
         return await this.database.addImplementation(implementation);
     }
 
     async updateImplementation(id: string, implementation: IImplementation): Promise<Implementation>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.updateImplementation(id, implementation);
     }
 
@@ -210,7 +215,7 @@ export class DefaultController implements Controller{
     }
 
     async completeImplementation(id: string): Promise<Implementation>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.completeImplementation(id);
     }
 
@@ -220,12 +225,12 @@ export class DefaultController implements Controller{
     }
 
     async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.addAnswer(implementationId, answer);
     }
 
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.updateAnswer(implementationId, answerId, answer);
     }
 
@@ -237,7 +242,7 @@ export class DefaultController implements Controller{
     }
 
     async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.deleteAnswer(implementationId, answerId);
     }
 
@@ -247,13 +252,13 @@ export class DefaultController implements Controller{
     }
 
     async addEvidence(implementationId: string, evidence: any): Promise<File>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         const file: IFile = await this.storage.upload(evidence);
         return await this.database.addEvidence(implementationId, file);
     }
 
     async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{
-        await this.authenticator.validate(Role.EDUCATOR);
+        await this.authenticator.validate(Role.ANY);
         return await this.database.deleteEvidence(implementationId, evidenceId);
     }
 

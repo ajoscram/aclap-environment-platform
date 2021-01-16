@@ -2,12 +2,12 @@
     <ScrollView orientation="vertical" height="1000">
         <StackLayout>
             <Gridlayout rows="*, *, *, *" columns="*">
-                <Image row="0" col="0" src="https://t2.genius.com/unsafe/561x0/https%3A%2F%2Fimages.genius.com%2F7a9bf37d2eb6a00249c3991467c1d8ad.1000x1000x1.jpg"></Image>
-                <Label row="1" col="0" text="Modulos" class="welcome-text" textWrap="true"></Label>
-                <Label row="2" col="0"
-                text= "Pellentesque vitae ultricies purus, quis pretium tellus. Nam quis felis mi. Etiam ac lacinia dolor, eu egestas purus. Morbi quis nulla diam. Nullam magna magna, pharetra eu massa eget, fringilla vestibulum lorem. Duis blandit risus ex, nec gravida enim tincidunt eget. Aenean faucibus elit nibh, et ultricies libero efficitur efficitur. Etiam molestie placerat nulla, vitae euismod tellus porttitor sit amet. Duis sit amet lacus urna. Aliquam a tellus eu risus dictum faucibus eget suscipit turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque dignissim vitae nibh non facilisis. Phasellus auctor libero eget turpis vehicula lobortis. Fusce enim quam, facilisis nec consequat ut, egestas et augue. Proin ut ligula vel leo pellentesque fermentum in in purus."
-                class= "text" textWrap="true"></Label>
+                <Image rowspan="3" col="0" src="res://corredor_bio_2" stretch="aspectFill" class="img-banner"></Image>
+                <Label row="1" col="0" text="Modulos" class="header-text" textWrap="true"></Label>
             </Gridlayout>
+            <Label
+            text= "Pellentesque vitae ultricies purus, quis pretium tellus. Nam quis felis mi. Etiam ac lacinia dolor, eu egestas purus. Morbi quis nulla diam. Nullam magna magna, pharetra eu massa eget, fringilla vestibulum lorem. Duis blandit risus ex, nec gravida enim tincidunt eget. Aenean faucibus elit nibh, et ultricies libero efficitur efficitur. Etiam molestie placerat nulla, vitae euismod tellus porttitor sit amet. Duis sit amet lacus urna. Aliquam a tellus eu risus dictum faucibus eget suscipit turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque dignissim vitae nibh non facilisis. Phasellus auctor libero eget turpis vehicula lobortis. Fusce enim quam, facilisis nec consequat ut, egestas et augue. Proin ut ligula vel leo pellentesque fermentum in in purus."
+            class= "text" textWrap="true"></Label>
             <StackLayout row="3" col="0" *ngFor="let module of modules" orientation="vertical">
                 <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true (tap)="navigateToModule(module.id)">
                     <StackLayout>

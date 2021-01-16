@@ -5,7 +5,9 @@ import { DisplayFilesComponent } from './components/module-shared/display/displa
 import { ModulePageComponent } from './components/module-shared/module-page/module-page.component';
 import { ModulesComponent } from './components/module-shared/modules/modules.component';
 import { ProfileComponent } from './components/profile-shared/profile/profile.component';
-import { LoginComponent } from './components/shared/login/login.component'
+import { LoginComponent } from './components/shared/login/login.component';
+import { EducatorApplicationComponent } from './components/profile-shared/educator-application/educator-application.component';
+import { DisplayQuestionsComponent } from './components/module-shared/display/display-questions/display-questions.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { LoginComponent } from './components/shared/login/login.component'
     DisplayerComponent,
     LoginComponent,
     DisplayFilesComponent,
+    EducatorApplicationComponent,
+    DisplayQuestionsComponent,
   ],
   imports: [
     NativeScriptCommonModule

@@ -5,12 +5,11 @@ $nav-color:#1c81a9;
 $gray-dark: #596668;
 $l-grey: #d3d8d8;
 
-.welcome-text{
-    font-size: 24;
+.header-text{
+    font-size: 36;
     font-weight: bold;
-    color: rgb(0, 0, 0);
+    color: #fff;
     text-align: center;
-    margin-top: 10;
 }
 
 .text{
@@ -20,9 +19,8 @@ $l-grey: #d3d8d8;
     margin-right: 10;
 }
 
-.welcome-img{
-    height: 100;
-    width: 100;
+.img-banner{
+    opacity: 0.85;
 }
 
 .my-button {

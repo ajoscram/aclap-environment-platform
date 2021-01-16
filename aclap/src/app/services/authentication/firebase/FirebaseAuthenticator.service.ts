@@ -1,7 +1,12 @@
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Authenticator, AuthenticatorError } from '../Authenticator.service';
 import { Role, Session } from '../Session.model';
 
+@Injectable({
+    providedIn: ControlModule
+})
 export class FirebaseAuthenticator implements Authenticator{
 
     private session: Session;

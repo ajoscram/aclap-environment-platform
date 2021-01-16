@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { Answer, Question, Score } from '@src/app/models';
+import { Answer, Question } from '../../../../models';
 
 @Component({
   selector: 'app-display-questions',

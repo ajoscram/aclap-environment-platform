@@ -323,7 +323,7 @@ export class MockDatabase implements Database{
         return implementations;
     }
 
-    private getImplementation(id: string): Implementation{
+    async getImplementation(id: string): Promise<Implementation>{
         for(let implementation of this.implementations)
             if(implementation.id === id)
                 return implementation;
@@ -370,19 +370,19 @@ export class MockDatabase implements Database{
     }
 
     async getAnswers(implementationId: string): Promise<Answer[]>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         return [...this.answers];
     }
 
     async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         const answer_: Answer = this.factory.getAnswer(this.nextId, answer);
         this.answers.push(answer_);
         return answer_;
     }
 
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         for(let i = 0; i < this.answers.length; i++){
             if(this.answers[i].id === answerId){
                 const answer_: Answer = this.factory.getAnswer(answerId, answer);
@@ -394,7 +394,7 @@ export class MockDatabase implements Database{
     }
 
     async deleteAnswer(implementationId: string, answerId: string): Promise<Answer>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         for(let i = 0; i < this.answers.length; i++)
             if(this.answers[i].id === answerId)
                 return this.answers.splice(i, 1)[0];
@@ -402,19 +402,19 @@ export class MockDatabase implements Database{
     }
 
     async getEvidence(implementationId: string): Promise<File[]>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         return [...this.evidence];
     }
 
     async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         const evidence_: File = this.factory.getFile(this.nextId, evidence);
         this.evidence.push(evidence_);
         return evidence_;
     }
 
     async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{
-        this.getImplementation(implementationId);//checking for implementation existance
+        await this.getImplementation(implementationId);//checking for implementation existance
         for(let i = 0; i < this.evidence.length; i++)
             if(this.evidence[i].id === evidenceId)
                 return this.evidence.splice(i, 1)[0];

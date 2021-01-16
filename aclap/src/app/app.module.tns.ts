@@ -3,7 +3,6 @@ import { NativeScriptModule } from '@nativescript/angular';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeScriptFormsModule } from '@nativescript/angular'
-// import { Downloader } from 'nativescript-downloader';
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -32,6 +31,7 @@ import { EditDisplayerComponent } from '@src/app/components/module-shared/edit/e
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 import { RegisterComponent } from '@src/app/components/shared/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
 
 import { Controller } from '@src/app/services/control/Controller.service';
 import { Factory } from '@src/app/services/database/factory/Factory.service';
@@ -80,21 +80,21 @@ import { TempModule } from './temp.module.tns';
     AboutUsComponent
   ],
   imports: [
-    //TempModule,
+    TempModule,
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,
     ControlModule,
     ReactiveFormsModule,
-    NativeScriptFormsModule,
-    //Downloader
+    NativeScriptFormsModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },
     { provide: Database, useClass: MockDatabase },
     { provide: Factory, useClass: Factory },
     { provide: Storage, useClass: MockStorage },
-    { provide: Authenticator, useClass: MockAuthenticator }
+    { provide: Authenticator, useClass: MockAuthenticator },
+    { provide: ErrorTranslator, useClass: ErrorTranslator }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
