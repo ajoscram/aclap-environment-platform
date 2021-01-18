@@ -41,10 +41,10 @@
         <div class="col-sm col-xl">
             <div class="row">
                 <div class="col-6">
-                    <button class="btn btn-success btn-sm col-12" (click)="onSubmit()">Guardar Cambios</button>
+                    <button class="btn btn-success btn-sm col-12" (click)="onSave()">Guardar Cambios</button>
                 </div>
                 <div class="col-6">
-                    <button class="btn btn-warning btn-sm col-12" (click)="onComplete()" >Confirmar implementación</button>
+                    <button class="btn btn-warning btn-sm col-12" (click)="onComplete()" >Finalizar implementación</button>
                 </div>
             </div>
             <div class="row">
@@ -77,12 +77,30 @@
                 <h3>Preguntas de evaluación</h3>
             </div>
             <div class="col">
-                <app-display-questions [questions]="questions" [answers]="answers" ></app-display-questions>
+                <app-display-questions [questions]="questions" [answers]="answers" [editing]="true" ></app-display-questions>
             </div>
         </div>
         <div class="col-12 col-md-5">
             <h3> Evidencias de trabajo </h3>
             <app-edit-files [files]="files" [moduleFiles]="moduleFiles" [deletedModuleFiles]="deletedModuleFiles"></app-edit-files>
+            <div class="row" style="margin-top: 200px;">
+                <h2>Zona Peligrosa</h2>
+            </div>
+            <div class="row border rounded border-danger mb-md-5">
+                <div class="col-8 my-3">
+                    <div class="row" style="margin-left: 12px;">
+                        <h5 class="text-bold">Eliminar implementación</h5>
+                    </div>
+                    <div class="row" style="margin-left: 12px;">
+                        <span class="text">
+                            Posteriormente a esta acción, no se podrá recuperar
+                        </span>
+                    </div>
+                </div>
+                <div class="col-auto my-4 d-flex justify-content-end">
+                    <span class="btn delete border" style="color: brown;" (click)="deleteImplementation()">Eliminar</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

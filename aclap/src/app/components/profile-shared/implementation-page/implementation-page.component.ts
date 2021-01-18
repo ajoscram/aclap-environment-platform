@@ -79,11 +79,17 @@ export class ImplementationPageComponent implements OnInit {
     return Array(topLimit).fill(0).map((_, i)=> (i*3 + 3 ));
   }
 
+  async onSave(){
+    this.onSubmit();
+    alert('Cambios guardados correctamente');
+    this.router.navigateByUrl(`/modulos`);
+  }
+
   async onSubmit(){
     this.implementation.location = new Location(this.currentPosition, this.center.lat, this.center.lng);
 
     await this.controller.addImplementation(this.implementation)
-      .then(implementation => { this.implementation = implementation })
+      .then(implementation => { this.implementation = implementation;})
       .catch(err => { console.log(this.translator.translate(err));});
 
     this.answers.forEach( ans => {
@@ -106,7 +112,7 @@ export class ImplementationPageComponent implements OnInit {
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
         alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
-        this.router.navigateByUrl(`/modulos/`);
+        this.router.navigateByUrl(`/modulos`);
       })
       .catch()
   }

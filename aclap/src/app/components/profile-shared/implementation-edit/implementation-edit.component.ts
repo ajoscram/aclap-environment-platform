@@ -21,40 +21,27 @@ export class ImplementationEditComponent implements OnInit {
   activities: ActivitySection[] = [];
   center = latLng(9.3699204, -83.7057385);
   currentPosition: string = "";
+  options = {};
+  layers = {};
 
   moduleFiles: File[] = [];
   deletedModuleFiles: File[] = [];
-
-  options = {
-    layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
-    ],
-    zoom: 12,
-    center: this.center
-  };
-
-  layers = [
-    marker(this.center, {
-      icon: icon({
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 41 ],
-        iconUrl: 'assets/leaflet/marker-icon-2x.png',
-        shadowUrl: 'assets/leaflet/marker-shadow.png'
-      })
-    })
-  ];
 
   constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) { 
     /* ID OF THE IMPLEMENTATION */
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     /* AWAIT FOR THE IMPLEMENTATION */
 
-    this.controller.getImplementation(this.id)
-      .then(implementation => { this.implementation = implementation })
+    await this.controller.getImplementation(this.id)
+      .then(implementation => { 
+        this.implementation = implementation; 
+        this.currentPosition = implementation.location.name;
+
+      })
       .catch()
 
     this.controller.getEvidence(this.id)
@@ -62,9 +49,31 @@ export class ImplementationEditComponent implements OnInit {
       .catch( err => { console.log(this.translator.translate(err)); } );
 
     this.center = latLng(this.implementation.location.latitude, this.implementation.location.longitude);
+    this.options = {
+      layers: [
+        tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      ],
+      zoom: 12,
+      center: this.center
+    };
+
+    this.layers = [
+      marker(this.center, {
+        icon: icon({
+          iconSize: [ 25, 41 ],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/leaflet/marker-icon-2x.png',
+          shadowUrl: 'assets/leaflet/marker-shadow.png'
+        })
+      })
+    ];
 
     this.controller.getQuestions(this.implementation.implementableId)
-      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer(null,q.id, q.question, null, null))} )})
+      .then(qstns => {this.questions = qstns;})
+      .catch( err => { console.log(this.translator.translate(err)); } );
+    
+    this.controller.getAnswers(this.id)
+      .then(answers => {this.answers = answers})
       .catch( err => { console.log(this.translator.translate(err)); } );
     
     this.controller.getSections(this.implementation.implementableId)
@@ -93,7 +102,7 @@ export class ImplementationEditComponent implements OnInit {
   async onSubmit(){
     this.implementation.location = new Location(this.currentPosition, this.center.lat, this.center.lng);
 
-    await this.controller.addImplementation(this.implementation)
+    await this.controller.updateImplementation(this.implementation.id, this.implementation)
       .then(implementation => { this.implementation = implementation })
       .catch(err => { console.log(this.translator.translate(err));});
 
@@ -122,6 +131,12 @@ export class ImplementationEditComponent implements OnInit {
         );
       }
     );
+  }
+
+  async onSave(){
+    this.onSubmit();
+    alert('Cambios guardados correctamente');
+    this.router.navigateByUrl(`/perfil`);
   }
 
   async onComplete(){
@@ -153,6 +168,12 @@ export class ImplementationEditComponent implements OnInit {
         this.currentPosition = `${localityInfo.administrative[3].name}, ${localityInfo.administrative[2].name}, ${localityInfo.administrative[1].name}`; 
       }
     );
+  }
+
+  deleteImplementation(){
+    this.controller.deleteImplementation(this.id)
+      .then(_ => {alert("Implementación borrada exitosamente"); this.router.navigateByUrl('/perfil')})
+      .catch()
   }
 
 }

@@ -10,6 +10,7 @@ export class DisplayQuestionsComponent implements OnInit {
 
   @Input() questions: Question[] = [];
   @Input() answers: Answer[] = [];
+  @Input() editing: boolean = false;
   q_colors: any[] = [];
   colors: string[] = ["#555", "#F13939", "#FE760E", "#FAD621", "#A1FB2B", "#329F22"];
 
@@ -19,6 +20,9 @@ export class DisplayQuestionsComponent implements OnInit {
   ngOnInit(): void {
     for (let index = 0; index < this.questions.length; index++) {
       this.q_colors.push({color: this.colors[0], status: false, option: 0});
+    }
+    if(this.editing){
+      this.assignColors();
     }
   }
 
@@ -34,11 +38,33 @@ export class DisplayQuestionsComponent implements OnInit {
       this.answers[index].score = this.ntoscore(option);
       this.answers[index].option = this.questions[index].options[this.ntoscore(option)];
     }
+  }
+
+  assignColors(){
+    this.answers.map((answer, index) => {
+      if(answer.id != null){
+        this.q_colors[index] = {color: this.colors[this.scoreton(answer.score)], status: true, option: this.scoreton(answer.score)};
+      }
+    });
     console.log(this.answers);
   }
 
   public get score(): typeof Score{
     return Score;
+  }
+
+  scoreton(score: Score){
+    if(score == Score.VERY_LOW){
+      return 1;
+    }else if(score == Score.LOW){
+      return 2;
+    }else if(score == Score.AVERAGE){
+      return 3;
+    }else if(score == Score.HIGH){
+      return 4;
+    }else if(score == Score.VERY_HIGH){
+      return 5;
+    }
   }
 
   ntoscore(n: number){

@@ -1,0 +1,36 @@
+<div *ngFor="let imp of implementations" class="row">
+    <div class="col-12">
+        <div class="card shadow clickable my-3" [routerLink]="editOrView(imp)">
+            <div class="card-body" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Realizado por: {{ imp.educatorName }} {{ imp.educatorLastname }} </span>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <span>Fecha: {{ imp.date | date: 'dd/MM/yyyy' }} </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span>Cantidad de participantes: {{ imp.participants }} </span>
+                    </div>  
+                    <div class="col d-flex justify-content-end">
+                        <span>Ubicación: {{ imp.location.name }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <span>Tocar para ver detalles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="(implementations.length === 0)" class="row mt-5">
+    <div class="col-12">
+        <h3 style="color: teal;">
+            No hay implmentaciones subidas
+        </h3>
+    </div>
+</div>

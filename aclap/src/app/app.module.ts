@@ -53,6 +53,7 @@ import { ImplementationEditComponent } from '@src/app/components/profile-shared/
 import { ImplementationPageComponent } from '@src/app/components/profile-shared/implementation-page/implementation-page.component';
 import { ImplementableImplementationsComponent } from '@src/app/components/profile-shared/implementable-implementations/implementable-implementations.component';
 import { ProfileComponent } from '@src/app/components/profile-shared/profile/profile.component';
+import { ImplementationListComponent } from '@src/app/components/profile-shared/implementation-list/implementation-list.component';
 import { EditQuestionsComponent } from '@src/app/components/module-shared/edit/edit-questions/edit-questions.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { ProgressComponent} from '@src/app/components/module-shared/edit/progress/progress.component';
@@ -102,6 +103,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ImplementableStatComponent,
     ImplementationEditComponent,
     ImplementationPageComponent,
+    ImplementationListComponent,
     ImplementableImplementationsComponent,
     ProfileComponent,
     DragAndDropDirective,

@@ -24,32 +24,58 @@
 <div class="container">
     <ul ngbNav #nav="ngbNav" [(activeId)]="tabIndex" class="nav-pills">
         <li [ngbNavItem]="1">
-            <a ngbNavLink>{{ tabTags[0] }}</a>
+            <a *ngIf="isAdmin" ngbNavLink>{{ tabTags[0] }}</a>
+            <a *ngIf="isEducator" ngbNavLink>{{ tabEducator[0] }}</a>
             <ng-template ngbNavContent>
-                <div class="row">
-                    <h1> Lista de Módulos de aprendizaje </h1>
+                <div *ngIf="isAdmin">
+                    <div class="row">
+                        <h1> Lista de Módulos de aprendizaje </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-implementable-list [list]="modules" [isAdmin]="isAdmin"></app-implementable-list>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <app-implementable-list [list]="modules" [isAdmin]="isAdmin"></app-implementable-list>
+                <div *ngIf="isEducator">
+                    <div class="row">
+                        <h1> Lista de implementaciones no finalizadas </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-implementation-list [unfinished]="true"></app-implementation-list>
+                        </div>
                     </div>
                 </div>
             </ng-template>
         </li>
         <li [ngbNavItem]="2">
-            <a ngbNavLink>{{ tabTags[1] }}</a>
+            <a *ngIf="isAdmin" ngbNavLink>{{ tabTags[1] }}</a>
+            <a *ngIf="isEducator" ngbNavLink>{{ tabEducator[1] }}</a>
             <ng-template ngbNavContent>
-                <div class="row">
-                    <h1> Lista de Eventos </h1>
+                <div *ngIf="isAdmin" class="">
+                    <div class="row">
+                        <h1> Lista de Eventos </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-implementable-list [list]="events" [isAdmin]="isAdmin"></app-implementable-list>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <app-implementable-list [list]="events" [isAdmin]="isAdmin"></app-implementable-list>
+                <div *ngIf="isEducator" class="">
+                    <div class="row">
+                        <h1> Lista de implementaciones finalizadas </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-implementation-list [finished]="true"></app-implementation-list>
+                        </div>
                     </div>
                 </div>
             </ng-template>
         </li>
-        <li [ngbNavItem]="3">
+        <li [ngbNavItem]="3" *ngIf="isAdmin">
             <a ngbNavLink>{{ tabTags[2] }}</a>
             <ng-template ngbNavContent>
                 <div class="row">
