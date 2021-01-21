@@ -10,7 +10,7 @@
                 <li (click)="changeIndex(0)" class="nav-item ml-md-3" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/inicio']">Inicio</a></li>
                 <li *ngIf="loggedIn" (click)="changeIndex(1)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/perfil']"> Perfil</a></li>
                 <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/modulos']">Módulos</a></li>
-                <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Eventos</a></li>
+                <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/eventos']">Eventos</a></li>
                 <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Acerca de</a></li>
             </ul>
             <span class="navbar-text">

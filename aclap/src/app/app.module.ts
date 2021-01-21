@@ -60,6 +60,13 @@ import { ProgressComponent} from '@src/app/components/section-shared/edit/progre
 import { EditFilesComponent } from '@src/app/components/section-shared/edit/edit-files/edit-files.component';
 import { TeachingGuideComponent} from '@src/app/components/module-shared/teaching-guide/teaching-guide.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { CreateEventComponent } from '@src/app/components/event-shared/create-event/create-event.component';
+import { EventCardComponent } from '@src/app/components/event-shared/event-card/event-card.component';
+import { EventEditComponent } from '@src/app/components/event-shared/event-edit/event-edit.component';
+import { EventPageComponent } from '@src/app/components/event-shared/event-page/event-page.component';
+import { EventsComponent } from '@src/app/components/event-shared/events/events.component';
+import { TGuideComponent } from '@src/app/components/event-shared/teaching-guide/teaching-guide.component';
+import { EditEventInfoComponent} from '@src/app/components/section-shared/edit/edit-event-info/edit-event-info.component';
 
 
 @NgModule({
@@ -107,7 +114,14 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ImplementableImplementationsComponent,
     ProfileComponent,
     DragAndDropDirective,
-    ProgressComponent
+    ProgressComponent,
+    CreateEventComponent,
+    EventCardComponent,
+    EventEditComponent,
+    EventPageComponent,
+    EventsComponent,
+    TGuideComponent,
+    EditEventInfoComponent
   ],
   imports: [
     BrowserModule,

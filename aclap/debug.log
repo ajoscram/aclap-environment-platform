@@ -12,3 +12,4 @@
 [0113/004112.959:ERROR:exception_snapshot_win.cc(99)] thread ID 1412 not found in process
 [0116/105126.040:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
 [0120/223048.801:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[0120/233835.407:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)

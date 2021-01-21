@@ -6,12 +6,19 @@
                     <img class="img-fluid" [src]="module.imageUrl">
                 </div>
                 <div class="col">
-                    <h1>
-                        {{module.name}}
-                    </h1>
+                    <div class="row">
+                        <h1>
+                            {{module.name}}
+                        </h1>
+                    </div>
+                    <div class="row">
+                        <h3>
+                            Fecha: {{dateFormat(module.date)}}
+                        </h3>
+                    </div>
                 </div>
                 <div *ngIf="isAdmin" class="col d-flex justify-content-end">
-                    <a class="wt"  [routerLink]="['/modulos',module.id,'editar']"> EDITAR</a>
+                    <a class="wt"  [routerLink]="['/eventos',module.id,'editar']"> EDITAR</a>
                 </div>
             </div>
         </div>
@@ -19,19 +26,7 @@
 </div>
 <div class="container-fluid">
     <div class="row mt-4">
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <!--List of subjects-->
-            <app-display-disciplines [disciplines]="module.disciplines" ></app-display-disciplines>
-        </div>
         <div class="col">
-            <div class="col-12">
-                <h3>Antecedentes</h3>
-                <ul class="list-group">
-                    <p *ngFor="let part of module.antecedents.split('\n')" class="text-justify"> 
-                        {{part}}
-                    </p>
-                </ul>
-            </div>
             <div class="col-12 pt-3">
                 <h3>Objetivo</h3>
                 <p *ngFor="let objective of module.objective.split('\n')" class="text-justify">
@@ -42,7 +37,7 @@
     </div>
     <div class="row row-content" style="margin-bottom: 50px;">
         <div class="col-md-4 mb-3"  style="height: 250px;">
-            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'guia-didactica']">
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/eventos',module.id,'guia-didactica']">
                 <h2 class="my-auto text-center">Guía Didáctica</h2>
             </div>
         </div>
@@ -52,13 +47,13 @@
             </div>
         </div>
         <div *ngIf="isEducator" class="col-md-4 mb-3" style="height: 250px;">
-            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'nueva-implementacion']">
-                <h2 class="my-auto text-center">Implementar el módulo</h2>
+            <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/eventos',module.id,'nueva-implementacion']">
+                <h2 class="my-auto text-center">Implementar el evento</h2>
             </div>
         </div>
         <div *ngIf="isAdmin" class="col-md-4 mb-3" style="height: 250px;">
             <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/perfil',module.name, module.id,'implementaciones']">
-                <h2 class="my-auto text-center">Ver Implementaciones del módulo</h2>
+                <h2 class="my-auto text-center">Ver Implementaciones del evento</h2>
             </div>
         </div>
         <div *ngIf="isAnonymous" class="col-md-4 mb-3" style="height: 250px;">

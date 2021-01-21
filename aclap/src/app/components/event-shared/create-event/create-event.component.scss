@@ -1,0 +1,39 @@
+@use '../../app.component.scss';
+
+.cont-fluid{
+    //max-width:1170px;
+    min-width: 1px;
+}
+
+.add-section{
+    background-color: lightgrey;
+    font-size: 43px;
+    min-height: 100px;
+    max-height: 200px;
+    transition: 0.3s;
+}
+
+.add-section:hover{
+    background-color: #4d4d4d;
+    color: #d1d1d1;
+}
+
+.jumbotron{
+    background-color: app.$nav-color;
+}
+
+.section-option{
+    background-color: lightgrey;
+    margin-bottom: 20px;
+    padding-right: 30px;
+    border: app.$nav-color;
+    border-width: 5px;
+    min-height: 100px;
+    max-height: 200px;
+    transition: 0.3s;
+}
+
+.section-option:hover{
+    background-color: app.$nav-color;
+    color: white;
+}

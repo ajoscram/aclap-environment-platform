@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Controller } from '../../../services/control/Controller.service';
-import { Module } from '../../../models/implementables/Module.model';
+import { Event } from '@src/app/models';
 import { Role } from '@src/app/services/authentication/Session.model';
+import { Controller } from '@src/app/services/control/Controller.service';
 import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
 
 @Component({
-  selector: 'app-modules',
-  templateUrl: './modules.component.html',
-  styleUrls: ['./modules.component.scss']
+  selector: 'app-events',
+  templateUrl: './events.component.html',
+  styleUrls: ['./events.component.scss']
 })
+export class EventsComponent implements OnInit {
 
-
-export class ModulesComponent implements OnInit {
-
-  modules: Module[];
+  events: Event[];
   isAdmin: boolean = false;
 
   constructor(private controller: Controller, private translator: ErrorTranslator) { }
@@ -27,8 +25,8 @@ export class ModulesComponent implements OnInit {
       }
     );
 
-    this.controller.getModules()
-      .then( modules => { this.modules = modules; })
+    this.controller.getEvents()
+      .then( events => { this.events = events; })
       .catch( error => console.error(this.translator.translate(error)));
   }
 
