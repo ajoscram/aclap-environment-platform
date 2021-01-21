@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '@src/app/services/authentication/Session.model';
-import { Event, Module, User } from '../../../models';
+import { Implementation, User } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { Controller } from '../../../services/control/Controller.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"]
-  tabIndex = 1
+  
+  implementationsCompleted: Implementation[] = [];
+  implementationsIncomplete: Implementation[] = [];
+
   user: User;
-  events: Event[];
-  modules: Module[];
   isAdmin: Boolean;
   len = 2;
 
@@ -26,12 +26,12 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-    this.controller.getModules().then(
-      modules => {this.modules = modules}
+    this.controller.getImplementations(true).then(
+      implentations => {this.implementationsCompleted = implentations}
     );
 
-    this.controller.getEvents().then(
-      events => {this.events = events}
+    this.controller.getImplementations(false).then(
+      implentations => {this.implementationsIncomplete = implentations}
     );
 
     this.controller.getSession().then(

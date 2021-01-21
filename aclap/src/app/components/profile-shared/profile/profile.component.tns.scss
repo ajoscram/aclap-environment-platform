@@ -27,6 +27,15 @@ $l-grey: #d3d8d8;
     text-align: center;
 }
 
+.subtitle-text-impl{
+    color: #000000;
+    font-weight: bold;
+    font-size: 14;
+    margin-left: 15;
+    margin-top: 12;
+    text-align: left;
+}
+
 .text{
     font-size: 12;
     color: rgb(0, 0, 0);
@@ -54,16 +63,26 @@ $l-grey: #d3d8d8;
     background-color: #Ef6423;
     font-size: 12;
     height: 40;
-  }
-
-TabStripItem {
-    font-size: 12;
-    color: #ffffff;
-    background-color: #1c81a9;
 }
 
-TabStripItem:active {
-    font-size: 12;
+.btn-implRemover {
     color: #ffffff;
-    background-color: #0f5875;
+    border-radius: 3;
+    background-color: #f13939;
+    font-size: 12;
+    font-weight: bold;
+    width: 60;
+    height: 30;
+    margin: 10;
+}
+
+.btn-implEdit {
+    color: #ffffff;
+    border-radius: 3;
+    background-color: #23AEE5;
+    font-size: 12;
+    font-weight: bold;
+    width: 60;
+    height: 30;
+    margin: 10;
 }

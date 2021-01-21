@@ -8,7 +8,20 @@
                 <Button col="2" rowSpan="2" text="Logout" horizontalAlignment="right" class="btn btn-primary btn-logout"></Button>
             </Gridlayout>
 
-            <Label text="Content 1" class="text"></Label>
+            <StackLayout *ngFor="let implementation of implementationsIncomplete; index as i" orientation="vertical">
+
+                <Label row="0" col="0" text="{{ implementation.implementableName }}" class="subtitle-text-impl"></Label>
+
+                <!-- <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout columns="auto, *, auto" rows="auto, *, auto">
+                        <Label row="0" col="0" text="{{ implementation.implementableName }}" class="subtitle-text-impl"></Label>
+                        <Button row="0" col="1" text="Editar" class="btn btn-primary btn-implEdit"></Button>
+                        <Button row="0" col="2" text="Eliminar" class="btn btn-primary btn-implRemover"></Button>
+                    </GridLayout>
+                </Card:CardView> -->
+
+            </StackLayout>
+
         </StackLayout>
     </ScrollView>
 </StackLayout>

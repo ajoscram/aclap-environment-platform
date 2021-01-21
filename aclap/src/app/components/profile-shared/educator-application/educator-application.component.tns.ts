@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DatePicker } from '@nativescript/core/ui/date-picker';
 import { EducatorRequest } from '../../../models';
+import { registerElement } from '@nativescript/angular';
+
+registerElement("Mapbox", () => require("@nativescript-community/ui-mapbox").MapboxView);
 
 @Component({
   selector: 'app-educator-application',

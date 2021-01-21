@@ -1,0 +1,8 @@
+ext {
+    okHttpVersion = "3.12.10"
+    def mapboxVersion =  "8.6.6"
+    def mapboxTelemetryVersion =  "6.1.0"
+    def mapboxPluginsVersion =  "v9"
+    def mapboxAnnotationPluginVersion =  "0.9.0"
+    def mapboxGesturesVersion =  "0.7.0"
+}
