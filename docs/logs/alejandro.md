@@ -1,6 +1,7 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
+* Probar `FirebaseAuthenticator` com el emulador
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
 * Escribir las reglas de seguridad para firebase
@@ -10,13 +11,13 @@
 * Implementar `FirebaseDatabase` para NativeScript
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
-* Probar `FirebaseAuthenticator` com el emulador
 * Borrar archivos y fotos que quedan huérfanos en caso de updates mediante Cloud Functions
 * Hacer pruebas unitarias de `Validator`
 
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 16/1/2021 | Agregar `getImplementation` y dar todos los permisos de educators a administrators.
 | 15/1/2021 | Agregar soporte para cambiar la contraseña de un usuario en el `Controller` |
 | 15/1/2021 | Agregar soporte en el `Controller` para `Ally` | 
 | 10/1/2021 | Agregar `setQuestion`, `setAnswer` y `draftImplementation` en el `Controller` |
