@@ -14,7 +14,7 @@ export class EditYoutubeComponent implements OnInit {
   form: FormGroup;
   @Input() video: YoutubeVideoSection;
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({

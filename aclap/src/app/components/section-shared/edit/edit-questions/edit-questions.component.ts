@@ -15,7 +15,7 @@ export class EditQuestionsComponent implements OnInit {
   @Input() questions: Question[];
   options: string[];
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.options = ["Muy bajo", "Bajo", "Medio", "Alto", "Muy Alto"];

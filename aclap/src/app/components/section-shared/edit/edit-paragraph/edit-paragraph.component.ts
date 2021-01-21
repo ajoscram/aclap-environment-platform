@@ -13,7 +13,7 @@ export class EditParagraphComponent implements OnInit {
   form: FormGroup;
   @Input() paragraph: ParagraphSection;
   
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({

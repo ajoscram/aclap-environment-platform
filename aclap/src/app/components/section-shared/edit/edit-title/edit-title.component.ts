@@ -14,7 +14,7 @@ export class EditTitleComponent implements OnInit {
   @Input() title: TitleSection;
   titleSize=[TitleSectionSize.H1,TitleSectionSize.H2];
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({

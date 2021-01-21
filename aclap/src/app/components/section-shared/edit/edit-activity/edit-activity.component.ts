@@ -11,15 +11,13 @@ import { EditDisplayerComponent } from '../edit-displayer/edit-displayer.compone
   templateUrl: './edit-activity.component.html',
   styleUrls: ['./edit-activity.component.scss']
 })
-export class EditActivityComponent extends ChildrenForm{
+export class EditActivityComponent{
 
   @Input() activity: ActivitySection;
   form: FormGroup;
   availableMinutes: any[];
 
-  constructor(private controller: Controller, private builder: FormBuilder, @Host() _motherForm: EditDisplayerComponent) {
-    super(_motherForm);
-  }
+  constructor() {  }
   
   ngOnInit(): void {
     this.form = new FormGroup({

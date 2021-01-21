@@ -2,20 +2,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Controller } from '../../../../services/control/Controller.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ActivitySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../../models';
-import { BaseForm } from '../BaseForm';
 
 @Component({
   selector: 'app-edit-displayer',
   templateUrl: './edit-displayer.component.html',
   styleUrls: ['./edit-displayer.component.scss']
 })
-export class EditDisplayerComponent extends BaseForm implements OnInit {
+export class EditDisplayerComponent implements OnInit {
 
   @Input() sections: Section[];
   @Input() imageProxy: Map<String, File>;
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   
-  constructor(controller: Controller) { super() }
+  constructor() { }
 
   ngOnInit(): void {
   }
