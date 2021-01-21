@@ -10,8 +10,9 @@ import { Controller } from '../../../services/control/Controller.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"]
-  tabIndex = 1
+  tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"];
+  tabEducator = ["Borrador de implementaciones", "Implementaciones finalizadas"];
+  tabIndex = 1;
   user: User;
   events: Event[];
   modules: Module[];
@@ -47,7 +48,7 @@ export class ProfileComponent implements OnInit {
       events => {this.events = events}
     ).
     catch();
-
+    
     this.controller.getSession()
     .then(
       session => {

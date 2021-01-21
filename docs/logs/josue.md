@@ -68,4 +68,7 @@
 | 11/01/2021 | Preguntas de módulo |
 | 12/01/2021 | Continuación Página de implementación |
 | 12/01/2021 | Diseño y Creación de Emoji para calificación |
-| 12/01/2021 | Lógica de respuesta a pregunstas en Implementación |
+| 12/01/2021 | Lógica de respuesta a preguntas en Implementación |
+| 15/01/2021 | Mapa en página de implementación |
+| 16/01/2021 | Crear una nueva implementación |
+| 18/01/2021 | Editar Implementación y UI perfil usuario Educador |

@@ -35,7 +35,7 @@ export class MockDatabase implements Database{
         );
 
         this.users = [
-            new Administrator('0', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Susana Oria', 'McUsername', 'admin@example.com'),
+            new Administrator('0', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Susana', 'Oria', 'admin@example.com'),
             new Educator('1', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator1', 'McUsername', 'educator1@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
             new Educator('2', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator2', 'McUsername', 'educator2@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
             new Educator('3', 'https://www.pathcenter.co.il/wp-content/uploads/2014/03/user_icon.png', 'Educator3', 'McUsername', 'educator3@example.com', '88888888', new Location('Place name', 0, 0), new Date(), 'Organization', new Date()),
@@ -89,8 +89,8 @@ export class MockDatabase implements Database{
         ];
 
         this.implementations = [
-            new Implementation(this.nextId, false, false, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), '1', 'Educator1', 'McUsername', this.implementables[0].id, this.implementables[0].name),
-            new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), '1', 'Educator1', 'McUsername', this.implementables[0].id, this.implementables[0].name)
+            new Implementation(this.nextId, false, false, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name),
+            new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name)
         ];
         this.answers = [
             new Answer(this.nextId, this.questions[0].id, '¿Esto es una pregunta?', 'Mal', Score.LOW),

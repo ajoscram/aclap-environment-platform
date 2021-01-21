@@ -27,14 +27,14 @@
             <div class="col-12">
                 <h3>Antecedentes</h3>
                 <ul class="list-group">
-                    <p *ngFor="let part of module.antecedents.split('\n')"> 
+                    <p *ngFor="let part of module.antecedents.split('\n')" class="text-justify"> 
                         {{part}}
                     </p>
                 </ul>
             </div>
             <div class="col-12 pt-3">
                 <h3>Objetivo</h3>
-                <p *ngFor="let objective of module.objective.split('\n')">
+                <p *ngFor="let objective of module.objective.split('\n')" class="text-justify">
                     {{ objective }}
                 </p>
             </div>
@@ -53,12 +53,12 @@
         </div>
         <div *ngIf="isEducator" class="col-md-4 mb-3" style="height: 250px;">
             <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/modulos',module.id,'nueva-implementacion']">
-                <h2 class="my-auto text-center">Implementá el módulo</h2>
+                <h2 class="my-auto text-center">Implementar el módulo</h2>
             </div>
         </div>
         <div *ngIf="isAdmin" class="col-md-4 mb-3" style="height: 250px;">
             <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color"  [routerLink]="['/perfil',module.name, module.id,'implementaciones']">
-                <h2 class="my-auto text-center">Ver Implementaciones de Módulo</h2>
+                <h2 class="my-auto text-center">Ver Implementaciones del módulo</h2>
             </div>
         </div>
         <div *ngIf="isAnonymous" class="col-md-4 mb-3" style="height: 250px;">

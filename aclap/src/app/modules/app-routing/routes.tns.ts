@@ -4,12 +4,12 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '../../components/home/home.component.tns';
 import { ModulesComponent } from '../../components/module-shared/modules/modules.component';
 import { ModulePageComponent } from '../../components/module-shared/module-page/module-page.component';
-import { DisplayerComponent } from '../../components/module-shared/display/displayer/displayer.component';
-import { DisplayFilesComponent } from '../../components/module-shared/display/display-files/display-files.component';
+import { DisplayerComponent } from '../../components/section-shared/display/displayer/displayer.component';
+import { DisplayFilesComponent } from '../../components/section-shared/display/display-files/display-files.component';
 import { ProfileComponent } from '../../components/profile-shared/profile/profile.component';
 import { LoginComponent } from '../../components/shared/login/login.component';
 import { EducatorApplicationComponent } from '../../components/profile-shared/educator-application/educator-application.component';
-import { DisplayQuestionsComponent } from '../../components/module-shared/display/display-questions/display-questions.component';
+import { DisplayQuestionsComponent } from '../../components/section-shared/display/display-questions/display-questions.component';
 
 export const routes: Routes = [
     {

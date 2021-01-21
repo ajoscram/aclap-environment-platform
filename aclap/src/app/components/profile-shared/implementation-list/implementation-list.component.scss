@@ -1,0 +1,6 @@
+@use '../../app.component.scss';
+
+.card{
+    background-color: app.$nav-color;
+    color: white;
+}
