@@ -185,10 +185,18 @@ describe('FirebaseDatabase', () => {
     });
 
     it('addEducatorRequest(): fails if there is an existing PENDING educator request with the same email', async () => {
-        stubEducatorRequest.email = 'addEducatorRequestFAIL' + stubEducatorRequest.email;
+        stubEducatorRequest.email = 'addEducatorRequestFAIL_PENDING' + stubEducatorRequest.email;
         await database.addEducatorRequest(stubEducatorRequest);
         await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
             new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING)
+        );
+    });
+
+    it('addEducatorRequest(): fails if there is an existing user with the same email', async () => {
+        const user: User = await database.addUser(STUB_ID, stubAdministrator);
+        stubEducatorRequest.email = user.email;
+        await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
+            new Error(DatabaseError.USER_ALREADY_EXISTS)
         );
     });
 
@@ -204,7 +212,7 @@ describe('FirebaseDatabase', () => {
             expect(request.state).toBe(EducatorRequestState.PENDING);
     });
 
-    it('updateEducatorRequestState(): ', async () => {
+    it('updateEducatorRequestState(): updates the state of an existing educator request', async () => {
         const state: EducatorRequestState = EducatorRequestState.APPROVED;
         stubEducatorRequest.email = 'updateEducatorRequestState' + stubEducatorRequest.email;
         const added: EducatorRequest = await database.addEducatorRequest(stubEducatorRequest);

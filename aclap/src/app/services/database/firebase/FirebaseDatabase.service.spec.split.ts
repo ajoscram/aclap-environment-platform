@@ -26,4 +26,5 @@ export const TEST_MODULE = {
 
 export async function cleanup(http: HttpClient){
     await http.delete(`http://${environment.testing.address}:${environment.testing.ports.FIRESTORE}/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
+    await http.delete(`http://${environment.testing.address}:${environment.testing.ports.AUTH}/emulator/v1/projects/${environment.firebaseConfig.projectId}/accounts`).toPromise();
 }

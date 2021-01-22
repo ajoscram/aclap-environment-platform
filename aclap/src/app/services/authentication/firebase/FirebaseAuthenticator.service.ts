@@ -25,9 +25,9 @@ export class FirebaseAuthenticator implements Authenticator{
     async login(email: string, password: string): Promise<Session>{
         try{
             const credentials: firebase.default.auth.UserCredential = await this.auth.signInWithEmailAndPassword(email, password);
-            const id: string = credentials.user.uid;
-            const role: Role = await this.getRole(credentials.user);
-            return new Session(id, email, role);
+            const user: firebase.default.User = credentials.user;
+            const role: Role = await this.getRole(user);
+            return new Session(user.uid, user.email, role);
         } catch(error) {
             throw new Error(AuthenticatorError.AUTHENTICATION_FAILED);
         }

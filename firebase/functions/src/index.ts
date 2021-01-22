@@ -1,11 +1,14 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as passwords from './modules/passwords';
+import * as mail from './modules/mail';
 import { environment } from './environment';
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
+import { Educator, EducatorRequestState, EducatorRequest } from './models';
 
 admin.initializeApp();
 
-//Debug 
+//Test user creation, needed for app unit tests
 export const setupAuthDebug = functions.https.onRequest(async (req, res) => {
    try{
       const administrator: UserRecord = await admin.auth().createUser({
@@ -30,27 +33,40 @@ export const setupAuthDebug = functions.https.onRequest(async (req, res) => {
    res.end();
 });
 
-export const cleanupAuthDebug = functions.https.onRequest(async (req, res) => {
-   try{
-      const administrator: UserRecord = await admin.auth().getUserByEmail(environment.test_users.administrator.email);
-      await admin.auth().deleteUser(administrator.uid);
+//Educator account creation
+export const onRequestAccepted = functions.firestore
+   .document(`${environment.collections.requests}/{requestId}`)
+   .onUpdate(async (change, context) => {
+      const request: EducatorRequest = change.after.data() as EducatorRequest;
+      if(request.state == EducatorRequestState.APPROVED){
+         
+         //adding user to authentication
+         const password: string = passwords.generate();
+         const user: UserRecord = await admin.auth().createUser({
+            email: request.email,
+            password: password
+         });
+         await admin.auth().setCustomUserClaims(user.uid, environment.claims.educator);
+         
+         //adding user to firestore
+         const document: FirebaseFirestore.DocumentReference = admin.firestore()
+            .collection(environment.collections.users)
+            .doc();
+         const educator: Educator = {
+            id: document.id,
+            imageUrl: environment.defaults.user_image_url,
+            name: request.name,
+            lastname: request.lastname,
+            email: request.email,
+            phone: request.phone,
+            address: request.address,
+            birthday: request.birthday,
+            organization: request.organization,
+            joined: new Date()
+         }
+         await document.set(educator);
 
-      const educator: UserRecord = await admin.auth().getUserByEmail(environment.test_users.educator.email);
-      await admin.auth().deleteUser(educator.uid);
-
-      const broken: UserRecord = await admin.auth().getUserByEmail(environment.test_users.broken.email);
-      await admin.auth().deleteUser(broken.uid);
-   } catch(error){
-      console.log('Error deleting debug users: ' + error);
-   }
-   res.end();
-});
-
-//Account Creation
-
-//Implementation deletion
-export const onImplementationDeletion = functions.firestore
-   .document('modules/{moduleId}')
-   .onDelete(async (change, context) => {
-      //admin.firestore().collectionGroup()
+         //send email to the user
+         await mail.welcome(educator, password);
+      }
    });

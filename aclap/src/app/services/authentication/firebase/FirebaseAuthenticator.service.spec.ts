@@ -10,7 +10,6 @@ describe('FirebaseAuthenticator', () => {
     const administrator = environment.testing.users.administrator;
     const educator = environment.testing.users.educator;
     const broken = environment.testing.users.broken;
-    const INCORECT_PASWORD: string = 'incorrect';
     
     let authenticator: Authenticator;
     let http: HttpClient;
@@ -28,8 +27,9 @@ describe('FirebaseAuthenticator', () => {
         expect(session.role).toBe(Role.ADMINISTRATOR);
     });
 
-    it('login(): fails with incorrect credentials', async () => {
-        await expectAsync(authenticator.login(administrator.email, INCORECT_PASWORD)).toBeRejectedWith(
+    xit('login(): fails with incorrect credentials', async () => {
+        const incorrect_password: string = 'incorrect';
+        await expectAsync(authenticator.login(administrator.email, incorrect_password)).toBeRejectedWith(
             new Error(AuthenticatorError.AUTHENTICATION_FAILED)
         );
     });

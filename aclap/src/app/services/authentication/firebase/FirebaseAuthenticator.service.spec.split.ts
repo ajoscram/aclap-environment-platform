@@ -27,8 +27,5 @@ export async function setup(http: HttpClient): Promise<void>{
 }
 
 export async function cleanup(http: HttpClient): Promise<void>{
-    try{
-        await http.get(`http://${environment.testing.address}:${environment.testing.ports.FUNCTIONS}/${environment.firebaseConfig.projectId}/us-central1/cleanupAuthDebug`).toPromise();
-    } catch(error){
-    }
+    await http.delete(`http://${environment.testing.address}:${environment.testing.ports.AUTH}/emulator/v1/projects/${environment.firebaseConfig.projectId}/accounts`).toPromise();
 }
