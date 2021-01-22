@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, USE_EMULATOR } from '@angular/fire/firestore';
 import { environment } from '@src/environments/environment';
@@ -18,8 +18,12 @@ export const TEST_MODULE = {
         Validator,
         { provide: Database, useClass: FirebaseDatabase },
         { provide: USE_EMULATOR, useValue: [ 
-            environment.emulator.address,
-            environment.emulator.ports.FIRESTORE 
+            environment.testing.address,
+            environment.testing.ports.FIRESTORE 
         ] }
     ]
+}
+
+export async function cleanup(http: HttpClient){
+    await http.delete(`http://${environment.testing.address}:${environment.testing.ports.FIRESTORE}/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
 }

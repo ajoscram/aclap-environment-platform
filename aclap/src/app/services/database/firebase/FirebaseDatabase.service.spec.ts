@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
-import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
+import { cleanup, TEST_MODULE } from './FirebaseDatabase.service.spec.split';
 import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
 
 describe('FirebaseDatabase', () => {
@@ -552,7 +551,7 @@ describe('FirebaseDatabase', () => {
 
     afterAll(async () => {
         const http: HttpClient = TestBed.inject(HttpClient);
-        await http.delete(`http://localhost:8080/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
+        await cleanup(http);
     });
 
 /*
