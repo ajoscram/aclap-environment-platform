@@ -92,9 +92,20 @@ export class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING);
     }
 
+    private async checkUserDoesntExist(email: string): Promise<void>{
+        const query: QuerySnapshot<DocumentData> = await this.firestore
+        .collection(FirebaseDatabase.USERS, ref => ref
+            .where('email', '==', email)
+        )
+        .get().toPromise();
+        if(query.docs.length != 0)
+            throw new Error(DatabaseError.USER_ALREADY_EXISTS);
+    }
+
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         this.validator.validateIEducatorRequest(request);
         await this.checkRequestIsNotPending(request.email);
+        await this.checkUserDoesntExist(request.email);
         
         const id: string = this.firestore.createId();
         const state: EducatorRequestState = EducatorRequestState.PENDING;

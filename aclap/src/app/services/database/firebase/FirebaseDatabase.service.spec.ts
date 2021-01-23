@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
-import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
+import { cleanup, TEST_MODULE } from './FirebaseDatabase.service.spec.split';
 import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
 
 describe('FirebaseDatabase', () => {
@@ -186,10 +185,18 @@ describe('FirebaseDatabase', () => {
     });
 
     it('addEducatorRequest(): fails if there is an existing PENDING educator request with the same email', async () => {
-        stubEducatorRequest.email = 'addEducatorRequestFAIL' + stubEducatorRequest.email;
+        stubEducatorRequest.email = 'addEducatorRequestFAIL_PENDING' + stubEducatorRequest.email;
         await database.addEducatorRequest(stubEducatorRequest);
         await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
             new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING)
+        );
+    });
+
+    it('addEducatorRequest(): fails if there is an existing user with the same email', async () => {
+        const user: User = await database.addUser(STUB_ID, stubAdministrator);
+        stubEducatorRequest.email = user.email;
+        await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
+            new Error(DatabaseError.USER_ALREADY_EXISTS)
         );
     });
 
@@ -205,7 +212,7 @@ describe('FirebaseDatabase', () => {
             expect(request.state).toBe(EducatorRequestState.PENDING);
     });
 
-    it('updateEducatorRequestState(): ', async () => {
+    it('updateEducatorRequestState(): updates the state of an existing educator request', async () => {
         const state: EducatorRequestState = EducatorRequestState.APPROVED;
         stubEducatorRequest.email = 'updateEducatorRequestState' + stubEducatorRequest.email;
         const added: EducatorRequest = await database.addEducatorRequest(stubEducatorRequest);
@@ -552,7 +559,7 @@ describe('FirebaseDatabase', () => {
 
     afterAll(async () => {
         const http: HttpClient = TestBed.inject(HttpClient);
-        await http.delete(`http://localhost:8080/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
+        await cleanup(http);
     });
 
 /*
