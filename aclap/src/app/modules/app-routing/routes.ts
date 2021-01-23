@@ -19,6 +19,12 @@ import { EventPageComponent } from '../../components/event-shared/event-page/eve
 import { EventEditComponent } from '../../components/event-shared/event-edit/event-edit.component';
 import { CreateEventComponent } from '../../components/event-shared/create-event/create-event.component';
 import { TGuideComponent } from '../../components/event-shared/teaching-guide/teaching-guide.component';
+import { ImplementationDisplayComponent } from '@src/app/components/profile-shared/implementation-display/implementation-display.component';
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
+import { AlliesEditComponent } from '@src/app/components/allies-shared/allies-edit/allies-edit.component';
+import { ProfileEditComponent } from '@src/app/components/profile-shared/profile-edit/profile-edit.component';
+import { PasswordEditComponent } from '@src/app/components/shared/password-edit/password-edit.component';
+import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 
 export const routes: Routes = [
     {
@@ -97,5 +103,29 @@ export const routes: Routes = [
     {
         path: 'crear/evento',
         component: CreateEventComponent
+    },
+    {
+        path: 'implementacion/ver/:id',
+        component: ImplementationDisplayComponent
+    },
+    {
+        path: 'aliados',
+        component: AlliesComponent
+    },
+    {
+        path: 'aliados/editar',
+        component: AlliesEditComponent
+    },
+    {
+        path: 'perfil/editar',
+        component: ProfileEditComponent
+    },
+    {
+        path: 'cambiar-contrasena',
+        component: PasswordEditComponent
+    },
+    {
+        path: 'acerca-de',
+        component: AboutUsComponent
     }
 ];
