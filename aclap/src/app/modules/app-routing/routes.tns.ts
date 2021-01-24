@@ -10,6 +10,8 @@ import { ProfileComponent } from '../../components/profile-shared/profile/profil
 import { LoginComponent } from '../../components/shared/login/login.component';
 import { EducatorApplicationComponent } from '../../components/profile-shared/educator-application/educator-application.component';
 import { DisplayQuestionsComponent } from '../../components/section-shared/display/display-questions/display-questions.component';
+import { EventsComponent } from '../../../app/components/event-shared/events/events.component';
+import { EventPageComponent } from '../../../app/components/event-shared/event-page/event-page.component';
 
 export const routes: Routes = [
     {
@@ -52,5 +54,13 @@ export const routes: Routes = [
     {
         path: 'educatorApplication',
         component: EducatorApplicationComponent,
+    },
+    {
+        path: 'events',
+        component: EventsComponent,
+    },
+    {
+        path: 'events/:id',
+        component: EventPageComponent
     }
 ]

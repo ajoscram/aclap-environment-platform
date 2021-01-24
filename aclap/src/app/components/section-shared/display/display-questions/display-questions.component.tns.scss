@@ -69,9 +69,9 @@ $l-grey: #d3d8d8;
     color: #000000;
     font-weight: bold;
     font-size: 14;
-    margin-left: 15;
-    margin-top: 12;
-    text-align: left;
+    margin-top: 22;
+    margin-right: 10;
+    text-align: center;
 }
 
 .madeby-text{
@@ -166,7 +166,14 @@ $l-grey: #d3d8d8;
     background-color: #f13939;
     font-size: 12;
     font-weight: bold;
-    width: 60;
-    height: 30;
-    margin: 10;
+    width: 20;
+    height: 20;
+}
+
+.file-img{
+    height: 50;
+    width: 50;
+    margin-top: 10;
+    margin-bottom: 10;
+    margin-left: 15;
 }

@@ -1,51 +1,26 @@
 <RadSideDrawer #sideDrawer>
   <StackLayout tkDrawerContent class="sidedrawer-left">
 
-      <StackLayout class="sidedrawer-header"></StackLayout>
 
       <StackLayout class="sidedrawer-content">
-          
-        <StackLayout class="sidedrawer-list-item">
-          <Image src=""></Image>
-        </StackLayout>
 
-        <StackLayout class="sidedrawer-list-item">
-          <Image src="res://logo"></Image>
-        </StackLayout>
-
-        <StackLayout class="sidedrawer-list-item">
-              <Button class="btn btn-primary sidedrawer-list-item-text"
-                  text="Inicio" (tap)="navigateToHome()"></Button>
-        </StackLayout>
-
-        <StackLayout class="sidedrawer-list-item">
-          <Button class="btn btn-primary sidedrawer-list-item-text"
-              text="Perfil" (tap)="navigateToProfile()"></Button>
-        </StackLayout>
-
-        <StackLayout class="sidedrawer-list-item">
-              <Button class="btn btn-primary sidedrawer-list-item-text"
-                  text="Modulos" (tap)="navigateToModules()"></Button>
-        </StackLayout>
-
-        <StackLayout class="sidedrawer-list-item">
-            <Button class="btn btn-primary sidedrawer-list-item-text"
-                text="Eventos"></Button>
-        </StackLayout>
-
-        <StackLayout class="sidedrawer-list-item">
-          <Button class="btn btn-primary sidedrawer-list-item-text"
-              text="Acerca de"></Button>
-        </StackLayout>
+        <Image src="res://logo_flat" class="img-header"></Image>
+        <Button class="btn btn-primary sidedrawer-list-item-text" text="Inicio" (tap)="navigateToHome()"></Button>
+        <Button class="btn btn-primary sidedrawer-list-item-text" text="Modulos" (tap)="navigateToModules()"></Button>
+        <Button class="btn btn-primary sidedrawer-list-item-text" text="Eventos" (tap)="navigateToEvents()"></Button>
+        <Button class="btn btn-primary sidedrawer-list-item-text" text="Perfil" (tap)="navigateToProfile()"></Button>
+        <Button class="btn btn-primary sidedrawer-list-item-text" text="Acerca de"></Button>
           
       </StackLayout>
 
       <StackLayout class="sidedrawer-footer">
+
         <StackLayout orientation="horizontal" width="245" height="100">
           <Label text="Ingresar" horizontalAlignment="left" color="white" (tap)="navigateToLogin()"></Label>
           <Label text="       " horizontalAlignment="center"></Label>
           <Label text="Ser educador" horizontalAlignment="right" color="white" (tap)="navigateToEducatorApplication()"></Label>
-      </StackLayout>
+        </StackLayout>
+
       </StackLayout>
 
   </StackLayout>

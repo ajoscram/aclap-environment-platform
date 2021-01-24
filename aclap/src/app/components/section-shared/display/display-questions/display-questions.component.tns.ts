@@ -105,6 +105,18 @@ export class DisplayQuestionsComponent implements OnInit {
     this.fileNames.splice(index, 1)
   }
 
+  isImg(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) === ".jpg" || filename.substring(filename.lastIndexOf('.')) === ".png";
+  }
+
+  isFile(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) !== ".jpg" 
+    && filename.substring(filename.lastIndexOf('.')) !== ".png"
+    && filename.substring(filename.lastIndexOf('.')) !== ".doc"
+    && filename.substring(filename.lastIndexOf('.')) !== ".ppt"
+    && filename.substring(filename.lastIndexOf('.')) !== ".pdf";
+  }
+
   minDate: Date = new Date(2021, 0, 1);
   maxDate: Date = new Date(2050, 11, 31);
   todayDate: Date = new Date();

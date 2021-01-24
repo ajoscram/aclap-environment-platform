@@ -42,4 +42,9 @@ export class AppComponent {
     this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
+  navigateToEvents(): void {
+    this.routerExtensions.navigate(['events'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
 }

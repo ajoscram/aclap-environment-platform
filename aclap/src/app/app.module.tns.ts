@@ -32,6 +32,7 @@ import { LoginComponent } from '@src/app/components/shared/login/login.component
 import { RegisterComponent } from '@src/app/components/shared/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { DatePipe } from '@angular/common';
 
 import { Controller } from '@src/app/services/control/Controller.service';
 import { Factory } from '@src/app/services/database/factory/Factory.service';
@@ -94,7 +95,8 @@ import { TempModule } from './temp.module.tns';
     { provide: Factory, useClass: Factory },
     { provide: Storage, useClass: MockStorage },
     { provide: Authenticator, useClass: MockAuthenticator },
-    { provide: ErrorTranslator, useClass: ErrorTranslator }
+    { provide: ErrorTranslator, useClass: ErrorTranslator },
+    { provide: DatePipe, useClass: DatePipe }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],

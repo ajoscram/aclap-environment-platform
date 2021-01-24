@@ -8,6 +8,8 @@ $l-grey: #d3d8d8;
 .cardStyle {
     background-color: #fff;
     color: #fff;
+    margin-right: 15;
+    margin-left: 15;
 }
 
 .cardContent {
@@ -16,8 +18,8 @@ $l-grey: #d3d8d8;
     font-size: 12;
 }
 
-.moduleHeader {
-    font-size: 16;
+.module-header-text {
+    font-size: 18;
     font-weight: bold;
     text-align: center;
     color: rgb(0, 0, 0);
@@ -35,6 +37,15 @@ $l-grey: #d3d8d8;
     font-size: 12;
     color: rgb(0, 0, 0);
     text-align: center;
+}
+
+.body-text{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 10;
+    margin-right: 10;
+    margin-bottom: 5;
 }
 
 .img-banner{

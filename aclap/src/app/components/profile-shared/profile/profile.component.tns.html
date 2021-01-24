@@ -8,17 +8,37 @@
                 <Button col="2" rowSpan="2" text="Logout" horizontalAlignment="right" class="btn btn-primary btn-logout"></Button>
             </Gridlayout>
 
+            <StackLayout *ngFor="let implementation of implementationsCompleted; index as i" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout columns="auto, *, auto" rows="auto, *, auto">
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-implRemover"></Button>
+                        <Label row="0" col="0" class="text-impl" textWrap="true">
+                            <FormattedString>
+                                <Span text="{{ implementation.implementableName }} | " class="subtitle-text-impl"></Span>
+                                <Span text="Completo" class="text-completed"></Span>
+                            </FormattedString>
+                        </Label>
+                        <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
+                    </GridLayout>
+                </Card:CardView> 
+
+            </StackLayout>
+
             <StackLayout *ngFor="let implementation of implementationsIncomplete; index as i" orientation="vertical">
 
-                <Label row="0" col="0" text="{{ implementation.implementableName }}" class="subtitle-text-impl"></Label>
-
-                <!-- <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
                     <GridLayout columns="auto, *, auto" rows="auto, *, auto">
-                        <Label row="0" col="0" text="{{ implementation.implementableName }}" class="subtitle-text-impl"></Label>
-                        <Button row="0" col="1" text="Editar" class="btn btn-primary btn-implEdit"></Button>
-                        <Button row="0" col="2" text="Eliminar" class="btn btn-primary btn-implRemover"></Button>
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-implRemover"></Button>
+                        <Label row="0" col="0" class="text-impl" textWrap="true">
+                            <FormattedString>
+                                <Span text="{{ implementation.implementableName }} | " class="subtitle-text-impl"></Span>
+                                <Span text="Incompleto" class="text-incomplete"></Span>
+                            </FormattedString>
+                        </Label>
+                        <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
                     </GridLayout>
-                </Card:CardView> -->
+                </Card:CardView> 
 
             </StackLayout>
 

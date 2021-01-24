@@ -19,13 +19,11 @@ $l-grey: #d3d8d8;
     display: flex;
 }
 
-.lime{
-    background-color: $lime-color;
-    color: whitesmoke;
-}
-
-.wt{
-    color: whitesmoke;
+.img-header{
+    width: 200;
+    height: 62;
+    margin-top: 20;
+    margin-bottom: 15;
 }
 
 StackLayout Button{
@@ -34,9 +32,4 @@ StackLayout Button{
 
 StackLayout{
     background-color: $nav-color;
-}
-
-Image {
-    width: 40;
-    height: 40;
 }

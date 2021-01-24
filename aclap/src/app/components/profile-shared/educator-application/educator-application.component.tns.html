@@ -3,11 +3,14 @@
         <StackLayout>
 
             <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
-                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="https://costaricaexperts.com/wp-content/uploads/2014/05/Manuel-Antonio-National-Park-1.jpg" class="img-banner"></Image>
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="res://biolley_asoprala" class="img-banner"></Image>
                 <Label row="1" col="0" text="Persona Educadora" class="header-text" textWrap="true"></Label>
             </GridLayout>
             
-            <Label text="Llená este formulario para volverte una Persona Eucadora" class="text-subtitle-first" textWrap="true" ></Label>
+            <Label text="¿Qué es una persona educadora?" class="text-subtitle-first-1" textWrap="true" ></Label>
+            <Label text="Beneficios de una persona educadora" class="text-subtitle-first-2" textWrap="true" ></Label>
+            <Label text="- Poder subir evidencias de un módulo o evento." class="text-body" textWrap="true" ></Label>
+            <Label text="- Ser un agente de cambio." class="text-body" textWrap="true" ></Label>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 

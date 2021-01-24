@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Implementation, User } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit {
   isAdmin: Boolean;
   len = 2;
 
-  constructor(private controller: Controller) { }
+  constructor(private controller: Controller, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.controller.getUser().then(
@@ -44,6 +45,10 @@ export class ProfileComponent implements OnInit {
         }
       }
     );
+  }
+
+  formatDate(date: Date): string {
+    return this.datepipe.transform(date, 'dd-MM-yyyy');
   }
 
 }

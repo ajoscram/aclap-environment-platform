@@ -11,12 +11,10 @@ $l-grey: #d3d8d8;
   font-weight: bold;
   color: #fff;
   text-align: center;
-  margin-left: 10;
-  margin-right: 10;
 }
 
 .img-banner{
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .input-form {
@@ -24,7 +22,8 @@ $l-grey: #d3d8d8;
   color: black;
   font-size: 14;
   placeholder-color: #bbbbbb;
-  margin: 15;
+  margin-right: 15;
+  margin-left: 15;
 }
 
 .btn-send {
@@ -44,11 +43,26 @@ $l-grey: #d3d8d8;
   text-align: left;
 }
 
-.text-subtitle-first {
+.text-subtitle-first-1 {
   color: #000000;
   font-size: 18;
-  margin-left: 15;
+  margin-left: 10;
   text-align: left;
   margin-top: 5;
+}
+
+.text-subtitle-first-2 {
+  color: #000000;
+  font-size: 18;
+  margin-left: 10;
+  text-align: left;
+  margin-bottom: 5;
+}
+
+.text-body {
+  font-size: 14;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  margin-left: 20;
   margin-bottom: 5;
 }

@@ -44,10 +44,20 @@
                 <StackLayout *ngFor="let file of fileNames; index as i" orientation="vertical">
 
                     <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
-                        <GridLayout columns="auto, *, auto" rows="auto, *, auto">
-                            <Label row="0" col="0" text="{{ file }}" class="subtitle-text-file"></Label>
-                            <Button row="0" col="1" text="Eliminar" class="btn btn-primary btn-fileRemover" (tap)="removeFile($event, i)"></Button>
-                        </GridLayout>
+                        <StackLayout orientation="horizontal">
+
+                            <StackLayout *ngIf="isImg(file)">
+                                <Image src="{{ filePaths[i] }}" class="file-img"></Image>
+                            </StackLayout>
+    
+                            <StackLayout *ngIf="isFile(file)">
+                                <Image src="res://file" class="file-img"></Image>
+                            </StackLayout>
+
+                            <Label text="{{ file }}" class="subtitle-text-file"></Label>
+                            <Button text="x" class="btn btn-primary btn-fileRemover" (tap)="removeFile($event, i)"></Button>
+                        
+                        </StackLayout>
                     </Card:CardView>
     
                 </StackLayout>

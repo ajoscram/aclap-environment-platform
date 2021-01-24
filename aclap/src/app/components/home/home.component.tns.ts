@@ -17,4 +17,12 @@ export class HomeComponent implements OnInit {
       this.routerExtensions.navigate(['modulos'], { clearHistory: false });
   }
 
+  navigateToEvents(): void {
+    this.routerExtensions.navigate(['events'], { clearHistory: false });
+  }
+
+  navigateToEducatorApplication(): void {
+    this.routerExtensions.navigate(['educatorApplication'], { clearHistory: false });
+  }
+
 }

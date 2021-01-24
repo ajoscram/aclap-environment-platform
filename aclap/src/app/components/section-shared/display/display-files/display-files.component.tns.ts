@@ -72,4 +72,28 @@ export class DisplayFilesComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   }
 
+  isPdf(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) === ".pdf";
+  }
+
+  isPpt(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) === ".ppt";
+  }
+
+  isDoc(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) === ".doc";
+  }
+
+  isImg(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) === ".jpg" || filename.substring(filename.lastIndexOf('.')) === ".png";
+  }
+
+  isFile(filename): boolean {
+    return filename.substring(filename.lastIndexOf('.')) !== ".jpg" 
+    && filename.substring(filename.lastIndexOf('.')) !== ".png"
+    && filename.substring(filename.lastIndexOf('.')) !== ".doc"
+    && filename.substring(filename.lastIndexOf('.')) !== ".ppt"
+    && filename.substring(filename.lastIndexOf('.')) !== ".pdf";
+  }
+
 }

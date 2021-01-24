@@ -12,18 +12,20 @@ $l-grey: #d3d8d8;
     text-align: center;
 }
 
-.text{
-    font-size: 12;
+.body-text{
+    font-size: 14;
     color: rgb(0, 0, 0);
+    text-align: center;
     margin-left: 10;
     margin-right: 10;
+    margin-bottom: 5;
 }
 
-.img-banner{
+.banner-img{
     opacity: 0.85;
 }
 
-.my-button {
+.nav-btn{
     background-color: $nav-color;
     border-radius: 20;
     color: whitesmoke;
