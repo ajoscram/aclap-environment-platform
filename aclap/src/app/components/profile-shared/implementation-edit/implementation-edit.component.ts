@@ -144,7 +144,7 @@ export class ImplementationEditComponent implements OnInit {
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
         alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
-        this.router.navigateByUrl(`/modulos/`);
+        this.router.navigateByUrl(`/modulos`);
       })
       .catch()
   }

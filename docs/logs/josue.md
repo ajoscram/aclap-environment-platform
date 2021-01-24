@@ -72,3 +72,10 @@
 | 15/01/2021 | Mapa en página de implementación |
 | 16/01/2021 | Crear una nueva implementación |
 | 18/01/2021 | Editar Implementación y UI perfil usuario Educador |
+| 18/01/2021 | Re-organización del proyecto |
+| 20/01/2021 | Crear Eventos |
+| 21/01/2021 | Pantalla de Evento en concreto |
+| 21/01/2021 | Pantalla de listado de eventos |
+| 21/01/2021 | Editar Evento / Eliminar |
+| 23/01/2021 | Detalles card UI de implementación |
+| 23/01/2021 | Creación de componentes restantes de la aplicación Web |
