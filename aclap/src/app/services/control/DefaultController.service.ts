@@ -226,7 +226,8 @@ export class DefaultController implements Controller{
 
     async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
         await this.authenticator.validate(Role.ANY);
-        return await this.database.addAnswer(implementationId, answer);
+        const session: Session = await this.authenticator.getSession();
+        return await this.database.addAnswer(implementationId, session.user_id, answer);
     }
 
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
@@ -254,7 +255,8 @@ export class DefaultController implements Controller{
     async addEvidence(implementationId: string, evidence: any): Promise<File>{
         await this.authenticator.validate(Role.ANY);
         const file: IFile = await this.storage.upload(evidence);
-        return await this.database.addEvidence(implementationId, file);
+        const session: Session = await this.authenticator.getSession();
+        return await this.database.addEvidence(implementationId, session.user_id, file);
     }
 
     async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{

@@ -1,4 +1,3 @@
-import { Question, IQuestion } from "../Question.model";
 import { Section, ISection } from "./Section.model";
 
 export interface IActivitySection extends ISection{
