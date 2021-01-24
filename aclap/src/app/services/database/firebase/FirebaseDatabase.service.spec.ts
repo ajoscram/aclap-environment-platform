@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { environment } from '@src/environments/environment';
 import { Database, DatabaseError } from "../Database.service";
 import { HttpClient } from '@angular/common/http';
-import { TEST_MODULE } from './FirebaseDatabase.service.spec.split';
+import { cleanup, TEST_MODULE } from './FirebaseDatabase.service.spec.split';
 import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
 
 describe('FirebaseDatabase', () => {
@@ -186,10 +185,18 @@ describe('FirebaseDatabase', () => {
     });
 
     it('addEducatorRequest(): fails if there is an existing PENDING educator request with the same email', async () => {
-        stubEducatorRequest.email = 'addEducatorRequestFAIL' + stubEducatorRequest.email;
+        stubEducatorRequest.email = 'addEducatorRequestFAIL_PENDING' + stubEducatorRequest.email;
         await database.addEducatorRequest(stubEducatorRequest);
         await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
             new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING)
+        );
+    });
+
+    it('addEducatorRequest(): fails if there is an existing user with the same email', async () => {
+        const user: User = await database.addUser(STUB_ID, stubAdministrator);
+        stubEducatorRequest.email = user.email;
+        await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
+            new Error(DatabaseError.USER_ALREADY_EXISTS)
         );
     });
 
@@ -205,7 +212,7 @@ describe('FirebaseDatabase', () => {
             expect(request.state).toBe(EducatorRequestState.PENDING);
     });
 
-    it('updateEducatorRequestState(): ', async () => {
+    it('updateEducatorRequestState(): updates the state of an existing educator request', async () => {
         const state: EducatorRequestState = EducatorRequestState.APPROVED;
         stubEducatorRequest.email = 'updateEducatorRequestState' + stubEducatorRequest.email;
         const added: EducatorRequest = await database.addEducatorRequest(stubEducatorRequest);
@@ -458,8 +465,8 @@ describe('FirebaseDatabase', () => {
 
     it('getAnswers(): gets a list of an implementation\'s answers', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await database.addAnswer(implementation.id, stubAnswer);
-        await database.addAnswer(implementation.id, stubAnswer);
+        await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
+        await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
         const answers: Answer[] = await database.getAnswers(implementation.id);
         expect(answers).toBeTruthy();
         expect(answers.length).toBe(2);
@@ -467,13 +474,13 @@ describe('FirebaseDatabase', () => {
 
     it('addAnswers(): adds an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const answer: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        const answer: Answer = await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
         expect(answer).toBeTruthy();
     });
 
     it('updateAnswer(): updates an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        const added: Answer = await database.addAnswer(implementation.id, STUB_ID ,stubAnswer);
         const updated: Answer = await database.updateAnswer(implementation.id, added.id, stubAnswer);
         expect(updated).toBeTruthy();
         expect(updated.id).toBe(added.id);
@@ -481,7 +488,7 @@ describe('FirebaseDatabase', () => {
 
     it('deleteAnswer(): deletes an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Answer = await database.addAnswer(implementation.id, stubAnswer);
+        const added: Answer = await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
         const deleted: Answer = await database.deleteAnswer(implementation.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
@@ -496,8 +503,8 @@ describe('FirebaseDatabase', () => {
 
     it('getEvidence(): gets a list of an implementation\'s evidence files', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await database.addEvidence(implementation.id, stubFile);
-        await database.addEvidence(implementation.id, stubFile);
+        await database.addEvidence(implementation.id, STUB_ID, stubFile);
+        await database.addEvidence(implementation.id, STUB_ID, stubFile);
         const evidence: File[] = await database.getEvidence(implementation.id);
         expect(evidence).toBeTruthy();
         expect(evidence.length).toBe(2);
@@ -505,13 +512,13 @@ describe('FirebaseDatabase', () => {
 
     it('addEvidence(): adds an evidence file and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const evidence: File = await database.addEvidence(implementation.id, stubFile);
+        const evidence: File = await database.addEvidence(implementation.id, STUB_ID, stubFile);
         expect(evidence).toBeTruthy();
     });
 
     it('deleteEvidence(): deletes an evidence file and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: File = await database.addEvidence(implementation.id, stubFile);
+        const added: File = await database.addEvidence(implementation.id, STUB_ID, stubFile);
         const deleted: File = await database.deleteEvidence(implementation.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
@@ -552,7 +559,7 @@ describe('FirebaseDatabase', () => {
 
     afterAll(async () => {
         const http: HttpClient = TestBed.inject(HttpClient);
-        await http.delete(`http://localhost:8080/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
+        await cleanup(http);
     });
 
 /*

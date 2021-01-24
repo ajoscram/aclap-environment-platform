@@ -11,6 +11,7 @@ export class DisplayQuestionsComponent implements OnInit {
   @Input() questions: Question[] = [];
   @Input() answers: Answer[] = [];
   @Input() editing: boolean = false;
+  @Input() editable: boolean = true;
   q_colors: any[] = [];
   colors: string[] = ["#555", "#F13939", "#FE760E", "#FAD621", "#A1FB2B", "#329F22"];
 
@@ -27,6 +28,7 @@ export class DisplayQuestionsComponent implements OnInit {
   }
 
   selectOption(index: number, option: number){
+    if ( !this.editable) { return; }
     if(this.q_colors[index].status === true && this.q_colors[index].option === option){
       /* UNSELECTED */
       this.q_colors[index] = {color: this.colors[0], status: false, option: option};

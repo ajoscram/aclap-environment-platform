@@ -1,8 +1,132 @@
+//get, list = read
+//create, delete, update = write
+//request.resource.data = incoming document
+//resource.data = existing document
+//request.auth.uid = user id who invoked
+//request.auth.token.role = custom claim roles
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+
+    function userIsAdmin(){
+      return request.auth.token.role == 'ADMINISTRATOR';
+    }
+
+    function userIsEducator(){
+      return request.auth.token.role == 'EDUCATOR';
+    }
+
+    match /constants/{constantID} {
+      allow read;
+      allow write: if userIsAdmin();
+    }
+
+    match /allies/{allyID} {
+      allow read;
+      allow write: if userIsAdmin();
+    }
+
+    match /requests/{requestID} {
+      function requestIsValid(){
+        return  request.resource.data.state == 'PENDING' ||
+                request.resource.data.state == 'APPROVED' ||
+                request.resource.data.state == 'REJECTED';
+      }
+
+      allow read: if userIsAdmin();
+      allow update: if userIsAdmin() && requestIsValid();
+      allow create: if requestIsValid();
+    }
+
+    match /users/{userID} {
+      function userIsThemselves(){
+        return request.auth.uid == userID && request.auth.uid == resource.data.id;
+      }
+
+      allow read;
+      allow write: if userIsAdmin() || userIsThemselves();
+    }
+
+    match /implementables/{implementableID} {
+
+      function implementableIsValid(){
+        return request.resource.data.tag == 'MODULE' || request.resource.data.tag == 'EVENT';
+      }
+      
+      allow read;
+      allow create, update: if userIsAdmin() && implementableIsValid();
+      allow delete: if userIsAdmin();
+
+      match /files/{fileID} {
+        allow read;
+        allow create, delete: if userIsAdmin();
+      }
+
+      match /questions/{questionID} {
+
+        function questionIsValid(){
+          return  request.resource.data.options['VERY_LOW'] is string &&
+                  request.resource.data.options['LOW'] is string &&
+                  request.resource.data.options['AVERAGE'] is string &&
+                  request.resource.data.options['HIGH'] is string &&
+                  request.resource.data.options['VERY_HIGH'] is string
+        }
+
+        allow read: if userIsAdmin() || userIsEducator();
+        allow create, update: if userIsAdmin() && questionIsValid();
+        allow delete: if userIsAdmin();
+      }
+
+      match /sections/{sectionID} {
+
+        function titleSectionIsValid(){
+          return  request.resource.data.size == null ||
+                  (request.resource.data.size == "H1" || request.resource.data.size == "H1");
+        }
+
+        allow read;
+        allow create, update: if userIsAdmin() && titleSectionIsValid();
+        allow delete: if userIsAdmin();
+      }
+    }
+
+    match /implementations/{implementationID} {
+
+      function userIsPublisher(){
+        return request.auth.uid == resource.data.educatorId;
+      }
+
+      function implementationIsCompleted(){
+        return resource.data.completed == true;
+      }
+
+      function implementationIsAvailable(){
+        return resource.data.completed == false && resource.data.deleted == false;
+      }
+
+      allow read: if (userIsAdmin() && implementationIsCompleted()) || userIsPublisher();
+      allow create: if userIsAdmin() || userIsEducator();
+      allow update: if userIsAdmin() || (userIsPublisher() && implementationIsAvailable());
+
+      match /evidence/{evidenceID} {
+        allow read: if userIsAdmin() || userIsEducator();
+        allow write: if userIsAdmin() || userIsPublisher();
+      }
+
+      match /answers/{answerID} {
+        function answerIsValid(){
+          return  request.resource.data.score == 'VERY_LOW' ||
+                  request.resource.data.score == 'LOW' || 
+                  request.resource.data.score == 'AVERAGE' || 
+                  request.resource.data.score == 'HIGH' || 
+                  request.resource.data.score == 'VERY_HIGH'; 
+        }
+
+        allow read: if userIsAdmin() || userIsPublisher();
+        allow create: if userIsAdmin() || userIsEducator() && answerIsValid();
+        allow update: if userIsPublisher() && answerIsValid();
+        allow delete: if userIsAdmin() && userIsPublisher();
+      }
     }
   }
 }

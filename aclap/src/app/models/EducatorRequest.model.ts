@@ -1,9 +1,9 @@
 import { Location, ILocation } from '.';
 
 export enum EducatorRequestState{
-    APPROVED,
-    DENIED,
-    PENDING
+    APPROVED = 'APPROVED',
+    DENIED = 'DENIED',
+    PENDING = 'PENDING'
 }
 
 export interface IEducatorRequest{

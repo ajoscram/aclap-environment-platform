@@ -374,7 +374,7 @@ export class MockDatabase implements Database{
         return [...this.answers];
     }
 
-    async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
+    async addAnswer(implementationId: string, userId: string, answer: IAnswer): Promise<Answer>{
         await this.getImplementation(implementationId);//checking for implementation existance
         const answer_: Answer = this.factory.getAnswer(this.nextId, answer);
         this.answers.push(answer_);
@@ -406,7 +406,7 @@ export class MockDatabase implements Database{
         return [...this.evidence];
     }
 
-    async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
+    async addEvidence(implementationId: string, userId: string, evidence: IFile): Promise<File>{
         await this.getImplementation(implementationId);//checking for implementation existance
         const evidence_: File = this.factory.getFile(this.nextId, evidence);
         this.evidence.push(evidence_);

@@ -61,7 +61,6 @@ export class FirebaseDatabase implements Database{
     
     async addUser(id: string, user: IUser): Promise<User>{
         this.validator.validateIUser(user);
-        user['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.USERS)
             .doc(id)
@@ -92,15 +91,25 @@ export class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING);
     }
 
+    private async checkUserDoesntExist(email: string): Promise<void>{
+        const query: QuerySnapshot<DocumentData> = await this.firestore
+        .collection(FirebaseDatabase.USERS, ref => ref
+            .where('email', '==', email)
+        )
+        .get().toPromise();
+        if(query.docs.length != 0)
+            throw new Error(DatabaseError.USER_ALREADY_EXISTS);
+    }
+
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         this.validator.validateIEducatorRequest(request);
         await this.checkRequestIsNotPending(request.email);
+        await this.checkUserDoesntExist(request.email);
         
         const id: string = this.firestore.createId();
         const state: EducatorRequestState = EducatorRequestState.PENDING;
         const issued: Date = new Date();
 
-        request['id'] = id;
         request['state'] = state;
         request['issued'] = issued;
 
@@ -121,7 +130,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document =>{
             const response: any = document.data();
-            const request: EducatorRequest = this.factory.getEducatorRequest(response.id, response.issued, response.state, response as IEducatorRequest);
+            const request: EducatorRequest = this.factory.getEducatorRequest(document.id, response.issued, response.state, response as IEducatorRequest);
             requests.push(request);
         });
         return requests;
@@ -136,7 +145,7 @@ export class FirebaseDatabase implements Database{
         if(!request)
             throw new Error(DatabaseError.EDUCATOR_REQUEST_NOT_FOUND);
         else
-            return this.factory.getEducatorRequest(request.id, request.issued, request.state, request as IEducatorRequest);
+            return this.factory.getEducatorRequest(document.id, request.issued, request.state, request as IEducatorRequest);
     }
 
     async updateEducatorRequestState(id: string, state: EducatorRequestState): Promise<EducatorRequest>{
@@ -159,7 +168,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const module: Module = <Module>this.factory.getImplementable(response.id, response as IModule);
+            const module: Module = <Module>this.factory.getImplementable(document.id, response as IModule);
             modules.push(module);
         });
         return modules;
@@ -174,7 +183,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const event: Event = <Event>this.factory.getImplementable(response.id, response as IModule);
+            const event: Event = <Event>this.factory.getImplementable(document.id, response as IModule);
             events.push(event);
         });
         return events;
@@ -205,7 +214,6 @@ export class FirebaseDatabase implements Database{
         this.validator.validateIImplementable(implementable);
         const id: string = this.firestore.createId();
         const implementable_: Implementable = this.factory.getImplementable(id, implementable);
-        implementable['id'] = id;
         implementable[FirebaseDatabase.IMPLEMENTABLE_TAG_KEY] = this.getImplementableTag(implementable_);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
@@ -243,7 +251,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const section: Section = this.factory.getSection(response.id, response as ISection);
+            const section: Section = this.factory.getSection(document.id, response as ISection);
             sections.push(section);
         });
         return sections;
@@ -266,7 +274,6 @@ export class FirebaseDatabase implements Database{
     async addSection(implementableId: string, section: ISection): Promise<Section>{
         this.validator.validateISection(section);
         const id: string = this.firestore.createId();
-        section['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
@@ -307,7 +314,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const file: File = this.factory.getFile(response.id, response as IFile);
+            const file: File = this.factory.getFile(document.id, response as IFile);
             files.push(file);
         });
         return files;
@@ -330,7 +337,6 @@ export class FirebaseDatabase implements Database{
     async addFile(implementableId: string, file: IFile): Promise<File>{
         this.validator.validateIFile(file);
         const id: string = this.firestore.createId();
-        file['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
@@ -368,7 +374,7 @@ export class FirebaseDatabase implements Database{
         query.docs.forEach(document => {
             const response: any = document.data();
             response.options = this.getOptionsMap(response.options);
-            const question: Question = this.factory.getQuestion(response.id, response as IQuestion);
+            const question: Question = this.factory.getQuestion(document.id, response as IQuestion);
             questions.push(question);
         });
         return questions;
@@ -407,7 +413,6 @@ export class FirebaseDatabase implements Database{
             .collection(FirebaseDatabase.QUESTIONS)
             .doc(id)
             .set({
-                id: id,
                 question: question.question,
                 options: options
             });
@@ -451,7 +456,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const implementation: Implementation = this.factory.getImplementation(response.id, response.deleted, response.completed, response as IImplementation);
+            const implementation: Implementation = this.factory.getImplementation(document.id, response.deleted, response.completed, response as IImplementation);
             implementations.push(implementation);
         });
         return implementations;
@@ -467,7 +472,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const implementation: Implementation = this.factory.getImplementation(response.id, response.deleted, response.completed, response as IImplementation);
+            const implementation: Implementation = this.factory.getImplementation(document.id, response.deleted, response.completed, response as IImplementation);
             implementations.push(implementation);
         });
         return implementations;
@@ -493,7 +498,6 @@ export class FirebaseDatabase implements Database{
         const completed: boolean = false;
         const deleted: boolean = false;
 
-        implementation['id'] = id;
         implementation['completed'] = completed;
         implementation['deleted'] = deleted;
         await this.firestore
@@ -522,7 +526,7 @@ export class FirebaseDatabase implements Database{
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(id)
-            .update({ 'deleted': true });
+            .update({ deleted: true });
         return implementation;
     }
     
@@ -532,7 +536,7 @@ export class FirebaseDatabase implements Database{
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(id)
-            .update({ 'completed': true });
+            .update({ completed: true });
         return implementation;
     }
     
@@ -545,7 +549,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const answer: Answer = this.factory.getAnswer(response.id, response as IAnswer);
+            const answer: Answer = this.factory.getAnswer(document.id, response as IAnswer);
             answers.push(answer);
         });
         return answers;
@@ -565,10 +569,10 @@ export class FirebaseDatabase implements Database{
             return this.factory.getAnswer(answerId, answer as IAnswer);
     }
 
-    async addAnswer(implementationId: string, answer: IAnswer): Promise<Answer>{
+    async addAnswer(implementationId: string, userId: string, answer: IAnswer): Promise<Answer>{
         this.validator.validateIAnswer(answer);
         const id: string = this.firestore.createId();
-        answer['id'] = id;
+        answer['educatorId'] = userId;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
@@ -609,16 +613,16 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const file: File = this.factory.getFile(response.id, response as IFile);
+            const file: File = this.factory.getFile(document.id, response as IFile);
             evidence.push(file);
         });
         return evidence;
     }
     
-    async addEvidence(implementationId: string, evidence: IFile): Promise<File>{
+    async addEvidence(implementationId: string, userId: string, evidence: IFile): Promise<File>{
         this.validator.validateIFile(evidence);
         const id: string = this.firestore.createId();
-        evidence['id'] = id;
+        evidence['educatorId'] = userId;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
@@ -660,7 +664,7 @@ export class FirebaseDatabase implements Database{
             .get().toPromise();
         query.docs.forEach(document => {
             const response: any = document.data();
-            const ally: Ally = this.factory.getAlly(response.id, response as IAlly);
+            const ally: Ally = this.factory.getAlly(document.id, response as IAlly);
             allies.push(ally);
         });
         return allies;
@@ -669,7 +673,6 @@ export class FirebaseDatabase implements Database{
     async addAlly(ally: IAlly): Promise<Ally>{
         this.validator.validateIAlly(ally);
         const id: string = this.firestore.createId();
-        ally['id'] = id;
         await this.firestore
             .collection(FirebaseDatabase.ALLIES)
             .doc(id)

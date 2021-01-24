@@ -67,6 +67,12 @@ import { EventPageComponent } from '@src/app/components/event-shared/event-page/
 import { EventsComponent } from '@src/app/components/event-shared/events/events.component';
 import { TGuideComponent } from '@src/app/components/event-shared/teaching-guide/teaching-guide.component';
 import { EditEventInfoComponent} from '@src/app/components/section-shared/edit/edit-event-info/edit-event-info.component';
+import { ImplementationDisplayComponent } from '@src/app/components/profile-shared/implementation-display/implementation-display.component';
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
+import { AlliesEditComponent } from '@src/app/components/allies-shared/allies-edit/allies-edit.component';
+import { ProfileEditComponent } from '@src/app/components/profile-shared/profile-edit/profile-edit.component';
+import { PasswordEditComponent } from '@src/app/components/shared/password-edit/password-edit.component';
+
 
 
 @NgModule({
@@ -121,7 +127,12 @@ import { EditEventInfoComponent} from '@src/app/components/section-shared/edit/e
     EventPageComponent,
     EventsComponent,
     TGuideComponent,
-    EditEventInfoComponent
+    EditEventInfoComponent,
+    ImplementationDisplayComponent,
+    AlliesComponent,
+    AlliesEditComponent,
+    ProfileEditComponent,
+    PasswordEditComponent
   ],
   imports: [
     BrowserModule,

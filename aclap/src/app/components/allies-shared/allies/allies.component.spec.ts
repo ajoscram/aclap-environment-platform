@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventEditComponent } from '@src/app/components/event-shared/event-edit/event-edit.component';
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
 
-describe('EventEditComponent', () => {
-  let component: EventEditComponent;
-  let fixture: ComponentFixture<EventEditComponent>;
+describe('AlliesComponent', () => {
+  let component: AlliesComponent;
+  let fixture: ComponentFixture<AlliesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EventEditComponent ]
+      declarations: [ AlliesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventEditComponent);
+    fixture = TestBed.createComponent(AlliesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
