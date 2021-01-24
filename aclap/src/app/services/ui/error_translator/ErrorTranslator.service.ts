@@ -12,7 +12,9 @@ export class ErrorTranslator{
 
     constructor(){ }
 
-    private getError(source: string, code: string): string{
+    private getError(message: string): string{
+        const source: string = message.split('.')[0];
+        const code: string = message.split('.')[1];
         if(environment.production && errors[source][code])
             return errors[source][code];
         else
@@ -27,11 +29,9 @@ export class ErrorTranslator{
     }
 
     translate(error: Error): string{
-        const message: string = error.message;
-        const source: string = message.split('.')[0];
-        const code: string = message.split('.')[1];
+        const message: string = error.message;        
         try{
-            return this.getError(source, code);
+            return this.getError(message);
         } catch(error) {
             return this.getDefault(message);
         }

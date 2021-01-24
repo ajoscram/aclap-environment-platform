@@ -178,7 +178,7 @@ export class Validator{
     validateIImplementation(implementation: IImplementation){
         this.validateNullOrUndefined(implementation);
         if(implementation.date > new Date())
-            throw new Error(ValidatorError.DATE_CANT_BE_FUTURE)
+            throw new Error(ValidatorError.IMPLEMENTATION_DATE_CANT_BE_FUTURE)
         else if(implementation.participants < 0)
             throw new Error(ValidatorError.PARTICIPANTS_LESS_THAN_ZERO)
         
@@ -216,7 +216,7 @@ export enum ValidatorError{
     JOINED_CANT_BE_FUTURE = "ValidatorError.JOINED_CANT_BE_FUTURE",
     UPLOADED_CANT_BE_FUTURE = "ValidatorError.UPLOADED_CANT_BE_FUTURE",
     BIRTHDAY_CANT_BE_FUTURE = "ValidatorError.BIRTHDAY_CANT_BE_FUTURE",
-    DATE_CANT_BE_FUTURE = "ValidatorError.DATE_CANT_BE_FUTURE",
+    IMPLEMENTATION_DATE_CANT_BE_FUTURE = "ValidatorError.IMPLEMENTATION_DATE_CANT_BE_FUTURE",
     DATE_CANT_BE_PAST = "ValidatorError.DATE_CANT_BE_PAST",
     UNKNOWN_IUSER = "ValidatorError.UNKNOWN_IUSER",
     UNKNOWN_ISECTION = "ValidatorError.UNKNOWN_ISECTION",
