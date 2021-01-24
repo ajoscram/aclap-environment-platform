@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActivitySection, Answer, File, Implementation, Location, Question } from '@src/app/models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
 import { Controller } from '@src/app/services/control/Controller.service';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { icon, latLng, marker, tileLayer } from 'leaflet';
 
 @Component({

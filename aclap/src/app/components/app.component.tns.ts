@@ -1,7 +1,9 @@
 import { Component, ViewChild} from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
-
+import { Role } from '@src/app/services/authentication/Session.model';
+import { Controller } from '../services/control/Controller.service';
+import { Session } from 'inspector';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +13,26 @@ import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 export class AppComponent {
   title = 'aclap';
 
-  constructor(private routerExtensions: RouterExtensions) { }
+  constructor(private controller: Controller, private routerExtensions: RouterExtensions) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   @ViewChild(RadSideDrawerComponent) sideDrawerComponent: RadSideDrawerComponent;
+
+  navigateToProfile_Login(): void {
+    this.controller.getSession()
+    .then(
+      session => {
+        this.routerExtensions.navigate(['perfil'], { clearHistory: false });
+        this.sideDrawerComponent.sideDrawer.closeDrawer();
+      })
+    .catch(_ => {
+      this.routerExtensions.navigate(['login'], { clearHistory: false });
+      this.sideDrawerComponent.sideDrawer.closeDrawer();
+    });
+  }
 
   navigateToHome(): void {
       this.routerExtensions.navigate(['inicio'], { clearHistory: false });

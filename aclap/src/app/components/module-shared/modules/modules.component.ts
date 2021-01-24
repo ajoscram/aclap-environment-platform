@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Controller } from '../../../services/control/Controller.service';
 import { Module } from '../../../models/implementables/Module.model';
 import { Role } from '@src/app/services/authentication/Session.model';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-modules',

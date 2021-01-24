@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivitySection, Event, File, ImageSection, ParagraphSection, Question, Section, TitleSection, TitleSectionSize, YoutubeVideoSection } from '@src/app/models';
 import { Controller } from '@src/app/services/control/Controller.service';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-event-edit',

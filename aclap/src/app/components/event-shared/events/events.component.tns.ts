@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '@src/app/models';
+import { Event } from '../../../models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-events',

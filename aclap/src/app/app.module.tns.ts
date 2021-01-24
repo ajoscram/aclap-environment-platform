@@ -31,7 +31,7 @@ import { EditDisplayerComponent } from '@src/app/components/section-shared/edit/
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 import { RegisterComponent } from '@src/app/components/shared/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { DatePipe } from '@angular/common';
 
 import { Controller } from '@src/app/services/control/Controller.service';
@@ -81,7 +81,7 @@ import { TempModule } from './temp.module.tns';
     AboutUsComponent
   ],
   imports: [
-    TempModule,
+    //TempModule,
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,

@@ -55,7 +55,11 @@ export class DisplayFilesComponent implements OnInit {
           okButtonText: "Ok"
       })
     }, function (e) {
-      //// Argument (e) is Error!
+      dialogs.alert({
+        title: "Error!",
+        message: "Hubo un error descargando el archivo, revise la conexion internet del dispositivo.",
+        okButtonText: "Ok"
+      })
     });
 
   }

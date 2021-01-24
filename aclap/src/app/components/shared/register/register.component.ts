@@ -6,7 +6,7 @@ import { EducatorRequest, EducatorRequestState, Location, ParagraphSection, Sect
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { Validator } from '@src/app/services/database/validation/Validator.service';
-import { ErrorTranslator } from '@src/app/services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-register',

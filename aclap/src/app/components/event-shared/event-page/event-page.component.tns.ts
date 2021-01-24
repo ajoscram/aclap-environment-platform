@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Event, File } from '@src/app/models';
+import { Event, File } from '../../../models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
 

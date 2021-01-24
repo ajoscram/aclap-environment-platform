@@ -12,7 +12,7 @@
             <Label text="- Poder subir evidencias de un módulo o evento." class="text-body" textWrap="true" ></Label>
             <Label text="- Ser un agente de cambio." class="text-body" textWrap="true" ></Label>
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="educatorForm" (ngSubmit)="onSubmit()">
 
                 <Label text="Nombre" class="text-subtitle"></Label>
                 <TextField formControlName="firstName" hint="Nombre" class="input input-border input-form"></TextField>
@@ -26,6 +26,9 @@
                 <Label text="Correo electrónico" class="text-subtitle"></Label>
                 <TextField formControlName="email" hint="usuario@correo.com" class="input input-border input-form"></TextField>
 
+                <Label text="Organización" class="text-subtitle"></Label>
+                <TextField formControlName="org" hint="Organización" class="input input-border input-form"></TextField>
+
                 <Label text="Dirección" class="text-subtitle"></Label>
                 <!-- <ContentView height="240" width="240">
                     <map:MapboxView
@@ -38,7 +41,7 @@
                         mapReady="onMapReady">
                     </map:MapboxView>
                   </ContentView> -->
-                <TextField formControlName="address" hint="Distrito, Canton, Provincia" class="input input-border input-form"></TextField>
+                <TextField formControlName="address" hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
                 
                 <Label text="Fecha de nacimiento" class="text-subtitle"></Label>
                 <DatePicker formControlName="birthDate" 

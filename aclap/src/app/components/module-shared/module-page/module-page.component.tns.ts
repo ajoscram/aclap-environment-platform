@@ -42,6 +42,20 @@ export class ModulePageComponent implements OnInit {
       .catch(error => console.error(error));
   }
 
+  getSession(): void{
+  }
+
+  navigateToQuestions_EducatorApplication(id): void {
+    this.controller.getSession()
+    .then(
+      session => {
+        this.routerExtensions.navigate(['preguntas', id], { clearHistory: false });
+      })
+    .catch(_ => {
+      this.routerExtensions.navigate(['educatorApplication'], { clearHistory: false });
+    });
+  }
+
   navigateToDisplayer(id): void {
     this.routerExtensions.navigate(['guia', id], { clearHistory: false });
   }

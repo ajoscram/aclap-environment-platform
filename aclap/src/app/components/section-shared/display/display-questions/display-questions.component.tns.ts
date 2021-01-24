@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from '@nativescript/angular';
 import { Controller } from '../../../../services/control/Controller.service';
 import { Implementation, Answer, Question, Module, User} from '../../../../models';
-import { ErrorTranslator } from '../../../../services/ui/ErrorTranslator.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { ListPicker } from '@nativescript/core/ui';
 import { openFilePicker } from 'nativescript-simple-filepicker';
 

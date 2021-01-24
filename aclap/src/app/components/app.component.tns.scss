@@ -5,18 +5,28 @@ $nav-color:#1c81a9;
 $gray-dark: #596668;
 $l-grey: #d3d8d8;
 
-.row-content{
-    margin: 0px auto;
-    padding: 15px 0px 50px 0px;
-    min-height: 100px;
+.btn-nav{
+    background-color: #d3d8d8;
+    color: #23AEE5;
+    font-size: 16;
+    border-radius: 4;
+    height: 50;
+    width: 200;
 }
 
-.jumbotron{
-    background-color: $jumbo-color;
-    color: whitesmoke;
-    padding: 90px 30px 20px 30px;
-    margin: 0px auto;
-    display: flex;
+.btn-nav:active{
+    background-color: #Ef6423;
+    color: #d3d8d8;
+    font-size: 16;
+    border-radius: 4;
+    height: 50;
+    width: 200;
+}
+
+.text-nav{
+    color: #d3d8d8;
+    font-size: 14;
+    margin-left: 28;
 }
 
 .img-header{

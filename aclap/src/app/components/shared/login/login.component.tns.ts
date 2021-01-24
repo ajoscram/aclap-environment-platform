@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from '../../../services/authentication/Session.model';
 import { Controller } from '../../../services/control/Controller.service';
+import { ErrorTranslator } from '../../../services/ui/error_translator/ErrorTranslator.service';
+import * as dialogs from '@nativescript/core/ui/dialogs';
+import { RouterExtensions } from '@nativescript/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isAdmin: boolean;
 
-  constructor(private controller: Controller, private builder: FormBuilder) { }
+  constructor(private controller: Controller, private builder: FormBuilder, private routerExtensions: RouterExtensions, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
     this.loginForm = this.builder.group({
@@ -28,9 +32,18 @@ export class LoginComponent implements OnInit {
     let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
     this.controller.login(usrname, password, role)
       .then(non => { 
-        window.location.reload();
+        dialogs.alert({
+          title: "Inicio de sesión",
+          message: "Se ingreso exitosamente a la sesión.",
+          okButtonText: "Ok"
+        })
+        this.routerExtensions.navigate(['inicio'], { clearHistory: false });
        })
-      .catch( );
+      .catch(
+        error => {
+          alert(this.translator.translate(error));
+        }
+      );
   }
 
 }
