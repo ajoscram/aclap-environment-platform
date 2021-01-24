@@ -28,7 +28,7 @@
         </div>
     </div>
     <div *ngFor="let imp of implementations" class="row">
-        <div class="card shadow">
+        <div class="card shadow" [routerLink]="['implementaciones','ver', imp.id]" >
             <div class="row">
                 <div class="col-md-6">
                     <span>Realizado por: {{ imp.educatorName }} {{ imp.educatorLastname }} </span>

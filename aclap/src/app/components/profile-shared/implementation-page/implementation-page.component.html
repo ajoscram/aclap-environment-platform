@@ -52,7 +52,7 @@
                     <label for="participants" class="col-2 col-form-label">Participantes</label>
                     <div class="col">
                         <select class="form-control" >
-                            <option *ngFor="let n of getRange(50)" value="n">
+                            <option *ngFor="let n of getRange(50)" [value]="n" [(ngModel)]="implementation.participants" >
                                 {{n}}
                             </option>
                         </select>

@@ -42,7 +42,7 @@ export class ImplementationListComponent implements OnInit {
 
   editOrView(implementation: Implementation){
     if(this.finished){
-      return ['/implementacion','editar',implementation.id];
+      return ['/implementacion','ver',implementation.id];
     }else if(this.unfinished){
       return ['/implementacion','editar',implementation.id];
     }else{

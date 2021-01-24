@@ -81,6 +81,10 @@ export const routes: Routes = [
         component: ImplementationPageComponent,
     },
     {
+        path: 'eventos/:id/nueva-implementacion',
+        component: ImplementationPageComponent,
+    },
+    {
         path: 'perfil/:name/:id/implementaciones',
         component: ImplementableImplementationsComponent
     },
