@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import * as passwords from './modules/passwords';
-import * as mail from './modules/mail';
+import * as passwords from './wrappers/passwords';
+import * as mail from './wrappers/mail';
 import { environment } from './environment';
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
 import { Educator, EducatorRequestState, EducatorRequest } from './models';
@@ -27,9 +27,7 @@ export const setupAuthDebug = functions.https.onRequest(async (req, res) => {
          email: environment.test_users.broken.email,
          password: environment.test_users.broken.password
       });
-   } catch(error){
-      console.log('Error creating debug users: ' + error);
-   }
+   } catch(error){ }
    res.end();
 });
 
@@ -37,9 +35,10 @@ export const setupAuthDebug = functions.https.onRequest(async (req, res) => {
 export const onRequestAccepted = functions.firestore
    .document(`${environment.collections.requests}/{requestId}`)
    .onUpdate(async (change, context) => {
+      const before: EducatorRequest = change.before.data() as EducatorRequest;
       const request: EducatorRequest = change.after.data() as EducatorRequest;
-      if(request.state == EducatorRequestState.APPROVED){
-         
+      if(before.state == EducatorRequestState.PENDING &&
+         request.state == EducatorRequestState.APPROVED){
          //adding user to authentication
          const password: string = passwords.generate();
          const user: UserRecord = await admin.auth().createUser({
@@ -67,6 +66,12 @@ export const onRequestAccepted = functions.firestore
          await document.set(educator);
 
          //send email to the user
-         await mail.welcome(educator, password);
+         try{
+            await mail.welcome(educator, password);
+         }catch(error){
+            //this could be handled by notifying the administrator via an email that it failed.
+            //For now a console.log() will do
+            console.error('Error while sending welcome email to new educator: ', educator.email, '\n', error);
+         }
       }
    });

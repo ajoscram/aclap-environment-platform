@@ -51,13 +51,13 @@ export abstract class Database{
 
     //answers
     getAnswers: (implementationId: string) => Promise<Answer[]>;
-    addAnswer: (implementationId: string, answer: IAnswer) => Promise<Answer>;
+    addAnswer: (implementationId: string, userId: string, answer: IAnswer) => Promise<Answer>;
     updateAnswer: (implementationId: string, answerId: string, answer: IAnswer) => Promise<Answer>;
     deleteAnswer: (implementationId: string, answerId: string) => Promise<Answer>;
 
     //evidence
     getEvidence: (implementationId: string) => Promise<File[]>;
-    addEvidence: (implementationId: string, evidence: IFile) => Promise<File>;
+    addEvidence: (implementationId: string, userId: string, evidence: IFile) => Promise<File>;
     deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
 
     //allies

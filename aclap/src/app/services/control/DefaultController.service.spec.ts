@@ -412,7 +412,7 @@ describe('DefaultController', () => {
         expect(deleted).toBeTruthy();
     });
 
-    it('addEvidence(): add\'s an evidence file', async () => {
+    it('addEvidence(): adds an evidence file', async () => {
         await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const evidence: File = await controller.addEvidence(implementation.id, STUB_IFILE);

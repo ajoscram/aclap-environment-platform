@@ -1,8 +1,8 @@
 import { Section, ISection } from "./Section.model";
 
-export enum TitleSectionSize{
-    H1,
-    H2
+export enum TitleSectionSize {
+    H1 = 'H1',
+    H2 = 'H2'
 }
 
 export interface ITitleSection extends ISection{
