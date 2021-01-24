@@ -1,9 +1,9 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
+* Agregar mensajes para todos los errores del sistema en `errors.ts`
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
-* Implementar `ErrorTranslator`
 * Implementar `FirebaseDatabase` para NativeScript
 * Implementar `FirebaseAuthenticator` para NativeScript
 * Implementar `FirebaseStorage` para NativeScript
@@ -14,6 +14,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 24/1/2021 | Implementar `ErrorTranslator` |
 | 23/1/2021 | Escribir las reglas de seguridad para Firebase |
 | 22/1/2021 | Agregar Educators cuando se aprueba su request mediante Cloud Functions |
 | 22/1/2021 | Probar `FirebaseAuthenticator` com el emulador |
