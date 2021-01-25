@@ -38,7 +38,10 @@ export class ImplementableImplementationsComponent implements OnInit {
         })
       .catch(_ => { this.router.navigateByUrl("/inicio"); });
 
-    this.controller.getImplementations(true, this.implementableId);
+    this.controller.getImplementations(true, this.implementableId)
+      .then( implementations => {
+        this.implementations = implementations;
+      });
   }
 
 }

@@ -47,9 +47,9 @@ export class ImplementationPageComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit(): void {
-    this.controller.draftImplementation(this.id)
-      .then(impl => {this.implementation = <Implementation> impl})
+  async ngOnInit() {
+    await this.controller.draftImplementation(this.id)
+      .then(impl => {this.implementation = <Implementation> impl; console.log(this.implementation)})
       .catch( err => { console.log(this.translator.translate(err)); } );
 
     this.controller.getQuestions(this.id)
