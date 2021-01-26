@@ -78,12 +78,7 @@ service cloud.firestore {
       }
 
       match /sections/{sectionID} {
-
-        function titleSectionIsValid(){
-          return  !("size" in request.resource.data) ||
-                  (request.resource.data.size == "H1" || request.resource.data.size == "H2");
-        }
-
+        
         allow read;
         allow create, update: if userIsAdmin();
         allow delete: if userIsAdmin();
@@ -94,10 +89,6 @@ service cloud.firestore {
 
       function userIsPublisher(){
         return resource != null && request.auth.uid == resource.data.educatorId;
-      }
-
-      function implementationIsCompleted(){
-        return resource != null && resource.data.completed == true;
       }
 
       function implementationIsAvailable(){
