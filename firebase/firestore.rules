@@ -40,7 +40,7 @@ service cloud.firestore {
 
     match /users/{userID} {
       function userIsThemselves(){
-        return request.auth.uid == userID && request.auth.uid == resource.data.id;
+        return request.auth.uid == userID && resource != null && request.auth.uid == resource.data.id;
       }
 
       allow read;
@@ -80,12 +80,12 @@ service cloud.firestore {
       match /sections/{sectionID} {
 
         function titleSectionIsValid(){
-          return  request.resource.data.size == null ||
-                  (request.resource.data.size == "H1" || request.resource.data.size == "H1");
+          return  !("size" in request.resource.data) ||
+                  (request.resource.data.size == "H1" || request.resource.data.size == "H2");
         }
 
         allow read;
-        allow create, update: if userIsAdmin() && titleSectionIsValid();
+        allow create, update: if userIsAdmin();
         allow delete: if userIsAdmin();
       }
     }
@@ -93,18 +93,18 @@ service cloud.firestore {
     match /implementations/{implementationID} {
 
       function userIsPublisher(){
-        return request.auth.uid == resource.data.educatorId;
+        return resource != null && request.auth.uid == resource.data.educatorId;
       }
 
       function implementationIsCompleted(){
-        return resource.data.completed == true;
+        return resource != null && resource.data.completed == true;
       }
 
       function implementationIsAvailable(){
-        return resource.data.completed == false && resource.data.deleted == false;
+        return resource != null && resource.data.completed == false && resource.data.deleted == false;
       }
 
-      allow read: if (userIsAdmin() && implementationIsCompleted()) || userIsPublisher();
+      allow read: if userIsPublisher() || userIsAdmin();
       allow create: if userIsAdmin() || userIsEducator();
       allow update: if userIsAdmin() || (userIsPublisher() && implementationIsAvailable());
 

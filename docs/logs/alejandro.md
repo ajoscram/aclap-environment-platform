@@ -1,7 +1,7 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Arreglar tests unitarios de `FirebaseDatabase` para que pasen con las reglas de seguridad de Firebase
+* Hostear la aplicación mediante Firebase Hosting para web.
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
 * Implementar `FirebaseDatabase` para NativeScript
@@ -14,6 +14,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 25/1/2021 | Arreglar tests unitarios de `FirebaseDatabase` para que pasen con las reglas de seguridad de Firebase |
 | 24/1/2021 | Agregar mensajes para todos los errores del sistema en `errors.ts` |
 | 24/1/2021 | Implementar `ErrorTranslator` |
 | 23/1/2021 | Escribir las reglas de seguridad para Firebase |

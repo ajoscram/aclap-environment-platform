@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
+import { environment } from '@src/environments/environment';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule, USE_EMULATOR as FIRESTORE_EMULATOR } from '@angular/fire/firestore';
+import { AngularFireAuth, AngularFireAuthModule, USE_EMULATOR as AUTH_EMULATOR } from '@angular/fire/auth';
+import { Factory } from '../factory/Factory.service';
+import { Validator } from '../validation/Validator.service';
 import { Database, DatabaseError } from "../Database.service";
-import { HttpClient } from '@angular/common/http';
-import { cleanup, TEST_MODULE } from './FirebaseDatabase.service.spec.split';
-import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IEducator, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
+import { FirebaseDatabase } from './FirebaseDatabase.service';
+import { DisciplineMetadata, IAdministrator, IDisciplineMetadata, IFile, File, IModule, ISection, Module, Section, User, IEvent, Implementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, IImplementation, Score, Implementation, IAnswer, IQuestion, Question, Answer, IAlly, Ally } from '../../../models';
 
 describe('FirebaseDatabase', () => {
 
-    const STUB_ID: string = 'id';
     const STUB_INCORRECT_ID: string = 'incorrect';
     const STUB_OPTIONS: Map<Score, string> = new Map();
     STUB_OPTIONS.set(Score.VERY_LOW, 'STUB_OPTIONS.VERY_LOW');
@@ -15,11 +20,13 @@ describe('FirebaseDatabase', () => {
     STUB_OPTIONS.set(Score.HIGH, 'STUB_OPTIONS.HIGH');
     STUB_OPTIONS.set(Score.VERY_HIGH, 'STUB_OPTIONS.VERY_HIGH');
     
+    let http: HttpClient
     let database: Database;
+
+    let administrator_id: string;
     let stubDisciplineMetadata: IDisciplineMetadata;
     let stubEducatorRequest: IEducatorRequest
     let stubAdministrator: IAdministrator;
-    let stubEducator: IEducator;
     let stubModule: IModule;
     let stubEvent: IEvent;
     let stubSection: ISection;
@@ -29,9 +36,37 @@ describe('FirebaseDatabase', () => {
     let stubAnswer: IAnswer;
     let stubAlly: IAlly;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule(TEST_MODULE);
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports:[
+                AngularFireModule.initializeApp(environment.firebaseConfig),
+                AngularFirestoreModule,
+                AngularFireAuthModule,
+                HttpClientModule
+            ],
+            providers: [
+                Factory,
+                Validator,
+                { provide: Database, useClass: FirebaseDatabase },
+                { provide: FIRESTORE_EMULATOR, useValue: [ 
+                    environment.testing.address,
+                    environment.testing.ports.FIRESTORE 
+                ] },
+                { provide: AUTH_EMULATOR, useValue: [
+                    environment.testing.address,
+                    environment.testing.ports.AUTH
+                ]}
+            ]
+        });
+        http = TestBed.inject(HttpClient);
         database = TestBed.inject(Database);
+        try{
+            await http.get(`http://${environment.testing.address}:${environment.testing.ports.FUNCTIONS}/${environment.firebaseConfig.projectId}/us-central1/setupAuthDebug`).toPromise();
+        } catch(error){ }
+        const authentication: AngularFireAuth = TestBed.inject(AngularFireAuth);
+        const user: firebase.default.auth.UserCredential = await authentication.signInWithEmailAndPassword(environment.testing.users.administrator.email, environment.testing.users.administrator.password);
+        
+        administrator_id = user.user.uid;
         stubDisciplineMetadata = {
             subjects: [
                 { name: 'subject1', color: '#FFFFFF'},
@@ -43,7 +78,7 @@ describe('FirebaseDatabase', () => {
         stubEducatorRequest = {
             name: 'STUB_IEDUCATORREQUEST.name',
             lastname: 'STUB_IEDUCATORREQUEST.lastname',
-            email: '@email.com',
+            email: 'STUB_IEDUCATORREQUEST@email.com',
             phone: '88888888',
             birthday: new Date(),
             organization: 'STUB_IEDUCATORREQUEST.organization',
@@ -57,29 +92,14 @@ describe('FirebaseDatabase', () => {
             imageUrl: 'https://example.com/image.jpg',
             name: 'STUB_ADMINISTRATOR.name',
             lastname: 'STUB_ADMINISTRATOR.lastname',
-            email: 'example@email.com'
-        };
-        stubEducator = {
-            imageUrl: 'STUB_EDUCATOR.imageUrl',
-            name: 'STUB_EDUCATOR.name',
-            lastname: 'STUB_EDUCATOR.lastname',
-            email: 'STUB_EDUCATOR.email',
-            phone: 'STUB_EDUCATOR.phone',
-            birthday: new Date(),
-            organization: 'STUB_EDUCATOR.organization',
-            address: {
-                name: 'STUB_EDUCATOR.address.name',
-                latitude: 0,
-                longitude: 0
-            },
-            joined: new Date()
+            email: user.user.email
         };
         stubModule = {
             name: 'name',
             color: '#EF6423',
             imageUrl: 'https://example.com/image.jpg',
             bannerImageUrl: 'https://example.com/image.jpg',
-            publisherId: 'publisherId',
+            publisherId: administrator_id,
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
             recommendedAge: '1',
@@ -101,7 +121,7 @@ describe('FirebaseDatabase', () => {
             color: '#EF6423',
             imageUrl: 'https://example.com/image.jpg',
             bannerImageUrl: 'https://example.com/image.jpg',
-            publisherId: 'publisherId',
+            publisherId: administrator_id,
             publisherName: 'publisherName',
             publisherLastname: 'publisherLastname',
             objective: 'objective',
@@ -129,7 +149,7 @@ describe('FirebaseDatabase', () => {
                 latitude: 0,
                 longitude: 2
             },
-            educatorId: 'stubImplementation.educatorId',
+            educatorId: administrator_id,
             educatorName: 'stubIImplementation.educatorName',
             educatorLastname: 'stubIImplementation.educatorLastname',
             implementableId: 'stubIImplementation.implementableId',
@@ -161,12 +181,12 @@ describe('FirebaseDatabase', () => {
     });
 
     it('addUser(): adds a new user and returns it', async () => {
-        const user: User = await database.addUser(STUB_ID, stubAdministrator);
+        const user: User = await database.addUser(administrator_id, stubAdministrator);
         expect(user).toBeTruthy();
     });
 
     it('getUser(): gets an existing user given their id', async () => {
-        const added: User = await database.addUser(STUB_ID, stubAdministrator);
+        const added: User = await database.addUser(administrator_id, stubAdministrator);
         const gotten: User = await database.getUser(added.id);
         expect(gotten).toBeTruthy();
         expect(gotten.id).toBe(added.id);
@@ -193,7 +213,7 @@ describe('FirebaseDatabase', () => {
     });
 
     it('addEducatorRequest(): fails if there is an existing user with the same email', async () => {
-        const user: User = await database.addUser(STUB_ID, stubAdministrator);
+        const user: User = await database.addUser('user_id', stubAdministrator);
         stubEducatorRequest.email = user.email;
         await expectAsync(database.addEducatorRequest(stubEducatorRequest)).toBeRejectedWith(
             new Error(DatabaseError.USER_ALREADY_EXISTS)
@@ -465,8 +485,8 @@ describe('FirebaseDatabase', () => {
 
     it('getAnswers(): gets a list of an implementation\'s answers', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
-        await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
+        await database.addAnswer(implementation.id, administrator_id, stubAnswer);
+        await database.addAnswer(implementation.id, administrator_id, stubAnswer);
         const answers: Answer[] = await database.getAnswers(implementation.id);
         expect(answers).toBeTruthy();
         expect(answers.length).toBe(2);
@@ -474,13 +494,13 @@ describe('FirebaseDatabase', () => {
 
     it('addAnswers(): adds an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const answer: Answer = await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
+        const answer: Answer = await database.addAnswer(implementation.id, administrator_id, stubAnswer);
         expect(answer).toBeTruthy();
     });
 
     it('updateAnswer(): updates an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Answer = await database.addAnswer(implementation.id, STUB_ID ,stubAnswer);
+        const added: Answer = await database.addAnswer(implementation.id, administrator_id ,stubAnswer);
         const updated: Answer = await database.updateAnswer(implementation.id, added.id, stubAnswer);
         expect(updated).toBeTruthy();
         expect(updated.id).toBe(added.id);
@@ -488,7 +508,7 @@ describe('FirebaseDatabase', () => {
 
     it('deleteAnswer(): deletes an answer and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: Answer = await database.addAnswer(implementation.id, STUB_ID, stubAnswer);
+        const added: Answer = await database.addAnswer(implementation.id, administrator_id, stubAnswer);
         const deleted: Answer = await database.deleteAnswer(implementation.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
@@ -503,8 +523,8 @@ describe('FirebaseDatabase', () => {
 
     it('getEvidence(): gets a list of an implementation\'s evidence files', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        await database.addEvidence(implementation.id, STUB_ID, stubFile);
-        await database.addEvidence(implementation.id, STUB_ID, stubFile);
+        await database.addEvidence(implementation.id, administrator_id, stubFile);
+        await database.addEvidence(implementation.id, administrator_id, stubFile);
         const evidence: File[] = await database.getEvidence(implementation.id);
         expect(evidence).toBeTruthy();
         expect(evidence.length).toBe(2);
@@ -512,13 +532,13 @@ describe('FirebaseDatabase', () => {
 
     it('addEvidence(): adds an evidence file and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const evidence: File = await database.addEvidence(implementation.id, STUB_ID, stubFile);
+        const evidence: File = await database.addEvidence(implementation.id, administrator_id, stubFile);
         expect(evidence).toBeTruthy();
     });
 
     it('deleteEvidence(): deletes an evidence file and returns it', async () => {
         const implementation: Implementation = await database.addImplementation(stubImplementation);
-        const added: File = await database.addEvidence(implementation.id, STUB_ID, stubFile);
+        const added: File = await database.addEvidence(implementation.id, administrator_id, stubFile);
         const deleted: File = await database.deleteEvidence(implementation.id, added.id);
         expect(deleted).toBeTruthy();
         expect(deleted.id).toBe(added.id);
@@ -558,8 +578,8 @@ describe('FirebaseDatabase', () => {
     });
 
     afterAll(async () => {
-        const http: HttpClient = TestBed.inject(HttpClient);
-        await cleanup(http);
+        await http.delete(`http://${environment.testing.address}:${environment.testing.ports.FIRESTORE}/emulator/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`).toPromise();
+        await http.delete(`http://${environment.testing.address}:${environment.testing.ports.AUTH}/emulator/v1/projects/${environment.firebaseConfig.projectId}/accounts`).toPromise();
     });
 
 /*
