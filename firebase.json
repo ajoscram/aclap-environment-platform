@@ -10,7 +10,7 @@
     ]
   },
   "hosting": {
-    "public": "public",
+    "public": "aclap/dist/aclap",
     "ignore": [
       "firebase.json",
       "**/.*",

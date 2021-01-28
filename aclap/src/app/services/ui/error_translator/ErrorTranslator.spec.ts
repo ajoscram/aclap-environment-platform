@@ -2,7 +2,7 @@ import { ErrorTranslator } from './ErrorTranslator.service';
 import { errors } from './errors';
 import { environment } from '../../../../environments/environment';
 
-fdescribe('ErrorTranslator', () => {
+describe('ErrorTranslator', () => {
 
     const translator: ErrorTranslator = new ErrorTranslator();
     const source: string  = 'Source';
