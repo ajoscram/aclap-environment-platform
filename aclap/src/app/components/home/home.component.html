@@ -10,8 +10,8 @@
             </h1>
         </div>
         <div class="col-12 mt-3">
-            <p class="text-justify">
-                {{initial_message}}
+            <p class="text-justify" *ngFor="let paragraph of initial_message.split('\n') ">
+                {{paragraph}}
             </p>
         </div>
     </div>

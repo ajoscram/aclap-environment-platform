@@ -4,9 +4,11 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col-12">
-            <h1>
-                Acerca de
-            </h1>
+            <span>
+                <h1>
+                    Acerca de <img class="img-fluid" style="width: 20%;" src="../../../assets/logo-alpha.png" alt="ACLA-P EDUCA">
+                </h1>
+            </span>
         </div>
         <div class="col-12 mt-3">
             <p class="text-justify" *ngFor="let part of aboutUsText.split('\n')">
@@ -15,11 +17,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
-            <img class="img-fluid" src="../../../assets/aclap-logo.png">
+        <div class="col-2 d-flex justify-content-center">
+            <a href="http://www.sinac.go.cr/ES/ac/aclap/Paginas/default.aspx" style="width: 100%; margin-top: 50px;"> 
+                <img class="img-fluid" href="http://www.sinac.go.cr/ES/ac/aclap/Paginas/default.aspx" style="width: 100%;" src="../../../assets/aclap-logo.svg"> 
+            </a>
         </div>
         <div class="col">
             <img class="img-fluid" src="../../../assets/logo-alpha.png">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <h2> Términos y Condiciones</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-justify">
+                Las herramientas, información y materiales descargables que se comparten son para uso educativo solamente. No se permite la reproducción de estos con fines comerciales. Por favor respetar los créditos que se encuentran especificados.
+            </p>
         </div>
     </div>
 </div>
