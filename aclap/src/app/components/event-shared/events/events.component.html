@@ -1,13 +1,13 @@
-<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url(https://images.unsplash.com/photo-1549858701-f9f884177791?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)'}">
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url('+ bg_img +')'}">
 
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
             <h1>Eventos</h1>
         </div>
-        <div class="col-12"> <!--CHANGE TO STRINGS FROM FIREBASE-->
+        <div class="col-12 mt-3"> <!--CHANGE TO STRINGS FROM FIREBASE-->
             <p class="text-justify">
                 {{ description }}
             </p>

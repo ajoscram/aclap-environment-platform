@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
-            <span class="navbar-toggler-icon order-xs-1"></span>
+        <button class="navbar-toggler order-xs-2" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <img class="d-block d-sm-none" src="../../../../assets/logo-alpha.png" height="30">
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="Navbar">

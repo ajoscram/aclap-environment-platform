@@ -33,6 +33,7 @@ $l-grey: #d3d8d8;
 
 .header-image{
     background-size: cover;
+    background-position: 50% 85%; 
 }
 
 .button{
@@ -46,6 +47,7 @@ $l-grey: #d3d8d8;
 
 .jumbotron{
     background-color: $nav-color;
+    min-height: 200px;
     color: whitesmoke;
     padding: 90px 30px 20px 30px;
     margin: 0px auto;
