@@ -173,7 +173,9 @@ export class DefaultController implements Controller{
         const implementable: Implementable = await this.database.getImplementable(implementableId);
         return {
             date: new Date(),
-            participants: null,
+            maleParticipants: null,
+            femaleParticipants: null,
+            otherParticipants: null,
             location: null,
             educatorId: user.id,
             educatorName: user.name,

@@ -56,7 +56,9 @@ describe('DefaultController', () => {
     };
     const STUB_IIMPLEMENTATION: IImplementation = {
         date: new Date(),
-        participants: 1,
+        maleParticipants: 1,
+        femaleParticipants: 1,
+        otherParticipants: 1,
         location: {
             name: 'stubIImplementation.name',
             latitude: 0,
@@ -81,7 +83,6 @@ describe('DefaultController', () => {
 
     const STUB_IALLY: IAlly = {
         name: 'STUB_ALLY.name',
-        description: 'STUB_ALLY.description',
         imageUrl: 'STUB_ALLY.imageUrl',
         link: 'STUB_ALLY.link'
     }

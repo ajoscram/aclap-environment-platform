@@ -179,7 +179,9 @@ export class Validator{
         this.validateNullOrUndefined(implementation);
         if(implementation.date > new Date())
             throw new Error(ValidatorError.IMPLEMENTATION_DATE_CANT_BE_FUTURE)
-        else if(implementation.participants < 0)
+        else if(implementation.femaleParticipants < 0 ||
+                implementation.maleParticipants < 0 ||
+                implementation.otherParticipants < 0)
             throw new Error(ValidatorError.PARTICIPANTS_LESS_THAN_ZERO)
         
         this.validateILocation(implementation.location)

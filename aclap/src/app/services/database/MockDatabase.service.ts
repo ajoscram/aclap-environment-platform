@@ -89,8 +89,8 @@ export class MockDatabase implements Database{
         ];
 
         this.implementations = [
-            new Implementation(this.nextId, false, false, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name),
-            new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name)
+            new Implementation(this.nextId, false, false, new Date(), 23, 10, 9, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name),
+            new Implementation(this.nextId, false, true, new Date(), 0, 23, 1, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name)
         ];
         this.answers = [
             new Answer(this.nextId, this.questions[0].id, '¿Esto es una pregunta?', 'Mal', Score.LOW),
@@ -102,8 +102,8 @@ export class MockDatabase implements Database{
         ];
 
         this.allies = [
-            new Ally(this.nextId, 'Gobierno de Costa Rica', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', 'https://pbs.twimg.com/profile_images/997218681221349376/bfAbN2Bh.jpg', 'https://www.presidencia.go.cr/'),
-            new Ally(this.nextId, 'Programa de las Naciones Unidas para el Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', 'https://inventariandocr.files.wordpress.com/2015/07/pnud.jpg', 'https://www.cr.undp.org/')
+            new Ally(this.nextId, 'Gobierno de Costa Rica', 'https://pbs.twimg.com/profile_images/997218681221349376/bfAbN2Bh.jpg', 'https://www.presidencia.go.cr/'),
+            new Ally(this.nextId, 'Programa de las Naciones Unidas para el Desarrollo', 'https://inventariandocr.files.wordpress.com/2015/07/pnud.jpg', 'https://www.cr.undp.org/')
         ]
     }
 

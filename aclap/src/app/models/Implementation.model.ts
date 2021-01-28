@@ -2,7 +2,9 @@ import { Location, ILocation } from '.';
 
 export interface IImplementation{
     date: Date,
-    participants: number,
+    maleParticipants: number,
+    femaleParticipants: number,
+    otherParticipants: number,
     location: ILocation,
     educatorId: string,
     educatorName: string,
@@ -17,7 +19,9 @@ export class Implementation implements IImplementation{
         public deleted: boolean,
         public completed: boolean,
         public date: Date,
-        public participants: number,
+        public maleParticipants: number,
+        public femaleParticipants: number,
+        public otherParticipants: number,
         public location: Location,
         public educatorId: string,
         public educatorName: string,

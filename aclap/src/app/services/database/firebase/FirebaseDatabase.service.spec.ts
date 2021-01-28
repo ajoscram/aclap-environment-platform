@@ -143,7 +143,9 @@ describe('FirebaseDatabase', () => {
         };
         stubImplementation = {
             date: new Date(),
-            participants: 1,
+            maleParticipants: 1,
+            femaleParticipants: 1,
+            otherParticipants: 1,
             location: {
                 name: 'stubIImplementation.name',
                 latitude: 0,
@@ -163,7 +165,6 @@ describe('FirebaseDatabase', () => {
         };
         stubAlly = {
             name: 'STUB_ALLY.name',
-            description: 'STUB_ALLY.description',
             imageUrl: 'https://example.com/image.jpg',
             link: 'https://example.com',
         }
