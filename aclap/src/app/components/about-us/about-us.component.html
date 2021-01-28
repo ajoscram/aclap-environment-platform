@@ -1,1 +1,25 @@
-<p>about-us works!</p>
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url(https://www.visitcentroamerica.com/wp-content/uploads/2018/01/ver-centroamerica-costa-rica-parque-nacional-chirripo-3.jpg)'}">
+
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1>
+                Acerca de
+            </h1>
+        </div>
+        <div class="col-12 mt-3">
+            <p class="text-justify" *ngFor="let part of aboutUsText.split('\n')">
+                {{ part }}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <img class="img-fluid" src="../../../assets/aclap-logo.png">
+        </div>
+        <div class="col">
+            <img class="img-fluid" src="../../../assets/logo-alpha.png">
+        </div>
+    </div>
+</div>

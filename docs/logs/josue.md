@@ -79,3 +79,4 @@
 | 21/01/2021 | Editar Evento / Eliminar |
 | 23/01/2021 | Detalles card UI de implementación |
 | 23/01/2021 | Creación de componentes restantes de la aplicación Web |
+| 23/01/2021 | Bugs corregidos |

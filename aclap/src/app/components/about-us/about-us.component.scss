@@ -1,0 +1,43 @@
+@use '../app.component.scss';
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+    }
+}
+
+.jumbotron{
+    background-color: app.$jumbo-color;
+    color: whitesmoke;
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-bg{
+    height: 300px;
+}
+
+.btn-goto{
+    background-color: app.$button-color;
+    color: white;
+}
+
+.row-content{
+    margin: 0px auto;
+    padding: 15px 0px 50px 0px;
+    min-height: 100px;
+}
