@@ -1,4 +1,4 @@
-import { Checkable } from '..';
+import { Checkable } from '../Checkable.model';
 
 export interface IImplementable{
     name: string,

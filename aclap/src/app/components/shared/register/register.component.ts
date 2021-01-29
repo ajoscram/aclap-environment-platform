@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
   gotLocation: boolean;
   request: EducatorRequest;
 
+  bg_img = "https://i.imgur.com/06NXUmI.jpeg";
+
+  description = "Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.";
 
 
   constructor(private controller: Controller,private builder: FormBuilder, private translator: ErrorTranslator, private router: Router, private geoApi: GeoApiService) { }
@@ -27,13 +30,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),null,"",null,EducatorRequestState.PENDING);
 
-    let titles:TitleSection[] = [new TitleSection("_-", 0, TitleSectionSize.H1, "¿Qué es una persona educadora?"), new TitleSection("__", 2, TitleSectionSize.H1, "Beneficios de una persona educadora")];
-    const parags: ParagraphSection[] = [new ParagraphSection("__",1,""), new ParagraphSection("__",3,"- Poder subir evidencias de un módulo o evento\n- Ser un agente de cambio.")];
+    const parags: ParagraphSection[] = [new ParagraphSection("__",1,"Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.")];
 
     this.texts = new Array();
-    titles.forEach(element => {
-      this.texts.push(element)  
-    });
     parags.forEach(element => {
       this.texts.push(element)
     });

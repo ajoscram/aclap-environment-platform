@@ -1,10 +1,8 @@
 <div class="row d-flex justify-content-center">
     <div class="col-auto">
         <div class="card shadow-sm">
-            <div class="kalim">
-                <img class="mx-auto d-block" src="{{ image.url }}" alt="Card image cap">
-            </div>
-            <div class="container-fluid">
+            <div class="image" [ngStyle]="{backgroundImage:'url('+ image.url +')'}"></div>
+            <div class="card-body">
                 <div class="row">
                     <div class="col-12">
                         <p class="text-center"> {{ image.footing }}</p>
@@ -19,5 +17,3 @@
         </div>
     </div>
 </div>
-
-<!--https://i.redd.it/g8sa3mom80w31.png-->

@@ -24,11 +24,13 @@ export class ImplementationDisplayComponent implements OnInit {
   layers = {};
 
   constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) {
-    
-   }
+    /* ID OF THE IMPLEMENTATION */
+    this.id = this.route.snapshot.paramMap.get('id');  
+  }
 
   async ngOnInit() {
     /* AWAIT FOR THE IMPLEMENTATION */
+    console.log("display imp:", this.id);
 
     await this.controller.getImplementation(this.id)
       .then(implementation => { 
@@ -36,7 +38,7 @@ export class ImplementationDisplayComponent implements OnInit {
         this.currentPosition = implementation.location.name;
 
       })
-      .catch( err => { alert(this.translator.translate(err)); })
+      .catch( err => { alert(this.translator.translate(err)); this.router.navigateByUrl('/perfil') })
 
       this.controller.getEvidence(this.id)
       .then( files => { this.files = files;} )

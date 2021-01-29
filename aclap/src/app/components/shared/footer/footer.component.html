@@ -8,34 +8,26 @@
 <footer class="footer">
     <div class="container">
         <div class="row">             
-            <div class="col-6 offset-1 col-sm-2">
+            <div class="col-6 ">
                 <ul class="list-unstyled footer-text">
-                    <!--TODO: USE THE ROUTER-->
                     <li><a [routerLink]="['/inicio']">Inicio</a></li>
                     <li><a [routerLink]="['/perfil']">Perfil</a></li>
                     <li><a [routerLink]="['/modulos']">Módulos</a></li>
                     <li><a [routerLink]="['/eventos']">Eventos</a></li>
-                    <li><a>Acerca de</a></li>
+                    <li><a [routerLink]="['/acerca-de']">Acerca de</a></li>
+                    <li><a [routerLink]="['/aliados']">Aliados administrativos</a></li>
                 </ul>
             </div>
-            <div class="col-3 offset-xs-1 offset-sm-2 col-sm-3">
-                <!--TODO: USE THE ROUTER-->
+            <div class="col-6 d-flex justify-content-end">
                 <ul class="list-unstyled footer-text">
                     <li><a [routerLink]="['/persona-educadora']">Persona Educadora</a></li>
                     <li><a [routerLink]="['/login']">Ingresar</a></li>
                 </ul>
             </div>
-            <div class="col-12 offset-xs-1 col-sm-4 align-self-center">
-                <h4 style="color: white;">Aliados</h4>
-                <!--TODO: Change for the ANGULAR EQUIVALENT with and ARRAY as a parameter-->
-                <ul class="list-unstyled footer-text">
-                    <li *ngFor="let ally of allies"><a>{{ally}}</a></li>
-                </ul>
-            </div>
        </div>
        <div class="row justify-content-center">             
             <div class="col-auto" style="color: white;">
-                <p>© Copyright 2020 EDUCA-ACLAP</p>
+                <p>© Copyright 2020-2021 ACLA-P EDUCA</p>
             </div>
        </div>
     </div>

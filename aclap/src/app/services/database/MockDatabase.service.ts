@@ -48,19 +48,19 @@ export class MockDatabase implements Database{
         ];
 
         this.implementables = [
-            new Module(this.nextId, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
-                new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
+            new Module(this.nextId, 'MI ENTORNO', '#FAB521', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', [
+                new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.')
             ]),
-            new Module(this.nextId, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Antecedentes', [
-                new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Eje temático.'),
-                new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Eje temático.')
+            new Module(this.nextId, 'MI AGUA', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Entre 5 y 10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero.', [
+                new Discipline(this.disciplineMetadata.subjects[0], '2do Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[2], '4to Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[0], '3er Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[1], '3er Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.'),
+                new Discipline(this.disciplineMetadata.subjects[2], '5to Año', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus semper elit et lobortis. In interdum velit at odio tristique lacinia. Aenean egestas, augue eu.')
             ]),
             new Event(this.nextId, 'Día de la Danta', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', new Date()),
             new Event(this.nextId, 'Día del Agua', '#EF6423', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', 'https://ecosistemas.ovacen.com/wp-content/uploads/2018/02/ecosistema-manglar.jpg', '0', 'Admin', 'McUsername', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', new Date()),
@@ -68,13 +68,13 @@ export class MockDatabase implements Database{
         ];
 
         this.sections = [
-            new TitleSection(this.nextId, 0, TitleSectionSize.H1, 'Título Grande'),
-            new ImageSection(this.nextId, 1, 'Pie de foto', 'https://media.nationalgeographic.org/assets/photos/000/284/28446.jpg', 'Referencia'),
-            new TitleSection(this.nextId, 2, TitleSectionSize.H2, 'Subtítulo'),
-            new ParagraphSection(this.nextId, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+            new TitleSection(this.nextId, 0, TitleSectionSize.H1, 'Aenean elementum'),
+            new ImageSection(this.nextId, 1, 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua', 'https://media.nationalgeographic.org/assets/photos/000/284/28446.jpg', 'National Geographic'),
+            new TitleSection(this.nextId, 2, TitleSectionSize.H2, 'Cras id est ipsum. Cras'),
+            new ParagraphSection(this.nextId, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
             new ActivitySection(this.nextId, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 30, 'Herramientas listadas acá'),
-            new TitleSection(this.nextId, 5, TitleSectionSize.H2, 'Otro subtítulo'),
-            new ParagraphSection(this.nextId, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+            new TitleSection(this.nextId, 5, TitleSectionSize.H2, 'Donec sit amet'),
+            new ParagraphSection(this.nextId, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis arcu eget placerat semper. Duis ac elementum orci, eu hendrerit ex. Vestibulum sit amet lobortis ligula. Nunc vel lectus faucibus, fringilla metus eu, cursus tortor. Aliquam sodales sodales nisl nec egestas. Fusce a neque vel velit egestas maximus. Aenean at turpis sit amet nibh laoreet iaculis. Pellentesque egestas tortor quis viverra viverra. Maecenas non lacinia neque, sit amet vehicula libero. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
             new YoutubeVideoSection(this.nextId, 7, 'https://www.youtube.com/watch?v=XqZsoesa55w')
         ];
 
@@ -89,8 +89,8 @@ export class MockDatabase implements Database{
         ];
 
         this.implementations = [
-            new Implementation(this.nextId, false, false, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name),
-            new Implementation(this.nextId, false, true, new Date(), 23, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name)
+            new Implementation(this.nextId, false, false, new Date(), 23, 10, 9, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name),
+            new Implementation(this.nextId, false, true, new Date(), 0, 23, 1, new Location('Paraiso, Cartago', 80.123, 72.3), this.users[0].id, this.users[0].name, this.users[0].lastname, this.implementables[0].id, this.implementables[0].name)
         ];
         this.answers = [
             new Answer(this.nextId, this.questions[0].id, '¿Esto es una pregunta?', 'Mal', Score.LOW),
@@ -102,8 +102,8 @@ export class MockDatabase implements Database{
         ];
 
         this.allies = [
-            new Ally(this.nextId, 'Gobierno de Costa Rica', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'https://pbs.twimg.com/profile_images/997218681221349376/bfAbN2Bh.jpg', 'https://www.presidencia.go.cr/'),
-            new Ally(this.nextId, 'Programa de las Naciones Unidas para el Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'https://inventariandocr.files.wordpress.com/2015/07/pnud.jpg', 'https://www.cr.undp.org/')
+            new Ally(this.nextId, 'Gobierno de Costa Rica', 'https://pbs.twimg.com/profile_images/997218681221349376/bfAbN2Bh.jpg', 'https://www.presidencia.go.cr/'),
+            new Ally(this.nextId, 'Programa de las Naciones Unidas para el Desarrollo', 'https://inventariandocr.files.wordpress.com/2015/07/pnud.jpg', 'https://www.cr.undp.org/')
         ]
     }
 

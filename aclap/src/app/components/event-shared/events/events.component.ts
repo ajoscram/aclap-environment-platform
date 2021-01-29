@@ -14,6 +14,10 @@ export class EventsComponent implements OnInit {
   events: Event[];
   isAdmin: boolean = false;
 
+
+  bg_img = "https://i.imgur.com/MkNJop5.jpeg";
+  description = "Celebra las efemérides ambientales más queridas de nuestra institución. Organice un evento en su comunidad y comparta sus fotografías y aprendizajes con nosotros. Cada evento cuenta con sugerencias Todos los materiales pueden ser utilizados libremente por docentes, gestores - gestoras comunales, y personas educadoras de las organizaciones locales.";
+
   constructor(private controller: Controller, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {

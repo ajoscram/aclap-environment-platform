@@ -18,8 +18,10 @@ export class FirebaseAuthenticator implements Authenticator{
         const role: Role = token.claims.role;
         if(role === Role.ADMINISTRATOR || role === Role.EDUCATOR)
             return role;
-        else
+        else{
+            await this.auth.signOut();
             throw new Error(AuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED);
+        }
     }
 
     async login(email: string, password: string): Promise<Session>{
@@ -29,7 +31,10 @@ export class FirebaseAuthenticator implements Authenticator{
             const role: Role = await this.getRole(user);
             return new Session(user.uid, user.email, role);
         } catch(error) {
-            throw new Error(AuthenticatorError.AUTHENTICATION_FAILED);
+            if(error instanceof Error && (<Error>error).message == AuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED)
+                throw error;
+            else
+                throw new Error(AuthenticatorError.AUTHENTICATION_FAILED);
         }
     }
 

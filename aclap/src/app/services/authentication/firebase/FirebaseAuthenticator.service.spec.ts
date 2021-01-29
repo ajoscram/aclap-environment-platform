@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { environment } from '@src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { TEST_MODULE, setup, cleanup } from './FirebaseAuthenticator.service.spec.split';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule, USE_EMULATOR } from '@angular/fire/auth';
 import { Authenticator, AuthenticatorError } from '../Authenticator.service';
 import { Role, Session } from '../Session.model';
+import { FirebaseAuthenticator } from './FirebaseAuthenticator.service';
 
 describe('FirebaseAuthenticator', () => {
 
@@ -15,10 +17,25 @@ describe('FirebaseAuthenticator', () => {
     let http: HttpClient;
 
     beforeEach(async () => {
-        TestBed.configureTestingModule(TEST_MODULE);
+        TestBed.configureTestingModule({
+            imports:[
+                AngularFireModule.initializeApp(environment.firebaseConfig),
+                AngularFireAuthModule,
+                HttpClientModule
+            ],
+            providers: [
+                { provide: Authenticator, useClass: FirebaseAuthenticator },
+                { provide: USE_EMULATOR, useValue: [ 
+                    environment.testing.address,
+                    environment.testing.ports.AUTH
+                ] }
+            ]
+        });
         authenticator = TestBed.inject(Authenticator);
         http = TestBed.inject(HttpClient);
-        await setup(http);
+        try{
+            await http.get(`http://${environment.testing.address}:${environment.testing.ports.FUNCTIONS}/${environment.firebaseConfig.projectId}/us-central1/setupAuthDebug`).toPromise();
+        } catch(error){ }
     });
 
     it('login(): logs in as an administrator with the correct email and password', async () => {
@@ -36,7 +53,7 @@ describe('FirebaseAuthenticator', () => {
 
     it('login(): fails when a user doesn\'t have a valid role', async () => {
         await expectAsync(authenticator.login(broken.email, broken.password)).toBeRejectedWith(
-            new Error(AuthenticatorError.AUTHENTICATION_FAILED)
+            new Error(AuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED)
         );
     });
 
@@ -108,7 +125,7 @@ describe('FirebaseAuthenticator', () => {
     });
 
     afterAll(async () => {
-        await cleanup(http);
+        await http.delete(`http://${environment.testing.address}:${environment.testing.ports.AUTH}/emulator/v1/projects/${environment.firebaseConfig.projectId}/accounts`).toPromise();
     });
 /*
     it('(): ', async () => {

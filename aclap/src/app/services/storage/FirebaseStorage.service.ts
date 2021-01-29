@@ -1,8 +1,13 @@
+import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { IFile, File as File_ } from '@src/app/models';
+import ControlModule from '@src/app/modules/control/control.module';
 import { Storage } from './Storage.service';
 
+@Injectable({
+    providedIn: ControlModule
+})
 export class FirebaseStorage implements Storage{
 
     constructor(

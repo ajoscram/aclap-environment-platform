@@ -1,20 +1,16 @@
-<div class="row">
-    <div class="col">
-        <h1>
-            Material Descargable
-        </h1>
-    </div>
-</div>
-<div *ngFor="let file of files; index as i"  class="card">
-    <div class="row">
-        <div class="col">
-            <span class="text-center">{{ file.name}} </span>
-        </div>
-        <div class="col">
-            <span class="text-center">{{ formatBytes(file.bytes) }} </span>
-        </div>
-        <div class="col">
-            <span class="btn btn-success" (click)="onDownload(i)" > Descargar/Abrir </span>
+
+<div *ngFor="let file of files; index as i"  class="col-12 card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-7">
+                <span class="text-center">{{ file.name}} </span>
+            </div>
+            <div class="col-2">
+                <span class="text-center">{{ formatBytes(file.bytes) }} </span>
+            </div>
+            <div class="col-3">
+                <span class="btn btn-success" (click)="onDownload(i)" > Descargar/Abrir </span>
+            </div>
         </div>
     </div>
 </div>

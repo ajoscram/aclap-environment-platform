@@ -11,14 +11,14 @@ export async function welcome(educator: Educator, password: string): Promise<voi
         secure: credentials.secure,
         auth: {
             user: credentials.address,
-            pass: credentials.password
-        }
+            pass: credentials.password,
+        },
     });
 
     await transport.sendMail({
             from: credentials.from,
             to: educator.email,
             subject: credentials.subject,
-            html: `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`
+            html: `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`,
     });
 }

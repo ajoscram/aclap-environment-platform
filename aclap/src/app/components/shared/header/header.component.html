@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
-            <span class="navbar-toggler-icon order-xs-1"></span>
+        <button class="navbar-toggler order-xs-2" type="button" data-toggle="collapse" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#Navbar">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <img class="d-block d-sm-none" src="../../../../assets/logo-alpha.png" height="30">
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="Navbar">
@@ -11,7 +11,7 @@
                 <li *ngIf="loggedIn" (click)="changeIndex(1)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/perfil']"> Perfil</a></li>
                 <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/modulos']">Módulos</a></li>
                 <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/eventos']">Eventos</a></li>
-                <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" >Acerca de</a></li>
+                <li (click)="changeIndex(0)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/acerca-de']">Acerca de</a></li>
             </ul>
             <span class="navbar-text">
                 <a *ngIf="!loggedIn" id="singupButton" [routerLink]="['/persona-educadora']" class="btn btn-accend">Persona Educadora</a>

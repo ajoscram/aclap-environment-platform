@@ -40,9 +40,8 @@ export class ImplementationEditComponent implements OnInit {
       .then(implementation => { 
         this.implementation = implementation; 
         this.currentPosition = implementation.location.name;
-
       })
-      .catch()
+      .catch(_ => { this.router.navigateByUrl('/perfil'); })
 
     this.controller.getEvidence(this.id)
       .then( files => { this.moduleFiles = files;} )
@@ -140,11 +139,11 @@ export class ImplementationEditComponent implements OnInit {
   }
 
   async onComplete(){
-    await this.onSubmit();
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
         alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
-        this.router.navigateByUrl(`/modulos`);
+        console.log("on Complete implemetation",implementation.id);
+        this.router.navigateByUrl(`/perfil`);
       })
       .catch()
   }

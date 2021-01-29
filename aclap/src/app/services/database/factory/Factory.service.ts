@@ -184,7 +184,9 @@ export class Factory{
             deleted,
             completed,
             implementation.date,
-            implementation.participants,
+            implementation.maleParticipants,
+            implementation.femaleParticipants,
+            implementation.otherParticipants,
             this.getLocation(implementation.location),
             implementation.educatorId,
             implementation.educatorName,
@@ -208,7 +210,6 @@ export class Factory{
         return new Ally(
             id,
             ally.name,
-            ally.description,
             ally.imageUrl,
             ally.link
         );

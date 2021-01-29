@@ -1,34 +1,15 @@
-<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url(https://images.unsplash.com/photo-1549858701-f9f884177791?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)'}">
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url('+ bg_img +')'}">
 
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
-            <h1>Módulos</h1>
+            <h1>Módulos educativos</h1>
         </div>
-        <div class="col-12"> <!--CHANGE TO STRINGS FROM FIREBASE-->
-            <p class="text-justify">Pellentesque vitae ultricies purus,  
-                quis pretium tellus. Nam quis felis 
-                mi. Etiam ac lacinia dolor, eu egestas 
-                purus. Morbi quis nulla diam. Nullam 
-                magna magna, pharetra eu massa eget, 
-                fringilla vestibulum lorem. Duis blandit 
-                risus ex, nec gravida enim tincidunt 
-                eget. Aenean faucibus elit nibh, et 
-                ultricies libero efficitur efficitur. 
-                Etiam molestie placerat nulla, vitae 
-                euismod tellus porttitor sit amet. Duis 
-                sit amet lacus urna. Aliquam a tellus eu 
-                risus dictum faucibus eget suscipit 
-                turpis. Interdum et malesuada fames ac 
-                ante ipsum primis in faucibus. 
-                Pellentesque dignissim vitae nibh non 
-                facilisis. Phasellus auctor libero eget 
-                turpis vehicula lobortis. Fusce enim 
-                quam, facilisis nec consequat ut, egestas 
-                et augue. Proin ut ligula vel leo 
-                pellentesque fermentum in in purus.
+        <div class="col-12 mt-3"> <!--CHANGE TO STRINGS FROM FIREBASE-->
+            <p class="text-justify" *ngFor="let paragraph of description.split('\n') ">
+                {{paragraph}}
             </p>
         </div>
     </div>

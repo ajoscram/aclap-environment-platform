@@ -133,7 +133,9 @@ describe('Factory', () => {
 
     const STUB_IMPLEMENTATION: IImplementation = {
         date: new Date(),
-        participants: 1,
+        maleParticipants: 1,
+        femaleParticipants: 1,
+        otherParticipants: 1,
         location: {
             name: 'STUB_IMPLEMENTATION.name',
             latitude: 0,
@@ -155,7 +157,6 @@ describe('Factory', () => {
 
     const STUB_ALLY: IAlly = {
         name: 'STUB_ALLY.name',
-        description: 'STUB_ALLY.description',
         imageUrl: 'STUB_ALLY.imageUrl',
         link: 'STUB_ALLY.link'
     }
@@ -312,7 +313,9 @@ describe('Factory', () => {
         expect(implementation.deleted).toBe(STUB_DELETED);
         expect(implementation.completed).toBe(STUB_COMPLETED);
         expect(implementation.date).toBe(STUB_IMPLEMENTATION.date);
-        expect(implementation.participants).toBe(STUB_IMPLEMENTATION.participants);
+        expect(implementation.maleParticipants).toBe(STUB_IMPLEMENTATION.maleParticipants);
+        expect(implementation.femaleParticipants).toBe(STUB_IMPLEMENTATION.femaleParticipants);
+        expect(implementation.otherParticipants).toBe(STUB_IMPLEMENTATION.otherParticipants);
         expect(implementation.location.name).toBe(STUB_IMPLEMENTATION.location.name);
         expect(implementation.location.latitude).toBe(STUB_IMPLEMENTATION.location.latitude);
         expect(implementation.location.longitude).toBe(STUB_IMPLEMENTATION.location.longitude);
@@ -335,7 +338,6 @@ describe('Factory', () => {
         const ally: Ally = factory.getAlly(STUB_ID, STUB_ALLY);
         expect(ally.id).toBe(STUB_ID);
         expect(ally.name).toBe(STUB_ALLY.name);
-        expect(ally.description).toBe(STUB_ALLY.description);
         expect(ally.imageUrl).toBe(STUB_ALLY.imageUrl);
         expect(ally.link).toBe(STUB_ALLY.link);
     });

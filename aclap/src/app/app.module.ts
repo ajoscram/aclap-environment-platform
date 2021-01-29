@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, Provider } from '@angular/core';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
@@ -72,7 +72,36 @@ import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies
 import { AlliesEditComponent } from '@src/app/components/allies-shared/allies-edit/allies-edit.component';
 import { ProfileEditComponent } from '@src/app/components/profile-shared/profile-edit/profile-edit.component';
 import { PasswordEditComponent } from '@src/app/components/shared/password-edit/password-edit.component';
+import { environment } from '@src/environments/environment';
+import { FirebaseDatabase } from './services/database/firebase/FirebaseDatabase.service';
+import { FirebaseStorage } from './services/storage/FirebaseStorage.service';
+import { FirebaseAuthenticator } from './services/authentication/firebase/FirebaseAuthenticator.service';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
+const imports: any[] = [
+  BrowserModule,
+  AppRoutingModule,
+  YouTubePlayerModule,
+  NgbModule,
+  ControlModule,
+  FormsModule,
+  DragDropModule,
+  ReactiveFormsModule,
+  HttpClientModule,
+  LeafletModule
+];
+
+if(environment.production){  
+  imports.push([
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule
+  ]);
+}
 
 
 @NgModule({
@@ -134,23 +163,12 @@ import { PasswordEditComponent } from '@src/app/components/shared/password-edit/
     ProfileEditComponent,
     PasswordEditComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    YouTubePlayerModule,
-    NgbModule,
-    ControlModule,
-    FormsModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    LeafletModule
-  ],
+  imports: imports,
   providers: [
     { provide: Controller, useClass: DefaultController },
-    { provide: Database, useClass: MockDatabase },
-    { provide: Storage, useClass: MockStorage },
-    { provide: Authenticator, useClass: MockAuthenticator }
+    { provide: Database, useClass: environment.production ? FirebaseDatabase : MockDatabase },
+    { provide: Storage, useClass: environment.production ? FirebaseStorage : MockStorage },
+    { provide: Authenticator, useClass: environment.production ? FirebaseAuthenticator : MockAuthenticator }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
