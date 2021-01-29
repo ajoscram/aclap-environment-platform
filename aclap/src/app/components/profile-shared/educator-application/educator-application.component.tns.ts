@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EducatorRequest } from '../../../models';
-import { registerElement } from '@nativescript/angular';
+import { EducatorRequest, IEducatorRequest } from '../../../models';
+import { registerElement, RouterExtensions } from '@nativescript/angular';
+import { Controller } from '@src/app/services/control/Controller.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
+import * as dialogs from '@nativescript/core/ui/dialogs';
+import * as geocoding from "nativescript-geocoding";
+import { Location } from '../../../models';
 
 registerElement("Mapbox", () => require("@nativescript-community/ui-mapbox").MapboxView);
 
@@ -10,12 +16,55 @@ registerElement("Mapbox", () => require("@nativescript-community/ui-mapbox").Map
   styleUrls: ['./educator-application.component.scss']
 })
 export class EducatorApplicationComponent implements OnInit {
-  
-  @Input() application: EducatorRequest;
 
-  constructor() { }
+  txtFirstName: string;
+  txtLastName: string;
+  txtNumber: string;
+  txtEmail: string;
+  txtOrg: string;
+  txtAddress: string;
+  pickerDate: Date;
 
-  ngOnInit(): void {
+  constructor(private controller: Controller, private builder: FormBuilder, private routerExtensions: RouterExtensions, private translator: ErrorTranslator) { }
+
+  ngOnInit(): void { }
+
+  onSubmit() {
+
+    let locName = this.txtAddress + " Costa Rica";
+    let loc = this.getLatLong(locName);
+
+    const request: IEducatorRequest = {
+      name: this.txtFirstName,
+      lastname: this.txtLastName,
+      email: this.txtEmail,
+      phone: this.txtNumber,
+      address: new Location(locName, loc.latitude, loc.longitude),
+      birthday: this.pickerDate,
+      organization: this.txtOrg
+    };
+
+    this.controller.addEducatorRequest(request)
+      .then(non => { 
+        dialogs.alert({
+          title: "Solicitud enviada exitosamente",
+          message: "La confirmación de la solicitud llegará a su correo.",
+          okButtonText: "Ok"
+        })
+      })
+      .catch(
+        error => {
+          dialogs.alert(this.translator.translate(error));
+        }
+      );
+  }
+
+  getLatLong(address) : any {
+    geocoding.getLocationFromName(address).then(loc => {
+      return loc;
+    }, function (e) {
+      console.log("Error: " + (e.message || e));
+    });
   }
 
   minDate: Date = new Date(1940, 0, 29);

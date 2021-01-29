@@ -12,11 +12,23 @@ $l-grey: #d3d8d8;
     text-align: center;
 }
 
-.body-text{
-    font-size: 12;
-    background-color: $l-grey;
+.body-text-backgrounds{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: left;
+    margin-left: 10;
+    margin-right: 10;
+    margin-bottom: 5;
 }
 
+.body-text-objectives{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 10;
+    margin-right: 10;
+    margin-bottom: 5;
+}
 
 .title-text{
     font-size: 24;

@@ -8,10 +8,10 @@
             </GridLayout>
             <Label text="Antecedentes" class="title-text" textWrap="true"></Label>
             <StackLayout *ngFor="let part of module.antecedents.split('\n')">
-                <Label text="{{ part }}" textWrap="true"></Label>
+                <Label text="{{ part }}" textWrap="true" class="body-text-backgrounds"></Label>
             </StackLayout>
             <Label text="Objetivo" class="title-text" textWrap="true"></Label>
-            <Label text="{{ module.objective }}" textWrap="true"></Label>
+            <Label text="{{ module.objective }}" textWrap="true" class="body-text-objectives"></Label>
             <Button text="Guía didáctica" class="my-button" (tap)="navigateToDisplayer(module.id)"></Button>
             <Button text="Materiales de apoyo" class="my-button" (tap)="navigateToDisplayFiles(module.id)"></Button>
             <Button text="Implementa este módulo" class="my-button" (tap)="navigateToQuestions_EducatorApplication(module.id)"></Button>

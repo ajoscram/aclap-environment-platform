@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Section, Module, ActivitySection, ImageSection, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../../models';
+import { Section, Module, ActivitySection, ImageSection, ParagraphSection, TitleSection, YoutubeVideoSection, TitleSectionSize } from '../../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../../../services/control/Controller.service';
 
@@ -13,6 +13,9 @@ export class DisplayerComponent implements OnInit {
   module: Module;
   sections: Section[];
   id: string;
+
+  h1 = TitleSectionSize.H1;
+  h2 = TitleSectionSize.H2;
 
   constructor(private route:ActivatedRoute, private controller: Controller) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -59,6 +62,14 @@ export class DisplayerComponent implements OnInit {
 
   isYoutube(component: Section): boolean {
     return component instanceof YoutubeVideoSection;
+  }
+
+  isH1(component: TitleSection): boolean {
+    return component.size === 'H1'
+  }
+
+  isH2(component: TitleSection): boolean {
+    return component.size === 'H2'
   }
 
 }

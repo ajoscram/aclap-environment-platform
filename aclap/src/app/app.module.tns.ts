@@ -45,7 +45,6 @@ import { MockDatabase } from '@src/app/services/database/MockDatabase.service';
 import { MockStorage } from '@src/app/services/storage/MockStorage.service';
 import ControlModule from '@src/app/modules/control/control.module';
 
-
 import { TempModule } from './temp.module.tns';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -81,7 +80,7 @@ import { TempModule } from './temp.module.tns';
     AboutUsComponent
   ],
   imports: [
-    //TempModule,
+    TempModule,
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptUISideDrawerModule,

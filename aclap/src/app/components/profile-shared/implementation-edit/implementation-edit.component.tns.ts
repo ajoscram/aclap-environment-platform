@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RouterExtensions } from '@nativescript/angular';
-import { Controller } from '../../../../services/control/Controller.service';
-import { Location, Implementation, Answer, Question, Module, User, IImplementation, Score } from '../../../../models';
+import { Controller } from '../../../services/control/Controller.service';
+import { Implementation, Answer, Question, Module, User, IImplementation, Score} from '../../../models';
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { ListPicker } from '@nativescript/core/ui';
 import { openFilePicker } from 'nativescript-simple-filepicker';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as dialogs from '@nativescript/core/ui/dialogs';
 import * as geocoding from "nativescript-geocoding";
+import { Location } from '../../../models';
+import { RouterExtensions } from '@nativescript/angular';
 
 @Component({
-  selector: 'app-display-questions',
-  templateUrl: './display-questions.component.html',
-  styleUrls: ['./display-questions.component.scss']
+  selector: 'app-implementation-edit',
+  templateUrl: './implementation-edit.component.html',
+  styleUrls: ['./implementation-edit.component.scss']
 })
-export class DisplayQuestionsComponent implements OnInit {
+export class ImplementationEditComponent implements OnInit {
 
   pickerDate: Date;
   txtAddress: string;
@@ -30,38 +31,42 @@ export class DisplayQuestionsComponent implements OnInit {
   imageOptions: string[] = [];
   scoreOptions: Score[] = [Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
 
-  module: Module;
   id: string;
   user: User;
   implementation: Implementation;
 
-  constructor(private route:ActivatedRoute, private builder: FormBuilder, private controller: Controller, private routerExtensions: RouterExtensions, private translator: ErrorTranslator) {
+  constructor(private route:ActivatedRoute, private routerExtensions: RouterExtensions, private controller: Controller, private translator: ErrorTranslator) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
 
-    this.controller.getImplementable(this.id)
-      .then(module => { this.module = <Module> module })
+    this.controller.getImplementation(this.id).then(
+      impl => { 
+        this.implementation = <Implementation> impl 
+        this.controller.getQuestions(impl.implementableId)
+        .then(qstns => { this.questions = qstns; 
+          qstns.map(q =>  {
+            this.imageOptions.push("res://score_3")
+           let ops = [q.options[Score.VERY_HIGH], q.options[Score.LOW], q.options[Score.AVERAGE], q.options[Score.HIGH], q.options[Score.VERY_HIGH]]
+            this.questionOptions.push(ops)
+          })
+        })
+        .catch( err => { console.log(this.translator.translate(err)); } );
+      })
       .catch(error => console.error(error));
 
     this.controller.getUser().then(
-      user => {
-        this.user = user;
-      }
+      user => { this.user = user; }
     );
 
-    this.controller.getQuestions(this.id)
-      .then(qstns => {
-        this.questions = qstns; 
-        qstns.map(q =>  {
-          this.answers.push(new Answer(null, q.id, q.question, null, null))
-          this.imageOptions.push("res://score_3")
-          let ops = [q.options[Score.VERY_HIGH], q.options[Score.LOW], q.options[Score.AVERAGE], q.options[Score.HIGH], q.options[Score.VERY_HIGH]]
-          this.questionOptions.push(ops)
-        })
-      })
-      .catch( err => { console.log(this.translator.translate(err)); } );
+    this.controller.getAnswers(this.id)
+      .then(answ => { this.answers = <Answer[]> answ })
+      .catch(error => console.error(error));
+
+    this.controller.getEvidence(this.id)
+      .then(files => { this.files = files })
+      .catch(error => console.error(error));
 
   }
 
@@ -105,7 +110,7 @@ export class DisplayQuestionsComponent implements OnInit {
     }
   }
 
-  findFile(event) {
+  findFile() {
     openFilePicker({
         multipleSelection: true
     }).then((res) => {
@@ -114,9 +119,14 @@ export class DisplayQuestionsComponent implements OnInit {
     })
   }
 
-  removeFile(event, index) {
+  removeFile(index) {
     this.filePaths.splice(index, 1)
     this.fileNames.splice(index, 1)
+  }
+
+  removeOldFile(index) {
+    this.controller.deleteEvidence(this.id, this.files[index].id);
+    this.files.splice(index, 1);
   }
 
   isImg(filename): boolean {
@@ -133,7 +143,7 @@ export class DisplayQuestionsComponent implements OnInit {
     try {
       let locName = this.txtAddress + " Costa Rica";
       let loc = await geocoding.getLocationFromName(locName);
-
+  
       const request: IImplementation = {
         date: this.pickerDate,
         participants: this.pickerParticipants,
@@ -141,21 +151,20 @@ export class DisplayQuestionsComponent implements OnInit {
         educatorId: this.user.id,
         educatorName: this.user.name,
         educatorLastname: this.user.lastname,
-        implementableId: this.module.id,
-        implementableName: this.module.name
+        implementableId: this.implementation.implementableId,
+        implementableName: this.implementation.implementableName
       };
-
-      await this.controller.addImplementation(request)
-      .then( impl => { this.implementation = impl });
-
+  
+      await this.controller.updateImplementation(this.implementation.id, request);
+      
       for (let filePath of this.filePaths){
         await this.controller.addEvidence(this.implementation.id, filePath);
       }
-
+  
       for (let answer of this.answers){
         await this.controller.addAnswer(this.implementation.id, answer);
       }
-
+  
       if(submitType === "complete"){
         await this.controller.completeImplementation(this.implementation.id)
         .then( non => {

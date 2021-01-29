@@ -6,53 +6,40 @@
                 <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="res://biolley_asoprala" class="img-banner"></Image>
                 <Label row="1" col="0" text="Persona Educadora" class="header-text" textWrap="true"></Label>
             </GridLayout>
+
+            <Label text="Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa."
+            class="text-body" textWrap="true" ></Label>
+
+            <Label text="Complete este formulario para registrarse como Persona Educadora"
+            class="text-subtitle-first-1" textWrap="true" ></Label>
+
+            <Label text="Nombre" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtFirstName" required hint="Nombre" class="input input-border input-form"></TextField>
             
-            <Label text="¿Qué es una persona educadora?" class="text-subtitle-first-1" textWrap="true" ></Label>
-            <Label text="Beneficios de una persona educadora" class="text-subtitle-first-2" textWrap="true" ></Label>
-            <Label text="- Poder subir evidencias de un módulo o evento." class="text-body" textWrap="true" ></Label>
-            <Label text="- Ser un agente de cambio." class="text-body" textWrap="true" ></Label>
+            <Label text="Apellidos" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtLastName" required hint="Apellidos" class="input input-border input-form"></TextField>
+            
+            <Label text="Número de teléfono" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtNumber" required hint="8888-4444" class="input input-border input-form"></TextField>
 
-            <form [formGroup]="educatorForm" (ngSubmit)="onSubmit()">
+            <Label text="Correo electrónico" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtEmail" required hint="usuario@correo.com" class="input input-border input-form"></TextField>
 
-                <Label text="Nombre" class="text-subtitle"></Label>
-                <TextField formControlName="firstName" hint="Nombre" class="input input-border input-form"></TextField>
-                
-                <Label text="Apellidos" class="text-subtitle"></Label>
-                <TextField formControlName="lastName" hint="Apellidos" class="input input-border input-form"></TextField>
-                
-                <Label text="Número de teléfono" class="text-subtitle"></Label>
-                <TextField formControlName="number" hint="8888-4444" class="input input-border input-form"></TextField>
+            <Label text="Organización" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtOrg" required hint="Organización" class="input input-border input-form"></TextField>
 
-                <Label text="Correo electrónico" class="text-subtitle"></Label>
-                <TextField formControlName="email" hint="usuario@correo.com" class="input input-border input-form"></TextField>
+            <Label text="Dirección" class="text-subtitle"></Label>
+            <TextField [(ngModel)]="txtAddress" required hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
+            
+            <Label text="Fecha de nacimiento" class="text-subtitle"></Label>
+            <DatePicker [(ngModel)]="pickerDate" 
+                year="1980" month="4" day="20"
+                [minDate]="minDate" [maxDate]="maxDate"
+                verticalAlignment="center">
+            </DatePicker>
 
-                <Label text="Organización" class="text-subtitle"></Label>
-                <TextField formControlName="org" hint="Organización" class="input input-border input-form"></TextField>
+            <Button text="Enviar" class="btn btn-primary btn-send" (tap)="onSubmit()"></Button>
 
-                <Label text="Dirección" class="text-subtitle"></Label>
-                <!-- <ContentView height="240" width="240">
-                    <map:MapboxView
-                        accessToken="pk.eyJ1IjoiZmFiaW9hbHBpemFyIiwiYSI6ImNrazNnZXdyZDE3cXYycG55enUwdGZieHIifQ.pQwYzj4XfsGg5UXneMl6GA"
-                        mapStyle="traffic_night"
-                        latitude="52.3702160"
-                        longitude="4.8951680"
-                        zoomLevel="3"
-                        showUserLocation="true"
-                        mapReady="onMapReady">
-                    </map:MapboxView>
-                  </ContentView> -->
-                <TextField formControlName="address" hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
-                
-                <Label text="Fecha de nacimiento" class="text-subtitle"></Label>
-                <DatePicker formControlName="birthDate" 
-                    year="1980" month="4" day="20"
-                    [minDate]="minDate" [maxDate]="maxDate"
-                    verticalAlignment="center">
-                </DatePicker>
-
-                <Button text="Enviar" class="btn btn-primary btn-send"></Button>
-
-            </form>
 
         </StackLayout>
     </ScrollView>

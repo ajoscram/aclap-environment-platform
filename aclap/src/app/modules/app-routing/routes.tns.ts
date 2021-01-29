@@ -12,6 +12,7 @@ import { EducatorApplicationComponent } from '../../components/profile-shared/ed
 import { DisplayQuestionsComponent } from '../../components/section-shared/display/display-questions/display-questions.component';
 import { EventsComponent } from '../../../app/components/event-shared/events/events.component';
 import { EventPageComponent } from '../../../app/components/event-shared/event-page/event-page.component';
+import { ImplementationEditComponent } from '../../../app/components/profile-shared/implementation-edit/implementation-edit.component';
 
 export const routes: Routes = [
     {
@@ -62,5 +63,9 @@ export const routes: Routes = [
     {
         path: 'events/:id',
         component: EventPageComponent
+    },
+    {
+        path: 'implEdit/:id',
+        component: ImplementationEditComponent
     }
 ]

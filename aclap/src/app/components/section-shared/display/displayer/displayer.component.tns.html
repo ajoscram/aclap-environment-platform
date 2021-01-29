@@ -5,8 +5,13 @@
                 
                 <StackLayout *ngIf="isTitle(section)">
 
-                    <Label *ngIf="section.size === 0" text="{{ section.text }}" textWrap="true" class="title-text" backgroundColor="#1c81a9"></Label>
-                    <Label *ngIf="section.size === 1" text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
+                    <StackLayout *ngIf="section.size === h1">
+                        <Label text="{{ section.text }}" textWrap="true" class="title-text"></Label>
+                    </StackLayout>
+
+                    <StackLayout *ngIf="section.size === h2">
+                        <Label text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
+                    </StackLayout>
 
                 </StackLayout>
 
