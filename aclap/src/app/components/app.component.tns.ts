@@ -1,9 +1,7 @@
 import { Component, ViewChild} from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
-import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '../services/control/Controller.service';
-import { Session } from 'inspector';
 import { firebase } from '@nativescript/firebase';
 
 @Component({
