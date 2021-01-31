@@ -6,5 +6,6 @@ export abstract class Storage{
 }
 
 export enum StorageError{
-
+    UPLOAD_ERROR = "StorageError.UPLOAD_ERROR",
+    DELETE_ERROR = "StorageError.DELETE_ERROR"
 }
