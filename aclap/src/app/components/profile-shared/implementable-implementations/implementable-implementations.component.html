@@ -39,10 +39,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <span>Cantidad de participantes: {{ imp.participants }} </span>
-                    </div>  
-                    <div class="col d-flex justify-content-end">
+                    <div class="col-12">
+                        <span class="text-center"> Participantes </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"> Mujeres: {{ imp.femaleParticipants }} </div>
+                    <div class="col"> Hombres: {{ imp.maleParticipants}} </div>
+                    <div class="col"> Otros:  {{ imp.otherParticipants }} </div>
+                </div>
+                <div class="row"> 
+                    <div class="col-12">
                         <span>Ubicación: {{ imp.location.name }}</span>
                     </div>
                 </div>

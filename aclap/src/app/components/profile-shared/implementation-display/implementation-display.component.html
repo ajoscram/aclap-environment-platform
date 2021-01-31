@@ -36,10 +36,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
-                    <span>Número de participantes: {{implementation.participants}} </span>
+                <div class="col-12 d-flex justify-content-center">
+                    <span> <strong> Participantes </strong> </span>
+                </div>
+                <div class="col">
+                    <span class="text-justify">Mujeres: {{ implementation.femaleParticipants}} </span>
+                </div>
+                <div class="col">
+                    <span class="text-justify">Hombres: {{implementation.maleParticipants}} </span>
                 </div>  
-                <div class="col-6">
+                <div class="col">
+                    <span class="text-justify">Otros: {{ implementation.otherParticipants}} </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <span>Fecha: {{ implementation.date}} </span>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivitySection, Answer, Implementation, Location, Question } from '@src/app/models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
@@ -21,6 +22,7 @@ export class ImplementationPageComponent implements OnInit {
   activities: ActivitySection[] = [];
   center = latLng(9.3699204, -83.7057385);
   currentPosition: string = "";
+  form: FormGroup;
 
   options = {
     layers: [
@@ -43,7 +45,7 @@ export class ImplementationPageComponent implements OnInit {
 
 
 
-  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) { 
+  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router, private builder: FormBuilder) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -62,12 +64,21 @@ export class ImplementationPageComponent implements OnInit {
         this.activities = <ActivitySection[]> sections;
       });
 
-      this.geoApi.getReverseGeocoding(this.center.lat , this.center.lng ).subscribe(
+    this.geoApi.getReverseGeocoding(this.center.lat , this.center.lng ).subscribe(
         (response) => {
           const localityInfo = response["localityInfo"];
           this.currentPosition = `${localityInfo.administrative[3].name}, ${localityInfo.administrative[2].name}, ${localityInfo.administrative[1].name}`; 
         }
       );
+    
+    this.form = this.builder.group({
+        date: [this.implementation.date],
+        maleParticipants : [''],
+        femaleParticipants: [''],
+        otherParticipants: ['']
+      });
+    
+      
   }
 
   statusFormat(completed: boolean){

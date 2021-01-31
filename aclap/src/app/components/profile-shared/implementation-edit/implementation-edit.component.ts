@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivitySection, Answer, File, Implementation, Location, Question } from '@src/app/models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
@@ -14,6 +15,7 @@ import { icon, latLng, marker, tileLayer } from 'leaflet';
 export class ImplementationEditComponent implements OnInit {
 
   implementation: Implementation;
+  form: FormGroup;
   id: string;
   files: any[] = [];
   questions: Question[] = [];
@@ -27,12 +29,19 @@ export class ImplementationEditComponent implements OnInit {
   moduleFiles: File[] = [];
   deletedModuleFiles: File[] = [];
 
-  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) { 
+  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router, private builder: FormBuilder) { 
     /* ID OF THE IMPLEMENTATION */
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
   async ngOnInit() {
+
+    this.form = this.builder.group({
+      date: [this.implementation.date],
+      maleParticipants : [''],
+      femaleParticipants: [''],
+      otherParticipants: ['']
+    });
 
     /* AWAIT FOR THE IMPLEMENTATION */
 
