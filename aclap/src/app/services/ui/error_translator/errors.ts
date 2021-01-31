@@ -56,6 +56,9 @@ export const errors = {
         LATITUDE_OUT_OF_BOUNDS: 'Latitud fuera del rango esperado. La latitud es únicamente un valor entre -90 y 90.',
         LONGITUDE_OUT_OF_BOUNDS: 'Longitud fuera del rango esperado. La longitud es únicamente un valor entre -180 y 180.'
     },
-    ControllerError:{},
-    StorageError:{}
+    StorageError:{
+        UPLOAD_ERROR: "Ha ocurrido un error subiendo un archivo.",
+        DELETE_ERROR: "Ha ocurrido un error borrando un archivo."
+    },
+    ControllerError:{}
 }

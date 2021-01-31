@@ -263,7 +263,9 @@ export class DefaultController implements Controller{
 
     async deleteEvidence(implementationId: string, evidenceId: string): Promise<File>{
         await this.authenticator.validate(Role.ANY);
-        return await this.database.deleteEvidence(implementationId, evidenceId);
+        const deleted: File = await this.database.deleteEvidence(implementationId, evidenceId);
+        await this.storage.delete(deleted);
+        return deleted;
     }
 
     async getAllies(): Promise<Ally[]>{

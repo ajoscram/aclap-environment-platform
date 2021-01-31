@@ -47,6 +47,11 @@ import ControlModule from '@src/app/modules/control/control.module';
 
 
 import { TempModule } from './temp.module.tns';
+import { Validator } from './services/database/validation/Validator.service';
+import { environment } from '@src/environments/environment';
+import { FirebaseDatabase } from './services/database/firebase/FirebaseDatabase.service';
+import { FirebaseStorage } from './services/storage/FirebaseStorage.service';
+import { FirebaseAuthenticator } from './services/authentication/firebase/FirebaseAuthenticator.service';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 // import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
@@ -91,12 +96,13 @@ import { TempModule } from './temp.module.tns';
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },
-    { provide: Database, useClass: MockDatabase },
-    { provide: Factory, useClass: Factory },
-    { provide: Storage, useClass: MockStorage },
-    { provide: Authenticator, useClass: MockAuthenticator },
-    { provide: ErrorTranslator, useClass: ErrorTranslator },
-    { provide: DatePipe, useClass: DatePipe }
+    { provide: DatePipe, useClass: DatePipe },
+    { provide: Factory },
+    { provide: Validator },
+    { provide: ErrorTranslator },
+    { provide: Database, useClass: environment.production ? FirebaseDatabase : MockDatabase },
+    { provide: Storage, useClass: environment.production ? FirebaseStorage : MockStorage },
+    { provide: Authenticator, useClass: environment.production ? FirebaseAuthenticator : MockAuthenticator }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
