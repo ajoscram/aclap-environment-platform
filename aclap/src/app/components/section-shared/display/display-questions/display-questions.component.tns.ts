@@ -19,7 +19,9 @@ export class DisplayQuestionsComponent implements OnInit {
 
   pickerDate: Date;
   txtAddress: string;
-  pickerParticipants: number;
+  pickerFparticipants: number;
+  pickerMparticipants: number;
+  pickerOparticipants: number;
 
   questions: Question[] = [];
   answers: Answer[] = [];
@@ -136,7 +138,9 @@ export class DisplayQuestionsComponent implements OnInit {
 
       const request: IImplementation = {
         date: this.pickerDate,
-        participants: this.pickerParticipants,
+        femaleParticipants: this.pickerFparticipants,
+        maleParticipants: this.pickerMparticipants,
+        otherParticipants: this.pickerOparticipants,
         location: new Location(locName, loc.latitude, loc.longitude),
         educatorId: this.user.id,
         educatorName: this.user.name,
@@ -172,7 +176,7 @@ export class DisplayQuestionsComponent implements OnInit {
           okButtonText: "Ok"
         })
       }
-      
+
     } catch (error) {
       console.log(error)
       dialogs.alert( this.translator.translate(error) )

@@ -1,8 +1,8 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptModule } from '@nativescript/angular';
+import { NativeScriptCommonModule, NativeScriptModule } from '@nativescript/angular';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NativeScriptFormsModule } from '@nativescript/angular'
+import { NativeScriptFormsModule } from '@nativescript/angular';
 
 import { AppRoutingModule } from '@src/app/modules/app-routing/app-routing.module';
 import { AppComponent } from '@src/app/components/app.component';
@@ -31,8 +31,8 @@ import { EditDisplayerComponent } from '@src/app/components/section-shared/edit/
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 import { RegisterComponent } from '@src/app/components/shared/register/register.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
-import { DatePipe } from '@angular/common';
 
 import { Controller } from '@src/app/services/control/Controller.service';
 import { Factory } from '@src/app/services/database/factory/Factory.service';
@@ -46,6 +46,10 @@ import { MockStorage } from '@src/app/services/storage/MockStorage.service';
 import ControlModule from '@src/app/modules/control/control.module';
 
 import { TempModule } from './temp.module.tns';
+import { DatePipe } from '@angular/common';
+
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
+
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 // import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
@@ -77,7 +81,8 @@ import { TempModule } from './temp.module.tns';
     EditDisplayerComponent,
     LoginComponent,
     RegisterComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    AlliesComponent
   ],
   imports: [
     TempModule,
@@ -86,7 +91,8 @@ import { TempModule } from './temp.module.tns';
     NativeScriptUISideDrawerModule,
     ControlModule,
     ReactiveFormsModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    NativeScriptCommonModule
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },

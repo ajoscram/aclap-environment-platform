@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Event, File } from '../../../models';
+import { Event, File, Section } from '../../../models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
+import * as dialogs from '@nativescript/core/ui/dialogs';
+import { RouterExtensions } from '@nativescript/angular';
 
 @Component({
   selector: 'app-event-page',
@@ -11,54 +13,59 @@ import { Controller } from '@src/app/services/control/Controller.service';
 })
 export class EventPageComponent implements OnInit {
 
-  module: Event;
+  event: Event;
+  sections: Section[];
   id: string;
-  files: File[];
-  showingFiles: boolean = false;
-  isAdmin: boolean = false;
-  isEducator: boolean = false;
-  isAnonymous: boolean = false;
-  months: string[] = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','setiembre','octubre','noviembre','diciembre'];
 
-  constructor(private route:ActivatedRoute, private controller: Controller) { 
+  constructor(private route:ActivatedRoute, private controller: Controller, private routerExtensions: RouterExtensions) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    this.controller.getSession().then(
-      res => {
-        if(res.role == Role.ADMINISTRATOR){
-          this.isAdmin = true;
-        }else if(res.role == Role.EDUCATOR){
-          this.isEducator = true;
-        }
-      }
-    )
-    .catch(_ => {
-      this.isAnonymous = true;
-    });
-
-    this.controller.getFiles(this.id)
-      .then(
-        files => {
-          this.files = files;
-        }
-      )
-
-    this.showingFiles = false;
-
     this.controller.getImplementable(this.id)
-      .then(module => { this.module = <Event> module })
+      .then(event => { 
+        this.event = <Event> event
+      })
+      .catch(error => console.error(error));
+    
+    this.controller.getSections(this.id)
+      .then(sections => { this.sections = sections; 
+        this.sections = this.sections.sort(
+          (obj1, obj2) => {
+            if (obj1.index > obj2.index) {
+              return 1;
+            }
+            if (obj1.index < obj2.index){
+              return -1;
+            } 
+            return 0;
+          }
+        );
+      })
       .catch(error => console.error(error));
   }
 
-  switchFiles(){
-    this.showingFiles = !this.showingFiles;
-    console.log(this.files)
+  navigateToQuestions_EducatorApplication(id): void {
+    this.controller.getSession()
+    .then(
+      session => {
+        this.routerExtensions.navigate(['preguntas', id], { clearHistory: false });
+      })
+    .catch(_ => {
+      this.routerExtensions.navigate(['educatorApplication'], { clearHistory: false });
+    });
   }
 
-  dateFormat(date: Date){
-    return `${date.getDay()} de ${this.months[date.getMonth()]}`
+  navigateToDisplayer(id): void {
+    this.routerExtensions.navigate(['guia', id], { clearHistory: false });
   }
+  
+  navigateToDisplayFiles(id): void {
+    this.routerExtensions.navigate(['material', id], { clearHistory: false });
+  } 
+
+  navigateToQuestions(id): void {
+    this.routerExtensions.navigate(['preguntas', id], { clearHistory: false });
+  } 
 
 }

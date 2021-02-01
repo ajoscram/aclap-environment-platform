@@ -64,4 +64,14 @@ export class AppComponent {
     this.sideDrawerComponent.sideDrawer.closeDrawer();
   }
 
+  navigateToAboutUs(): void {
+    this.routerExtensions.navigate(['about'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
+  navigateToAllies(): void {
+    this.routerExtensions.navigate(['allies'], { clearHistory: false });
+    this.sideDrawerComponent.sideDrawer.closeDrawer();
+  }
+
 }

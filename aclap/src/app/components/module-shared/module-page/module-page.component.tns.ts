@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Section, Module } from '../../../models';
+import { Section, Module, Discipline } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
-
+import * as dialogs from '@nativescript/core/ui/dialogs';
 import { RouterExtensions } from '@nativescript/angular';
 
 @Component({
@@ -14,6 +14,7 @@ export class ModulePageComponent implements OnInit {
 
   module: Module;
   sections: Section[];
+  disciplines: Discipline[];
   id: string;
 
   constructor(private route:ActivatedRoute, private controller: Controller, private routerExtensions: RouterExtensions) { 
@@ -22,7 +23,10 @@ export class ModulePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.controller.getImplementable(this.id)
-      .then(module => { this.module = <Module> module })
+      .then(module => { 
+        this.module = <Module> module
+        this.disciplines = this.module.disciplines 
+      })
       .catch(error => console.error(error));
     
     this.controller.getSections(this.id)
@@ -42,7 +46,12 @@ export class ModulePageComponent implements OnInit {
       .catch(error => console.error(error));
   }
 
-  getSession(): void{
+  showTheme(theme): void{
+    dialogs.alert({
+      title: "Eje tematico",
+      message: theme,
+      okButtonText: "Ok"
+    })
   }
 
   navigateToQuestions_EducatorApplication(id): void {

@@ -23,8 +23,6 @@ export class ModulesComponent implements OnInit {
   ngOnInit(): void {
     this.controller.getModules()
       .then( modules => { this.modules = modules; })
-      //este console error hay que cambiarlo eventualmente por un mensaje de error
-      //significativo para el usuario
       .catch( error => console.error(error) );
   }
 

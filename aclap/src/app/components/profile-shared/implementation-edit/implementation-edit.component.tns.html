@@ -22,9 +22,21 @@
             <Label text="Ubicación:" class="subtitle-text" textWrap="true"></Label>
             <TextField [(ngModel)]="txtAddress" hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
 
+            <Label text="Participantes" class="subtitle-text-picker" textWrap="true"></Label>
+
             <StackLayout orientation="horizontal">
-                <Label text="Participantes: " class="subtitle-text-picker" textWrap="true"></Label>
-                <ListPicker [(ngModel)]="pickerParticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
+                <Label text="Femeninos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerFparticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Masculinos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerMparticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Otros: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerOparticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
             </StackLayout>
 
             <Label text="Preguntas de evaluación" class="title-text-questions" textWrap="true"></Label>

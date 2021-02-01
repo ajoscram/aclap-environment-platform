@@ -11,9 +11,12 @@ import { DisplayQuestionsComponent } from './components/section-shared/display/d
 import { EventsComponent } from './components/event-shared/events/events.component';
 import { EventPageComponent } from './components/event-shared/event-page/event-page.component';
 import { ImplementationEditComponent } from './components/profile-shared/implementation-edit/implementation-edit.component';
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeScriptFormsModule } from '@nativescript/angular'
+
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,13 @@ import { NativeScriptFormsModule } from '@nativescript/angular'
     EventsComponent,
     EventPageComponent,
     ImplementationEditComponent,
+    AlliesComponent
   ],
   imports: [
     NativeScriptCommonModule,
     NativeScriptFormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
