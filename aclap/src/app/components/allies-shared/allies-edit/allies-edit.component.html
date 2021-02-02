@@ -1,1 +1,43 @@
-<p>allies-edit works!</p>
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url('+ bg_img +')'}">
+
+</div>
+<div class="container">
+    <div *ngIf="isAdmin" class="row d-flex justify-content-center">
+        <div class="col-4">
+            <span class="btn btn-success" (click)="confirmChanges()"> Confirmar Cambios </span>
+        </div>
+        <div class="col-4">
+            <span class="btn btn-warning" (click)="discardChanges()"> Descartar Cambios </span>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <span>
+                <h1>
+                    Aliados
+                </h1>
+            </span>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" >
+        <div class="col-10">
+            <app-edit-displayer [sections]="allySections" [deletedSections]="deletedSections" ></app-edit-displayer>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div type="button" (click)="sectionButtonsCollapsed = !sectionButtonsCollapsed" aria-controls="collapseExample" [attr.aria-expanded]="!sectionButtonsCollapsed" class="btn mb-5 add-section col-12 d-flex justify-content-center">
+                <p>Agregar Sección</p>
+            </div>
+            <div id="collapseExample" [ngbCollapse]="sectionButtonsCollapsed">
+                <div class="row mt-2">
+                    <div class="col-12 col-md-6 align-self-center" *ngFor="let option of sectionOptions; let i=index">
+                        <div (click)="addSection(i)" class="hoverable clickable section-option">
+                            <h2 class="text-center">{{option}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

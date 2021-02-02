@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Controller } from '../../../../services/control/Controller.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import { ActivitySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../../models';
+import { ActivitySection, AllySection, ImageSection, ParagraphSection, Section, TitleSection, YoutubeVideoSection } from '../../../../models';
 
 @Component({
   selector: 'app-edit-displayer',
@@ -12,7 +12,8 @@ export class EditDisplayerComponent implements OnInit {
 
   @Input() sections: Section[];
   @Input() imageProxy: Map<String, File>;
-  sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
+  @Input() deletedSections: Section[] = [];
+  sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube",""];
   
   constructor() { }
 
@@ -30,12 +31,15 @@ export class EditDisplayerComponent implements OnInit {
       return "Título / Subtítulo";
     }else if(this.isYoutube(section)){
       return "Youtube";
+    }else if(this.isAlly(section)){
+      return "Aliado";
     }else{
-      return '';
+      return 'Sección';
     }
   }
 
   deleteSection(index: number){
+    this.deletedSections.push(this.sections[index]);
     this.sections.splice(index,1);
   }
 
@@ -57,6 +61,10 @@ export class EditDisplayerComponent implements OnInit {
 
   isYoutube(component: Section): boolean {
     return component instanceof YoutubeVideoSection;
+  }
+
+  isAlly(component: Section): boolean {
+    return component instanceof AllySection;
   }
 
   drop(event: CdkDragDrop<string[]>) {

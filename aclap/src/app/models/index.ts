@@ -14,6 +14,7 @@ export { Ally, IAlly } from './Ally.model';
 //Sections
 export { Section, ISection } from './sections/Section.model';
 export { ActivitySection, IActivitySection } from './sections/ActivitySection.model';
+export { AllySection, IAllySection } from './sections/AllySection.model';
 export { ImageSection, IImageSection } from './sections/ImageSection.model';
 export { ParagraphSection, IParagraphSection } from './sections/ParagraphSection.model';
 export { TitleSection, ITitleSection, TitleSectionSize } from './sections/TitleSection.model';

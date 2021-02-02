@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   loggedIn=false;
   index = 0;
 
-
   colors = ["#1c81a9","#688f0e","#596668","","",""];
 
   constructor(private modalService: NgbModal, private controller: Controller,private route: ActivatedRoute, private router: Router) { }

@@ -15,20 +15,20 @@
                         <span>Fecha: {{ imp.date | date: 'dd/MM/yyyy' }} </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <span class="text-center"> Participantes </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col"> Mujeres: {{ imp.femaleParticipants }} </div>
-                    <div class="col"> Hombres: {{ imp.maleParticipants}} </div>
-                    <div class="col"> Otros:  {{ imp.otherParticipants }} </div>
-                </div>
                 <div class="row"> 
                     <div class="col-12">
                         <span>Ubicación: {{ imp.location.name }}</span>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <span class="text-center"> <strong> Participantes </strong> </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center"> Mujeres: {{ imp.femaleParticipants }} </div>
+                    <div class="col d-flex justify-content-center"> Hombres: {{ imp.maleParticipants}} </div>
+                    <div class="col d-flex justify-content-center"> Otros:  {{ imp.otherParticipants }} </div>
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-center">
@@ -42,7 +42,7 @@
 <div *ngIf="(implementations.length === 0)" class="row mt-5">
     <div class="col-12">
         <h3 style="color: teal;">
-            No hay implmentaciones subidas
+            No hay implementaciones subidas
         </h3>
     </div>
 </div>
