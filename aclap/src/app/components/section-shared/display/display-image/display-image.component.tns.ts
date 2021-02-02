@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Ally } from '../../../models';
+import { Ally } from '../../../../models';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { Utils } from "@nativescript/core";
 
 @Component({
-  selector: 'app-allies',
-  templateUrl: './allies.component.html',
-  styleUrls: ['./allies.component.scss']
+  selector: 'app-display-image',
+  templateUrl: './display-image.component.html',
+  styleUrls: ['./display-image.component.scss']
 })
-
-export class AlliesComponent implements OnInit {
+export class DisplayImageComponent implements OnInit {
   
   allies: Ally[];
-  frutas: string[] = ["banano", "sandia"];
 
   constructor(private controller: Controller, private translator: ErrorTranslator) { }
 

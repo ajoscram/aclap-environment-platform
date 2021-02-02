@@ -7,8 +7,14 @@
                 <Label row="1" col="0" text="Aliados" class="header-text" textWrap="true"></Label>
             </Gridlayout>
 
-            <StackLayout *ngFor="let ally of allies" orientation="vertical">
-                <Label text="Aliados" class="header-text" textWrap="true"></Label>
+            <!-- <ng-template ngFor let-fruta [ngForOf]="frutas">
+                <StackLayout orientation="vertical">
+                    <Label text="{{ fruta }}" class="title-text" textWrap="true"></Label>
+                </StackLayout>
+            </ng-template> -->
+
+            <StackLayout *ngFor="let fruta of frutas" orientation="vertical">
+                <Label [text]="fruta" class="title-text" textWrap="true"></Label>
             </StackLayout>
 
         </StackLayout>

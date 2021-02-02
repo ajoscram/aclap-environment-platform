@@ -13,8 +13,9 @@ import { DisplayQuestionsComponent } from '../../components/section-shared/displ
 import { EventsComponent } from '../../../app/components/event-shared/events/events.component';
 import { EventPageComponent } from '../../../app/components/event-shared/event-page/event-page.component';
 import { ImplementationEditComponent } from '../../../app/components/profile-shared/implementation-edit/implementation-edit.component';
-import { AlliesComponent } from '../../components/allies-shared/allies/allies.component'
-import { AboutUsComponent } from '../../components/about-us/about-us.component'
+import { AlliesComponent } from '../../components/allies-shared/allies/allies.component';
+import { DisplayImageComponent } from '../../components/section-shared/display/display-image/display-image.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
 
 export const routes: Routes = [
     {

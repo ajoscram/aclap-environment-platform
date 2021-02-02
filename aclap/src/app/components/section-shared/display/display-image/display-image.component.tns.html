@@ -1,1 +1,16 @@
-<Button text="display-image works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout>
+
+            <Gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" col="0" src="res://corredor_bio_2" stretch="aspectFill" class="img-banner"></Image>
+                <Label row="1" col="0" text="Aliados HOLA" class="header-text" textWrap="true"></Label>
+            </Gridlayout>
+
+            <StackLayout *ngFor="let a of allies" orientation="vertical">
+                <Label text="{{ a.id }}" class="title-text" textWrap="true"></Label>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>
