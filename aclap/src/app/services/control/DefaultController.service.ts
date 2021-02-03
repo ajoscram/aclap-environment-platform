@@ -40,8 +40,8 @@ export class DefaultController implements Controller{
         await this.authenticator.setPassword(password);
     }
 
-    async resetPassword(email: string): Promise<void>{
-        await this.authenticator.resetPassword(email);
+    async requestPasswordReset(email: string): Promise<string>{
+        return await this.database.addPasswordResetRequest(email);
     }
 
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
@@ -283,7 +283,7 @@ export class DefaultController implements Controller{
 
     async updateAlly(id: string, ally: IAlly): Promise<Ally>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        throw await this.database.updateAlly(id, ally);
+        return await this.database.updateAlly(id, ally);
     }
     
     async deleteAlly(id: string): Promise<Ally>{

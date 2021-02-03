@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import ControlModule from '@src/app/modules/control/control.module';
+import { environment } from '@src/environments/environment';
 import { Authenticator, AuthenticatorError } from '../Authenticator.service';
 import { Role, Session } from '../Session.model';
 
@@ -9,8 +11,11 @@ import { Role, Session } from '../Session.model';
 })
 export class FirebaseAuthenticator implements Authenticator{
 
+    private static readonly RESET_PASSWORD_FUNCTION_NAME: string = 'resetPassword';
+
     constructor(
-        private auth: AngularFireAuth
+        private auth: AngularFireAuth,
+        private http: HttpClient
     ){}
 
     private async getRole(user: firebase.default.User): Promise<Role>{
@@ -74,9 +79,5 @@ export class FirebaseAuthenticator implements Authenticator{
                 throw new Error(AuthenticatorError.REAUTHENTICATION_REQUIRED)
             throw error;
         }
-    }
-
-    async resetPassword(email: string): Promise<void>{
-        
     }
 }

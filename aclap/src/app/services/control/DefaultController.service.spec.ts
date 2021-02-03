@@ -142,6 +142,12 @@ describe('DefaultController', () => {
         await controller.setPassword(OLD_PASSWORD);
     });
 
+    it('requestPasswordReset(): returns the email it was called with', async () => {
+        const STUB_EMAIL: string = 'email';
+        const email: string = await controller.requestPasswordReset(STUB_EMAIL);
+        expect(email).toBe(STUB_EMAIL);
+    });
+
     it('addEducatorRequest(): adds an educator request', async () => {
         const request: EducatorRequest = await controller.addEducatorRequest(STUB_IEDUCATORREQUEST);
         expect(request).toBeTruthy();
@@ -448,6 +454,13 @@ describe('DefaultController', () => {
     it('addAlly(): adds a new ally and returns it', async () => {
         const ally: Ally = await controller.addAlly(STUB_IALLY);
         expect(ally).toBeTruthy();
+    });
+
+    it('updateAlly(): updates an ally and returns it', async () => {
+        const added: Ally = await controller.addAlly(STUB_IALLY);
+        const updated: Ally = await controller.updateAlly(added.id, STUB_IALLY);
+        expect(updated).toBeTruthy();
+        expect(added.id).toBe(added.id);
     });
 
     it('deleteAlly(): deletes an ally and returns it', async () => {

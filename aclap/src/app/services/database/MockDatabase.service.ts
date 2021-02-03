@@ -3,6 +3,7 @@ import { Module, DisciplineMetadata, Section, ISection, File, IFile, User, Admin
 import ControlModule from '../../modules/control/control.module';
 import { Factory } from './factory/Factory.service';
 import { Database, DatabaseError } from './Database.service';
+import { MockAuthenticator } from '../authentication/mock/MockAuthenticator.service';
 
 @Injectable({
     providedIn: ControlModule
@@ -139,6 +140,10 @@ export class MockDatabase implements Database{
         return user_;
     }
 
+    async addPasswordResetRequest(email: string): Promise<string> {
+        return email;
+    };
+
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
         const issued: Date = new Date();
         const state: EducatorRequestState = EducatorRequestState.PENDING;
@@ -210,13 +215,6 @@ export class MockDatabase implements Database{
             if(this.implementables[i].id === id)
                 return this.implementables.splice(i, 1)[0];
         throw new Error(DatabaseError.IMPLEMENTABLE_NOT_FOUND);
-    }
-    
-    private getSection(sectionId: string): Section{
-        for(let section of this.sections)
-            if(section.id === sectionId)
-                return section;
-        throw new Error(DatabaseError.SECTION_NOT_FOUND);
     }
 
     async getSections(implementableId: string): Promise<Section[]>{
@@ -442,9 +440,9 @@ export class MockDatabase implements Database{
         throw new Error(DatabaseError.ALLY_NOT_FOUND);
     }
 
-    async deleteAlly(allyId: string): Promise<Ally>{
+    async deleteAlly(id: string): Promise<Ally>{
         for(let i = 0; i < this.allies.length; i++)
-            if(this.allies[i].id == allyId)
+            if(this.allies[i].id == id)
                 return this.allies.splice(i, 1)[0];
         throw new Error(DatabaseError.ALLY_NOT_FOUND);
     }

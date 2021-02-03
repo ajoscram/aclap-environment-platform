@@ -6,7 +6,6 @@ export abstract class Authenticator{
     validate: (role: Role) => Promise<void>;
     getSession: () => Promise<Session>;
     setPassword: (password: string) => Promise<void>;
-    resetPassword: (email: string) => Promise<void>;
 }
 
 export enum AuthenticatorError{

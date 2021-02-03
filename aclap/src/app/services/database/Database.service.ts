@@ -9,6 +9,7 @@ export abstract class Database{
     //users
     getUser: (id: string) => Promise<User>;
     addUser: (id: string, user: IUser) => Promise<User>;
+    addPasswordResetRequest: (email: string) => Promise<string>;
 
     //educator requests
     addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
@@ -63,8 +64,8 @@ export abstract class Database{
     //allies
     getAllies: () => Promise<Ally[]>;
     addAlly: (ally: IAlly) => Promise<Ally>;
-    updateAlly: (allyId: string, ally: IAlly) => Promise<Ally>;
-    deleteAlly: (allyId: string) => Promise<Ally>;
+    updateAlly: (id: string, ally: IAlly) => Promise<Ally>;
+    deleteAlly: (id: string) => Promise<Ally>;
 }
 
 export enum DatabaseError{

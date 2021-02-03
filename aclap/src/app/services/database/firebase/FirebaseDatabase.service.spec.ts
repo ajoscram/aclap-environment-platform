@@ -199,6 +199,12 @@ describe('FirebaseDatabase', () => {
         );
     });
 
+    it('addPasswordResetRequest(): adds a password request with the user\'s email, and returns that email', async () => {
+        const email: string = 'email@example.com';
+        const returned: string = await database.addPasswordResetRequest(email);
+        expect(returned).toBe(email);
+    });
+
     it('addEducatorRequest(): adds a new educator request', async () => {
         stubEducatorRequest.email = 'addEducatorRequest' + stubEducatorRequest.email;
         const request: EducatorRequest = await database.addEducatorRequest(stubEducatorRequest);
@@ -563,6 +569,19 @@ describe('FirebaseDatabase', () => {
     it('addAlly(): adds a new ally and returns it', async () => {
         const ally: Ally = await database.addAlly(stubAlly);
         expect(ally).toBeTruthy();
+    });
+
+    it('updateAlly(): updates an ally and returns it', async () => {
+        const added: Ally = await database.addAlly(stubAlly);
+        const updated: Ally = await database.updateAlly(added.id, stubAlly);
+        expect(updated).toBeTruthy();
+        expect(updated.id).toBe(added.id);
+    });
+
+    it('updateAlly(): fails when given an unknown ally id', async () => {
+        await expectAsync(database.updateAlly(STUB_INCORRECT_ID, stubAlly)).toBeRejectedWith(
+            new Error(DatabaseError.ALLY_NOT_FOUND)
+        );
     });
 
     it('deleteAlly(): deletes an ally and returns it', async () => {

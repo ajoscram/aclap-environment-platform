@@ -8,7 +8,7 @@ export abstract class Controller{
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
     setPassword: (password: string) => Promise<void>;
-    resetPassword: (email: string) => Promise<void>;
+    requestPasswordReset: (email: string) => Promise<string>;
     
     //educator requests
     getEducatorRequests: () => Promise<EducatorRequest[]>;

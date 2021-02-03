@@ -5,6 +5,7 @@ import { Database, DatabaseError } from '../Database.service';
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
 import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer, Score, Ally, IAlly, IEvent } from '../../../models';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: ControlModule
@@ -15,6 +16,7 @@ export class FirebaseDatabase implements Database{
     private static readonly CONSTANTS = 'constants';
     private static readonly REQUESTS: string = 'requests';
     private static readonly USERS: string = 'users';
+    private static readonly PASSWORD_RESETS: string = 'password_resets';
     private static readonly IMPLEMENTABLES: string = 'implementables';
     private static readonly SECTIONS: string = 'sections';
     private static readonly FILES: string = 'files';
@@ -78,6 +80,15 @@ export class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.USER_NOT_FOUND);
         else
             return this.factory.getUser(id, user as IUser);
+    }
+
+    async addPasswordResetRequest(email: string): Promise<string>{
+        const id: string = this.firestore.createId();
+        await this.firestore
+            .collection(FirebaseDatabase.PASSWORD_RESETS)
+            .doc(id)
+            .set({email: email});
+        return email;
     }
 
     private async checkRequestIsNotPending(email: string): Promise<void>{

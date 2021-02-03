@@ -26,6 +26,10 @@ service cloud.firestore {
       allow write: if userIsAdmin();
     }
 
+    match /password_resets/{resetID} {
+      allow create;
+    }
+
     match /requests/{requestID} {
       function requestIsValid(){
         return  request.resource.data.state == 'PENDING' ||

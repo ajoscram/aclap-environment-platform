@@ -12,9 +12,9 @@ import { firestore } from '@nativescript/firebase';
 export class FirebaseDatabase implements Database{
     
     //collection names
-    private static readonly CONSTANTS = 'constants';
     private static readonly REQUESTS: string = 'requests';
     private static readonly USERS: string = 'users';
+    private static readonly PASSWORD_RESETS: string = 'password_resets';
     private static readonly IMPLEMENTABLES: string = 'implementables';
     private static readonly SECTIONS: string = 'sections';
     private static readonly FILES: string = 'files';
@@ -23,9 +23,6 @@ export class FirebaseDatabase implements Database{
     private static readonly ANSWERS: string = 'answers';
     private static readonly EVIDENCE: string = 'evidence';
     private static readonly ALLIES: string = 'allies';
-
-    //constant document ids
-    private static readonly DISCIPLINE_METADATA = 'DISCIPLINE_METADATA';
 
     //implementable tags
     private static readonly IMPLEMENTABLE_TAG_KEY = 'tag';
@@ -59,6 +56,14 @@ export class FirebaseDatabase implements Database{
             throw new Error(DatabaseError.USER_NOT_FOUND)
         else
             return this.factory.getUser(id, user as IUser);
+    }
+
+    async addPasswordResetRequest(email: string): Promise<string>{
+        await firestore
+            .collection(FirebaseDatabase.PASSWORD_RESETS)
+            .doc()
+            .set({email: email});
+        return email;
     }
 
     private async checkRequestIsNotPending(email: string): Promise<void>{
@@ -484,7 +489,11 @@ export class FirebaseDatabase implements Database{
         throw new Error('not implemented');
     }
 
+    async updateAlly(id: string, ally: IAlly): Promise<Ally>{
+        throw new Error('not implemented');
+    }
+
     async deleteAlly(allyId: string): Promise<Ally>{
-        throw new Error('not implemented yet');
+        throw new Error('not implemented');
     }
 };
