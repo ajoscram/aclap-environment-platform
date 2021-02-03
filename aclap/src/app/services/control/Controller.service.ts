@@ -8,6 +8,7 @@ export abstract class Controller{
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
     setPassword: (password: string) => Promise<void>;
+    resetPassword: (email: string) => Promise<void>;
     
     //educator requests
     getEducatorRequests: () => Promise<EducatorRequest[]>;
@@ -68,7 +69,8 @@ export abstract class Controller{
     //allies
     getAllies: () => Promise<Ally[]>;
     addAlly: (ally: IAlly) => Promise<Ally>;
-    deleteAlly: (allyId: string) => Promise<Ally>;
+    updateAlly: (id: string, ally: IAlly) => Promise<Ally>;
+    deleteAlly: (id: string) => Promise<Ally>;
 }
 
 export enum ControllerError{

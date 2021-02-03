@@ -3,16 +3,17 @@
 ### Pendiente
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
-* Implementar `FirebaseDatabase` para NativeScript
-* Implementar `FirebaseAuthenticator` para NativeScript
-* Implementar `FirebaseStorage` para NativeScript
 * Hacer pruebas unitarias de las reglas de seguridad y cloud functions
+* Hacer pruebas unitarias en Nativescript para `FirebaseDatabase`, `FirebaseAuthenticator` y `FirebaseStorage`
 * Borrar archivos y fotos que quedan huérfanos en caso de deletes mediante Cloud Functions
 * Hacer pruebas unitarias de `Validator`
 
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 02/2/2021 | Agregar cuentas de administrador para `elena.vargasf@gmail.com` y `aclap.estrategia@gmail.com` |
+| 31/1/2021 | Implementar `FirebaseDatabase`, `FirebaseAuthenticator` y `FirebaseStorage` para NativeScript |
+| 28/1/2021 | Se implementaron cambios sugeridos durante la reunión del mismo día |
 | 26/1/2021 | Hostear la aplicación mediante Firebase Hosting para web |
 | 25/1/2021 | Arreglar tests unitarios de `FirebaseDatabase` para que pasen con las reglas de seguridad de Firebase |
 | 24/1/2021 | Agregar mensajes para todos los errores del sistema en `errors.ts` |

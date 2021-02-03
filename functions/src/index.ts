@@ -54,27 +54,33 @@ export const onRequestAccepted = functions.firestore
       }
    });
 
-//This endpoint is needed for a base administrator account
-//If they ever implement adding custom claims from the firebase console remove this function.
-export const setupDevAccount = functions.https.onRequest(async(req, res)=>{
-   try{
-      const user: UserRecord = await admin.auth().createUser({
-         email: environment.dev_user.email,
-         password: environment.dev_user.password,
-      });
-      await admin.auth().setCustomUserClaims(user.uid, environment.claims.administrator);
-      const dev: Administrator = {
-         id: user.uid,
-         imageUrl: environment.defaults.user_image_url,
-         name: 'Educa-ACLAP',
-         lastname: 'Developers',
-         email: environment.dev_user.email,
-      }
-      await admin.firestore()
+async function createAdministratorAccount(email: string, password: string, name: string, lastname: string): Promise<void>{
+   const user: UserRecord = await admin.auth().createUser({
+      email: email,
+      password: password,
+   });
+   await admin.auth().setCustomUserClaims(user.uid, environment.claims.administrator);
+   const dev: Administrator = {
+      id: user.uid,
+      imageUrl: environment.defaults.user_image_url,
+      name: name,
+      lastname: lastname,
+      email: email,
+   }
+   await admin.firestore()
       .collection(environment.collections.users)
       .doc(user.uid)
       .set(dev);
-   } catch(error){/*don't really care about this function failing, since it's just setup*/}
+}
+
+//This endpoint is needed for a base administrator account
+//If they ever implement adding custom claims from the firebase console remove this function.
+export const setupAdministratorAccounts = functions.https.onRequest(async(req, res)=>{
+   for(let user of environment.administrator_users){
+      try{
+         await createAdministratorAccount(user.email, user.password, user.name, user.lastname);
+      } catch(error){/*don't really care about this function failing, since it's just setup*/}
+   }
    res.end();
 });
 
@@ -98,5 +104,22 @@ export const setupAuthDebug = functions.https.onRequest(async (req, res) => {
          password: environment.test_users.broken.password,
       });
    } catch(error){ }
+   res.end();
+});
+
+
+//Password auto-generation, needed when users forget their passwords
+export const resetPassword = functions.https.onRequest(async (req, res) => {
+   const email: string = req.body.email;
+   try{
+      const user: UserRecord = await admin.auth().getUserByEmail(email);
+      const password: string = passwords.generate();
+      admin.auth().updateUser(user.uid, {
+         password: password
+      });
+      await mail.resetPassword(email, password);
+   } catch(error) {
+      console.error('Error while changing user password and sending email: ', email, '\n', error);
+   }
    res.end();
 });

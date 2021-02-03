@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 
 const credentials = environment.email;
 
-export async function welcome(educator: Educator, password: string): Promise<void>{
+async function send(recepient: string, subject: string, body: string): Promise<void>{
     const transport = nodemailer.createTransport({
         host: credentials.host,
         port: credentials.port,
@@ -16,9 +16,22 @@ export async function welcome(educator: Educator, password: string): Promise<voi
     });
 
     await transport.sendMail({
-            from: credentials.from,
-            to: educator.email,
-            subject: credentials.subject,
-            html: `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`,
+        from: credentials.from,
+        to: recepient,
+        subject: subject,
+        html: body,
     });
+}
+
+export async function welcome(educator: Educator, password: string): Promise<void>{
+    const recepient: string = educator.email;
+    const subject: string = credentials.subjects.welcome;
+    const body: string = `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`;
+    await send(recepient, subject, body);
+}
+
+export async function resetPassword(email: string, password: string): Promise<void>{
+    const subject: string = credentials.subjects.resetPassword;
+    const body: string = `<h3>Su nueva contraseña por es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`;
+    await send(email, subject, body);
 }

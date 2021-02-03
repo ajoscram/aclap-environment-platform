@@ -75,4 +75,8 @@ export class FirebaseAuthenticator implements Authenticator{
             throw error;
         }
     }
+
+    async resetPassword(email: string): Promise<void>{
+        
+    }
 }

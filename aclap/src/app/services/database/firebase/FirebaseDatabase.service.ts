@@ -680,16 +680,26 @@ export class FirebaseDatabase implements Database{
         return this.factory.getAlly(id, ally);
     }
 
-    private async getAlly(allyId: string): Promise<Ally>{
+    private async getAlly(id: string): Promise<Ally>{
         const document: DocumentData = await this.firestore
             .collection(FirebaseDatabase.ALLIES)
-            .doc(allyId)
+            .doc(id)
             .get().toPromise();
         const ally: any = document.data();
         if(!ally)
             throw new Error(DatabaseError.ALLY_NOT_FOUND);
         else
-            return this.factory.getAlly(allyId, ally as IAlly);
+            return this.factory.getAlly(id, ally as IAlly);
+    }
+
+    async updateAlly(id: string, ally: IAlly): Promise<Ally>{
+        this.validator.validateIAlly(ally);
+        const ally_: Ally = await this.getAlly(id);
+        await this.firestore
+            .collection(FirebaseDatabase.ALLIES)
+            .doc(id)
+            .update(ally);
+        return this.factory.getAlly(id, ally);
     }
 
     async deleteAlly(allyId: string): Promise<Ally>{

@@ -63,6 +63,7 @@ export abstract class Database{
     //allies
     getAllies: () => Promise<Ally[]>;
     addAlly: (ally: IAlly) => Promise<Ally>;
+    updateAlly: (allyId: string, ally: IAlly) => Promise<Ally>;
     deleteAlly: (allyId: string) => Promise<Ally>;
 }
 

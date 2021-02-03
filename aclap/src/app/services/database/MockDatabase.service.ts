@@ -431,6 +431,17 @@ export class MockDatabase implements Database{
         return ally_;
     }
 
+    async updateAlly(id: string, ally: IAlly): Promise<Ally>{
+        for(let i = 0; i < this.answers.length; i++){
+            if(this.allies[i].id === id){
+                const ally_: Ally = this.factory.getAlly(id, ally);
+                this.allies.splice(i, 1, ally_);
+                return ally_;
+            }
+        }
+        throw new Error(DatabaseError.ALLY_NOT_FOUND);
+    }
+
     async deleteAlly(allyId: string): Promise<Ally>{
         for(let i = 0; i < this.allies.length; i++)
             if(this.allies[i].id == allyId)
