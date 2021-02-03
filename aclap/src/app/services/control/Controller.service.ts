@@ -3,7 +3,7 @@ import { Session, Role } from "../authentication/Session.model";
 
 export abstract class Controller{
     //users
-    login: (email: string, password: string, role: Role) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
