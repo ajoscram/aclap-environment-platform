@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Ally, AllySection, Section } from '@src/app/models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-allies-edit',
@@ -20,7 +21,7 @@ export class AlliesEditComponent implements OnInit {
   text: string = "La consolidación de alianzas estratégicas es un importante objetivo del desarrollo sostenible. Nuestros aliados son todas las personas o entidades que contribuyen a una cultura ambiental en sus núcleos familiares, su comunidad, a nivel organizacional, institucional, regional o nacional. Estos son algunos de los aliados del Programa de Educación Ambiental del ACLA-P.";
   public sectionButtonsCollapsed = true;
 
-  constructor(private controller: Controller, private router: Router) { 
+  constructor(private controller: Controller, private router: Router, private translator: ErrorTranslator) { 
   }
 
   async ngOnInit(): Promise<void> {
@@ -33,7 +34,7 @@ export class AlliesEditComponent implements OnInit {
             this.allySections.push( new AllySection(null, i, ally) ); 
           });
       })
-      .catch();
+      .catch( err => { alert(this.translator.translate(err)); } );
       
     this.controller.getSession()
       .then(
@@ -45,7 +46,8 @@ export class AlliesEditComponent implements OnInit {
           }
         }
       )
-      .catch(_ => {
+      .catch( err => {
+        alert(this.translator.translate(err));
         this.router.navigateByUrl('/inicio');
       });
   }
@@ -53,7 +55,7 @@ export class AlliesEditComponent implements OnInit {
   deleteAlly(id: string){
     this.controller.deleteAlly(id)
       .then()
-      .catch( error => {});
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   addSection(index: number){
@@ -73,7 +75,7 @@ export class AlliesEditComponent implements OnInit {
       if( ally.ally.id == null){
         await this.controller.addAlly(ally.ally)
           .then()
-          .catch()
+          .catch( err => { alert(this.translator.translate(err)); });
       }else{ 
         /* EDIT ALLY */
       }
@@ -83,7 +85,7 @@ export class AlliesEditComponent implements OnInit {
       async (ally: AllySection) => {
         await this.controller.deleteAlly(ally.ally.id)
           .then()
-          .catch();
+          .catch( err => { alert(this.translator.translate(err)); });
       }
     );
 

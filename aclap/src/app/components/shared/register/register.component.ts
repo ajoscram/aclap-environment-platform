@@ -76,11 +76,8 @@ export class RegisterComponent implements OnInit {
         alert("Solicitud Enviada satisfactoriamente");
         this.router.navigateByUrl("inicio");
       }
-    ).catch(
-      error => {
-        alert(this.translator.translate(error));
-      }
     )
+    .catch( err => { alert(this.translator.translate(err)); });
 
   }
 

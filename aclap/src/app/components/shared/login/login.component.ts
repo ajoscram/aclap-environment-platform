@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
       session => {
         this.router.navigateByUrl("/inicio");
       }
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
   }
 
   onSubmit() {
@@ -39,11 +40,7 @@ export class LoginComponent implements OnInit {
         window.location.replace("");
         window.location.reload();
        })
-      .catch( 
-        error => {
-          alert(this.translator.translate(error));
-        }
-      );
+       .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

@@ -33,7 +33,7 @@ export class ModulesComponent implements OnInit {
 
     this.controller.getModules()
       .then( modules => { this.modules = modules; })
-      .catch( error => console.error(this.translator.translate(error)));
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

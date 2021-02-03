@@ -31,7 +31,7 @@ export class EventsComponent implements OnInit {
 
     this.controller.getEvents()
       .then( events => { this.events = events; })
-      .catch( error => console.error(this.translator.translate(error)));
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

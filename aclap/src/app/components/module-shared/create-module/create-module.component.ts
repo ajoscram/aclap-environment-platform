@@ -4,6 +4,7 @@ import { ActivitySection, Discipline, ImageSection,
   Module, ParagraphSection, Question, Section, 
   TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../../models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-create-module',
@@ -23,7 +24,7 @@ export class CreateModuleComponent implements OnInit {
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private controller: Controller, private router: Router, private route: ActivatedRoute) { }
+  constructor(private controller: Controller, private router: Router, private route: ActivatedRoute, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
     this.module = new Module("","","rgb(35,175,229)","","","","","","6 a 9 años","","", new Array<Discipline>());
@@ -85,7 +86,8 @@ export class CreateModuleComponent implements OnInit {
       module => {
         this.id = module.id;
       }
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); });;
 
     await uploadingModule;
 
@@ -96,7 +98,6 @@ export class CreateModuleComponent implements OnInit {
     });
 
     const sects = await Promise.all(sect);
-    console.log(sects);
 
     alert("Contenido del módulo actualizado de manera correcta");
     this.router.navigateByUrl(`/modulos/${this.id}`);

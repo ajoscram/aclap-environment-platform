@@ -6,9 +6,20 @@
                     <img class="img-fluid" [src]="module.imageUrl">
                 </div>
                 <div class="col">
-                    <h1>
-                        {{module.name}}
-                    </h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>
+                                {{module.name}}
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>
+                                Edad recomendada: {{module.recommendedAge}}
+                            </h5>
+                        </div>
+                    </div>
                 </div>
                 <div *ngIf="isAdmin" class="col d-flex justify-content-end">
                     <a class="wt"  [routerLink]="['/modulos',module.id,'editar']"> EDITAR</a>

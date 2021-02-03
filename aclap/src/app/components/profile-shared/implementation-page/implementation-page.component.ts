@@ -52,17 +52,18 @@ export class ImplementationPageComponent implements OnInit {
   async ngOnInit() {
     await this.controller.draftImplementation(this.id)
       .then(impl => {this.implementation = <Implementation> impl; console.log(this.implementation)})
-      .catch( err => { console.log(this.translator.translate(err)); } );
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getQuestions(this.id)
       .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer(null,q.id, q.question, null, null))} )})
-      .catch( err => { console.log(this.translator.translate(err)); } );
+      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)
       .then(sections => {
         sections = sections.filter( section => { return section instanceof ActivitySection} );
         this.activities = <ActivitySection[]> sections;
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.geoApi.getReverseGeocoding(this.center.lat , this.center.lng ).subscribe(
         (response) => {
@@ -101,19 +102,19 @@ export class ImplementationPageComponent implements OnInit {
 
     await this.controller.addImplementation(this.implementation)
       .then(implementation => { this.implementation = implementation;})
-      .catch(err => { console.log(this.translator.translate(err));});
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.answers.forEach( ans => {
       this.controller.setAnswer(ans, this.implementation.id, ans.id)
         .then(_ => {})
-        .catch(err => { console.log(this.translator.translate(err));});
+        .catch( err => { alert(this.translator.translate(err)); });
     });
 
     this.files.forEach(
       (file) => {
         this.controller.addEvidence(this.implementation.id, file)
         .then( _ => {})
-        .catch(err => { console.log(this.translator.translate(err));});
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     );
   }
@@ -125,7 +126,7 @@ export class ImplementationPageComponent implements OnInit {
         alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
         this.router.navigateByUrl(`/modulos`);
       })
-      .catch()
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   showPos(){

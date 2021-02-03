@@ -1,6 +1,7 @@
 import { Component, OnInit, ɵAPP_ID_RANDOM_PROVIDER } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from '@src/app/services/authentication/Session.model';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { EducatorRequest, EducatorRequestState, Event, Module, User } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
 
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   isEducator: Boolean = false;
   len = 2;
 
-  constructor(private controller: Controller, private router: Router) { }
+  constructor(private controller: Controller, private router: Router,private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
     this.pendingRequests = new Array();
@@ -42,12 +43,13 @@ export class ProfileComponent implements OnInit {
 
     this.controller.getModules().then(
       modules => {this.modules = modules}
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getEvents().then(
       events => {this.events = events}
-    ).
-    catch();
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSession()
     .then(
@@ -77,7 +79,7 @@ export class ProfileComponent implements OnInit {
         });
       }
     )
-    .catch();
+    .catch( err => { alert(this.translator.translate(err)); });
   }
 
   onAcceptResquest(index: number) {
@@ -88,10 +90,8 @@ export class ProfileComponent implements OnInit {
           alert(`Solicitud de ${response.name} ${response.lastname} : ${response.email} Aceptada`);
           this.pendingRequests.splice(index, 1);
         }
-      }).
-      catch(error => {
-        return; 
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
   }
 
@@ -102,10 +102,8 @@ export class ProfileComponent implements OnInit {
           alert(`Solicitud de ${response.name} ${response.lastname} : ${response.email} Rechazada`);
           this.pendingRequests.splice(index, 1);
         }
-      }).
-      catch(error => {
-        return; 
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
   }
 }

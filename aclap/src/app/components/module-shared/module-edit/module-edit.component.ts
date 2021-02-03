@@ -36,20 +36,12 @@ export class ModuleEditComponent implements OnInit {
         this.moduleImage = new ImageSection("",0,"",module.imageUrl,"");
         this.bannerImage = new ImageSection("",0,"",module.bannerImageUrl,"");
       })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)
       .then(sections => { this.sections = sections; //Returns ordered list
       })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
     this.imageProxy = new Map();
     this.questions = new Array();
 
@@ -58,11 +50,8 @@ export class ModuleEditComponent implements OnInit {
       (files) =>{
         this.moduleFiles = files;
       }
-    ).catch(
-      err => {
-        console.log(this.translator.translate(err));
-      }
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getQuestions(this.id)
       .then(
@@ -70,11 +59,7 @@ export class ModuleEditComponent implements OnInit {
           this.questions = questions;
         }
       )
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   
@@ -157,21 +142,13 @@ export class ModuleEditComponent implements OnInit {
         //All Good
         console.log(module);
       })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.deletedModuleFiles.forEach(
       (file: File) => {
         this.controller.deleteFile(this.id, file.id)
         .then(_ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     );
 
@@ -179,22 +156,14 @@ export class ModuleEditComponent implements OnInit {
       (file) => {
         this.controller.addFile(this.id, file)
         .then( _ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     );
 
     this.questions.forEach(
       (question) => {
         this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     )
 

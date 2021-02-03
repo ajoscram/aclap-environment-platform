@@ -2,20 +2,14 @@
 
 </div>
 <div class="container">
-    <div *ngIf="isAdmin" class="row d-flex justify-content-center">
-        <div class="col-4">
-            <span class="btn btn-success" (click)="confirmChanges()"> Confirmar Cambios </span>
-        </div>
-        <div class="col-4">
-            <span class="btn btn-warning" (click)="discardChanges()"> Descartar Cambios </span>
-        </div>
+    <div *ngIf="isAdmin" class="row d-flex justify-content-center mt-4">
+        <span class="btn btn-success col-6" (click)="confirmChanges()"> Confirmar Cambios </span>
+        <div class="col-6 btn btn-warning" (click)="discardChanges()"> Descartar Cambios </div>
     </div>
     <div class="row mt-4">
         <div class="col-12">
             <span>
-                <h1>
-                    Aliados
-                </h1>
+                <h1> Aliados </h1>
             </span>
         </div>
     </div>
