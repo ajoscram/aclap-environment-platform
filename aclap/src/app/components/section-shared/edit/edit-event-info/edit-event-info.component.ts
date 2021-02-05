@@ -17,7 +17,7 @@ export class EditEventInfoComponent implements OnInit {
   @Input() moduleImage: ImageSection;
   @Input() bannerImage: ImageSection;
 
-  colors: Array<string> = ["rgb(35,175,229)","rgb(82,143,65)","rgb(239,100,35)","rgb(250,182,33)"];
+  colors: Array<string> = ["#23aee5", "#528f41", "#ef6423", "#fab621"];
   selected: string = this.colors[0];
   
   moduleForm: FormGroup;

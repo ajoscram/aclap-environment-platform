@@ -11,7 +11,7 @@ import { Controller } from '../../../services/control/Controller.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"];
+  tabTags = ["Módulos","Eventos","Solicitud de Persona Educadora"];
   tabEducator = ["Borrador de implementaciones", "Implementaciones finalizadas"];
   tabIndex = 1;
   user: User;

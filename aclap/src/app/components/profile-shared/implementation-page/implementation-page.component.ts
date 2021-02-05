@@ -123,14 +123,13 @@ export class ImplementationPageComponent implements OnInit {
     await this.onSubmit();
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
-        alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
+        alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
         this.router.navigateByUrl(`/modulos`);
       })
       .catch( err => { alert(this.translator.translate(err)); });
   }
 
   showPos(){
-    console.log(this.center)
     this.layers = [
       marker(this.center, {
         icon: icon({

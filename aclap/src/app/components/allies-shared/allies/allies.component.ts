@@ -32,7 +32,7 @@ export class AlliesComponent implements OnInit {
           }
         }
       )
-      .catch( err => { alert(this.translator.translate(err)); } );
+      .catch( );
   }
 
 }

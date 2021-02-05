@@ -25,7 +25,7 @@ export class CreateEventComponent implements OnInit {
   constructor(private controller: Controller, private router: Router, private route: ActivatedRoute, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
-    this.event = new Event("","","rgb(35,175,229)","","","","","","",new Date("01/01/2021"));
+    this.event = new Event("","","#23aee5","","","","","","",new Date("01/01/2021"));
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
     this.eventImage = new ImageSection("",0,"",this.event.imageUrl,"");

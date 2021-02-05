@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { LoginComponent } from '../login/login.component';
 
 @Component({
@@ -17,15 +18,14 @@ export class HeaderComponent implements OnInit {
 
   colors = ["#1c81a9","#688f0e","#596668","","",""];
 
-  constructor(private modalService: NgbModal, private controller: Controller,private route: ActivatedRoute, private router: Router) { }
+  constructor(private modalService: NgbModal, private controller: Controller,private route: ActivatedRoute, private router: Router, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
-    this.controller.getUser()
+    this.controller.getSession()
       .then(user => {
-        if(user){
-          this.loggedIn = true;
-        }
-      });
+        this.loggedIn = true;
+      })
+      .catch(err => { console.log(err)});
   }
 
   changeIndex(n: number){
@@ -37,7 +37,8 @@ export class HeaderComponent implements OnInit {
       _ => {
         window.location.reload();
       }
-    );
+    )
+    .catch(err => { console.log("log out")});
   }
 
   openLogin(){

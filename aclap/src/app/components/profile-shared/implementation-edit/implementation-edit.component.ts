@@ -147,8 +147,7 @@ export class ImplementationEditComponent implements OnInit {
   async onComplete(){
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
-        alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
-        console.log("on Complete implemetation",implementation.id);
+        alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
         this.router.navigateByUrl(`/perfil`);
       })
       .catch( err => { alert(this.translator.translate(err)); });

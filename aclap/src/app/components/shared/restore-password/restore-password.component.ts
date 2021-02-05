@@ -19,13 +19,19 @@ export class RestorePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.builder.group({
-      username: ['',Validators.email]
+      email: ['',Validators.email]
     });
     this.isAdmin = true;
   }
 
   onSubmit() {
-    let usrname:string = this.loginForm.get('username').value;
+    let usrname:string = this.loginForm.get('email').value;
+
+    this.controller.requestPasswordReset(usrname)
+      .then(message => {
+        alert(message);
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

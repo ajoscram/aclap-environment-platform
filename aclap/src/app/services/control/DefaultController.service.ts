@@ -77,6 +77,11 @@ export class DefaultController implements Controller{
 
     async addImplementable(implementable: IImplementable): Promise<Implementable>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        const session: Session = await this.authenticator.getSession();
+        const user: User = await this.database.getUser(session.user_id);
+        implementable.publisherId = user.id;
+        implementable.publisherName = user.name;
+        implementable.publisherLastname = user.lastname;
         return await this.database.addImplementable(implementable);
     }
 

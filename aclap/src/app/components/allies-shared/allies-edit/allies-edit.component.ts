@@ -77,7 +77,9 @@ export class AlliesEditComponent implements OnInit {
           .then()
           .catch( err => { alert(this.translator.translate(err)); });
       }else{ 
-        /* EDIT ALLY */
+        await this.controller.updateAlly(ally.ally.id, ally.ally)
+          .then()
+          .catch( err => { alert(this.translator.translate(err)); });
       }
     });
 

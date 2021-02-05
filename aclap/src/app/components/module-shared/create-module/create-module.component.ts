@@ -27,7 +27,7 @@ export class CreateModuleComponent implements OnInit {
   constructor(private controller: Controller, private router: Router, private route: ActivatedRoute, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
-    this.module = new Module("","","rgb(35,175,229)","","","","","","6 a 9 años","","", new Array<Discipline>());
+    this.module = new Module("","","#23aee5","","","","","","6 a 9 años","","", new Array<Discipline>());
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
     this.moduleImage = new ImageSection("",0,"",this.module.imageUrl,"");
@@ -62,6 +62,8 @@ export class CreateModuleComponent implements OnInit {
 
   async submitSections(){
 
+    let gotError: boolean = false;
+
     /* Upload image and banner of the module */
     if(!this.moduleImage.url.startsWith('http')){
       this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
@@ -87,7 +89,7 @@ export class CreateModuleComponent implements OnInit {
         this.id = module.id;
       }
     )
-    .catch( err => { alert(this.translator.translate(err)); });;
+    .catch( err => { alert(this.translator.translate(err)); gotError = true; });;
 
     await uploadingModule;
 
@@ -99,8 +101,13 @@ export class CreateModuleComponent implements OnInit {
 
     const sects = await Promise.all(sect);
 
-    alert("Contenido del módulo actualizado de manera correcta");
-    this.router.navigateByUrl(`/modulos/${this.id}`);
+    if(gotError){
+      return;
+    }else{
+      alert("Contenido del módulo actualizado de manera correcta");
+      this.router.navigateByUrl(`/modulos/${this.id}`);
+    }
+
 
   }
 

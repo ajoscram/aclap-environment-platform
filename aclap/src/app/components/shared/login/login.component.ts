@@ -28,14 +28,13 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/inicio");
       }
     )
-    .catch( err => { alert(this.translator.translate(err)); });
+    .catch(err => {});
   }
 
   onSubmit() {
     let usrname:string = this.loginForm.get('username').value;
     let password:string = this.loginForm.get('password').value;
-    let role:Role = (this.isAdmin) ? Role.ADMINISTRATOR : Role.EDUCATOR;
-    this.controller.login(usrname, password, role)
+    this.controller.login(usrname, password)
       .then(non => {
         window.location.replace("");
         window.location.reload();

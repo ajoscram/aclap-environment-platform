@@ -11,8 +11,6 @@ import { Role, Session } from '../Session.model';
 })
 export class FirebaseAuthenticator implements Authenticator{
 
-    private static readonly RESET_PASSWORD_FUNCTION_NAME: string = 'resetPassword';
-
     constructor(
         private auth: AngularFireAuth,
         private http: HttpClient
