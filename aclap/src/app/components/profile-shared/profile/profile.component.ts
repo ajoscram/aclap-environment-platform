@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private controller: Controller, private router: Router,private translator: ErrorTranslator) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.pendingRequests = new Array();
     this.approvedRequests = new Array();
     this.approvedRequests = new Array();
@@ -51,35 +51,41 @@ export class ProfileComponent implements OnInit {
     )
     .catch( err => { alert(this.translator.translate(err)); });
     
-    this.controller.getSession()
-    .then(
-      session => {
+    let role: Role;
+    try{
+      role = await this.controller.getSession()
+      .then( session => {
         if(session.role === Role.ADMINISTRATOR){
           this.isAdmin = true;
           this.len = 3;
         }else if(session.role === Role.EDUCATOR){
           this.isEducator = true;
         }
-      }
-    )
-    .catch(_ => {
+        return session.role;
+      });
+    }catch(error){
       this.router.navigateByUrl("/inicio");
-    });
+    }
 
-    this.controller.getEducatorRequests().then(
-      (requests) => {
-        requests.map(req => {
-          if(req.state == EducatorRequestState.APPROVED){
-            this.approvedRequests.push(req);
-          }else if(req.state == EducatorRequestState.PENDING){
-            this.pendingRequests.push(req);
-          }else if(req.state == EducatorRequestState.DENIED){
-            this.deniedRequests.push(req);
-          }
-        });
-      }
-    )
-    .catch( err => { alert(this.translator.translate(err)); });
+    if (role == Role.ADMINISTRATOR){
+      this.controller.getEducatorRequests().then(
+        (requests) => {
+          requests.map(req => {
+            if(req.state == EducatorRequestState.APPROVED){
+              this.approvedRequests.push(req);
+            }else if(req.state == EducatorRequestState.PENDING){
+              this.pendingRequests.push(req);
+            }else if(req.state == EducatorRequestState.DENIED){
+              this.deniedRequests.push(req);
+            }
+          });
+        }
+      )
+      .catch( err => { alert(this.translator.translate(err)); });
+    }else if (role == Role.EDUCATOR){
+
+    }
+
   }
 
   onAcceptResquest(index: number) {

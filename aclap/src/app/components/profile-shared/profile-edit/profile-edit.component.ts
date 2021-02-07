@@ -58,7 +58,9 @@ export class ProfileEditComponent implements OnInit {
       alert('Las contraseñas no coinciden');
     }else{
       this.controller.setPassword(password)
-        .then()
+        .then(_ => {
+          alert("Contraseña actualizada exitosamente");
+        })
         .catch( err => { alert(this.translator.translate(err)); } );
     }
   }
