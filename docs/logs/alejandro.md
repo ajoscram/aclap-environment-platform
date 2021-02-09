@@ -1,7 +1,6 @@
 ## Alejandro Schmidt Ramírez{docsify-ignore}
 
 ### Pendiente
-* Hacer pruebas unitarias para nuevos métodos de `Factory`
 * Arreglar diagramas de Modelo y Control para la segunda iteración
 * Crear diagramas de sequencia para la segunda iteración
 * Hacer pruebas unitarias de las reglas de seguridad y cloud functions
@@ -12,6 +11,7 @@
 ### Completado
 | Fecha | Tarea |
 | :---: | :--- |
+| 08/2/2021 | Hacer pruebas unitarias para nuevos métodos de `Factory` |
 | 08/2/2021 | Arreglar error de obtención de usuario en `FirebaseAuthenticator` |
 | 04/2/2021 | Agregar métodos a `Factory` para extraer los DTOs para Firestore |
 | 02/2/2021 | Agregar cuentas de administrador para `elena.vargasf@gmail.com` y `aclap.estrategia@gmail.com` |
