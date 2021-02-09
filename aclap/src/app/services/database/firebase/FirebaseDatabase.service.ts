@@ -719,6 +719,7 @@ export class FirebaseDatabase implements Database{
     }
 
     async updateAlly(id: string, ally: IAlly): Promise<Ally>{
+        await this.getAlly(id);//checking first for ally existance
         this.validator.validateIAlly(ally);
         ally = this.factory.getIAlly(ally);
         await this.firestore

@@ -169,6 +169,12 @@ describe('Factory', () => {
         expect(metadata.years).toBe(STUB_DISCIPLINE_METADATA.years);
     });
 
+    it('getIDisciplineMetadata(): returns IDisciplineMetadata correctly', async () => {
+        const metadata: DisciplineMetadata = factory.getIDisciplineMetadata(STUB_DISCIPLINE_METADATA);
+        expect(metadata.subjects.length).toBe(STUB_DISCIPLINE_METADATA.subjects.length);
+        expect(metadata.years).toBe(STUB_DISCIPLINE_METADATA.years);
+    });
+
     it('getUser(): incorrectly returns an administrator with an an unknown type of IUser', async () => {
         const unknown: IUnknownUser = { imageUrl: 'unknown', name: 'unknown', lastname: 'lastname', email: 'email' };
         const error: Administrator = factory.getUser(STUB_ID, unknown);
@@ -178,6 +184,16 @@ describe('Factory', () => {
     it('getUser(): returns the correct Educator when input an IEducator', async () => {
         const educator: Educator = <Educator>factory.getUser(STUB_ID, STUB_EDUCATOR);
         expect(educator.id).toBe(STUB_ID);
+        expect(educator.imageUrl).toBe(STUB_EDUCATOR.imageUrl);
+        expect(educator.name).toBe(STUB_EDUCATOR.name);
+        expect(educator.lastname).toBe(STUB_EDUCATOR.lastname);
+        expect(educator.email).toBe(STUB_EDUCATOR.email);
+        expect(educator.phone).toBe(STUB_EDUCATOR.phone);
+        expect(educator.joined).toBe(STUB_EDUCATOR.joined);
+    });
+
+    it('getIUser(): returns the correct IEducator when input an IEducator', async () => {
+        const educator: IEducator = <IEducator>factory.getIUser(STUB_EDUCATOR);
         expect(educator.imageUrl).toBe(STUB_EDUCATOR.imageUrl);
         expect(educator.name).toBe(STUB_EDUCATOR.name);
         expect(educator.lastname).toBe(STUB_EDUCATOR.lastname);
@@ -212,9 +228,37 @@ describe('Factory', () => {
         expect(request.state).toBe(STUB_STATE);
     });
 
+    it('getIEducatorRequest(): returns the correct IEducatorRequest when input an IEducatorRequest', async () => {
+        const request: IEducatorRequest = factory.getIEducatorRequest(STUB_EDUCATOR_REQUEST);
+        expect(request.name).toBe(STUB_EDUCATOR_REQUEST.name);
+        expect(request.lastname).toBe(STUB_EDUCATOR_REQUEST.lastname);
+        expect(request.email).toBe(STUB_EDUCATOR_REQUEST.email);
+        expect(request.phone).toBe(STUB_EDUCATOR_REQUEST.phone);
+        expect(request.address.latitude).toBe(STUB_EDUCATOR_REQUEST.address.latitude);
+        expect(request.address.longitude).toBe(STUB_EDUCATOR_REQUEST.address.longitude);
+        expect(request.address.name).toBe(STUB_EDUCATOR_REQUEST.address.name);
+        expect(request.birthday).toBe(STUB_EDUCATOR_REQUEST.birthday);
+        expect(request.organization).toBe(STUB_EDUCATOR_REQUEST.organization);
+    });
+
     it('getImplementable(): returns the correct Module when input an IModule', async () => {
         const module: Module = <Module>factory.getImplementable(STUB_ID, STUB_MODULE);
         expect(module.id).toBe(STUB_ID);
+        expect(module.name).toBe(STUB_MODULE.name);
+        expect(module.color).toBe(STUB_MODULE.color);
+        expect(module.imageUrl).toBe(STUB_MODULE.imageUrl);
+        expect(module.bannerImageUrl).toBe(STUB_MODULE.bannerImageUrl);
+        expect(module.publisherId).toBe(STUB_MODULE.publisherId);
+        expect(module.publisherName).toBe(STUB_MODULE.publisherName);
+        expect(module.publisherLastname).toBe(STUB_MODULE.publisherLastname);
+        expect(module.recommendedAge).toBe(STUB_MODULE.recommendedAge);
+        expect(module.antecedents).toBe(STUB_MODULE.antecedents);
+        expect(module.objective).toEqual(STUB_MODULE.objective);
+        expect(module.disciplines.length).toBe(STUB_MODULE.disciplines.length);
+    });
+
+    it('getIImplementable(): returns the correct IModule when input an IModule', async () => {
+        const module: IModule = <IModule>factory.getIImplementable(STUB_MODULE);
         expect(module.name).toBe(STUB_MODULE.name);
         expect(module.color).toBe(STUB_MODULE.color);
         expect(module.imageUrl).toBe(STUB_MODULE.imageUrl);
@@ -242,9 +286,29 @@ describe('Factory', () => {
         expect(event.date).toBe(STUB_EVENT.date);
     });
 
+    it('getIImplementable(): returns the correct IEvent when input an IEvent', async () => {
+        const event: IEvent = <IEvent>factory.getIImplementable(STUB_EVENT);
+        expect(event.name).toBe(STUB_EVENT.name);
+        expect(event.color).toBe(STUB_EVENT.color);
+        expect(event.imageUrl).toBe(STUB_EVENT.imageUrl);
+        expect(event.bannerImageUrl).toBe(STUB_EVENT.bannerImageUrl);
+        expect(event.publisherId).toBe(STUB_EVENT.publisherId);
+        expect(event.publisherName).toBe(STUB_EVENT.publisherName);
+        expect(event.publisherLastname).toBe(STUB_EVENT.publisherLastname);
+        expect(event.objective).toEqual(STUB_EVENT.objective);
+        expect(event.date).toBe(STUB_EVENT.date);
+    });
+
     it('getSection(): fails with an unknown type of ISection', async () => {
         const unknown: IUnknownSection = { index: -1 };
         expect(() => factory.getSection(STUB_ID, unknown)).toThrowError(
+            FactoryError.UNKNOWN_ISECTION
+        );
+    });
+
+    it('getISection(): fails with an unknown type of ISection', async () => {
+        const unknown: IUnknownSection = { index: -1 };
+        expect(() => factory.getISection(unknown)).toThrowError(
             FactoryError.UNKNOWN_ISECTION
         );
     });
@@ -258,6 +322,14 @@ describe('Factory', () => {
         expect(activity.tools).toBe(STUB_ACTIVITY.tools);
     });
 
+    it('getISection(): returns the correct IActivitySection when input an IActivitySection', async () => {
+        const activity: IActivitySection = <IActivitySection>factory.getISection(STUB_ACTIVITY);
+        expect(activity.index).toBe(STUB_ACTIVITY.index);
+        expect(activity.description).toBe(STUB_ACTIVITY.description);
+        expect(activity.estimatedMinutes).toBe(STUB_ACTIVITY.estimatedMinutes);
+        expect(activity.tools).toBe(STUB_ACTIVITY.tools);
+    });
+
     it('getSection(): returns the correct ParagraphSection when input an IParagraphSection', async () => {
         const paragraph: ParagraphSection = <ParagraphSection>factory.getSection(STUB_ID, STUB_PARAGRAPH);
         expect(paragraph.id).toBe(STUB_ID);
@@ -265,9 +337,23 @@ describe('Factory', () => {
         expect(paragraph.text).toBe(STUB_PARAGRAPH.text);
     });
 
+    it('getISection(): returns the correct IParagraphSection when input an IParagraphSection', async () => {
+        const paragraph: IParagraphSection = <IParagraphSection>factory.getISection(STUB_PARAGRAPH);
+        expect(paragraph.index).toBe(STUB_PARAGRAPH.index);
+        expect(paragraph.text).toBe(STUB_PARAGRAPH.text);
+    });
+
     it('getSection(): returns the correct ImageSection when input an IImageSection', async () => {
         const image: ImageSection = <ImageSection>factory.getSection(STUB_ID, STUB_IMAGE);
         expect(image.id).toBe(STUB_ID);
+        expect(image.index).toBe(STUB_IMAGE.index);
+        expect(image.footing).toBe(STUB_IMAGE.footing);
+        expect(image.url).toBe(STUB_IMAGE.url);
+        expect(image.reference).toBe(STUB_IMAGE.reference);
+    });
+
+    it('getISection(): returns the correct IImageSection when input an IImageSection', async () => {
+        const image: IImageSection = <IImageSection>factory.getISection(STUB_IMAGE);
         expect(image.index).toBe(STUB_IMAGE.index);
         expect(image.footing).toBe(STUB_IMAGE.footing);
         expect(image.url).toBe(STUB_IMAGE.url);
@@ -282,9 +368,22 @@ describe('Factory', () => {
         expect(title.text).toBe(STUB_TITLE.text);
     });
 
+    it('getISection(): returns the correct ITitleSection when input an ITitleSection', async () => {
+        const title: ITitleSection = <ITitleSection>factory.getISection(STUB_TITLE);
+        expect(title.index).toBe(STUB_TITLE.index);
+        expect(title.size).toBe(STUB_TITLE.size);
+        expect(title.text).toBe(STUB_TITLE.text);
+    });
+
     it('getSection(): returns the correct YoutubeVideoSection when input an IYoutubeVideoSection', async () => {
         const video: YoutubeVideoSection = <YoutubeVideoSection>factory.getSection(STUB_ID, STUB_YOUTUBE_VIDEO);
         expect(video.id).toBe(STUB_ID);
+        expect(video.index).toBe(STUB_YOUTUBE_VIDEO.index);
+        expect(video.url).toBe(STUB_YOUTUBE_VIDEO.url);
+    });
+
+    it('getISection(): returns the correct IYoutubeVideoSection when input an IYoutubeVideoSection', async () => {
+        const video: IYoutubeVideoSection = <IYoutubeVideoSection>factory.getISection(STUB_YOUTUBE_VIDEO);
         expect(video.index).toBe(STUB_YOUTUBE_VIDEO.index);
         expect(video.url).toBe(STUB_YOUTUBE_VIDEO.url);
     });
@@ -301,6 +400,12 @@ describe('Factory', () => {
     it('getQuestion(): returns the correct Question when input an IQuestion', async () => {
         const question: Question = factory.getQuestion(STUB_ID, STUB_QUESTION);
         expect(question.id).toBe(STUB_ID);
+        expect(question.question).toBe(STUB_QUESTION.question);
+        expect(question.options).toBe(STUB_QUESTION.options);
+    });
+
+    it('getIQuestion(): returns the correct IQuestion when input an IQuestion', async () => {
+        const question: IQuestion = factory.getIQuestion(STUB_QUESTION);
         expect(question.question).toBe(STUB_QUESTION.question);
         expect(question.options).toBe(STUB_QUESTION.options);
     });
@@ -326,6 +431,22 @@ describe('Factory', () => {
         expect(implementation.implementableName).toBe(STUB_IMPLEMENTATION.implementableName);
     });
 
+    it('getIImplementation(): returns the correct IImplementation when input an IImplementation', async() => {
+        const implementation: IImplementation = factory.getIImplementation(STUB_IMPLEMENTATION);
+        expect(implementation.date).toBe(STUB_IMPLEMENTATION.date);
+        expect(implementation.maleParticipants).toBe(STUB_IMPLEMENTATION.maleParticipants);
+        expect(implementation.femaleParticipants).toBe(STUB_IMPLEMENTATION.femaleParticipants);
+        expect(implementation.otherParticipants).toBe(STUB_IMPLEMENTATION.otherParticipants);
+        expect(implementation.location.name).toBe(STUB_IMPLEMENTATION.location.name);
+        expect(implementation.location.latitude).toBe(STUB_IMPLEMENTATION.location.latitude);
+        expect(implementation.location.longitude).toBe(STUB_IMPLEMENTATION.location.longitude);
+        expect(implementation.educatorId).toBe(STUB_IMPLEMENTATION.educatorId);
+        expect(implementation.educatorName).toBe(STUB_IMPLEMENTATION.educatorName);
+        expect(implementation.educatorLastname).toBe(STUB_IMPLEMENTATION.educatorLastname);
+        expect(implementation.implementableId).toBe(STUB_IMPLEMENTATION.implementableId);
+        expect(implementation.implementableName).toBe(STUB_IMPLEMENTATION.implementableName);
+    });
+
     it('getAnswer(): returns the correct Answer when input an IAnswer', async () => {
         const answer: Answer = factory.getAnswer(STUB_ID, STUB_ANSWER);
         expect(answer.id).toBe(STUB_ID);
@@ -334,9 +455,23 @@ describe('Factory', () => {
         expect(answer.score).toBe(STUB_ANSWER.score);
     });
 
+    it('getIAnswer(): returns the correct IAnswer when input an IAnswer', async () => {
+        const answer: IAnswer = factory.getIAnswer(STUB_ANSWER);
+        expect(answer.question).toBe(STUB_ANSWER.question);
+        expect(answer.option).toBe(STUB_ANSWER.option);
+        expect(answer.score).toBe(STUB_ANSWER.score);
+    });
+
     it('getAlly(): returns the correct Ally when input an IAlly', async () => {
         const ally: Ally = factory.getAlly(STUB_ID, STUB_ALLY);
         expect(ally.id).toBe(STUB_ID);
+        expect(ally.name).toBe(STUB_ALLY.name);
+        expect(ally.imageUrl).toBe(STUB_ALLY.imageUrl);
+        expect(ally.link).toBe(STUB_ALLY.link);
+    });
+
+    it('getIAlly(): returns the correct IAlly when input an IAlly', async () => {
+        const ally: IAlly = factory.getIAlly(STUB_ALLY);
         expect(ally.name).toBe(STUB_ALLY.name);
         expect(ally.imageUrl).toBe(STUB_ALLY.imageUrl);
         expect(ally.link).toBe(STUB_ALLY.link);

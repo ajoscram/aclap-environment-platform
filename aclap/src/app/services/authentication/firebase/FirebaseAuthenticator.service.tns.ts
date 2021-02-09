@@ -20,7 +20,7 @@ export class FirebaseAuthenticator implements Authenticator{
                 if(state.loggedIn){
                     const role: Role = await self.getRole(state.user);
                     self.session = new Session(state.user.uid, state.user.email, role);
-                } else{
+                } else {
                     self.session = null;
                 }
             },
