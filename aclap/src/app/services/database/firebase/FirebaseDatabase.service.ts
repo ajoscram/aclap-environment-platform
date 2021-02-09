@@ -5,7 +5,6 @@ import { Database, DatabaseError } from '../Database.service';
 import { Factory } from '../factory/Factory.service';
 import { Validator } from '../validation/Validator.service';
 import { Event, Module, IModule, DisciplineMetadata, Section, ISection, File, IFile, User, Administrator, Educator, IDisciplineMetadata, IUser, Implementable, IImplementable, EducatorRequest, EducatorRequestState, IEducatorRequest, IImplementation, Implementation, Question, IQuestion, Answer, IAnswer, Score, Ally, IAlly, IEvent } from '../../../models';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: ControlModule
@@ -54,6 +53,7 @@ export class FirebaseDatabase implements Database{
 
     async setDisciplineMetadata(metadata: IDisciplineMetadata): Promise<DisciplineMetadata>{
         this.validator.validateIDisciplineMetadata(metadata);
+        metadata = this.factory.getIDisciplineMetadata(metadata);
         await this.firestore
             .collection(FirebaseDatabase.CONSTANTS)
             .doc(FirebaseDatabase.DISCIPLINE_METADATA)
@@ -63,6 +63,7 @@ export class FirebaseDatabase implements Database{
     
     async addUser(id: string, user: IUser): Promise<User>{
         this.validator.validateIUser(user);
+        user = this.factory.getIUser(user);
         await this.firestore
             .collection(FirebaseDatabase.USERS)
             .doc(id)
@@ -117,6 +118,7 @@ export class FirebaseDatabase implements Database{
         await this.checkRequestIsNotPending(request.email);
         await this.checkUserDoesntExist(request.email);
         
+        request = this.factory.getIEducatorRequest(request);
         const id: string = this.firestore.createId();
         const state: EducatorRequestState = EducatorRequestState.PENDING;
         const issued: Date = new Date();
@@ -225,6 +227,8 @@ export class FirebaseDatabase implements Database{
         this.validator.validateIImplementable(implementable);
         const id: string = this.firestore.createId();
         const implementable_: Implementable = this.factory.getImplementable(id, implementable);
+        implementable = this.factory.getIImplementable(implementable);
+
         implementable[FirebaseDatabase.IMPLEMENTABLE_TAG_KEY] = this.getImplementableTag(implementable_);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
@@ -235,6 +239,7 @@ export class FirebaseDatabase implements Database{
     
     async updateImplementable(id: string, implementable: IImplementable): Promise<Implementable>{
         this.validator.validateIImplementable(implementable);
+        implementable = this.factory.getIImplementable(implementable);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(id)
@@ -285,6 +290,7 @@ export class FirebaseDatabase implements Database{
     async addSection(implementableId: string, section: ISection): Promise<Section>{
         this.validator.validateISection(section);
         const id: string = this.firestore.createId();
+        section = this.factory.getISection(section);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
@@ -296,6 +302,7 @@ export class FirebaseDatabase implements Database{
     
     async updateSection(implementableId: string, sectionId: string, section: ISection): Promise<Section>{
         this.validator.validateISection(section);
+        section = this.factory.getISection(section);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
@@ -348,6 +355,7 @@ export class FirebaseDatabase implements Database{
     async addFile(implementableId: string, file: IFile): Promise<File>{
         this.validator.validateIFile(file);
         const id: string = this.firestore.createId();
+        file = this.factory.getIFile(file);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTABLES)
             .doc(implementableId)
@@ -506,6 +514,8 @@ export class FirebaseDatabase implements Database{
     async addImplementation(implementation: IImplementation): Promise<Implementation>{
         this.validator.validateIImplementation(implementation);
         const id: string = this.firestore.createId();
+        implementation = this.factory.getIImplementation(implementation);
+        
         const completed: boolean = false;
         const deleted: boolean = false;
 
@@ -521,6 +531,7 @@ export class FirebaseDatabase implements Database{
 
     async updateImplementation(id: string, implementation: IImplementation): Promise<Implementation>{
         this.validator.validateIImplementation(implementation);
+        implementation = this.factory.getIImplementation(implementation);
         const implementation_: Implementation = await this.getImplementation(id);
         if(implementation_.completed === true)
             throw new Error(DatabaseError.IMPLEMENTATION_IS_COMPLETE)
@@ -583,6 +594,7 @@ export class FirebaseDatabase implements Database{
     async addAnswer(implementationId: string, userId: string, answer: IAnswer): Promise<Answer>{
         this.validator.validateIAnswer(answer);
         const id: string = this.firestore.createId();
+        answer = this.factory.getIAnswer(answer);
         answer['educatorId'] = userId;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
@@ -595,6 +607,7 @@ export class FirebaseDatabase implements Database{
 
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
         this.validator.validateIAnswer(answer);
+        answer = this.factory.getIAnswer(answer);
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
@@ -633,6 +646,7 @@ export class FirebaseDatabase implements Database{
     async addEvidence(implementationId: string, userId: string, evidence: IFile): Promise<File>{
         this.validator.validateIFile(evidence);
         const id: string = this.firestore.createId();
+        evidence = this.factory.getIFile(evidence);
         evidence['educatorId'] = userId;
         await this.firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
@@ -683,6 +697,7 @@ export class FirebaseDatabase implements Database{
 
     async addAlly(ally: IAlly): Promise<Ally>{
         this.validator.validateIAlly(ally);
+        ally = this.factory.getIAlly(ally);
         const id: string = this.firestore.createId();
         await this.firestore
             .collection(FirebaseDatabase.ALLIES)
@@ -705,7 +720,7 @@ export class FirebaseDatabase implements Database{
 
     async updateAlly(id: string, ally: IAlly): Promise<Ally>{
         this.validator.validateIAlly(ally);
-        const ally_: Ally = await this.getAlly(id);
+        ally = this.factory.getIAlly(ally);
         await this.firestore
             .collection(FirebaseDatabase.ALLIES)
             .doc(id)

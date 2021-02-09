@@ -9,7 +9,25 @@ import { firebase } from '@nativescript/firebase';
 })
 export class FirebaseAuthenticator implements Authenticator{
 
-    constructor(){}
+    private session: Session
+
+    constructor(){
+        this.session = undefined;
+
+        const self: FirebaseAuthenticator = this;
+        const userStateListener: firebase.AuthStateChangeListener = {
+            onAuthStateChanged: async function(state){
+                if(state.loggedIn){
+                    const role: Role = await self.getRole(state.user);
+                    self.session = new Session(state.user.uid, state.user.email, role);
+                } else{
+                    self.session = null;
+                }
+            },
+            thisArg: this
+        }
+        firebase.addAuthStateListener(userStateListener);
+    }
 
     private throwError(error: any): void{
         if(error instanceof Error && (<Error>error).message == AuthenticatorError.USER_ROLE_COULD_NOT_BE_RESOLVED)
@@ -45,11 +63,20 @@ export class FirebaseAuthenticator implements Authenticator{
         }
     }
 
+    private async wait(milliseconds: number): Promise<void>{
+        await new Promise( _ => setTimeout(_, milliseconds));
+    }
+
     async getSession(): Promise<Session>{
         try{
-            const user: firebase.User = await firebase.getCurrentUser();
-            const role: Role = await this.getRole(user);
-            return new Session(user.uid, user.email, role);
+            if(this.session)
+                return new Session(this.session.user_id, this.session.email, this.session.role);
+            else if(this.session == null)
+                throw new Error(AuthenticatorError.NOT_AUTHENTICATED);
+            else{
+                await this.wait(100);
+                return this.getSession();
+            }
         } catch(error){
             this.throwError(error);
         }
@@ -64,13 +91,13 @@ export class FirebaseAuthenticator implements Authenticator{
     }
 
     async logout(): Promise<void>{
-        await this.validate(Role.ANY);//just checking for a user being logged in
+        await this.getSession();//just checking for a user being logged in
         await firebase.logout();
     }
 
     async setPassword(password: string): Promise<void>{
         try{
-            await this.validate(Role.ANY);//just checking for a user being logged in
+            await this.getSession();//just checking for a user being logged in
             await firebase.updatePassword(password);
         } catch(error){
             this.throwError(error);

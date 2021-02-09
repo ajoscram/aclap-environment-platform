@@ -93,6 +93,7 @@ export class FirebaseDatabase implements Database{
         const state: EducatorRequestState = EducatorRequestState.PENDING;
         const issued: Date = new Date();
 
+        request = this.factory.getIEducatorRequest(request);
         request['state'] = state;
         request['issued'] = issued;
 
@@ -318,6 +319,7 @@ export class FirebaseDatabase implements Database{
         const completed: boolean = false;
         const deleted: boolean = false;
 
+        implementation = this.factory.getIImplementation(implementation);
         implementation['completed'] = completed;
         implementation['deleted'] = deleted;
         const document: firestore.DocumentReference = await firestore
@@ -332,11 +334,12 @@ export class FirebaseDatabase implements Database{
         const implementation_: Implementation = await this.getImplementation(id);
         if(implementation_.completed === true)
             throw new Error(DatabaseError.IMPLEMENTATION_IS_COMPLETE)
+        implementation = this.factory.getIImplementation(implementation);
         await firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(id)
             .update(implementation);
-        return this.factory.getImplementation(id, implementation_.deleted, implementation_.completed, implementation);
+        return implementation_;
     }
     
     async deleteImplementation(id: string): Promise<Implementation>{
@@ -390,6 +393,7 @@ export class FirebaseDatabase implements Database{
 
     async addAnswer(implementationId: string, userId: string, answer: IAnswer): Promise<Answer>{
         this.validator.validateIAnswer(answer);
+        answer = this.factory.getIAnswer(answer);
         answer['educatorId'] = userId;
         const document: firestore.DocumentReference = await firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
@@ -401,6 +405,7 @@ export class FirebaseDatabase implements Database{
 
     async updateAnswer(implementationId: string, answerId: string, answer: IAnswer): Promise<Answer>{
         this.validator.validateIAnswer(answer);
+        answer = this.factory.getIAnswer(answer);
         await firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)
             .doc(implementationId)
@@ -438,6 +443,7 @@ export class FirebaseDatabase implements Database{
     
     async addEvidence(implementationId: string, userId: string, evidence: IFile): Promise<File>{
         this.validator.validateIFile(evidence);
+        evidence = this.factory.getIFile(evidence);
         evidence['educatorId'] = userId;
         const document: firestore.DocumentReference = await firestore
             .collection(FirebaseDatabase.IMPLEMENTATIONS)

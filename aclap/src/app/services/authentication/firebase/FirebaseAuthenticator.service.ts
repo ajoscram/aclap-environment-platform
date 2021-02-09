@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import ControlModule from '@src/app/modules/control/control.module';
-import { environment } from '@src/environments/environment';
 import { Authenticator, AuthenticatorError } from '../Authenticator.service';
 import { Role, Session } from '../Session.model';
 
@@ -11,10 +9,21 @@ import { Role, Session } from '../Session.model';
 })
 export class FirebaseAuthenticator implements Authenticator{
 
+    private session: Session;
+
     constructor(
-        private auth: AngularFireAuth,
-        private http: HttpClient
-    ){}
+        private auth: AngularFireAuth
+    ){
+        this.session = undefined; //undefined while user state is unknown
+        auth.onAuthStateChanged( async (user: firebase.default.User) => {
+            if(user){
+                const role: Role = await this.getRole(user);
+                this.session = new Session(user.uid, user.email, role);
+            } else{
+                this.session = null;
+            }
+        });
+    }
 
     private async getRole(user: firebase.default.User): Promise<Role>{
         const token: firebase.default.auth.IdTokenResult = await user.getIdTokenResult();
@@ -41,17 +50,19 @@ export class FirebaseAuthenticator implements Authenticator{
         }
     }
 
-    private async validateLogged(): Promise<void>{
-        const user: firebase.default.User = await this.auth.currentUser;
-        if(!user)
-            throw new Error(AuthenticatorError.NOT_AUTHENTICATED);
+    private async wait(milliseconds: number): Promise<void>{
+        await new Promise( _ => setTimeout(_, milliseconds));
     }
 
     async getSession(): Promise<Session>{
-        await this.validateLogged();
-        const user: firebase.default.User = await this.auth.currentUser;
-        const role: Role = await this.getRole(user);
-        return new Session(user.uid, user.email, role);
+        if(this.session)
+            return new Session(this.session.user_id, this.session.email, this.session.role);
+        else if(this.session === null)
+            throw new Error(AuthenticatorError.NOT_AUTHENTICATED);
+        else{
+            await this.wait(100);
+            return this.getSession();
+        }
     }
 
     async validate(role: Role): Promise<void>{
@@ -63,12 +74,12 @@ export class FirebaseAuthenticator implements Authenticator{
     }
 
     async logout(): Promise<void>{
-        await this.validateLogged();
+        await this.getSession();
         await this.auth.signOut();
     }
 
     async setPassword(password: string): Promise<void>{
-        await this.validateLogged();
+        await this.getSession();
         const user: firebase.default.User = await this.auth.currentUser;
         try {
             await user.updatePassword(password);
