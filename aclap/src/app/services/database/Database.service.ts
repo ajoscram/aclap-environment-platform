@@ -1,35 +1,87 @@
-import { Section, DisciplineMetadata, File, ISection, IFile, IModule, Module, User } from "../../models";
+import { Section, DisciplineMetadata, File, ISection, IFile, Module, User, IDisciplineMetadata, IUser, Implementable, IImplementable, Event, IEducatorRequest, EducatorRequest, EducatorRequestState, Implementation, IImplementation, Answer, IAnswer, Question, IQuestion, Ally, IAlly } from "../../models";
 
 export abstract class Database{
 
+    //discipline metadata
+    getDisciplineMetadata: () => Promise<DisciplineMetadata>;
+    setDisciplineMetadata: (metadata: IDisciplineMetadata) => Promise<DisciplineMetadata>;
+
     //users
     getUser: (id: string) => Promise<User>;
+    addUser: (id: string, user: IUser) => Promise<User>;
+    addPasswordResetRequest: (email: string) => Promise<string>;
 
-    //modules
-    getModule: (id: string) => Promise<Module>;
+    //educator requests
+    addEducatorRequest: (request: IEducatorRequest) => Promise<EducatorRequest>;
+    getEducatorRequests: () => Promise<EducatorRequest[]>;
+    updateEducatorRequestState: (id: string, state: EducatorRequestState) => Promise<EducatorRequest>;
+
+    //implementable
+    getEvents: () => Promise<Event[]>;
     getModules: () => Promise<Module[]>;
-    addModule: (module: IModule) => Promise<Module>;
-    updateModule: (id: string, module: IModule) => Promise<Module>;
-    deleteModule: (id: string) => Promise<Module>;
+    getImplementable: (id: string) => Promise<Implementable>;
+    addImplementable: (implementable: IImplementable) => Promise<Implementable>;
+    updateImplementable: (id: string, implementable: IImplementable) => Promise<Implementable>;
+    deleteImplementable: (id: string) => Promise<Implementable>;
 
     //sections
-    getDisciplineMetadata: () => Promise<DisciplineMetadata>;
-    getSections: (moduleId: string) => Promise<Section[]>;
-    addSection: (moduleId: string, section: ISection) => Promise<Section>;
-    updateSection: (moduleId: string, sectionId: string, section: ISection) => Promise<Section>;
-    deleteSection: (moduleId: string, sectionId: string) => Promise<Section>;
+    getSections: (implementableId: string) => Promise<Section[]>;
+    addSection: (implementableId: string, section: ISection) => Promise<Section>;
+    updateSection: (implementableId: string, sectionId: string, section: ISection) => Promise<Section>;
+    deleteSection: (implementableId: string, sectionId: string) => Promise<Section>;
 
     //files
-    getFiles: (moduleId: string, sectionId: string) => Promise<File[]>;
-    addFile: (moduleId: string, sectionId: string, file: IFile) => Promise<File>;
-    deleteFile: (moduleId: string, sectionId: string, fileId: string) => Promise<File>;
+    getFiles: (implementableId: string) => Promise<File[]>;
+    addFile: (implementableId: string, file: IFile) => Promise<File>;
+    deleteFile: (implementableId: string, fileId: string) => Promise<File>;
+
+    //questions
+    getQuestions: (implementableId: string) => Promise<Question[]>;
+    addQuestion: (implementableId: string, question: IQuestion) => Promise<Question>;
+    updateQuestion: (implementableId: string, questionId: string, question: IQuestion) => Promise<Question>;
+    deleteQuestion: (implementableId: string, questionId: string) => Promise<Question>;
+
+    //implementations
+    getImplementationsByUser: (completed: boolean, userId: string) => Promise<Implementation[]>;
+    getImplementationsByImplementable: (completed: boolean, implementableId: string) => Promise<Implementation[]>;
+    getImplementation: (implementationId: string) => Promise<Implementation>;
+    addImplementation: (implementation: IImplementation) => Promise<Implementation>;
+    updateImplementation: (id: string, implementation: IImplementation) => Promise<Implementation>;
+    deleteImplementation: (id: string) => Promise<Implementation>;
+    completeImplementation: (id: string) => Promise<Implementation>;
+
+    //answers
+    getAnswers: (implementationId: string) => Promise<Answer[]>;
+    addAnswer: (implementationId: string, userId: string, answer: IAnswer) => Promise<Answer>;
+    updateAnswer: (implementationId: string, answerId: string, answer: IAnswer) => Promise<Answer>;
+    deleteAnswer: (implementationId: string, answerId: string) => Promise<Answer>;
+
+    //evidence
+    getEvidence: (implementationId: string) => Promise<File[]>;
+    addEvidence: (implementationId: string, userId: string, evidence: IFile) => Promise<File>;
+    deleteEvidence: (implementationId: string, evidenceId: string) => Promise<File>;
+
+    //allies
+    getAllies: () => Promise<Ally[]>;
+    addAlly: (ally: IAlly) => Promise<Ally>;
+    updateAlly: (id: string, ally: IAlly) => Promise<Ally>;
+    deleteAlly: (id: string) => Promise<Ally>;
 }
 
 export enum DatabaseError{
-    NOT_YET_IMPLEMENTED = "DatabaseError.NOT_YET_IMPLEMENTED",
+    DISCIPLINE_METADATA_NOT_FOUND = "DatabaseError.DISCIPLINE_METADATA_NOT_FOUND",
     USER_NOT_FOUND = "DatabaseError.USER_NOT_FOUND",
-    UNKNOWN_USER_TYPE = "DatabaseError.UNKNOWN_USER_TYPE",
-    MODULE_NOT_FOUND = "DatabaseError.MODULE_NOT_FOUND",
+    USER_ALREADY_EXISTS = "DatabaseError.USER_ALREADY_EXISTS",
+    EDUCATOR_REQUEST_NOT_FOUND = "DatabaseError.EDUCATOR_REQUEST_NOT_FOUND",
+    EDUCATOR_REQUEST_ALREADY_PENDING = "DatabaseError.EDUCATOR_REQUEST_ALREADY_PENDING",
+    UNKNOWN_IMPLEMENTABLE_TYPE = "DatabaseError.UNKNOWN_IMPLEMENTABLE_TYPE",
+    IMPLEMENTABLE_NOT_FOUND = "DatabaseError.IMPLEMENTABLE_NOT_FOUND",
     SECTION_NOT_FOUND = "DatabaseError.SECTION_NOT_FOUND",
-    FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND"
+    FILE_NOT_FOUND = "DatabaseError.FILE_NOT_FOUND",
+    QUESTION_NOT_FOUND = "DatabaseError.QUESTION_NOT_FOUND",
+    IMPLEMENTATION_NOT_FOUND = "DatabaseError.IMPLEMENTATION_NOT_FOUND",
+    IMPLEMENTATION_IS_COMPLETE = "DatabaseError.IMPLEMENTATION_IS_COMPLETE",
+    ANSWER_NOT_FOUND = "DatabaseError.EVALUATION_NOT_FOUND",
+    EVIDENCE_NOT_FOUND = "DatabaseError.EVIDENCE_NOT_FOUND",
+    ALLY_NOT_FOUND = 'DatabaseError.ALLY_NOT_FOUND'
 }

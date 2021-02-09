@@ -1,32 +1,36 @@
-<div>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-ms-12 col-md-4 d-flex justify-content-center">
-                    <img src="../../../assets/logo.png" style="height: 200px">
-                </div>
-                <div class="col-sm-12 col-md-8 justify-content-center">
-                    <div class="row">
-                        <h1>Bienvenido a la Plataforma de Educación Ambiental</h1>
-                    </div>
-                    <div class="row justify-content-center">
-                        <button class="btn btn-goto btn-lg" [routerLink]="['/modulos']" >VER MÓDULOS</button>
-                    </div>
-                </div>
-            </div>
+
+<div class="jumbotron jumbotron-fluid header-image" [ngStyle]="{backgroundImage:'url('+ bg_img +')'}">
+
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1>
+                Conoce ACLA-P Educa
+            </h1>
+        </div>
+        <div class="col-12 mt-3">
+            <p class="text-justify" *ngFor="let paragraph of initial_message.split('\n') ">
+                {{paragraph}}
+            </p>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>Próximos Eventos</h1>
+
+    <div class="row mt-4" style="margin-bottom: 50px;">
+        <div class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button clickable d-flex justify-content-center" [routerLink]="['/persona-educadora']">
+                <h2 class="my-auto text-center">¿Qué significa ser una persona educadora?</h2>
             </div>
         </div>
-        <div class="row row-content d-flex justify-content-center">
-            <app-module-card-list></app-module-card-list>
+        <div class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button d-flex clickable justify-content-center" [routerLink]="['/modulos']">
+                <h2 class="my-auto text-center">Módulos educativos</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3" style="height: 250px;">
+            <div class="card h-100 button d-flex clickable justify-content-center">
+                <h2 class="my-auto text-center">Eventos</h2>
+            </div>
         </div>
     </div>
 </div>
-
-
-

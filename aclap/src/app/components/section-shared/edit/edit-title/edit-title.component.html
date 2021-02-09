@@ -1,0 +1,15 @@
+<form [formGroup]=form>
+    <div class="form-group row">
+        <label for="text" class="col-xl-2 col-form-label">Texto</label>
+        <div class="col-xl-6">
+            <input formControlName=text class="form-control" [(ngModel)]="title.text"/>
+        </div>
+        <label for="size" class="col-xl-2 col-form-label">Tipo de título</label>
+        <div class="col-xl-2">
+            <select class="form-control" formControlName="size" [(ngModel)]="title.size">
+                <option [ngValue]="titleSize[0]">H1</option>
+                <option [ngValue]="titleSize[1]">H2</option>
+            </select>
+        </div>
+    </div>
+</form>

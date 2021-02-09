@@ -1,10 +1,22 @@
+import { Location, ILocation } from '.';
+
 export enum EducatorRequestState{
-    APPROVED,
-    DENIED,
-    PENDING
+    APPROVED = 'APPROVED',
+    DENIED = 'DENIED',
+    PENDING = 'PENDING'
 }
 
-export class EducatorRequest{
+export interface IEducatorRequest{
+    name: string,
+    lastname: string,
+    email: string,
+    phone: string,
+    address: ILocation,
+    birthday: Date,
+    organization: string
+}
+
+export class EducatorRequest implements IEducatorRequest{
     constructor(
         public id: string,
         public name: string,
@@ -12,6 +24,8 @@ export class EducatorRequest{
         public email: string,
         public phone: string,
         public address: Location,
+        public birthday: Date,
+        public organization: string,
         public issued: Date,
         public state: EducatorRequestState
     ){}

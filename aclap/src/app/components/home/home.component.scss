@@ -1,16 +1,42 @@
-$jumbo-color: #99D493;
-$button-color: #E27406;
+@use '../app.component.scss';
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+    }
+}
 
 .jumbotron{
-    background-color: $jumbo-color;
+    background-color: app.$jumbo-color;
     color: whitesmoke;
     padding: 70px 30px 70px 30px;
     margin: 0px auto;
     display: flex;
     flex-wrap: wrap;
 }
+
+.header-image{
+    background-position: 50% 60%; 
+}
+
+.image-bg{
+    height: 300px;
+}
+
 .btn-goto{
-    background-color: $button-color;
+    background-color: app.$button-color;
     color: white;
 }
 

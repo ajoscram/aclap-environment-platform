@@ -1,0 +1,81 @@
+<!-- REFACTORING -->
+<div class="row">
+    <h3>Información general del evento</h3>
+</div>
+<form [formGroup]="moduleForm">
+    <div class="row mt-3">
+        <div class="form-group col-6">
+            <label class="label" for="name">Nombre del evento</label>
+            <input type="text" class="form-control" formControlName="name" [(ngModel)]="module.name">
+        </div>
+        <div class="col-6">
+            <label for="date">Fecha del evento</label>
+            <input type="date" class="form-control"  formControlName="date" [(ngModel)]="module.date">
+        </div>
+    </div>
+    <div class="row d-flex align-items-center mb-3 card">
+        <div class="form-group col-9">
+            <label class="label" for="name">Color disponibles</label>
+            <div class="row">
+                <div (click)="setColor(i)" *ngFor="let color of colors; index as i" class="col color-option" style="height: 30px; width: 30px;" [style.background-color]="color">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <label class="label">Color actual</label>
+            <div class="color-picked" style="width: 100%; height: 100px;" [style.background-color]="module.color">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="modal-title">
+                        Foto de módulo
+                    </span>
+                </div>
+                <div class="card-body">
+                    <app-edit-image [image]=moduleImage [imageProxy]="imageProxy" [noMetadata]="true"></app-edit-image>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="modal-title"> Foto de Banner</span>
+                </div>
+                <div class="card-body">
+                    <app-edit-image [image]=bannerImage [imageProxy]="imageProxy" [noMetadata]="true"></app-edit-image>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <label for="objective">Objetivo</label>
+            <textarea class="form-control"  formControlName="objective" [(ngModel)]="module.objective" rows="5"></textarea>
+        </div>
+    </div>
+</form>
+
+<div class="row" style="margin-top: 200px;">
+    <h2>Zona Peligrosa</h2>
+</div>
+<div class="row border rounded border-danger mb-md-5">
+    <div class="col-9 my-3">
+        <div class="row" style="margin-left: 12px;">
+            <h5 class="text-bold">Eliminar evento</h5>
+        </div>
+        <div class="row" style="margin-left: 12px;">
+            <span class="text">
+                Posteriormente a esta accion, este evento será inaccesible
+            </span> 
+        </div>
+    </div>
+    <div class="col-auto my-4" >
+        <span class="btn delete border" style="color: brown;" (click)="deleteModule()">Eliminar evento</span>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+@use '../../app.component.scss';
+
+$module-color: app.$nav-color;
+$l-grey: #F8F8F8;
+
+.row {
+    position: relative;
+
+    img{
+        position: absolute; /* Take your picture out of the flow */
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0; /* Make the picture taking the size of it's parent */
+        width: 100%; /* This if for the object-fit */
+        height: 100%; /* This if for the object-fit */
+        object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
+        object-position: center;
+    }
+}
+
+.row:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+}
+
+/*
+.module-header{
+    background-color: $module-color;
+    color: whitesmoke;
+}
+.card-bg{
+    background-color: $l-grey;
+}
+.row-p{
+    padding-top: 20px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+.card-title{
+    font-size: 36px;
+}
+.container-fluid{
+    transition: 1.7s;
+}
+.container-fluid:hover{
+    .row{
+        background-color: app.$lime-color;
+        color: white;
+    }
+    .row.module-header{
+        background-color: app.$button-color;
+        color: white;
+    }
+    .card-body{
+        .row{
+            app-discipline{
+                .badge{
+                    background-color: white;
+                    color: app.$nav-color;
+                }
+            }
+        }
+    }
+}
+*/

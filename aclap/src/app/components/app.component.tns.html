@@ -1,1 +1,34 @@
-<page-router-outlet></page-router-outlet>
+<RadSideDrawer #sideDrawer>
+  <StackLayout tkDrawerContent class="sidedrawer-left">
+
+
+      <StackLayout class="sidedrawer-content">
+
+        <Image src="res://logo_flat" class="img-header"></Image>
+        <Button class="btn-nav" text="Inicio" (tap)="navigateToHome()"></Button>
+        <Button class="btn-nav" text="Modulos" (tap)="navigateToModules()"></Button>
+        <Button class="btn-nav" text="Eventos" (tap)="navigateToEvents()"></Button>
+        <Button class="btn-nav" text="Perfil" (tap)="navigateToProfile_Login()"></Button>
+        <Button class="btn-nav" text="Acerca de"></Button>
+          
+      </StackLayout>
+
+      <StackLayout class="sidedrawer-footer">
+
+        <StackLayout orientation="horizontal" width="245" height="100">
+
+          <Label text="Ingresar" horizontalAlignment="left" class="text-nav" (tap)="navigateToProfile_Login()"></Label>
+
+          <Label text="         " horizontalAlignment="center"></Label>
+
+          <Label text="Ser educador" horizontalAlignment="right" class="text-nav" (tap)="navigateToEducatorApplication()"></Label>
+        </StackLayout>
+
+      </StackLayout>
+
+  </StackLayout>
+
+  <page-router-outlet tkMainContent actionBarVisibility="never"></page-router-outlet>
+  
+</RadSideDrawer>
+

@@ -1,0 +1,45 @@
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout orientation="vertical">
+            <StackLayout *ngFor="let section of sections" orientation="vertical">
+                
+                <StackLayout *ngIf="isTitle(section)">
+
+                    <Label *ngIf="section.size === 0" text="{{ section.text }}" textWrap="true" class="title-text" backgroundColor="#1c81a9"></Label>
+                    <Label *ngIf="section.size === 1" text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
+
+                </StackLayout>
+
+                <StackLayout *ngIf="isActivity(section)">
+                    <Label text="Actividad" textWrap="true" class="title-activity"></Label>
+                    <Label text="Tiempo estimado: {{ section.estimatedMinutes }} min." textWrap="true" class="text-time"></Label>
+                    <Label text="Descripción" class="sub-subtitle-text"></Label>
+                    <Label text="{{ section.description }}" textWrap="true" class="text"></Label>
+                </StackLayout>
+
+                <StackLayout *ngIf="isImage(section)">
+                    <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=false>
+                        <StackLayout>
+                            <Image src="{{ section.url}}" stretch="aspectFill"></Image>
+                            <Label text="{{ section.footing }}" class="text"></Label>
+                            <Label text="Fuente: {{ section.reference }}" class="text"></Label>
+                        </StackLayout>
+                    </Card:CardView>
+                </StackLayout>
+
+                <StackLayout *ngIf="isParagraph(section)">
+                    <StackLayout *ngFor="let part of section.text.split('\n')">
+                        <Label text="{{ part.text }}" textWrap="true"></Label>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout *ngIf="isYoutube(section)">
+                    <WebView src="{{ section.url }}" height="400">
+                    </WebView>
+                </StackLayout>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

@@ -1,0 +1,21 @@
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout>
+            <Gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" col="0" src="res://corredor_bio_2" stretch="aspectFill" class="img-banner"></Image>
+                <Label row="1" col="0" text="Modulos" class="header-text" textWrap="true"></Label>
+            </Gridlayout>
+            <Label
+            text= "Pellentesque vitae ultricies purus, quis pretium tellus. Nam quis felis mi. Etiam ac lacinia dolor, eu egestas purus. Morbi quis nulla diam. Nullam magna magna, pharetra eu massa eget, fringilla vestibulum lorem. Duis blandit risus ex, nec gravida enim tincidunt eget. Aenean faucibus elit nibh, et ultricies libero efficitur efficitur. Etiam molestie placerat nulla, vitae euismod tellus porttitor sit amet. Duis sit amet lacus urna. Aliquam a tellus eu risus dictum faucibus eget suscipit turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque dignissim vitae nibh non facilisis. Phasellus auctor libero eget turpis vehicula lobortis. Fusce enim quam, facilisis nec consequat ut, egestas et augue. Proin ut ligula vel leo pellentesque fermentum in in purus."
+            class= "body-text" textWrap="true"></Label>
+            <StackLayout row="3" col="0" *ngFor="let module of modules" orientation="vertical">
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true (tap)="navigateToModule(module.id)">
+                    <StackLayout>
+                        <Image src="{{ module.imageUrl }}" stretch="aspectFill"></Image>
+                        <Label text="{{ module.name }}" class="module-header-text" textWrap="true"></Label>
+                    </StackLayout>
+                </Card:CardView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

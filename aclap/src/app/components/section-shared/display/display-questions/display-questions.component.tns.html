@@ -1,0 +1,76 @@
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout orientation="vertical">
+
+            <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}" class="img-banner"></Image>
+                <Label row="1" col="0" text="Evaluación del módulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
+                <Label row="2" col="0" text="Realizado por: {{ user.name }}" class="madeby-text"  horizontalAlignment="left" textWrap="true"></Label>
+            </GridLayout>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <Label text="Formulario" class="text-subtitle-first" textWrap="true"></Label>
+
+                <StackLayout orientation="horizontal">
+                    <Label text="Fecha:" class="subtitle-text-picker" textWrap="true"></Label>
+                    <DatePicker formControlName="birthDate" 
+                        [date]="todayDate"
+                        [minDate]="minDate" [maxDate]="maxDate"
+                        verticalAlignment="center" class="date-picker">
+                    </DatePicker>
+                </StackLayout>
+
+                <Label text="Ubicación:" class="subtitle-text" textWrap="true"></Label>
+                <TextField formControlName="number" hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
+
+                <StackLayout orientation="horizontal">
+                    <Label text="Participantes: " class="subtitle-text-picker" textWrap="true"></Label>
+                    <ListPicker [items]="participants" selectedIndex="0"  class="participant-picker"></ListPicker>
+                </StackLayout>
+
+                <Label text="Preguntas de evaluación" class="title-text-questions" textWrap="true"></Label>
+
+                <StackLayout *ngFor="let question of questions; index as i" orientation="vertical">
+                    <Label text="{{ question.question }}" class="subtitle-text-question" textWrap="true"></Label>
+                    <StackLayout orientation="horizontal">
+                        <ListPicker [items]="questionOptions" selectedIndex="2"  class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
+                        <Image src="{{ imageOptions[i] }}" class="img-answer-icon"></Image>
+                    </StackLayout>
+                </StackLayout>
+
+                <Label text="Evidencias de trabajo" class="title-text-questions" textWrap="true"></Label>
+
+                <StackLayout *ngFor="let file of fileNames; index as i" orientation="vertical">
+
+                    <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                        <StackLayout orientation="horizontal">
+
+                            <StackLayout *ngIf="isImg(file)">
+                                <Image src="{{ filePaths[i] }}" class="file-img"></Image>
+                            </StackLayout>
+    
+                            <StackLayout *ngIf="isFile(file)">
+                                <Image src="res://file" class="file-img"></Image>
+                            </StackLayout>
+
+                            <Label text="{{ file }}" class="subtitle-text-file"></Label>
+                            <Button text="x" class="btn btn-primary btn-fileRemover" (tap)="removeFile($event, i)"></Button>
+                        
+                        </StackLayout>
+                    </Card:CardView>
+    
+                </StackLayout>
+
+                <Button text="Buscar un archivo" class="btn btn-primary btn-fileFinder" (tap)="findFile($event)"></Button>
+
+                <StackLayout orientation="horizontal">
+                    <Button text="Guardar" class="btn btn-primary btn-save"></Button>
+                    <Button text="Enviar" class="btn btn-primary btn-send"></Button>
+                </StackLayout>
+
+            </form>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

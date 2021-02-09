@@ -1,0 +1,47 @@
+
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout orientation="vertical">
+
+            <Gridlayout height="50" columns="auto, *, auto" rows="auto, 25" backgroundColor="#1c81a9">
+                <Label col="1" rowSpan="2" text="{{ user.name }}" horizontalAlignment="left" class="user-text"></Label>
+                <Button col="2" rowSpan="2" text="Logout" horizontalAlignment="right" class="btn btn-primary btn-logout" (tap)="logout()"></Button>
+            </Gridlayout>
+
+            <StackLayout *ngFor="let implementation of implementationsCompleted; index as i" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout columns="auto, *, auto" rows="auto, *, auto">
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-implRemover"></Button>
+                        <Label row="0" col="0" class="text-impl" textWrap="true">
+                            <FormattedString>
+                                <Span text="{{ implementation.implementableName }} | " class="subtitle-text-impl"></Span>
+                                <Span text="Completo" class="text-completed"></Span>
+                            </FormattedString>
+                        </Label>
+                        <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
+                    </GridLayout>
+                </Card:CardView> 
+
+            </StackLayout>
+
+            <StackLayout *ngFor="let implementation of implementationsIncomplete; index as i" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout columns="auto, *, auto" rows="auto, *, auto">
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-implRemover"></Button>
+                        <Label row="0" col="0" class="text-impl" textWrap="true">
+                            <FormattedString>
+                                <Span text="{{ implementation.implementableName }} | " class="subtitle-text-impl"></Span>
+                                <Span text="Incompleto" class="text-incomplete"></Span>
+                            </FormattedString>
+                        </Label>
+                        <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
+                    </GridLayout>
+                </Card:CardView> 
+
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

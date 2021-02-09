@@ -1,0 +1,28 @@
+@use '../../app.component.scss';
+
+.btn{
+    background-color: app.$nav-color;
+    color: white;
+}
+
+.header-image{
+    background-position: 50% 70%; 
+}
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+    }
+}

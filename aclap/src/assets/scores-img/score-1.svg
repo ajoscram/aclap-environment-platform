@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <clipPath id="clip-Personalizado_1">
+      <rect width="128" height="128"/>
+    </clipPath>
+  </defs>
+  <g id="Personalizado_1" data-name="Personalizado – 1" clip-path="url(#clip-Personalizado_1)">
+    <rect width="128" height="128" fill="#fff"/>
+    <path id="Trazado_1" data-name="Trazado 1" d="M64,0A64,64,0,1,1,0,64,64,64,0,0,1,64,0Z" fill="#f13939"/>
+    <line id="Línea_4" data-name="Línea 4" y1="12" transform="translate(41.5 46.5)" fill="none" stroke="rgba(0,0,0,0.31)" stroke-linecap="round" stroke-width="12"/>
+    <line id="Línea_5" data-name="Línea 5" y1="12" transform="translate(86.5 46.5)" fill="none" stroke="rgba(0,0,0,0.31)" stroke-linecap="round" stroke-width="12"/>
+    <path id="Trazado_8" data-name="Trazado 8" d="M.747,3.018l10.184,9.336,3.395,2.093L18.1,15.711H28.472l3.508-1.263,3.376-2.093L46.011,3.018" transform="translate(87.701 104.996) rotate(180)" fill="none" stroke="rgba(0,0,0,0.31)" stroke-linecap="round" stroke-width="12"/>
+  </g>
+</svg>

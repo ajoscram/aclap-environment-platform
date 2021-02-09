@@ -4,7 +4,7 @@ export interface IYoutubeVideoSection extends ISection{
     url: string
 }
 
-export class YoutubeVideoSection extends Section{
+export class YoutubeVideoSection extends Section implements IYoutubeVideoSection{
     constructor(
         public id: string,
         public index: number,
@@ -13,7 +13,7 @@ export class YoutubeVideoSection extends Section{
 
     public static check(object: any): object is IYoutubeVideoSection{
         const section: IYoutubeVideoSection = <IYoutubeVideoSection>object;
-        return super.check_(object) &&
+        return super.check(object) &&
             section.url !== undefined;
     }
 }

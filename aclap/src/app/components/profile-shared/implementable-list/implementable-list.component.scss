@@ -1,0 +1,13 @@
+@use '../../app.component.scss';
+
+li{
+    margin-top: 10px;
+    background-color: app.$nav-color; 
+    color: white;
+    transition: 0.2s;
+}
+
+li:hover{
+    background-color: app.$button-color; 
+    color: white; 
+}

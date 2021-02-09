@@ -1,7 +1,13 @@
 import { Score } from "../models/Score.model";
 
-export class Question {
+export interface IQuestion{
+    question: string,
+    options: Map<Score, string>
+}
+
+export class Question implements IQuestion{
     constructor(
+        public id: string,
         public question: string,
         public options: Map<Score, string>
     ){}

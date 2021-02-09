@@ -1,18 +1,20 @@
-export { Answer } from './Answer.model';
-export { Subject } from './Subject.model';
-export { Discipline } from './Discipline.model';
-export { DisciplineMetadata } from './DisciplineMetadata.model';
-export { EducatorRequest, EducatorRequestState } from './EducatorRequest.model';
-export { Evaluation } from './Evaluation.model';
+export { Checkable } from './Checkable.model';
+export { Answer, IAnswer } from './Answer.model';
+export { Subject, ISubject } from './Subject.model';
+export { Discipline, IDiscipline } from './Discipline.model';
+export { DisciplineMetadata, IDisciplineMetadata } from './DisciplineMetadata.model';
+export { EducatorRequest, IEducatorRequest, EducatorRequestState } from './EducatorRequest.model';
 export { File, IFile } from './File.model';
-export { Implementation } from './Implementation.model';
-export { Location } from './Location.model';
-export { Question } from './Question.model';
+export { Implementation, IImplementation } from './Implementation.model';
+export { Location, ILocation } from './Location.model';
+export { Question, IQuestion } from './Question.model';
 export { Score } from './Score.model';
+export { Ally, IAlly } from './Ally.model';
 
 //Sections
 export { Section, ISection } from './sections/Section.model';
 export { ActivitySection, IActivitySection } from './sections/ActivitySection.model';
+export { AllySection, IAllySection } from './sections/AllySection.model';
 export { ImageSection, IImageSection } from './sections/ImageSection.model';
 export { ParagraphSection, IParagraphSection } from './sections/ParagraphSection.model';
 export { TitleSection, ITitleSection, TitleSectionSize } from './sections/TitleSection.model';
@@ -21,9 +23,9 @@ export { YoutubeVideoSection, IYoutubeVideoSection } from './sections/YoutubeVid
 //Implementables
 export { Implementable, IImplementable } from './implementables/Implementable.model';
 export { Module, IModule } from './implementables/Module.model';
-export { Event } from './implementables/Event.model';
+export { Event, IEvent } from './implementables/Event.model';
 
 //Users
-export { User } from './users/User.model';
-export { Educator } from './users/Educator.model';
-export { Administrator } from './users/Administrator.model';
+export { User, IUser } from './users/User.model';
+export { Educator, IEducator } from './users/Educator.model';
+export { Administrator, IAdministrator } from './users/Administrator.model';

@@ -1,0 +1,29 @@
+<div class="holder" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let section of sections; let i=index" class="card shadow mt-4"  cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <div class="card-header" cdkDragHandle>
+            <button type="button" class="close" (click)="deleteSection(i)" >&times;</button>
+            <span class="modal-title">{{getTitle(section)}}</span>
+        </div>
+        <div class="card-body">
+            <div *ngIf="isActivity(section)">
+                <app-edit-activity [activity]=section ></app-edit-activity> 
+            </div>
+            <div *ngIf="isImage(section)">
+                <app-edit-image [image]=section [imageProxy]="imageProxy"></app-edit-image>
+            </div>
+            <div *ngIf="isParagraph(section)">
+                <app-edit-paragraph [paragraph]=section></app-edit-paragraph>
+            </div>
+            <div *ngIf="isTitle(section)">
+                <app-edit-title [title]=section></app-edit-title>
+            </div>
+            <div *ngIf="isYoutube(section)">
+                <app-edit-youtube [video]=section></app-edit-youtube>
+            </div>
+            <div *ngIf="isAlly(section)">
+                <app-edit-ally [ally]=section></app-edit-ally>
+            </div>
+        </div>
+    </div>
+</div>

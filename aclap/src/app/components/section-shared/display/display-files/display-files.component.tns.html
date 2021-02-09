@@ -1,0 +1,38 @@
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout orientation="vertical">
+            <Label text="Material de apoyo descargable" textWrap="true" class="header-text" backgroundColor="#1c81a9"></Label>
+            <StackLayout *ngFor="let file of files" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true (tap)="startDownload(file.url, file.name)">
+                    <GridLayout columns="auto, *, auto" rows="auto, *, auto">
+
+                        <StackLayout rowSpan="3" col="0" *ngIf="isPdf(file.name)">
+                            <Image src="res://pdf" class="download-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowSpan="3" col="0" *ngIf="isPpt(file.name)">
+                            <Image src="res://ppt" class="download-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowSpan="3" col="0" *ngIf="isDoc(file.name)">
+                            <Image src="res://doc" class="download-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowSpan="3" col="0" *ngIf="isImg(file.name)">
+                            <Image src="res://img" class="download-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowSpan="3" col="0" *ngIf="isFile(file.name)">
+                            <Image src="res://file" class="download-img"></Image>
+                        </StackLayout>
+
+                        <Label row="0" col="1" text="{{ file.name }}" class="title-text" textWrap="true" ></Label>
+                        <Label row="1" col="1" text="Tamaño: {{ formatBytes(file.bytes) }}" class="size-text" textWrap="true" ></Label>
+                    </GridLayout>
+                </Card:CardView>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

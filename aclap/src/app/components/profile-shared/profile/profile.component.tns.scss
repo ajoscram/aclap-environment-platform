@@ -1,0 +1,105 @@
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.bg-title-text{
+    background-color: $nav-color;
+    font-size: 16;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.title-text{
+    font-size: 24;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.text-impl{
+    text-align: left;
+    margin-left: 15;
+    margin-top: 5;
+}
+
+.subtitle-text-impl{
+    color: #000000;
+    font-weight: bold;
+    font-size: 22;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.date-text{
+    font-size: 12;
+    color: #596668;
+    text-align: left;
+    margin-left: 15;
+    margin-bottom: 10;
+}
+
+.text-completed{
+    font-size: 12;
+    font-weight: bold;
+    color: #39f158;
+    text-align: left;
+    margin-left: 15;
+}
+
+.text-incomplete{
+    font-size: 12;
+    font-weight: bold;
+    color: #f13939;
+    text-align: left;
+    margin-left: 15;
+}
+
+.user-text{
+    font-size: 20;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-left: 10;
+    margin-top: 8;
+}
+
+.user-img{
+    height: 50;
+    width: 50;
+    border-radius: 50%;
+    margin: 5;
+}
+
+.btn-logout {
+    color: #ffffff;
+    background-color: #Ef6423;
+    font-size: 12;
+    height: 40;
+}
+
+.btn-implRemover {
+    color: #ffffff;
+    border-radius: 3;
+    background-color: #f13939;
+    font-size: 12;
+    font-weight: bold;
+    width: 20;
+    height: 20;
+    margin-right: 15;
+    margin-top: 15;
+}
