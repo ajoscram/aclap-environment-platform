@@ -104,6 +104,14 @@
                 </div>
             </ng-template>
         </li>
+        <li [ngbNavItem]="4" >
+            <a ngbNavLink> Editar Perfil </a>
+            <ng-template ngbNavContent>
+                <div class="row">
+                    <app-profile-edit></app-profile-edit>
+                </div>
+            </ng-template>
+        </li>
     </ul>
 </div>
 <div id="main-content" class="container">

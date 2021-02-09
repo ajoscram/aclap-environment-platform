@@ -36,13 +36,6 @@ export class ImplementationEditComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.form = this.builder.group({
-      date: [this.implementation.date],
-      maleParticipants : [''],
-      femaleParticipants: [''],
-      otherParticipants: ['']
-    });
-
     /* AWAIT FOR THE IMPLEMENTATION */
 
     await this.controller.getImplementation(this.id)
@@ -51,6 +44,14 @@ export class ImplementationEditComponent implements OnInit {
         this.currentPosition = implementation.location.name;
       })
       .catch(_ => { this.router.navigateByUrl('/perfil'); })
+
+
+    this.form = this.builder.group({
+      date: [this.implementation.date],
+      maleParticipants : [''],
+      femaleParticipants: [''],
+      otherParticipants: ['']
+    });
 
     this.controller.getEvidence(this.id)
       .then( files => { this.moduleFiles = files;} )
@@ -81,7 +82,7 @@ export class ImplementationEditComponent implements OnInit {
       .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getAnswers(this.id)
-      .then(answers => {this.answers = answers})
+      .then(answers => {this.answers = answers;})
       .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.implementation.implementableId)

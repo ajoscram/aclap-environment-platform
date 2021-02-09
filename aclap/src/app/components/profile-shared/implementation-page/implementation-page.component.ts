@@ -104,6 +104,8 @@ export class ImplementationPageComponent implements OnInit {
       .then(implementation => { this.implementation = implementation;})
       .catch( err => { alert(this.translator.translate(err)); });
 
+    console.log(this.answers);
+
     this.answers.forEach( ans => {
       this.controller.setAnswer(ans, this.implementation.id, ans.id)
         .then(_ => {})
