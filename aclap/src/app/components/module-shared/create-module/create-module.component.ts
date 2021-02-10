@@ -65,19 +65,28 @@ export class CreateModuleComponent implements OnInit {
     let gotError: boolean = false;
 
     /* Upload image and banner of the module */
-    if(!this.moduleImage.url.startsWith('http')){
-      this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+    try{
+      if(!this.moduleImage.url.startsWith('http')  && this.moduleImage.url != ''){
+        this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url])
+        .then(
+          url => {
+            return url;
+          })
+      }
+    }catch(err){
+      alert(this.translator.translate(err));
     }
-    if(!this.bannerImage.url.startsWith('http')){
-      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+
+    try{
+      if(!this.bannerImage.url.startsWith('http')   && this.bannerImage.url != ''){
+        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+          url => {
+            return url;
+          }
+        );
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
 
     this.module.imageUrl = this.moduleImage.url;
@@ -100,6 +109,21 @@ export class CreateModuleComponent implements OnInit {
     });
 
     const sects = await Promise.all(sect);
+
+    this.files.forEach(
+      (file) => {
+        this.controller.addFile(this.id, file)
+        .then( _ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    this.questions.forEach(
+      (question) => {
+        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
 
     if(gotError){
       return;

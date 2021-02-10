@@ -60,20 +60,31 @@ export class CreateEventComponent implements OnInit {
 
   async submitSections(){
 
+    let gotError: boolean = false;
+
     /* Upload image and banner of the event */
-    if(!this.eventImage.url.startsWith('http')){
-      this.eventImage.url = await this.controller.upload(this.imageProxy[this.eventImage.url])
-      .then(
-        url => {
-          return url;
-        })
+    try{
+      if(!this.eventImage.url.startsWith('http')  && this.eventImage.url != ''  ){
+        this.eventImage.url = await this.controller.upload(this.imageProxy[this.eventImage.url])
+        .then(
+          url => {
+            return url;
+          })
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
-    if(!this.bannerImage.url.startsWith('http')){
-      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.eventImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+
+    try{
+      if(!this.bannerImage.url.startsWith('http')  && this.bannerImage.url != ''){
+        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+          url => {
+            return url;
+          }
+        );
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
 
     this.event.imageUrl = this.eventImage.url;
@@ -86,7 +97,7 @@ export class CreateEventComponent implements OnInit {
           this.id = event.id;
         }
       )
-      .catch( err => { alert(this.translator.translate(err)); });
+      .catch( err => { alert(this.translator.translate(err)); gotError = true; });
 
     await uploadingModule;
 
@@ -99,8 +110,29 @@ export class CreateEventComponent implements OnInit {
     const sects = await Promise.all(sect);
     console.log(sects);
 
-    alert("Contenido del evento actualizado de manera correcta");
-    this.router.navigateByUrl(`/eventos/${this.id}`);
+    this.files.forEach(
+      (file) => {
+        this.controller.addFile(this.id, file)
+        .then( _ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    this.questions.forEach(
+      (question) => {
+        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    if(gotError){
+      return;
+    }else{
+      alert("Contenido del evento actualizado de manera correcta");
+      this.router.navigateByUrl(`/eventos/${this.id}`);
+    }
+
+    
 
   }
 
