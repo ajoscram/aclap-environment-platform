@@ -1,17 +1,14 @@
-@use '../app.component.scss';
-
-.header-con{
-    
-    .header-image{
-        background-position: 50% 50%;
-    }
-
-}
+@use '../../app.component.scss';
 
 @media (min-width: 768px) {
     .jumbotron {
         height: 300px;
     }
+}
+
+.info{
+    background-color: app.$gray-dark;
+    color: white;
 }
 
 @media (min-width: 992px) {
@@ -33,6 +30,10 @@
     margin: 0px auto;
     display: flex;
     flex-wrap: wrap;
+}
+
+.header-image{
+    background-position: 50% 50%; 
 }
 
 .image-bg{

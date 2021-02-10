@@ -15,6 +15,7 @@ export class AlliesComponent implements OnInit {
   allies: Ally[] = [];
   isAdmin: boolean = false;
   bg_img: string = "https://i.imgur.com/cXS4iWl.jpeg";
+  credit = " Erik Solano Rojas";
   text: string = "La consolidación de alianzas estratégicas es un importante objetivo del desarrollo sostenible. Nuestros aliados son todas las personas o entidades que contribuyen a una cultura ambiental en sus núcleos familiares, su comunidad, a nivel organizacional, institucional, regional o nacional. Estos son algunos de los aliados del Programa de Educación Ambiental del ACLA-P.";
 
   constructor(private controller: Controller, private router: Router, private translator: ErrorTranslator) { }
