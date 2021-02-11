@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 col-sm-5 col-md-2 offset-sm-2 offset-md-7 ">
                 <img class="img-responsive rounded-circle
-                7" [src]="user.imageUrl" [alt]="'image de perfil de' + user.name">
+                7" [src]="user.imageUrl" [alt]="'imagen de perfil de' + user.name">
             </div>
         </div>
     </div>
@@ -101,6 +101,14 @@
                             </ngb-panel>
                         </ngb-accordion>
                     </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="4" >
+            <a ngbNavLink> Editar Perfil </a>
+            <ng-template ngbNavContent>
+                <div class="row">
+                    <app-profile-edit></app-profile-edit>
                 </div>
             </ng-template>
         </li>

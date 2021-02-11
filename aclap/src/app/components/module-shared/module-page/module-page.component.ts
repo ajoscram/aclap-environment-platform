@@ -3,6 +3,7 @@ import { Section, Module, Implementable, File } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { Controller } from '../../../services/control/Controller.service';
 import { Role } from '@src/app/services/authentication/Session.model';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-module-page',
@@ -19,7 +20,7 @@ export class ModulePageComponent implements OnInit {
   isEducator: boolean = false;
   isAnonymous: boolean = false;
 
-  constructor(private route:ActivatedRoute, private controller: Controller) { 
+  constructor(private route:ActivatedRoute, private controller: Controller, private translator: ErrorTranslator) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -48,12 +49,11 @@ export class ModulePageComponent implements OnInit {
 
     this.controller.getImplementable(this.id)
       .then(module => { this.module = <Module> module })
-      .catch(error => console.error(error));
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   switchFiles(){
     this.showingFiles = !this.showingFiles;
-    console.log(this.files)
   }
 
 }

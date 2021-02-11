@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   request: EducatorRequest;
 
   bg_img = "https://i.imgur.com/06NXUmI.jpeg";
+  credit = "Giancarlo Pucci";
 
   description = "Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.";
 
@@ -76,11 +77,8 @@ export class RegisterComponent implements OnInit {
         alert("Solicitud Enviada satisfactoriamente");
         this.router.navigateByUrl("inicio");
       }
-    ).catch(
-      error => {
-        alert(this.translator.translate(error));
-      }
     )
+    .catch( err => { alert(this.translator.translate(err)); });
 
   }
 

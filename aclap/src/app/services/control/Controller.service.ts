@@ -3,11 +3,12 @@ import { Session, Role } from "../authentication/Session.model";
 
 export abstract class Controller{
     //users
-    login: (email: string, password: string, role: Role) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     getSession: () => Promise<Session>;
     getUser: () => Promise<User>;
     setPassword: (password: string) => Promise<void>;
+    requestPasswordReset: (email: string) => Promise<string>;
     
     //educator requests
     getEducatorRequests: () => Promise<EducatorRequest[]>;
@@ -68,7 +69,8 @@ export abstract class Controller{
     //allies
     getAllies: () => Promise<Ally[]>;
     addAlly: (ally: IAlly) => Promise<Ally>;
-    deleteAlly: (allyId: string) => Promise<Ally>;
+    updateAlly: (id: string, ally: IAlly) => Promise<Ally>;
+    deleteAlly: (id: string) => Promise<Ally>;
 }
 
 export enum ControllerError{

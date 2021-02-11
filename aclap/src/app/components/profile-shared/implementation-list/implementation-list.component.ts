@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Implementation } from '@src/app/models';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-implementation-list',
@@ -13,7 +14,7 @@ export class ImplementationListComponent implements OnInit {
   @Input() finished: boolean = false;
   implementations: Implementation[] = [];
 
-  constructor(private controller: Controller) { 
+  constructor(private controller: Controller, private translator: ErrorTranslator) { 
 
   }
 
@@ -32,11 +33,13 @@ export class ImplementationListComponent implements OnInit {
       this.controller.getImplementations(false)
         .then(impls => {
           impls.forEach(e => {this.implementations.push(e)})
-        });
+        })
+        .catch( err => { alert(this.translator.translate(err)); });
       this.controller.getImplementations(true)
         .then(impls => {
           impls.forEach(e => {this.implementations.push(e)})
-        });
+        })
+        .catch( err => { alert(this.translator.translate(err)); });
     }
   }
 

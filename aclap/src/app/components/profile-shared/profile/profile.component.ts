@@ -1,6 +1,7 @@
 import { Component, OnInit, ɵAPP_ID_RANDOM_PROVIDER } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from '@src/app/services/authentication/Session.model';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { EducatorRequest, EducatorRequestState, Event, Module, User } from '../../../models';
 import { Controller } from '../../../services/control/Controller.service';
 
@@ -10,7 +11,7 @@ import { Controller } from '../../../services/control/Controller.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  tabTags = ["Módulos","Eventos","Solicitud de Educador Ambiental"];
+  tabTags = ["Módulos","Eventos","Solicitud de Persona Educadora"];
   tabEducator = ["Borrador de implementaciones", "Implementaciones finalizadas"];
   tabIndex = 1;
   user: User;
@@ -23,9 +24,9 @@ export class ProfileComponent implements OnInit {
   isEducator: Boolean = false;
   len = 2;
 
-  constructor(private controller: Controller, private router: Router) { }
+  constructor(private controller: Controller, private router: Router,private translator: ErrorTranslator) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.pendingRequests = new Array();
     this.approvedRequests = new Array();
     this.approvedRequests = new Array();
@@ -42,42 +43,49 @@ export class ProfileComponent implements OnInit {
 
     this.controller.getModules().then(
       modules => {this.modules = modules}
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getEvents().then(
       events => {this.events = events}
-    ).
-    catch();
+    )
+    .catch( err => { alert(this.translator.translate(err)); });
     
-    this.controller.getSession()
-    .then(
-      session => {
+    let role: Role;
+    try{
+      role = await this.controller.getSession()
+      .then( session => {
         if(session.role === Role.ADMINISTRATOR){
           this.isAdmin = true;
           this.len = 3;
         }else if(session.role === Role.EDUCATOR){
           this.isEducator = true;
         }
-      }
-    )
-    .catch(_ => {
+        return session.role;
+      });
+    }catch(error){
       this.router.navigateByUrl("/inicio");
-    });
+    }
 
-    this.controller.getEducatorRequests().then(
-      (requests) => {
-        requests.map(req => {
-          if(req.state == EducatorRequestState.APPROVED){
-            this.approvedRequests.push(req);
-          }else if(req.state == EducatorRequestState.PENDING){
-            this.pendingRequests.push(req);
-          }else if(req.state == EducatorRequestState.DENIED){
-            this.deniedRequests.push(req);
-          }
-        });
-      }
-    )
-    .catch();
+    if (role == Role.ADMINISTRATOR){
+      this.controller.getEducatorRequests().then(
+        (requests) => {
+          requests.map(req => {
+            if(req.state == EducatorRequestState.APPROVED){
+              this.approvedRequests.push(req);
+            }else if(req.state == EducatorRequestState.PENDING){
+              this.pendingRequests.push(req);
+            }else if(req.state == EducatorRequestState.DENIED){
+              this.deniedRequests.push(req);
+            }
+          });
+        }
+      )
+      .catch( err => { alert(this.translator.translate(err)); });
+    }else if (role == Role.EDUCATOR){
+
+    }
+
   }
 
   onAcceptResquest(index: number) {
@@ -88,10 +96,8 @@ export class ProfileComponent implements OnInit {
           alert(`Solicitud de ${response.name} ${response.lastname} : ${response.email} Aceptada`);
           this.pendingRequests.splice(index, 1);
         }
-      }).
-      catch(error => {
-        return; 
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
   }
 
@@ -102,10 +108,8 @@ export class ProfileComponent implements OnInit {
           alert(`Solicitud de ${response.name} ${response.lastname} : ${response.email} Rechazada`);
           this.pendingRequests.splice(index, 1);
         }
-      }).
-      catch(error => {
-        return; 
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
   }
 }

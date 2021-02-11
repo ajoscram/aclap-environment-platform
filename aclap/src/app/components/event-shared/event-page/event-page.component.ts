@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Event, File } from '../../../models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-event-page',
@@ -20,7 +21,7 @@ export class EventPageComponent implements OnInit {
   isAnonymous: boolean = false;
   months: string[] = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','setiembre','octubre','noviembre','diciembre'];
 
-  constructor(private route:ActivatedRoute, private controller: Controller) { 
+  constructor(private route:ActivatedRoute, private controller: Controller, private translator: ErrorTranslator) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -44,6 +45,7 @@ export class EventPageComponent implements OnInit {
           this.files = files;
         }
       )
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.showingFiles = false;
 

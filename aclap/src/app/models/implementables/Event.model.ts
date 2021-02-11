@@ -4,7 +4,7 @@ export interface IEvent extends IImplementable{
     date: Date
 }
 
-export class Event extends Implementable implements IEvent{
+export class Event extends Implementable{
     constructor(
         public id: string,
         public name: string,

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Module, Section } from '@src/app/models';
 import { Role } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-teaching-guide',
@@ -16,7 +17,7 @@ export class TeachingGuideComponent implements OnInit {
   id: string;
   isAdmin: boolean = false;
 
-  constructor(private route:ActivatedRoute, private controller: Controller) { 
+  constructor(private route:ActivatedRoute, private controller: Controller, private translator: ErrorTranslator) { 
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -49,7 +50,7 @@ export class TeachingGuideComponent implements OnInit {
           }
         );
       })
-      .catch(error => console.error(error));
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

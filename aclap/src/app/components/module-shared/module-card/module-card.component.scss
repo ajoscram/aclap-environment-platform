@@ -30,40 +30,30 @@ $l-grey: #F8F8F8;
     background-color: $module-color;
     color: whitesmoke;
 }
-
 .card-bg{
     background-color: $l-grey;
 }
-
-
 .row-p{
     padding-top: 20px;
     padding-right: 0px;
     padding-bottom: 10px;
     padding-left: 0px;
 }
-
 .card-title{
     font-size: 36px;
 }
-
 .container-fluid{
     transition: 1.7s;
 }
-
 .container-fluid:hover{
-
     .row{
         background-color: app.$lime-color;
         color: white;
     }
-
     .row.module-header{
         background-color: app.$button-color;
         color: white;
     }
-
-
     .card-body{
         .row{
             app-discipline{
@@ -74,8 +64,5 @@ $l-grey: #F8F8F8;
             }
         }
     }
-
-
 }
 */
-

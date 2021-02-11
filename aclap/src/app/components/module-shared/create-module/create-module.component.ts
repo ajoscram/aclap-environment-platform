@@ -4,6 +4,7 @@ import { ActivitySection, Discipline, ImageSection,
   Module, ParagraphSection, Question, Section, 
   TitleSection, TitleSectionSize, YoutubeVideoSection } from '../../../models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-create-module',
@@ -23,10 +24,10 @@ export class CreateModuleComponent implements OnInit {
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
-  constructor(private controller: Controller, private router: Router, private route: ActivatedRoute) { }
+  constructor(private controller: Controller, private router: Router, private route: ActivatedRoute, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
-    this.module = new Module("","","rgb(35,175,229)","","","","","","6 a 9 años","","", new Array<Discipline>());
+    this.module = new Module("","","#23aee5","","","","","","6 a 9 años","","", new Array<Discipline>());
     this.sections = new Array<Section>();
     this.questions = new Array<Question>();
     this.moduleImage = new ImageSection("",0,"",this.module.imageUrl,"");
@@ -61,20 +62,31 @@ export class CreateModuleComponent implements OnInit {
 
   async submitSections(){
 
+    let gotError: boolean = false;
+
     /* Upload image and banner of the module */
-    if(!this.moduleImage.url.startsWith('http')){
-      this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+    try{
+      if(!this.moduleImage.url.startsWith('http')  && this.moduleImage.url != ''){
+        this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url])
+        .then(
+          url => {
+            return url;
+          })
+      }
+    }catch(err){
+      alert(this.translator.translate(err));
     }
-    if(!this.bannerImage.url.startsWith('http')){
-      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+
+    try{
+      if(!this.bannerImage.url.startsWith('http')   && this.bannerImage.url != ''){
+        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+          url => {
+            return url;
+          }
+        );
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
 
     this.module.imageUrl = this.moduleImage.url;
@@ -85,7 +97,8 @@ export class CreateModuleComponent implements OnInit {
       module => {
         this.id = module.id;
       }
-    );
+    )
+    .catch( err => { alert(this.translator.translate(err)); gotError = true; });;
 
     await uploadingModule;
 
@@ -96,10 +109,29 @@ export class CreateModuleComponent implements OnInit {
     });
 
     const sects = await Promise.all(sect);
-    console.log(sects);
 
-    alert("Contenido del módulo actualizado de manera correcta");
-    this.router.navigateByUrl(`/modulos/${this.id}`);
+    this.files.forEach(
+      (file) => {
+        this.controller.addFile(this.id, file)
+        .then( _ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    this.questions.forEach(
+      (question) => {
+        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    if(gotError){
+      return;
+    }else{
+      alert("Contenido del módulo actualizado de manera correcta");
+      this.router.navigateByUrl(`/modulos/${this.id}`);
+    }
+
 
   }
 

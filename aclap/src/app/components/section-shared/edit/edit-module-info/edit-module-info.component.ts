@@ -17,7 +17,7 @@ export class EditModuleInfoComponent implements OnInit {
   @Input() moduleImage: ImageSection;
   @Input() bannerImage: ImageSection;
 
-  colors: Array<string> = ["rgb(35,175,229)","rgb(82,143,65)","rgb(239,100,35)","rgb(250,182,33)"];
+  colors: Array<string> = ["#23aee5", "#528f41", "#ef6423", "#fab621"];
   selected: string = this.colors[0];
   
   disciplines: DisciplineMetadata;
@@ -28,7 +28,7 @@ export class EditModuleInfoComponent implements OnInit {
 
   constructor(private controller: Controller, private builder: FormBuilder, private router: Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.moduleForm = this.builder.group({
       name: ['', Validators.required],
       color: ['', Validators.required],
@@ -47,12 +47,11 @@ export class EditModuleInfoComponent implements OnInit {
     this.ageRange = ["6 a 9 años", "10 a 12 años", "13 a 15 años", "16 a 18 años", "18 años en adelante"];
     this.refreshDiscipline();
 
-    this.controller.getDisciplineMetadata()
-      .then( meta => {
-        this.disciplines = meta;
-        console.log(meta);
-      })
-      .catch( error => { console.error(error) });
+    try{
+      this.disciplines = await this.controller.getDisciplineMetadata();
+    }catch(error)  {
+      console.log(error);
+    }
   }
 
   addDiscipline(){

@@ -104,7 +104,7 @@ describe('DefaultController', () => {
             ] 
         });
         controller = TestBed.inject(Controller);
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
     });
 
 
@@ -112,7 +112,7 @@ describe('DefaultController', () => {
         //an administrator user is logged in on the before each, so they must be logged out
         await controller.logout();
         await expectAsync(
-            controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR)
+            controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD)
         ).toBeResolved();
     });
 
@@ -140,6 +140,12 @@ describe('DefaultController', () => {
         await controller.setPassword(NEW_PASSWORD);
         expect(MockAuthenticator.PASSWORD).toBe(NEW_PASSWORD);
         await controller.setPassword(OLD_PASSWORD);
+    });
+
+    it('requestPasswordReset(): returns the email it was called with', async () => {
+        const STUB_EMAIL: string = 'email';
+        const email: string = await controller.requestPasswordReset(STUB_EMAIL);
+        expect(email).toBe(STUB_EMAIL);
     });
 
     it('addEducatorRequest(): adds an educator request', async () => {
@@ -265,14 +271,14 @@ describe('DefaultController', () => {
     });
 
     it('addQuestion(): adds a question to an implementable', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const question: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
         expect(question).toBeTruthy();
     });
 
     it('getQuestions(): gets an implementable\'s questions', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         await controller.addQuestion(implementable.id, STUB_IQUESTION);
         await controller.addQuestion(implementable.id, STUB_IQUESTION);
@@ -281,7 +287,7 @@ describe('DefaultController', () => {
     });
 
     it('updateQuestion(): updates a question', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
         const updated: Question = await controller.updateQuestion(implementable.id, added.id, STUB_IQUESTION);
@@ -289,14 +295,14 @@ describe('DefaultController', () => {
     });
 
     it('setQuestion(): adds a question to an implementable if no id is provided', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const question: Question = await controller.setQuestion(STUB_IQUESTION, implementable.id);
         expect(question).toBeTruthy();
     });
 
     it('setQuestion(): updates a question to an implementable if an id is provided', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
         const set: Question = await controller.setQuestion(STUB_IQUESTION, implementable.id, added.id);
@@ -305,7 +311,7 @@ describe('DefaultController', () => {
     });
 
     it('deleteQuestion(): deletes a question', async () => {
-        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.ADMIN_USERNAME, MockAuthenticator.PASSWORD);
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
         const added: Question = await controller.addQuestion(implementable.id, STUB_IQUESTION);
         const deleted: Question = await controller.deleteQuestion(implementable.id, added.id);
@@ -314,7 +320,7 @@ describe('DefaultController', () => {
 
     it('draftImplementation(): returns an incomplete IImplementation with basic profile information', async () => {
         const implementable: Implementable = await controller.addImplementable(STUB_IMODULE);
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: IImplementation = await controller.draftImplementation(implementable.id);
         expect(implementation).toBeTruthy();
     });
@@ -345,35 +351,35 @@ describe('DefaultController', () => {
     });
 
     it('updateImplementation(): updates an existing implementation', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const updated: Implementation = await controller.updateImplementation(added.id, STUB_IIMPLEMENTATION);
         expect(updated).toBeTruthy();
     });
 
     it('deleteImplementation(): updates an existing implementation', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const deleted: Implementation = await controller.deleteImplementation(added.id);
         expect(deleted).toBeTruthy();
     });
 
     it('completeImplementation(): completes and returns a completed implementation', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const added: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const completed: Implementation = await controller.completeImplementation(added.id);
         expect(completed).toBeTruthy();
     });
 
     it('addAnswer(): adds an answer to an implementation', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const answer: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
         expect(answer).toBeTruthy();
     });
 
     it('getAnswers(): gets an implementation\'s answers', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         await controller.addAnswer(implementation.id, STUB_IANSWER);
         await controller.addAnswer(implementation.id, STUB_IANSWER);
@@ -382,7 +388,7 @@ describe('DefaultController', () => {
     });
 
     it('updateAnswer(): updates an answer', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
         const updated: Answer = await controller.updateAnswer(implementation.id, added.id, STUB_IANSWER);
@@ -390,14 +396,14 @@ describe('DefaultController', () => {
     });
 
     it('setAnswer(): adds an answer to an implementation if no id is provided', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const answer: Answer = await controller.setAnswer(STUB_IANSWER, implementation.id);
         expect(answer).toBeTruthy();
     });
 
     it('setAnswer(): updates an implementation\'s answer if an id is provided', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.ADMINISTRATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
         const set: Answer = await controller.setAnswer(STUB_IANSWER, implementation.id, added.id);
@@ -406,7 +412,7 @@ describe('DefaultController', () => {
     });
 
     it('deleteAnswer(): deletes an answer', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const added: Answer = await controller.addAnswer(implementation.id, STUB_IANSWER);
         const deleted: Answer = await controller.deleteAnswer(implementation.id, added.id);
@@ -414,14 +420,14 @@ describe('DefaultController', () => {
     });
 
     it('addEvidence(): adds an evidence file', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const evidence: File = await controller.addEvidence(implementation.id, STUB_IFILE);
         expect(evidence).toBeTruthy();
     });
 
     it('getEvidence(): gets an implementation\'s evidence', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         await controller.addEvidence(implementation.id, STUB_IFILE);
         await controller.addEvidence(implementation.id, STUB_IFILE);
@@ -430,7 +436,7 @@ describe('DefaultController', () => {
     });
 
     it('deleteEvidence(): deletes an existing evidence file', async () => {
-        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD, Role.EDUCATOR);
+        await controller.login(MockAuthenticator.EDUCATOR_USERNAME, MockAuthenticator.PASSWORD);
         const implementation: Implementation = await controller.addImplementation(STUB_IIMPLEMENTATION);
         const added: File = await controller.addEvidence(implementation.id, STUB_IFILE);
         const deleted: File = await controller.deleteEvidence(implementation.id, added.id);
@@ -448,6 +454,13 @@ describe('DefaultController', () => {
     it('addAlly(): adds a new ally and returns it', async () => {
         const ally: Ally = await controller.addAlly(STUB_IALLY);
         expect(ally).toBeTruthy();
+    });
+
+    it('updateAlly(): updates an ally and returns it', async () => {
+        const added: Ally = await controller.addAlly(STUB_IALLY);
+        const updated: Ally = await controller.updateAlly(added.id, STUB_IALLY);
+        expect(updated).toBeTruthy();
+        expect(added.id).toBe(added.id);
     });
 
     it('deleteAlly(): deletes an ally and returns it', async () => {

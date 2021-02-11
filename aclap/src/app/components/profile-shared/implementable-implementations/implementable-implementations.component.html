@@ -28,7 +28,7 @@
         </div>
     </div>
     <div *ngFor="let imp of implementations" class="row">
-        <div class="card shadow" [routerLink]="['/implementacion','ver', imp.id]" >
+        <div class="card shadow col-12" [routerLink]="['/implementacion','ver', imp.id]" >
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -38,13 +38,20 @@
                         <span>Fecha: {{ imp.date | date: 'dd/MM/yyyy' }} </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <span>Cantidad de participantes: {{ imp.participants }} </span>
-                    </div>  
-                    <div class="col d-flex justify-content-end">
+                <div class="row"> 
+                    <div class="col-12">
                         <span>Ubicación: {{ imp.location.name }}</span>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <span class="text-center"> <strong> Participantes </strong> </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center"> Mujeres: {{ imp.femaleParticipants }} </div>
+                    <div class="col d-flex justify-content-center"> Hombres: {{ imp.maleParticipants}} </div>
+                    <div class="col d-flex justify-content-center"> Otros:  {{ imp.otherParticipants }} </div>
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-center">

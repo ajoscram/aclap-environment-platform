@@ -34,10 +34,14 @@ export class DefaultController implements Controller{
 
     async getSession(): Promise<Session>{
         return await this.authenticator.getSession();
-    };
+    }
 
     async setPassword(password: string): Promise<void>{
         await this.authenticator.setPassword(password);
+    }
+
+    async requestPasswordReset(email: string): Promise<string>{
+        return await this.database.addPasswordResetRequest(email);
     }
 
     async addEducatorRequest(request: IEducatorRequest): Promise<EducatorRequest>{
@@ -73,6 +77,11 @@ export class DefaultController implements Controller{
 
     async addImplementable(implementable: IImplementable): Promise<Implementable>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        const session: Session = await this.authenticator.getSession();
+        const user: User = await this.database.getUser(session.user_id);
+        implementable.publisherId = user.id;
+        implementable.publisherName = user.name;
+        implementable.publisherLastname = user.lastname;
         return await this.database.addImplementable(implementable);
     }
 
@@ -276,9 +285,14 @@ export class DefaultController implements Controller{
         await this.authenticator.validate(Role.ADMINISTRATOR);
         return await this.database.addAlly(ally);
     }
-    
-    async deleteAlly(allyId: string): Promise<Ally>{
+
+    async updateAlly(id: string, ally: IAlly): Promise<Ally>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
-        return await this.database.deleteAlly(allyId);
+        return await this.database.updateAlly(id, ally);
+    }
+    
+    async deleteAlly(id: string): Promise<Ally>{
+        await this.authenticator.validate(Role.ADMINISTRATOR);
+        return await this.database.deleteAlly(id);
     }
 }

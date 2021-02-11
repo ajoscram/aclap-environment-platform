@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivitySection, Answer, File, Implementation, Location, Question } from '../../../models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
@@ -14,6 +15,7 @@ import { icon, latLng, marker, tileLayer } from 'leaflet';
 export class ImplementationEditComponent implements OnInit {
 
   implementation: Implementation;
+  form: FormGroup;
   id: string;
   files: any[] = [];
   questions: Question[] = [];
@@ -27,7 +29,7 @@ export class ImplementationEditComponent implements OnInit {
   moduleFiles: File[] = [];
   deletedModuleFiles: File[] = [];
 
-  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router) { 
+  constructor(private controller: Controller, private route: ActivatedRoute, private translator: ErrorTranslator, private geoApi: GeoApiService, private router: Router, private builder: FormBuilder) { 
     /* ID OF THE IMPLEMENTATION */
     this.id = this.route.snapshot.paramMap.get('id');
   }
@@ -43,9 +45,17 @@ export class ImplementationEditComponent implements OnInit {
       })
       .catch(_ => { this.router.navigateByUrl('/perfil'); })
 
+
+    this.form = this.builder.group({
+      date: [this.implementation.date],
+      maleParticipants : [''],
+      femaleParticipants: [''],
+      otherParticipants: ['']
+    });
+
     this.controller.getEvidence(this.id)
       .then( files => { this.moduleFiles = files;} )
-      .catch( err => { console.log(this.translator.translate(err)); } );
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.center = latLng(this.implementation.location.latitude, this.implementation.location.longitude);
     this.options = {
@@ -69,17 +79,18 @@ export class ImplementationEditComponent implements OnInit {
 
     this.controller.getQuestions(this.implementation.implementableId)
       .then(qstns => {this.questions = qstns;})
-      .catch( err => { console.log(this.translator.translate(err)); } );
+      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getAnswers(this.id)
-      .then(answers => {this.answers = answers})
-      .catch( err => { console.log(this.translator.translate(err)); } );
+      .then(answers => {this.answers = answers;})
+      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.implementation.implementableId)
       .then(sections => {
         sections = sections.filter( section => { return section instanceof ActivitySection} );
         this.activities = <ActivitySection[]> sections;
-      });
+      })
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.geoApi.getReverseGeocoding(this.center.lat , this.center.lng ).subscribe(
       (response) => {
@@ -103,19 +114,19 @@ export class ImplementationEditComponent implements OnInit {
 
     await this.controller.updateImplementation(this.implementation.id, this.implementation)
       .then(implementation => { this.implementation = implementation })
-      .catch(err => { console.log(this.translator.translate(err));});
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.answers.forEach( ans => {
       this.controller.setAnswer(ans, this.implementation.id, ans.id)
         .then(_ => {})
-        .catch(err => { console.log(this.translator.translate(err));});
+        .catch( err => { alert(this.translator.translate(err)); });
     });
 
     this.files.forEach(
       (file) => {
         this.controller.addEvidence(this.implementation.id, file)
         .then( _ => {})
-        .catch(err => { console.log(this.translator.translate(err));});
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     );
 
@@ -123,11 +134,7 @@ export class ImplementationEditComponent implements OnInit {
       (file: File) => {
         this.controller.deleteEvidence(this.id, file.id)
         .then(_ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); });
       }
     );
   }
@@ -141,11 +148,10 @@ export class ImplementationEditComponent implements OnInit {
   async onComplete(){
     this.controller.completeImplementation(this.implementation.id)
       .then(implementation => {
-        alert("Se completó la implementación correctamente, ya no es posible editar esta implementación");
-        console.log("on Complete implemetation",implementation.id);
+        alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
         this.router.navigateByUrl(`/perfil`);
       })
-      .catch()
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   showPos(){
@@ -172,7 +178,7 @@ export class ImplementationEditComponent implements OnInit {
   deleteImplementation(){
     this.controller.deleteImplementation(this.id)
       .then(_ => {alert("Implementación borrada exitosamente"); this.router.navigateByUrl('/perfil')})
-      .catch()
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

@@ -80,6 +80,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { EditAllyComponent } from '@src/app/components/section-shared/edit/edit-ally/edit-ally.component';
+import { ImgHeaderComponent } from '@src/app/components/shared/img-header/img-header.component';
 
 const imports: any[] = [
   BrowserModule,
@@ -161,7 +163,9 @@ if(environment.production){
     AlliesComponent,
     AlliesEditComponent,
     ProfileEditComponent,
-    PasswordEditComponent
+    PasswordEditComponent,
+    EditAllyComponent,
+    ImgHeaderComponent
   ],
   imports: imports,
   providers: [

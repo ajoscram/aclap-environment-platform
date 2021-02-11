@@ -4,9 +4,34 @@ import * as passwords from './wrappers/passwords';
 import * as mail from './wrappers/mail';
 import { environment } from './environment';
 import { UserRecord } from 'firebase-functions/lib/providers/auth';
-import { Educator, EducatorRequestState, EducatorRequest, Administrator } from './models';
+import { Educator, EducatorRequestState, EducatorRequest, Administrator, PasswordReset } from './models';
 
 admin.initializeApp();
+
+//Password auto-generation, needed when users forget their passwords
+export const resetPassword = functions.firestore
+   .document(`${environment.collections.password_resets}/{resetId}`)
+   .onCreate( async (doc, context) => {
+      const reset: PasswordReset = doc.data() as PasswordReset;
+      try{
+         //resetting the password
+         const user: UserRecord = await admin.auth().getUserByEmail(reset.email);
+         const password: string = passwords.generate();
+         await admin.auth().updateUser(user.uid, {
+            password: password,
+         });
+         await mail.resetPassword(reset.email, password);
+         
+         //deleting the request
+         await admin.firestore()
+            .collection(environment.collections.password_resets)
+            .doc(context.params.resetId)
+            .delete();
+         
+      } catch(error) {
+         console.error('Error while changing user password and sending email: ', reset.email, '\n', error);
+      }
+   });
 
 //Educator account creation
 export const onRequestAccepted = functions.firestore
@@ -54,27 +79,33 @@ export const onRequestAccepted = functions.firestore
       }
    });
 
-//This endpoint is needed for a base administrator account
-//If they ever implement adding custom claims from the firebase console remove this function.
-export const setupDevAccount = functions.https.onRequest(async(req, res)=>{
-   try{
-      const user: UserRecord = await admin.auth().createUser({
-         email: environment.dev_user.email,
-         password: environment.dev_user.password,
-      });
-      await admin.auth().setCustomUserClaims(user.uid, environment.claims.administrator);
-      const dev: Administrator = {
-         id: user.uid,
-         imageUrl: environment.defaults.user_image_url,
-         name: 'Educa-ACLAP',
-         lastname: 'Developers',
-         email: environment.dev_user.email,
-      }
-      await admin.firestore()
+async function createAdministratorAccount(email: string, password: string, name: string, lastname: string): Promise<void>{
+   const user: UserRecord = await admin.auth().createUser({
+      email: email,
+      password: password,
+   });
+   await admin.auth().setCustomUserClaims(user.uid, environment.claims.administrator);
+   const administrator: Administrator = {
+      id: user.uid,
+      imageUrl: environment.defaults.user_image_url,
+      name: name,
+      lastname: lastname,
+      email: email,
+   }
+   await admin.firestore()
       .collection(environment.collections.users)
       .doc(user.uid)
-      .set(dev);
-   } catch(error){/*don't really care about this function failing, since it's just setup*/}
+      .set(administrator);
+}
+
+//This endpoint is needed for a base administrator account
+//If they ever implement adding custom claims from the firebase console remove this function.
+export const setupAdministratorAccounts = functions.https.onRequest(async(req, res)=>{
+   for(const user of environment.administrator_users){
+      try{
+         await createAdministratorAccount(user.email, user.password, user.name, user.lastname);
+      } catch(error){/*don't really care about this function failing, since it's just setup*/}
+   }
    res.end();
 });
 

@@ -47,22 +47,33 @@
                     <button class="btn btn-warning btn-sm col-12" (click)="onComplete()" >Finalizar implementación</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="participants" class="col-2 col-form-label">Participantes</label>
-                    <div class="col">
-                        <select class="form-control" [(ngModel)]="implementation.otherParticipants" >
-                            <option *ngFor="let n of getRange(50)" [value]="n">
-                                {{n}}
-                            </option>
-                        </select>
+            <form [formGroup]=form>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-center"> Participantes </span>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="date" class="col-2 col-form-label">Fecha</label>
-                    <input type="date" class="form-control" [(ngModel)]="implementation.date">
+                <div class="row">
+                    <label for="femaleParticipants" class="col-xl-2 col-form-label"> Mujeres </label>
+                    <div class="col-xl-10">
+                        <input type="number" formControlName=femaleParticipants class="form-control" [(ngModel)]="implementation.femaleParticipants">
+                    </div>
+                    <label for="maleParticipants" class="col-xl-2 col-form-label"> Hombres </label>
+                    <div class="col-xl-10">
+                        <input type="number" formControlName=maleParticipants class="form-control" [(ngModel)]="implementation.maleParticipants">
+                    </div>
+                    <label for="otherParticipants" class="col-xl-2 col-form-label"> Otro </label>
+                    <div class="col-xl-10">
+                        <input type="number" formControlName=otherParticipants class="form-control" [(ngModel)]="implementation.otherParticipants">
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="date" class="col-2 col-form-label">Fecha</label>
+                        <input type="date" class="form-control" formControlName="date" [(ngModel)]="implementation.date">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="row">

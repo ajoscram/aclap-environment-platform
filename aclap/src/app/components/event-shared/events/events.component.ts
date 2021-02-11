@@ -16,6 +16,7 @@ export class EventsComponent implements OnInit {
 
 
   bg_img = "https://i.imgur.com/MkNJop5.jpeg";
+  credit = "Roger González";
   description = "Celebra las efemérides ambientales más queridas de nuestra institución. Organice un evento en su comunidad y comparta sus fotografías y aprendizajes con nosotros. Cada evento cuenta con sugerencias Todos los materiales pueden ser utilizados libremente por docentes, gestores - gestoras comunales, y personas educadoras de las organizaciones locales.";
 
   constructor(private controller: Controller, private translator: ErrorTranslator) { }
@@ -31,7 +32,7 @@ export class EventsComponent implements OnInit {
 
     this.controller.getEvents()
       .then( events => { this.events = events; })
-      .catch( error => console.error(this.translator.translate(error)));
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
 }

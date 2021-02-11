@@ -1,0 +1,83 @@
+@use '../../app.component.scss';
+
+.header-image{
+    background-position: 50% 50%;
+}
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+    }
+}
+
+.jumbotron{
+    background-color: app.$jumbo-color;
+    color: whitesmoke;
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-bg{
+    height: 300px;
+}
+
+.btn-goto{
+    background-color: app.$button-color;
+    color: white;
+}
+
+.row-content{
+    margin: 0px auto;
+    padding: 15px 0px 50px 0px;
+    min-height: 100px;
+}
+
+.clickable:hover{
+    background-color: white;
+    color: app.$button-color;
+    border-color: app.$button-color;
+}
+
+.add-section{
+    background-color: lightgrey;
+    font-size: 43px;
+    min-height: 100px;
+    max-height: 200px;
+    transition: 0.3s;
+}
+
+.add-section:hover{
+    background-color: #4d4d4d;
+    color: #d1d1d1;
+}
+
+
+.section-option{
+    background-color: lightgrey;
+    margin-bottom: 20px;
+    padding-right: 30px;
+    border: app.$nav-color;
+    border-width: 5px;
+    min-height: 100px;
+    max-height: 200px;
+    transition: 0.3s;
+}
+
+.section-option:hover{
+    background-color: app.$nav-color;
+    color: white;
+}

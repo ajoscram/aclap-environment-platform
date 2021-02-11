@@ -1,7 +1,11 @@
 @use '../app.component.scss';
 
-.header-image{
-    background-position: 50% 50%;
+.header-con{
+    
+    .header-image{
+        background-position: 50% 50%;
+    }
+
 }
 
 @media (min-width: 768px) {

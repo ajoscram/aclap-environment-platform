@@ -35,45 +35,28 @@ export class EventEditComponent implements OnInit {
         this.moduleImage = new ImageSection("",0,"",module.imageUrl,"");
         this.bannerImage = new ImageSection("",0,"",module.bannerImageUrl,"");
       })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)
       .then(sections => { this.sections = sections; //Returns ordered list
       })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+      .catch( err => { alert(this.translator.translate(err)); });
     this.imageProxy = new Map();
     this.questions = new Array();
 
     this.controller.getFiles(this.id)
-    .then(
-      (files) =>{
-        this.moduleFiles = files;
-      }
-    ).catch(
-      err => {
-        console.log(this.translator.translate(err));
-      }
-    );
+      .then(
+        (files) =>{
+          this.moduleFiles = files;
+        })
+      .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getQuestions(this.id)
       .then(
         (questions) => {
           this.questions = questions;
-        }
-      )
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+        })
+      .catch( err => { alert(this.translator.translate(err)); });
   }
 
   checkStatus(){
@@ -110,20 +93,31 @@ export class EventEditComponent implements OnInit {
     //Submit Sections
     //Go to module Display Page
 
+    let gotError: boolean = false;
+
     /* Upload image and banner of the module */
-    if(!this.moduleImage.url.startsWith('http')){
-      this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+    try{
+      if(!this.moduleImage.url.startsWith('http')  && this.moduleImage.url != ''){
+        this.moduleImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url])
+        .then(
+          url => {
+            return url;
+          })
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
-    if(!this.bannerImage.url.startsWith('http')){
-      this.bannerImage.url = await this.controller.upload(this.imageProxy[this.moduleImage.url]).then(
-        url => {
-          return url;
-        }
-      );
+
+    try{
+      if(!this.bannerImage.url.startsWith('http')  && this.bannerImage.url != ''){
+        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
+          url => {
+            return url;
+          }
+        );
+      }
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
     }
 
     this.module.imageUrl = this.moduleImage.url;
@@ -150,26 +144,19 @@ export class EventEditComponent implements OnInit {
       }
     };
 
-    this.controller.updateImplementable(this.module.id, this.module).then(
-      module => {
-        //All Good
-        console.log(module);
-      })
-      .catch(
-        err => {
-          console.log(this.translator.translate(err));
-        }
-      );
+    this.controller.updateImplementable(this.module.id, this.module)
+      .then(
+        module => {
+          //All Good
+          console.log(module);
+        })
+      .catch( err => { alert(this.translator.translate(err)); gotError = true; });
 
     this.deletedModuleFiles.forEach(
       (file: File) => {
         this.controller.deleteFile(this.id, file.id)
         .then(_ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
       }
     );
 
@@ -177,28 +164,25 @@ export class EventEditComponent implements OnInit {
       (file) => {
         this.controller.addFile(this.id, file)
         .then( _ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
       }
     );
 
     this.questions.forEach(
       (question) => {
         this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch(
-          err => {
-            console.log(this.translator.translate(err));
-          }
-        );
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
       }
-    )
+    );
 
     //Display modal that everithing worked fine
-    alert("Contenido del evento actualizado de manera correcta");
-    this.router.navigateByUrl(`/eventos/${this.route.snapshot.paramMap.get('id')}`);
+    if(gotError){
+      return;
+    }else{
+      alert("Contenido del evento actualizado de manera correcta");
+      this.router.navigateByUrl(`/eventos/${this.route.snapshot.paramMap.get('id')}`);
+
+    }
 
   }
 

@@ -21,6 +21,9 @@
             <div *ngIf="isYoutube(section)">
                 <app-edit-youtube [video]=section></app-edit-youtube>
             </div>
+            <div *ngIf="isAlly(section)">
+                <app-edit-ally [ally]=section></app-edit-ally>
+            </div>
         </div>
     </div>
 </div>
