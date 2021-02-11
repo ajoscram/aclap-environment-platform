@@ -13,7 +13,6 @@ import { Utils } from "@nativescript/core";
 export class AlliesComponent implements OnInit {
   
   allies: Ally[];
-  frutas: string[] = ["banano", "sandia"];
 
   constructor(private controller: Controller, private translator: ErrorTranslator) { }
 

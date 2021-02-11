@@ -6,35 +6,39 @@
                 <StackLayout *ngIf="isTitle(section)">
 
                     <StackLayout *ngIf="section.size === h1">
-                        <Label text="{{ section.text }}" textWrap="true" class="title-text"></Label>
+                        <Label text="{{ section.text }}" textWrap="true" class="header-text"></Label>
                     </StackLayout>
 
                     <StackLayout *ngIf="section.size === h2">
-                        <Label text="{{ section.text }}" textWrap="true" class="subtitle-text"></Label>
+                        <Label text="{{ section.text }}" textWrap="true" class="title-text"></Label>
                     </StackLayout>
 
                 </StackLayout>
 
                 <StackLayout *ngIf="isActivity(section)">
                     <Label text="Actividad" textWrap="true" class="title-activity"></Label>
-                    <Label text="Tiempo estimado: {{ section.estimatedMinutes }} min." textWrap="true" class="text-time"></Label>
-                    <Label text="Descripción" class="sub-subtitle-text"></Label>
-                    <Label text="{{ section.description }}" textWrap="true" class="text"></Label>
+                    <Label text="Tiempo estimado: {{ section.estimatedMinutes }} min." textWrap="true" class="time-text"></Label>
+
+                    <Label text="Descripción" class="subtitle-text"></Label>
+                    <Label text="{{ section.description }}" textWrap="true" class="activity-text"></Label>
+
+                    <Label text="Herramientas" class="subtitle-text"></Label>
+                    <Label text="{{ section.tools }}" textWrap="true" class="activity-text"></Label>
                 </StackLayout>
 
                 <StackLayout *ngIf="isImage(section)">
                     <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=false>
                         <StackLayout>
                             <Image src="{{ section.url}}" stretch="aspectFill"></Image>
-                            <Label text="{{ section.footing }}" class="text"></Label>
-                            <Label text="Fuente: {{ section.reference }}" class="text"></Label>
+                            <Label text="{{ section.footing }}" textWrap="true" class="body-text"></Label>
+                            <Label text="Fuente: {{ section.reference }}" class="reference-text"></Label>
                         </StackLayout>
                     </Card:CardView>
                 </StackLayout>
 
                 <StackLayout *ngIf="isParagraph(section)">
                     <StackLayout *ngFor="let part of section.text.split('\n')">
-                        <Label text="{{ part.text }}" textWrap="true"></Label>
+                        <Label text="{{ part.text }}" textWrap="true" class="body-text"></Label>
                     </StackLayout>
                 </StackLayout>
 

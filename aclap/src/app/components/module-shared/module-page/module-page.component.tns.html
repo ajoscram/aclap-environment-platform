@@ -3,7 +3,7 @@
         <StackLayout orientation="vertical">
 
             <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
-                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}" class="img-banner"></Image>
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}" class="banner-img"></Image>
                 <Label row="1" col="0" text="Modulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
             </GridLayout>
 
@@ -38,6 +38,7 @@
             <Button text="Guía didáctica" class="my-button" (tap)="navigateToDisplayer(module.id)"></Button>
             <Button text="Materiales de apoyo" class="my-button" (tap)="navigateToDisplayFiles(module.id)"></Button>
             <Button text="Implementa este módulo" class="my-button" (tap)="navigateToQuestions_EducatorApplication(module.id)"></Button>
+        
         </StackLayout>
     </ScrollView>
 </StackLayout>

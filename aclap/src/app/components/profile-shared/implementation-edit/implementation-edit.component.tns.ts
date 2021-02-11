@@ -18,7 +18,7 @@ import { RouterExtensions } from '@nativescript/angular';
 })
 export class ImplementationEditComponent implements OnInit {
 
-  pickerDate: Date;
+  pickerDate: Date = new Date();
   txtAddress: string;
   pickerFparticipants: number;
   pickerMparticipants: number;
@@ -44,8 +44,13 @@ export class ImplementationEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.controller.getImplementation(this.id).then(
-      impl => { 
-        this.implementation = <Implementation> impl 
+      impl => {
+        console.log(impl) 
+        this.implementation = <Implementation> impl;
+        this.txtAddress = impl.location.name.replace(", Costa Rica", "")
+        this.pickerFparticipants = impl.femaleParticipants;
+        this.pickerMparticipants = impl.maleParticipants; 
+        this.pickerOparticipants = impl.otherParticipants;  
         this.controller.getQuestions(impl.implementableId)
         .then(qstns => { this.questions = qstns; 
           qstns.map(q =>  {
@@ -143,7 +148,7 @@ export class ImplementationEditComponent implements OnInit {
   async onSubmit(submitType): Promise <void> {
 
     try {
-      let locName = this.txtAddress + " Costa Rica";
+      let locName = this.txtAddress + ", Costa Rica";
       let loc = await geocoding.getLocationFromName(locName);
   
       const request: IImplementation = {
@@ -173,22 +178,36 @@ export class ImplementationEditComponent implements OnInit {
         await this.controller.completeImplementation(this.implementation.id)
         .then( non => {
           dialogs.alert({
-            title: "Implementación enviada",
-            message: "Se envio exitosamente la implementación",
+            title: "Implementación finalizada",
+            message: "Se finalizó la implementación correctamente.",
             okButtonText: "Ok"
           })
         })
       }else{
         dialogs.alert({
           title: "Implementación guardada",
-          message: "Se ha guardado exitosamente la implementación",
+          message: "Cambios guardados existosa",
           okButtonText: "Ok"
         })
       }
 
+      this.routerExtensions.navigate(['perfil'], { clearHistory: true });
+
     } catch (error) {
-      console.log(error)
-      dialogs.alert( this.translator.translate(error) )
+      const err = <Error> error
+      if(err.message === "Android Geocoder error : No locations found"){
+        dialogs.alert({
+          title: "Error!",
+          message: "La ubicación insertada es invalida, revise que el formato sea el correcto.",
+          okButtonText: "Ok"
+        })
+      }else{
+        dialogs.alert({
+          title: "Error!",
+          message: this.translator.translate(error),
+          okButtonText: "Ok"
+        })
+      }
     }
 
   }
@@ -196,6 +215,6 @@ export class ImplementationEditComponent implements OnInit {
   minDate: Date = new Date(2021, 0, 1);
   maxDate: Date = new Date(2050, 11, 31);
   todayDate: Date = new Date();
-  participants: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
+  participants: Array<number> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
 
 }

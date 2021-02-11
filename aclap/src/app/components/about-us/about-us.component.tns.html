@@ -3,18 +3,47 @@
         <StackLayout orientation="vertical">
 
             <gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
-                <Image rowspan="3" col="0" src="res://biolley_cielo" stretch="aspectFill" class="banner-img"></Image>
-                <Label row="1" col="0" text="Acerca de ACLA-P" class="header-text" textWrap="true"></Label>
+                <Image rowspan="5" col="0" src="res://banner_terms" stretch="aspectFill" class="banner-img"></Image>
+                <Label row="2" col="0" text="Acerca de ACLA-P" class="header-text" textWrap="true"></Label>
+                <Label row="5" col="0" text="Fotógrafo: Roger González" class="credit-text" textWrap="true"></Label>
             </gridlayout>
 
             <StackLayout *ngFor="let part of aboutUsText.split('\n')" orientation="vertical">
                 <Label text="{{ part }}" class="body-text" textWrap="true"></Label>
             </StackLayout>
 
-            <Label text="Términos y Condiciones" class="title-text" textWrap="true"></Label>
-
             <Label
             text= "Las herramientas, información y materiales descargables que se comparten son para uso educativo solamente. No se permite la reproducción de estos con fines comerciales. Por favor respetar los créditos que se encuentran especificados."
+            class= "body-text" textWrap="true" ></Label>
+
+            <Label
+            text= "" 
+            class= "body-text" textWrap="true" ></Label>
+
+            <Label
+            text= "Esta aplicación fué desarrollada y donada por estudiantes del Instituto Tecnológico de Costa Rica como parte del curso de Proyecto de Ingeniería de Software, durante el segundo semestre del 2020 bajo supervisión de la profesora María Estrada Sánchez. Los siguientes estudiantes desarrollaron esta aplicación:" 
+            class= "body-text" textWrap="true" ></Label>
+            
+            <Label
+            text= "Alejandro José Schmidt Ramírez" 
+            class= "body-text" textWrap="true" ></Label>
+            <Label
+            text= "Jose Fabio Pérez Alpízar" 
+            class= "body-text" textWrap="true" ></Label>
+            <Label
+            text= "Josué Daniel Canales Mena" 
+            class= "body-text" textWrap="true" ></Label>
+
+            <Label
+            text= "" 
+            class= "body-text" textWrap="true" ></Label>
+
+            <Image src="res://logo_flat" stretch="aspectFill" class="logo-img" (tap)="openLink('http://www.sinac.go.cr/ES/ac/aclap/Paginas/default.aspx')"></Image>
+
+            <Label text= "Términos y Condiciones" class= "title-text" textWrap="true"></Label>
+            
+            <Label
+            text= " Las herramientas, información y materiales descargables que se comparten son para uso educativo solamente. No se permite la reproducción de estos con fines comerciales. Por favor respetar los créditos que se encuentran especificados."
             class= "body-text" textWrap="true" ></Label>
 
         </StackLayout>

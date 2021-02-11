@@ -10,20 +10,21 @@ import { firebase } from '@nativescript/firebase';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'aclap';
+  title = 'ACLA-P EDUCA';
 
   constructor(private controller: Controller, private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
+
     firebase.init();
+
   }
 
   @ViewChild(RadSideDrawerComponent) sideDrawerComponent: RadSideDrawerComponent;
 
   navigateToProfile_Login(): void {
     this.controller.getSession()
-    .then(
-      session => {
+    .then(_ => {
         this.routerExtensions.navigate(['perfil'], { clearHistory: false });
         this.sideDrawerComponent.sideDrawer.closeDrawer();
       })

@@ -3,8 +3,9 @@
         <StackLayout>
 
             <Gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
-                <Image rowspan="3" col="0" src="res://corredor_bio_2" stretch="aspectFill" class="img-banner"></Image>
-                <Label row="1" col="0" text="Modulos" class="header-text" textWrap="true"></Label>
+                <Image rowspan="5" col="0" src="res://banner_modules" stretch="aspectFill" class="banner-img"></Image>
+                <Label row="2" col="0" text="Modulos" class="header-text" textWrap="true"></Label>
+                <Label row="5" col="0" text="Fotógrafo: Giancarlo Pucci" class="credit-text" textWrap="true"></Label>
             </Gridlayout>
              
             <Label
@@ -16,12 +17,14 @@
             class= "body-text" textWrap="true"></Label>
 
             <StackLayout row="3" col="0" *ngFor="let module of modules" orientation="vertical">
+
                 <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true (tap)="navigateToModule(module.id)">
                     <StackLayout>
                         <Image src="{{ module.imageUrl }}" stretch="aspectFill"></Image>
                         <Label text="{{ module.name }}" class="module-header-text" textWrap="true"></Label>
                     </StackLayout>
                 </Card:CardView>
+
             </StackLayout>
 
         </StackLayout>

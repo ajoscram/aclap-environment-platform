@@ -7,14 +7,13 @@
                 <Label row="1" col="0" text="Aliados" class="header-text" textWrap="true"></Label>
             </Gridlayout>
 
-            <!-- <ng-template ngFor let-fruta [ngForOf]="frutas">
-                <StackLayout orientation="vertical">
-                    <Label text="{{ fruta }}" class="title-text" textWrap="true"></Label>
-                </StackLayout>
-            </ng-template> -->
+            <Label
+            text= "La consolidación de alianzas estratégicas es un importante objetivo del desarrollo sostenible. Nuestros aliados son todas las personas o entidades que contribuyen a una cultura ambiental en sus núcleos familiares, su comunidad, a nivel organizacional, institucional, regional o nacional. Estos son algunos de los aliados del Programa de Educación Ambiental del ACLA-P." 
+            class= "body-text" textWrap="true" ></Label>
 
-            <StackLayout *ngFor="let fruta of frutas" orientation="vertical">
-                <Label [text]="fruta" class="title-text" textWrap="true"></Label>
+            <StackLayout *ngFor="let ally of allies" orientation="vertical">
+                <Label text="{{ ally.name }}" class="title-text" textWrap="true" (tap)="openLink(ally.link)"></Label>
+                <Image src="{{ ally.imageUrl }}" stretch="aspectFill" class="logo-img" (tap)="openLink(ally.link)"></Image>
             </StackLayout>
 
         </StackLayout>

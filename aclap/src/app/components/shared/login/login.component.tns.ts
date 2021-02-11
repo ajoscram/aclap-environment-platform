@@ -42,4 +42,18 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  changePassword(): void{
+    dialogs.prompt({
+      title: "Cambio de contraseña",
+      message: "Digite el correo asociado a la cuenta.",
+      okButtonText: "Ok",
+      cancelButtonText: "Cancelar",
+      defaultText: "",
+    }).then(r1 => {
+      if(r1.result){
+        // controller reset password
+      }
+    });
+  }
+
 }

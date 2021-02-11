@@ -15,6 +15,7 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     color: #fff;
     text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .title-text{
@@ -22,6 +23,7 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     color: rgb(0, 0, 0);
     margin-left: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .title-text-questions{
@@ -31,6 +33,7 @@ $l-grey: #d3d8d8;
     text-align: center;
     margin-top: 10;
     background-color: #1c81a9;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .subtitle-text{
@@ -39,7 +42,18 @@ $l-grey: #d3d8d8;
     font-size: 14;
     margin-left: 15;
     text-align: left;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
+
+.first-subtitle-text-picker{
+    color: #000000;
+    font-weight: bold;
+    font-size: 16;
+    margin-left: 15;
+    text-align: left;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
+}
+
 
 .subtitle-text-picker{
     color: #000000;
@@ -48,6 +62,7 @@ $l-grey: #d3d8d8;
     margin-left: 15;
     margin-top: 37;
     text-align: left;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-subtitle-first {
@@ -56,22 +71,24 @@ $l-grey: #d3d8d8;
     font-size: 28;
     text-align: center;
     background-color: #1c81a9;
-  }
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
+}
 
 .subtitle-text-question{
     color: #000000;
     font-size: 18;
     text-align: center;
     margin-top: 5;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .subtitle-text-file{
     color: #000000;
     font-weight: bold;
     font-size: 14;
-    margin-top: 22;
     margin-right: 10;
     text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .madeby-text{
@@ -81,12 +98,14 @@ $l-grey: #d3d8d8;
     text-align: center;
     margin-top: 20;
     margin-left: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text{
     font-size: 12;
     color: rgb(0, 0, 0);
     text-align: center;
+    font-family: 'Lora_Regular', 'Lora_Regular';
 }
 
 .participant-picker{
@@ -95,15 +114,22 @@ $l-grey: #d3d8d8;
     margin-left: 20;
 }
 
+.other-participant-picker{
+    width: 100;
+    height: 100;
+    margin-left: 58;
+}
+
 .date-picker{
     width: 300;
     height: 100;
 }
 
 .answer-picker{
-    width: 200;
+    width: 220;
     height: 100;
-    margin-left: 80;
+    margin-left: 15;
+    margin-right: 15;
 }
 
 .img-banner{
@@ -135,6 +161,7 @@ $l-grey: #d3d8d8;
     margin-right: 5;
     margin-top: 10;
     margin-bottom: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .btn-send {
@@ -148,6 +175,7 @@ $l-grey: #d3d8d8;
     margin-right: 10;
     margin-top: 10;
     margin-bottom: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .btn-fileFinder {
@@ -158,6 +186,7 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     width: 200;
     margin: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .btn-fileRemover {
@@ -168,12 +197,11 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     width: 20;
     height: 20;
+    margin-top: 10;
 }
 
 .file-img{
     height: 50;
     width: 50;
-    margin-top: 10;
-    margin-bottom: 10;
-    margin-left: 15;
+    margin-top: 15;
 }

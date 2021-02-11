@@ -11,6 +11,11 @@ import { DisplayQuestionsComponent } from './components/section-shared/display/d
 import { EventsComponent } from './components/event-shared/events/events.component';
 import { EventPageComponent } from './components/event-shared/event-page/event-page.component';
 import { ImplementationEditComponent } from './components/profile-shared/implementation-edit/implementation-edit.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { DisplayImageComponent } from './components/section-shared/display/display-image/display-image.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AlliesComponent } from './components/allies-shared/allies/allies.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeScriptFormsModule } from '@nativescript/angular';
@@ -27,7 +32,11 @@ import { NativeScriptFormsModule } from '@nativescript/angular';
     DisplayQuestionsComponent,
     EventsComponent,
     EventPageComponent,
-    ImplementationEditComponent
+    ImplementationEditComponent,
+    HomeComponent,
+    AlliesComponent,
+    DisplayImageComponent,
+    AboutUsComponent
   ],
   imports: [
     NativeScriptCommonModule,

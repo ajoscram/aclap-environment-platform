@@ -29,42 +29,38 @@ export class EducatorApplicationComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onSubmit() {
+  async onSubmit() {
 
-    let locName = this.txtAddress + " Costa Rica";
-    let loc = this.getLatLong(locName);
+    try {
 
-    const request: IEducatorRequest = {
-      name: this.txtFirstName,
-      lastname: this.txtLastName,
-      email: this.txtEmail,
-      phone: this.txtNumber,
-      address: new Location(locName, loc.latitude, loc.longitude),
-      birthday: this.pickerDate,
-      organization: this.txtOrg
-    };
+      let locName = this.txtAddress + ", Costa Rica";
+      let loc = await geocoding.getLocationFromName(locName);
+  
+      const request: IEducatorRequest = {
+        name: this.txtFirstName,
+        lastname: this.txtLastName,
+        email: this.txtEmail,
+        phone: this.txtNumber,
+        address: new Location(locName, loc.latitude, loc.longitude),
+        birthday: this.pickerDate,
+        organization: this.txtOrg
+      };
+  
+      await this.controller.addEducatorRequest(request);
 
-    this.controller.addEducatorRequest(request)
-      .then(non => { 
-        dialogs.alert({
-          title: "Solicitud enviada exitosamente",
-          message: "La confirmación de la solicitud llegará a su correo.",
-          okButtonText: "Ok"
-        })
+      dialogs.alert({
+        title: "Solicitud enviada exitosamente",
+        message: "La confirmación de la solicitud llegará a su correo.",
+        okButtonText: "Ok"
       })
-      .catch(
-        error => {
-          dialogs.alert(this.translator.translate(error));
-        }
-      );
-  }
 
-  getLatLong(address) : any {
-    geocoding.getLocationFromName(address).then(loc => {
-      return loc;
-    }, function (e) {
-      console.log("Error: " + (e.message || e));
-    });
+    } catch (error) {
+      dialogs.alert({
+        title: "Error!",
+        message: this.translator.translate(error),
+        okButtonText: "Ok"
+      })
+    }
   }
 
   minDate: Date = new Date(1940, 0, 29);

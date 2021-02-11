@@ -11,6 +11,7 @@ $l-grey: #d3d8d8;
   font-weight: bold;
   color: #fff;
   text-align: center;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .img-banner{
@@ -33,6 +34,7 @@ $l-grey: #d3d8d8;
   font-size: 16;
   width: 90%;
   margin: 10;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
   
 .text-subtitle {
@@ -41,6 +43,7 @@ $l-grey: #d3d8d8;
   font-size: 14;
   margin-left: 15;
   text-align: left;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-subtitle-first-1 {
@@ -49,6 +52,7 @@ $l-grey: #d3d8d8;
   margin-left: 10;
   margin-bottom: 5;
   text-align: left;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-subtitle-first-2 {
@@ -57,6 +61,7 @@ $l-grey: #d3d8d8;
   margin-left: 10;
   text-align: left;
   margin-bottom: 5;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-body {
@@ -66,4 +71,15 @@ $l-grey: #d3d8d8;
   margin-left: 10;
   margin-right: 10;
   margin-bottom: 5;
+  font-family: 'Lora_Regular', 'Lora_Regular';
+}
+
+.credit-text{
+  font-size: 10;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  text-align: right;
+  margin-top: 30;
+  margin-right: 5;
+  font-family: 'Proxima_Bold', 'Proxima_Bold';
 }

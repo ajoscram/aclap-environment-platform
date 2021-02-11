@@ -30,6 +30,10 @@ import { DisplayerComponent } from '@src/app/components/section-shared/display/d
 import { EditDisplayerComponent } from '@src/app/components/section-shared/edit/edit-displayer/edit-displayer.component';
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 
+import { DisplayImageComponent } from '@src/app/components/section-shared/display/display-image/display-image.component';
+import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
+import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
+
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 import { Controller } from '@src/app/services/control/Controller.service';
@@ -73,7 +77,10 @@ import { TempModule } from './temp.module.tns';
     DisplayYoutubeComponent,
     DisplayerComponent,
     EditDisplayerComponent,
-    LoginComponent
+    LoginComponent,
+    //DisplayImageComponent,
+    //AboutUsComponent,
+    //AlliesComponent
   ],
   imports: [
     TempModule,
