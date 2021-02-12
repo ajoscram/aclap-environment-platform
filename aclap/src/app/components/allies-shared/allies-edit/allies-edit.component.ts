@@ -62,7 +62,7 @@ export class AlliesEditComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Ally
-        newSection = new AllySection(null,this.allySections.length,new Ally(null,"","",""));
+        newSection = new AllySection(null,this.allySections.length,new Ally("","","",""));
         break;
       default:
         break;
@@ -73,6 +73,7 @@ export class AlliesEditComponent implements OnInit {
   confirmChanges(){
     this.allySections.map( async (ally: AllySection) => {
       if( ally.ally.id == null){
+        console.log(ally);
         await this.controller.addAlly(ally.ally)
           .then()
           .catch( err => { alert(this.translator.translate(err)); });

@@ -67,19 +67,19 @@ export class EventEditComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Activity
-        newSection = new ActivitySection(null,this.sections.length,"",10,"");
+        newSection = new ActivitySection("",this.sections.length,"",10,"");
         break;
       case 1: //Image
-        newSection = new ImageSection(null,this.sections.length,"","","");
+        newSection = new ImageSection("",this.sections.length,"","","");
         break;
       case 2: //Paragraph
-        newSection = new ParagraphSection(null,this.sections.length,"")
+        newSection = new ParagraphSection("",this.sections.length,"")
         break;
       case 3: //Title
-        newSection = new TitleSection(null,this.sections.length,TitleSectionSize.H1,"");
+        newSection = new TitleSection("",this.sections.length,TitleSectionSize.H1,"");
         break;
       case 4: //Youtube
-        newSection = new YoutubeVideoSection(null,this.sections.length,"");
+        newSection = new YoutubeVideoSection("",this.sections.length,"");
         break;
       default:
         break;
