@@ -1,1 +1,28 @@
-<Button text="events works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout>
+
+            <Gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="5" col="0" src="res://banner_events" stretch="aspectFill" class="banner-img"></Image>
+                <Label row="2" col="0" text="Eventos" class="header-text" textWrap="true"></Label>
+                <Label row="5" col="0" text="Fotógrafo: Roger González" class="credit-text" textWrap="true"></Label>
+            </Gridlayout>
+             
+            <Label
+            text= "Celebra las efemérides ambientales más queridas de nuestra institución. Organice un evento en su comunidad y comparta sus fotografías y aprendizajes con nosotros. Cada evento cuenta con sugerencias Todos los materiales pueden ser utilizados libremente por docentes, gestores - gestoras comunales, y personas educadoras de las organizaciones locales."
+            class= "body-text" textWrap="true"></Label>
+
+            <StackLayout row="3" col="0" *ngFor="let event of events" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="30" ripple=true (tap)="navigateToEvent(event.id)">
+                    <StackLayout>
+                        <Image src="{{ event.imageUrl }}" stretch="aspectFill"></Image>
+                        <Label text="{{ event.name }}" class="module-header-text" textWrap="true"></Label>
+                    </StackLayout>
+                </Card:CardView>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

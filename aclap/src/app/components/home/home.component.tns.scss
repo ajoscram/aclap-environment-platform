@@ -10,19 +10,32 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     color: #fff;
     text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .body-text{
     font-size: 14;
+    font-family: 'Lora_Regular', 'Lora_Regular';
     color: rgb(0, 0, 0);
     text-align: center;
     margin-left: 10;
     margin-right: 10;
     margin-bottom: 5;
+    margin-top: 5;
+}
+
+.credit-text{
+    font-size: 10;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: right;
+    margin-top: 30;
+    margin-right: 5;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .banner-img{
-    opacity: 0.85;
+    opacity: 0.75;
 }
 
 .nav-btn{
@@ -30,9 +43,11 @@ $l-grey: #d3d8d8;
     border-radius: 20;
     color: whitesmoke;
     font-size: 18;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
     font-weight: bold;
     width: auto;
     height: 100;
     margin-left: 30;
     margin-right: 30;
 }
+

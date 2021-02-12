@@ -1,1 +1,18 @@
-<Button text="event-page works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout orientation="vertical">
+
+            <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ event.bannerImageUrl }}" class="img-banner"></Image>
+                <Label row="1" col="0" text="EVENTO: {{ event.name }}" class="header-text" textWrap="true"></Label>
+            </GridLayout>
+
+            <Label text="Objetivo" class="title-text" textWrap="true"></Label>
+            <Label text="{{ event.objective }}" textWrap="true" class="body-text-objectives"></Label>
+
+            <Button text="Guía didáctica" class="my-button" (tap)="navigateToDisplayer(event.id)"></Button>
+            <Button text="Materiales de apoyo" class="my-button" (tap)="navigateToDisplayFiles(event.id)"></Button>
+            <Button text="Implementa este módulo" class="my-button" (tap)="navigateToQuestions_EducatorApplication(event.id)"></Button>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

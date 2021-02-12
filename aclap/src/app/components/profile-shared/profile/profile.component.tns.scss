@@ -10,6 +10,7 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     color: #fff;
     text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .bg-title-text{
@@ -25,6 +26,7 @@ $l-grey: #d3d8d8;
     font-weight: bold;
     color: rgb(0, 0, 0);
     text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-impl{
@@ -37,6 +39,7 @@ $l-grey: #d3d8d8;
     color: #000000;
     font-weight: bold;
     font-size: 22;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text{
@@ -45,20 +48,30 @@ $l-grey: #d3d8d8;
     text-align: center;
 }
 
+.reset-text{
+    font-size: 12;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-left: 15;
+    margin-top: 35;
+}
+
 .date-text{
     font-size: 12;
     color: #596668;
     text-align: left;
     margin-left: 15;
     margin-bottom: 10;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-completed{
     font-size: 12;
     font-weight: bold;
-    color: #39f158;
+    color: #528f41;
     text-align: left;
     margin-left: 15;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .text-incomplete{
@@ -67,15 +80,17 @@ $l-grey: #d3d8d8;
     color: #f13939;
     text-align: left;
     margin-left: 15;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .user-text{
-    font-size: 20;
+    font-size: 26;
     font-weight: bold;
     color: rgb(255, 255, 255);
     text-align: center;
     margin-left: 10;
     margin-top: 8;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
 }
 
 .user-img{
@@ -86,10 +101,24 @@ $l-grey: #d3d8d8;
 }
 
 .btn-logout {
+    background-color: #f13939;
+    font-size: 12;
+    height: 40;
+    width: 40;
     color: #ffffff;
+    font-size: 18;
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
+}
+
+.btn-edit {
     background-color: #Ef6423;
     font-size: 12;
     height: 40;
+    width: 40;
+    margin-right: 50;
+    color: #ffffff;
+    font-size: 18;
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
 }
 
 .btn-implRemover {

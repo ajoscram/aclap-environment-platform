@@ -1,1 +1,105 @@
-<Button text="implementation-edit works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical"  height="1000">
+        <StackLayout orientation="vertical">
+
+            <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="res://corredor_bio_1" class="img-banner"></Image>
+                <Label row="1" col="0" text="Evaluación del módulo: {{ implementation.implementableName }}" class="header-text" textWrap="true"></Label>
+                <Label row="2" col="0" text="Realizado por: {{ user.name }} {{ user.lastname }}" class="madeby-text"  horizontalAlignment="left" textWrap="true"></Label>
+            </GridLayout>
+
+            <Label text="Formulario" class="text-subtitle-first" textWrap="true"></Label>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Fecha:" class="subtitle-text-picker" textWrap="true"></Label>
+                <DatePicker [(ngModel)]="pickerDate" 
+                    [date]="todayDate"
+                    [minDate]="minDate" [maxDate]="maxDate"
+                    verticalAlignment="center" class="date-picker">
+                </DatePicker>
+            </StackLayout>
+
+            <Label text="Ubicación:" class="subtitle-text" textWrap="true"></Label>
+            <TextField [(ngModel)]="txtAddress" hint="Distrito, Cantón, Provincia" class="input input-border input-form"></TextField>
+
+            <Label text="Participantes" class="first-subtitle-text-picker" textWrap="true"></Label>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Femeninos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerFparticipants" [items]="participants" class="participant-picker"></ListPicker>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Masculinos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerMparticipants" [items]="participants" class="participant-picker"></ListPicker>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal">
+                <Label text="Otros: " class="subtitle-text-picker" textWrap="true"></Label>
+                <ListPicker [(ngModel)]="pickerOparticipants" [items]="participants" class="other-participant-picker"></ListPicker>
+            </StackLayout>
+
+            <Label text="Preguntas de evaluación" class="title-text-questions" textWrap="true"></Label>
+
+            <StackLayout *ngFor="let question of questions; index as i" orientation="vertical">
+                <Label text="{{ question.question }}" class="subtitle-text-question" textWrap="true"></Label>
+                <StackLayout orientation="horizontal">
+                    <ListPicker [items]="questionOptions[i]" selectedIndex="2"  class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
+                    <Image src="{{ imageOptions[i] }}" class="img-answer-icon"></Image>
+                </StackLayout>
+            </StackLayout>
+
+            <Label text="Evidencias de trabajo" class="title-text-questions" textWrap="true"></Label>
+
+            <StackLayout *ngFor="let file of files; index as i" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout rows="*, *" columns="*, 150, *" orientation="horizontal">
+
+                        <StackLayout rowspan="5" row="0" col="0" *ngIf="isImg(file.name)">
+                            <Image src="{{ file.name }}" class="file-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowspan="5" row="0" col="0" *ngIf="isFile(file.name)">
+                            <Image src="res://file" class="file-img"></Image>
+                        </StackLayout>
+
+                        <Label row="2" col="1" text="{{ file.name }}" class="subtitle-text-file"></Label>
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-fileRemover" (tap)="removeOldFile(i)"></Button>
+                    
+                    </GridLayout>
+                </Card:CardView>
+
+            </StackLayout>
+
+            <StackLayout *ngFor="let file of fileNames; index as i" orientation="vertical">
+
+                <Card:CardView class="cardStyle" margin="10" elevation="10" shadowColor="#FE00FC" shadowOpacity="1" radius="25" ripple=true>
+                    <GridLayout rows="*, *" columns="*, 150, *" orientation="horizontal">
+
+                        <StackLayout rowspan="5" row="0" col="0" *ngIf="isImg(file)">
+                            <Image src="{{ filePaths[i] }}" class="file-img"></Image>
+                        </StackLayout>
+
+                        <StackLayout rowspan="5" row="0" col="0" *ngIf="isFile(file)">
+                            <Image src="res://file" class="file-img"></Image>
+                        </StackLayout>
+
+                        <Label row="2" col="1" text="{{ file }}" class="subtitle-text-file"></Label>
+                        <Button row="0" col="2" text="x" class="btn btn-primary btn-fileRemover" (tap)="removeFile(i)"></Button>
+                    
+                    </GridLayout>
+                </Card:CardView>
+
+            </StackLayout>
+
+            <Button text="Buscar un archivo" class="btn btn-primary btn-fileFinder" (tap)="findFile()"></Button>
+
+            <StackLayout orientation="horizontal">
+                <Button text="Guardar" class="btn btn-primary btn-save" (tap)="onSubmit('save')"></Button>
+                <Button text="Finalizar" class="btn btn-primary btn-send" (tap)="onSubmit('complete')"></Button>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

@@ -1,1 +1,92 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.body-text-backgrounds{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 5;
+    margin-right: 5;
+    margin-bottom: 5;
+}
+
+.body-text-objectives{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 5;
+    margin-right: 5;
+    margin-bottom: 5;
+}
+
+.title-text{
+    font-size: 24;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.subtitle-age-text{
+    font-size: 16;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-top: 8;
+    margin-left: 5;
+}
+
+.subtitle-theme-text{
+    font-size: 16;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-top: 10;
+    margin-left: 5;
+}
+
+.text-discipline{
+    font-size: 12;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.text{
+    font-size: 12;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.my-button {
+    background-color: $nav-color;
+    border-radius: 20;
+    color: whitesmoke;
+    font-size: 18;
+    font-weight: bold;
+    width: auto;
+    height: 100;
+    margin-left: 30;
+    margin-right: 30;
+}
+
+.img-banner{
+    opacity: 0.75;
+}
+
+.cardStyleDisciplines {
+    background-color: #fff;
+    color: #fff;
+    margin: 5;
+    width: 120;
+}

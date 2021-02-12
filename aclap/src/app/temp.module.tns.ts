@@ -10,6 +10,15 @@ import { EducatorApplicationComponent } from './components/profile-shared/educat
 import { DisplayQuestionsComponent } from './components/section-shared/display/display-questions/display-questions.component';
 import { EventsComponent } from './components/event-shared/events/events.component';
 import { EventPageComponent } from './components/event-shared/event-page/event-page.component';
+import { ImplementationEditComponent } from './components/profile-shared/implementation-edit/implementation-edit.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { DisplayImageComponent } from './components/section-shared/display/display-image/display-image.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AlliesComponent } from './components/allies-shared/allies/allies.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular';
 
 @NgModule({
   declarations: [
@@ -23,9 +32,16 @@ import { EventPageComponent } from './components/event-shared/event-page/event-p
     DisplayQuestionsComponent,
     EventsComponent,
     EventPageComponent,
+    ImplementationEditComponent,
+    HomeComponent,
+    AlliesComponent,
+    DisplayImageComponent,
+    AboutUsComponent
   ],
   imports: [
-    NativeScriptCommonModule
+    NativeScriptCommonModule,
+    NativeScriptFormsModule,
+    ReactiveFormsModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

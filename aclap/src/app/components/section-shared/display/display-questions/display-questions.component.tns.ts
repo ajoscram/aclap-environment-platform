@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from '@nativescript/angular';
 import { Controller } from '../../../../services/control/Controller.service';
-import { Implementation, Answer, Question, Module, User} from '../../../../models';
+import { Location, Implementation, Answer, Question, Module, User, IImplementation, Score } from '../../../../models';
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 import { ListPicker } from '@nativescript/core/ui';
 import { openFilePicker } from 'nativescript-simple-filepicker';
+import { FormBuilder } from '@angular/forms';
+import * as dialogs from '@nativescript/core/ui/dialogs';
+import * as geocoding from "nativescript-geocoding";
 
 @Component({
   selector: 'app-display-questions',
@@ -14,20 +17,27 @@ import { openFilePicker } from 'nativescript-simple-filepicker';
 })
 export class DisplayQuestionsComponent implements OnInit {
 
-  module: Module;
-  implementation: Implementation;
+  pickerDate: Date = new Date();
+  txtAddress: string;
+  pickerFparticipants: number;
+  pickerMparticipants: number;
+  pickerOparticipants: number;
+
   questions: Question[] = [];
   answers: Answer[] = [];
   files: any[] = [];
   filePaths: string[] = [];
   fileNames: string[] = [];
-
+  questionOptions: string[][] = [];
   imageOptions: string[] = [];
+  scoreOptions: Score[] = [Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
 
+  module: Module;
   id: string;
   user: User;
+  implementation: Implementation;
 
-  constructor(private route:ActivatedRoute, private controller: Controller, private routerExtensions: RouterExtensions, private translator: ErrorTranslator) {
+  constructor(private route:ActivatedRoute, private builder: FormBuilder, private controller: Controller, private routerExtensions: RouterExtensions, private translator: ErrorTranslator) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -43,21 +53,17 @@ export class DisplayQuestionsComponent implements OnInit {
       }
     );
 
-    this.controller.draftImplementation(this.id)
-      .then(impl => {this.implementation = <Implementation> impl})
-      .catch( err => { console.log(this.translator.translate(err)); } );
-
-    this.controller.addImplementation(this.implementation)
-      .then(impl => {this.implementation = <Implementation> impl})
-      .catch( err => { console.log(this.translator.translate(err)); } ); 
-
     this.controller.getQuestions(this.id)
-      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer(null,q.id, q.question, null, null))} )})
+      .then(qstns => {
+        this.questions = qstns; 
+        qstns.map(q =>  {
+          this.answers.push(new Answer(null, q.id, q.question, null, null))
+          this.imageOptions.push("res://score_3")
+          let ops = [q.options[Score.VERY_HIGH], q.options[Score.LOW], q.options[Score.AVERAGE], q.options[Score.HIGH], q.options[Score.VERY_HIGH]]
+          this.questionOptions.push(ops)
+        })
+      })
       .catch( err => { console.log(this.translator.translate(err)); } );
-    
-    for (let q of this.questions) {
-      this.imageOptions.push("res://score_3")
-    }
 
   }
 
@@ -67,25 +73,35 @@ export class DisplayQuestionsComponent implements OnInit {
 
   onSelectedIndexChanged(args, i) {
     const picker = <ListPicker>args.object;
-    switch(this.questionOptions[picker.selectedIndex]) { 
-      case "Muy mal": { 
-        this.imageOptions[i] = "res://score_1" 
+    switch(this.scoreOptions[picker.selectedIndex]) { 
+      case 'VERY_LOW': { 
+        this.imageOptions[i] = "res://score_1";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break; 
       } 
-      case "Mal": { 
-        this.imageOptions[i] = "res://score_2" 
+      case 'LOW': { 
+        this.imageOptions[i] = "res://score_2";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
         break; 
       }
-      case "Regular": { 
-        this.imageOptions[i] = "res://score_3" 
+      case 'AVERAGE': { 
+        this.imageOptions[i] = "res://score_3";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break; 
       } 
-      case "Bien": { 
-        this.imageOptions[i] = "res://score_4" 
+      case 'HIGH': { 
+        this.imageOptions[i] = "res://score_4";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
         break; 
       } 
       default: { 
-        this.imageOptions[i] = "res://score_5" 
+        this.imageOptions[i] = "res://score_5";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
         break; 
       } 
     }
@@ -111,16 +127,79 @@ export class DisplayQuestionsComponent implements OnInit {
 
   isFile(filename): boolean {
     return filename.substring(filename.lastIndexOf('.')) !== ".jpg" 
-    && filename.substring(filename.lastIndexOf('.')) !== ".png"
-    && filename.substring(filename.lastIndexOf('.')) !== ".doc"
-    && filename.substring(filename.lastIndexOf('.')) !== ".ppt"
-    && filename.substring(filename.lastIndexOf('.')) !== ".pdf";
+    && filename.substring(filename.lastIndexOf('.')) !== ".png";
+  }
+
+  async onSubmit(submitType): Promise <void> {
+
+    try {
+      let locName = this.txtAddress + ", Costa Rica";
+      let loc = await geocoding.getLocationFromName(locName);
+
+      const request: IImplementation = {
+        date: this.pickerDate,
+        femaleParticipants: this.pickerFparticipants,
+        maleParticipants: this.pickerMparticipants,
+        otherParticipants: this.pickerOparticipants,
+        location: new Location(locName, loc.latitude, loc.longitude),
+        educatorId: this.user.id,
+        educatorName: this.user.name,
+        educatorLastname: this.user.lastname,
+        implementableId: this.module.id,
+        implementableName: this.module.name
+      };
+
+      await this.controller.addImplementation(request)
+      .then( impl => { this.implementation = impl });
+
+      for (let filePath of this.filePaths){
+        await this.controller.addEvidence(this.implementation.id, filePath);
+      }
+
+      for (let answer of this.answers){
+        await this.controller.addAnswer(this.implementation.id, answer);
+      }
+
+      if(submitType === "complete"){
+        await this.controller.completeImplementation(this.implementation.id)
+        .then( non => {
+          dialogs.alert({
+            title: "Implementación finalizada",
+            message: "Se finalizó la implementación correctamente.",
+            okButtonText: "Ok"
+          })
+        })
+      }else{
+        dialogs.alert({
+          title: "Implementación guardada",
+          message: "Se guardó la implementación correctamente.",
+          okButtonText: "Ok"
+        })
+      }
+      this.routerExtensions.navigate(['modulos'], { clearHistory: true });
+
+    } catch (error) {
+      const err = <Error> error
+      if(err.message === "Android Geocoder error : No locations found"){
+        dialogs.alert({
+          title: "Error!",
+          message: "La ubicación insertada es invalida, revise que el formato sea el correcto.",
+          okButtonText: "Ok"
+        })
+      }else{
+        dialogs.alert({
+          title: "Error!",
+          message: this.translator.translate(error),
+          okButtonText: "Ok"
+        })
+      }
+    }
+
   }
 
   minDate: Date = new Date(2021, 0, 1);
   maxDate: Date = new Date(2050, 11, 31);
   todayDate: Date = new Date();
-  participants: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
-  questionOptions: Array<string> = ["Muy mal", "Mal", "Regular", "Bien", "Muy bien"]
+  participants: Array<number> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
 
 }

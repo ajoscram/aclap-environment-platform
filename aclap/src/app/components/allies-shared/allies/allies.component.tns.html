@@ -1,1 +1,21 @@
-<Button text="allies works!" class="btn btn-primary"></Button>
+<StackLayout>
+    <ScrollView orientation="vertical" height="1000">
+        <StackLayout>
+
+            <Gridlayout rows="*, *, *, *" columns="*" backgroundColor="black">
+                <Image rowspan="3" col="0" src="res://corredor_bio_2" stretch="aspectFill" class="img-banner"></Image>
+                <Label row="1" col="0" text="Aliados" class="header-text" textWrap="true"></Label>
+            </Gridlayout>
+
+            <Label
+            text= "La consolidación de alianzas estratégicas es un importante objetivo del desarrollo sostenible. Nuestros aliados son todas las personas o entidades que contribuyen a una cultura ambiental en sus núcleos familiares, su comunidad, a nivel organizacional, institucional, regional o nacional. Estos son algunos de los aliados del Programa de Educación Ambiental del ACLA-P." 
+            class= "body-text" textWrap="true" ></Label>
+
+            <StackLayout *ngFor="let ally of allies" orientation="vertical">
+                <Label text="{{ ally.name }}" class="title-text" textWrap="true" (tap)="openLink(ally.link)"></Label>
+                <Image src="{{ ally.imageUrl }}" stretch="aspectFill" class="logo-img" (tap)="openLink(ally.link)"></Image>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

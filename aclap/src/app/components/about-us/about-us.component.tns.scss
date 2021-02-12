@@ -1,1 +1,66 @@
-/* Add mobile styles for the component here.  */
+$jumbo-color: #23AEE5;
+$button-color: #Ef6423;
+$lime-color: #FAB521;
+$nav-color:#1c81a9;
+$gray-dark: #596668;
+$l-grey: #d3d8d8;
+
+.header-text{
+    font-size: 36;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
+}
+
+.title-text{
+    font-size: 22;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin-top: 30;
+    margin-bottom: 10;
+    text-align: center;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
+}
+
+.credit-text{
+    font-size: 10;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: right;
+    margin-top: 30;
+    margin-right: 5;
+    font-family: 'Proxima_Bold', 'Proxima_Bold';
+}
+
+.body-text{
+    font-size: 14;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 10;
+    margin-right: 10;
+    margin-bottom: 5;
+    margin-top: 5;
+    font-family: 'Lora_Regular', 'Lora_Regular';
+}
+
+.logo-img{
+    width: 300;
+    height: 93;
+}
+
+.banner-img{
+    opacity: 0.85;
+}
+
+.nav-btn{
+    background-color: $nav-color;
+    border-radius: 20;
+    color: whitesmoke;
+    font-size: 18;
+    font-weight: bold;
+    width: auto;
+    height: 100;
+    margin-left: 30;
+    margin-right: 30;
+}
