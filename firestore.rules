@@ -37,7 +37,7 @@ service cloud.firestore {
                 request.resource.data.state == 'REJECTED';
       }
 
-      allow read: if userIsAdmin();
+      allow read;
       allow update: if userIsAdmin() && requestIsValid();
       allow create: if requestIsValid();
     }
@@ -54,7 +54,8 @@ service cloud.firestore {
     match /implementables/{implementableID} {
 
       function implementableIsValid(){
-        return request.resource.data.tag == 'MODULE' || request.resource.data.tag == 'EVENT';
+        return  request.resource.data.tag == 'MODULE' ||
+                request.resource.data.tag == 'EVENT';
       }
       
       allow read;
@@ -110,7 +111,8 @@ service cloud.firestore {
 
       match /answers/{answerID} {
         function answerIsValid(){
-          return  request.resource.data.score == 'VERY_LOW' ||
+          return  request.resource.data.score == 'UNKNOWN' ||
+                  request.resource.data.score == 'VERY_LOW' ||
                   request.resource.data.score == 'LOW' || 
                   request.resource.data.score == 'AVERAGE' || 
                   request.resource.data.score == 'HIGH' || 
