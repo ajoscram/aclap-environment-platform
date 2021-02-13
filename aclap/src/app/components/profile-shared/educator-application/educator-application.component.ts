@@ -15,4 +15,12 @@ export class EducatorApplicationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  callDate(date: any): Date {
+    if(typeof date.toDate !== 'undefined'){
+      return date.toDate()
+    }else {
+      return date;
+    }
+  }
+
 }

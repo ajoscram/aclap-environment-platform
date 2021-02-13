@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   constructor(private controller: Controller,private builder: FormBuilder, private translator: ErrorTranslator, private router: Router, private geoApi: GeoApiService) { }
 
   ngOnInit(): void {
-    this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),new Date(),"",new Date(),EducatorRequestState.PENDING);
+    this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),new Date(),"", new Date(Date.now()),EducatorRequestState.PENDING);
 
     const parags: ParagraphSection[] = [new ParagraphSection("__",1,"Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.")];
 
