@@ -34,7 +34,7 @@ service cloud.firestore {
       function requestIsValid(){
         return  request.resource.data.state == 'PENDING' ||
                 request.resource.data.state == 'APPROVED' ||
-                request.resource.data.state == 'REJECTED';
+                request.resource.data.state == 'DENIED';
       }
 
       allow read;

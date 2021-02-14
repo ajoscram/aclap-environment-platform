@@ -283,11 +283,13 @@ export class DefaultController implements Controller{
 
     async addAlly(ally: IAlly): Promise<Ally>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        console.log("adding ally:", ally.name);
         return await this.database.addAlly(ally);
     }
 
     async updateAlly(id: string, ally: IAlly): Promise<Ally>{
         await this.authenticator.validate(Role.ADMINISTRATOR);
+        console.log("updating ally:", ally.name);
         return await this.database.updateAlly(id, ally);
     }
     
