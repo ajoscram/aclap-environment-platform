@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
 
     this.controller.addEducatorRequest(this.request).then(
       _ => {
-        alert("Solicitud Enviada satisfactoriamente");
+        alert("Solicitud Enviada satisfactoriamente.\nUna vez la solicitud sea aprobada por los administradores, se le enviará un correo con la clave de acceso.\nNOTA: puede que el correo sea reconocido como spam");
         this.router.navigateByUrl("inicio");
       }
     )
