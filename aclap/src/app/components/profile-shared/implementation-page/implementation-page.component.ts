@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivitySection, Answer, Implementation, Location, Question } from '@src/app/models';
+import { ActivitySection, Answer, Implementation, Location, Question, Score } from '@src/app/models';
 import { GeoApiService } from '@src/app/services/apis/GeoApiService.service';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
@@ -55,7 +55,7 @@ export class ImplementationPageComponent implements OnInit {
       .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getQuestions(this.id)
-      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer(null,q.id, q.question, null, null))} )})
+      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} )})
       .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)

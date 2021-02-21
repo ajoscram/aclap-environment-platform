@@ -30,6 +30,7 @@ export class RestorePasswordComponent implements OnInit {
     this.controller.requestPasswordReset(usrname)
       .then(message => {
         alert(message);
+        this.router.navigateByUrl('/login');
       })
       .catch( err => { alert(this.translator.translate(err)); });
   }

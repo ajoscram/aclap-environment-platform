@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div *ngIf="let part of terms.split('\n')" class="col-12">
             <p class="text-justify">
-                Las herramientas, información y materiales descargables que se comparten son para uso educativo solamente. No se permite la reproducción de estos con fines comerciales. Por favor respetar los créditos que se encuentran especificados.
+                {{ part }}
             </p>
         </div>
     </div>

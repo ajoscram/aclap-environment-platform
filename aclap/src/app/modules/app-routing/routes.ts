@@ -23,7 +23,7 @@ import { ImplementationDisplayComponent } from '@src/app/components/profile-shar
 import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
 import { AlliesEditComponent } from '@src/app/components/allies-shared/allies-edit/allies-edit.component';
 import { ProfileEditComponent } from '@src/app/components/profile-shared/profile-edit/profile-edit.component';
-import { PasswordEditComponent } from '@src/app/components/shared/password-edit/password-edit.component';
+import { RestorePasswordComponent } from '@src/app/components/shared/restore-password/restore-password.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 
 export const routes: Routes = [
@@ -125,8 +125,8 @@ export const routes: Routes = [
         component: ProfileEditComponent
     },
     {
-        path: 'cambiar-contrasena',
-        component: PasswordEditComponent
+        path: 'recuperar-contrasena',
+        component: RestorePasswordComponent
     },
     {
         path: 'acerca-de',

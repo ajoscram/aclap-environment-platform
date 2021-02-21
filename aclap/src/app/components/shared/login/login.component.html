@@ -11,7 +11,7 @@
                 <div class="mb-5 card-body">
                     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div class="form-group">
-                            <label for="username">E-mail</label>
+                            <label for="username">Correo electrónico</label>
                             <input type="text" formControlName="username" class="form-control"/>
                         </div>
                         <div class="form-group">
@@ -26,7 +26,7 @@
                     </form>
                     <div class="row">
                         <div class="col">
-                            <span>Olvidó su contraseña? <a href=""> Presione aquí </a></span>
+                            <span>Olvidó su contraseña? <a [routerLink]="['/recuperar-contrasena']"> Presione aquí </a></span>
                         </div>
                     </div>
                 </div>

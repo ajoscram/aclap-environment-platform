@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ally, AllySection, Section } from '@src/app/models';
-import { Role } from '@src/app/services/authentication/Session.model';
+import { AuthenticatorError } from '@src/app/services/authentication/Authenticator.service';
+import { Role, Session } from '@src/app/services/authentication/Session.model';
 import { Controller } from '@src/app/services/control/Controller.service';
 import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
@@ -25,31 +26,25 @@ export class AlliesEditComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.controller.getAllies()
-      .then( (allies: Ally[]) =>{
-        this.allies = allies;
-        console.log(this.allySections);
-        this.allies.map( 
-          (ally: Ally, i: number) => { 
-            this.allySections.push( new AllySection(null, i, ally) ); 
-          });
-      })
-      .catch( err => { alert(this.translator.translate(err)); } );
-      
-    this.controller.getSession()
-      .then(
-        session => {
-          if(session.role === Role.ADMINISTRATOR){
-            this.isAdmin = true;
-          }else {
-            this.router.navigateByUrl('/inicio');
-          }
-        }
-      )
-      .catch( err => {
-        alert(this.translator.translate(err));
+    try{
+      //checking for admin priviledges
+      const session: Session = await this.controller.getSession();
+      if(session.role != Role.ADMINISTRATOR){
         this.router.navigateByUrl('/inicio');
+        return;
+      }
+      this.isAdmin = true; //not sure why this is a thing in this class
+
+      //mapping the allies to their sections
+      this.allies = await this.controller.getAllies();
+      this.allies.map( (ally: Ally, i: number) => { 
+        this.allySections.push( new AllySection(ally.id, i, ally) ); 
       });
+    } catch(error){
+      if(error instanceof Error && (<Error>error).message != AuthenticatorError.AUTHENTICATION_FAILED)
+        alert(this.translator.translate(error));
+      this.router.navigateByUrl('/inicio');
+    }
   }
 
   deleteAlly(id: string){
@@ -62,7 +57,7 @@ export class AlliesEditComponent implements OnInit {
     let newSection: Section;
     switch (index) {
       case 0: //Ally
-        newSection = new AllySection(null,this.allySections.length,new Ally(null,"","",""));
+        newSection = new AllySection(null,this.allySections.length,new Ally("","","",""));
         break;
       default:
         break;
@@ -72,7 +67,7 @@ export class AlliesEditComponent implements OnInit {
 
   confirmChanges(){
     this.allySections.map( async (ally: AllySection) => {
-      if( ally.ally.id == null){
+      if( !ally.ally.id ){
         await this.controller.addAlly(ally.ally)
           .then()
           .catch( err => { alert(this.translator.translate(err)); });

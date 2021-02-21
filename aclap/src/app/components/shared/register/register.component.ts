@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   request: EducatorRequest;
 
   bg_img = "https://i.imgur.com/06NXUmI.jpeg";
-  credit = "Giancarlo Pucci";
+  credit = "Giancarlo Pucci / PNUD-Costa Rica";
 
   description = "Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.";
 
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   constructor(private controller: Controller,private builder: FormBuilder, private translator: ErrorTranslator, private router: Router, private geoApi: GeoApiService) { }
 
   ngOnInit(): void {
-    this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),null,"",null,EducatorRequestState.PENDING);
+    this.request = new EducatorRequest("","","","","",new Location("",9.693637,-84.051564),new Date(),"", new Date(Date.now()),EducatorRequestState.PENDING);
 
     const parags: ParagraphSection[] = [new ParagraphSection("__",1,"Las personas que realizan actividades de educación ambiental en el Área de Conservación La Amistad Pacífico pueden registrarse en esta plataforma para compartir sus logros al utilizar nuestras herramientas de educación ambiental y contribuir en el mejoramiento continuo de nuestro programa.")];
 
@@ -72,9 +72,11 @@ export class RegisterComponent implements OnInit {
 
     this.request.birthday = birthday;
 
+    console.log(this.request);
+
     this.controller.addEducatorRequest(this.request).then(
       _ => {
-        alert("Solicitud Enviada satisfactoriamente");
+        alert("Solicitud Enviada satisfactoriamente.\nUna vez la solicitud sea aprobada por los administradores, se le enviará un correo con la clave de acceso.\nNOTA: puede que el correo sea reconocido como spam");
         this.router.navigateByUrl("inicio");
       }
     )

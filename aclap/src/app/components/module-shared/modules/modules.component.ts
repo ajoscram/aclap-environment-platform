@@ -17,7 +17,7 @@ export class ModulesComponent implements OnInit {
   isAdmin: boolean = false;
 
   bg_img = "https://i.imgur.com/bFxBxuS.jpeg";
-  credit = "Giancarlo Pucci";
+  credit = "Giancarlo Pucci / PNUD-Costa Rica";
 
   description = "Los módulos son herramientas para la educación ambiental sobre temas de interés para la conservación de los recursos naturales y el desarrollo sostenible de las comunidades.\n\nCada módulo incluye una guía didáctica con instrucciones para preparar e implementar las actividades, materiales descargables para lectura, juegos y dinámicas grupales. Todos los materiales pueden ser utilizados libremente por docentes, gestores - gestoras comunales, y personas educadoras de las organizaciones locales.";
 
