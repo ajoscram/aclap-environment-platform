@@ -4,7 +4,7 @@
         <StackLayout orientation="vertical">
 
             <Gridlayout height="55" columns="auto, *" rows="auto, *" backgroundColor="#1c81a9">
-                <Label col="1" rowSpan="2" text="{{ user.name }} {{ user.lastname }}" horizontalAlignment="left" class="user-text"></Label>
+                <Label col="1" rowSpan="2" text="{{ user.name }} {{ user.lastname }}" horizontalAlignment="left" class="user-text" textWrap="true"></Label>
                 <Button col="2" rowSpan="2" text="&#xf084;" class="btn-edit" horizontalAlignment="right" (tap)="changePassword()"></Button>
                 <Button col="3" rowSpan="2" text="&#xf2f6;" class="btn-logout" horizontalAlignment="right" (tap)="logout()"></Button>
             </Gridlayout>
@@ -22,7 +22,7 @@
                         </Label>
                         <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
                     </GridLayout>
-                </Card:CardView> 
+                </Card:CardView>
 
             </StackLayout>
 
@@ -39,7 +39,7 @@
                         </Label>
                         <Label row="1" col="0" text="Fecha: {{ formatDate(implementation.date) }}" class="date-text"></Label>
                     </GridLayout>
-                </Card:CardView> 
+                </Card:CardView>
 
             </StackLayout>
 

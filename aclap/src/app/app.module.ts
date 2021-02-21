@@ -96,7 +96,7 @@ const imports: any[] = [
   LeafletModule
 ];
 
-if(environment.production){  
+if(environment.production){
   imports.push([
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

@@ -55,7 +55,7 @@ export class DisplayQuestionsComponent implements OnInit {
 
     this.controller.getQuestions(this.id)
       .then(qstns => {
-        this.questions = qstns; 
+        this.questions = qstns;
         qstns.map(q =>  {
           this.answers.push(new Answer(null, q.id, q.question, null, null))
           this.imageOptions.push("res://score_3")
@@ -73,37 +73,37 @@ export class DisplayQuestionsComponent implements OnInit {
 
   onSelectedIndexChanged(args, i) {
     const picker = <ListPicker>args.object;
-    switch(this.scoreOptions[picker.selectedIndex]) { 
-      case 'VERY_LOW': { 
+    switch(this.scoreOptions[picker.selectedIndex]) {
+      case 'VERY_LOW': {
         this.imageOptions[i] = "res://score_1";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
-        break; 
-      } 
-      case 'LOW': { 
-        this.imageOptions[i] = "res://score_2";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
+        break;
       }
-      case 'AVERAGE': { 
-        this.imageOptions[i] = "res://score_3";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+      case 'LOW': {
+        this.imageOptions[i] = "res://score_2";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
-        break; 
-      } 
-      case 'HIGH': { 
+        break;
+      }
+      case 'AVERAGE': {
+        this.imageOptions[i] = "res://score_3";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      case 'HIGH': {
         this.imageOptions[i] = "res://score_4";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
-      } 
-      default: { 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      default: {
         this.imageOptions[i] = "res://score_5";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
-      } 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
     }
   }
 
@@ -126,7 +126,7 @@ export class DisplayQuestionsComponent implements OnInit {
   }
 
   isFile(filename): boolean {
-    return filename.substring(filename.lastIndexOf('.')) !== ".jpg" 
+    return filename.substring(filename.lastIndexOf('.')) !== ".jpg"
     && filename.substring(filename.lastIndexOf('.')) !== ".png";
   }
 

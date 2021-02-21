@@ -50,6 +50,10 @@ import ControlModule from '@src/app/modules/control/control.module';
 
 import { TempModule } from './temp.module.tns';
 
+import { FirebaseDatabase } from '@src/app/services/database/firebase/FirebaseDatabase.service';
+import { FirebaseStorage } from '@src/app/services/storage/FirebaseStorage.service';
+import { FirebaseAuthenticator } from '@src/app/services/authentication/firebase/FirebaseAuthenticator.service';
+
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 // import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
 
@@ -98,9 +102,9 @@ import { TempModule } from './temp.module.tns';
     { provide: Factory },
     { provide: Validator },
     { provide: ErrorTranslator },
-    { provide: Database, useClass: MockDatabase },
-    { provide: Storage, useClass: MockStorage },
-    { provide: Authenticator, useClass: MockAuthenticator }
+    { provide: Database, useClass: global.production ? FirebaseDatabase : MockDatabase },
+    { provide: Storage, useClass: global.production ? FirebaseStorage : MockStorage },
+    { provide: Authenticator, useClass: global.production ? FirebaseAuthenticator : MockAuthenticator }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],

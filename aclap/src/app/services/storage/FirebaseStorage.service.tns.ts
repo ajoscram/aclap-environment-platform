@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IFile, File as File_ } from '@src/app/models';
+import { IFile, File as File_ } from '../../models';
 import ControlModule from '@src/app/modules/control/control.module';
 import { Storage, StorageError } from './Storage.service';
 import { File } from '@nativescript/core/file-system';
-import { storage } from '@nativescript/firebase';
+import { storage } from '@nativescript/firebase/storage';
 
 @Injectable({
     providedIn: ControlModule
@@ -19,7 +19,8 @@ export class FirebaseStorage implements Storage{
             const remotePath: string = new Date().getTime() + file_.name;
             await storage.uploadFile({
                 localFile: file_,
-                remoteFullPath: remotePath
+                remoteFullPath: remotePath,
+                metadata: { }
             });
             const url: string = await storage.getDownloadUrl({
                 remoteFullPath: remotePath
