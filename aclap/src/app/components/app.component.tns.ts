@@ -4,6 +4,8 @@ import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 import { Controller } from '../services/control/Controller.service';
 import { firebase } from '@nativescript/firebase';
 
+declare let process: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +18,17 @@ export class AppComponent {
 
   ngOnInit(): void {
 
-    firebase.init();
+    if(global.production){
+
+      firebase.init()
+      .then( r =>{
+        console.log("Firebase se inicio correctamente")
+      })
+      .catch(error =>{
+        console.log("Hubo un error: ", error)
+      })
+
+    }
 
   }
 

@@ -13,7 +13,7 @@ import { RouterExtensions } from '@nativescript/angular';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+
   txtUsername: string;
   txtPassword: string;
 
@@ -21,39 +21,48 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onSubmit() {
-
-    let username: string = this.txtUsername;
-    let password: string = this.txtPassword;
-    let role: Role = Role.ANY
-    this.controller.login(username, password, role)
-      .then(non => { 
+  async onSubmit() {
+    try {
+      let username: string = this.txtUsername;
+      let password: string = this.txtPassword;
+      await this.controller.login(username, password)
+      .then(non => {
         dialogs.alert({
           title: "Inicio de sesión",
           message: "Se ingreso exitosamente a la sesión.",
           okButtonText: "Ok"
         })
-        this.routerExtensions.navigate(['inicio'], { clearHistory: true });
-       })
-      .catch(
-        error => {
-          dialogs.alert(this.translator.translate(error));
-        }
-      );
+          this.routerExtensions.navigate(['inicio'], { clearHistory: true });
+        })
+    } catch (error) {
+      dialogs.alert({
+        title: "Error!",
+        message: this.translator.translate(error),
+        okButtonText: "Ok"
+      })
+    }
   }
 
-  changePassword(): void{
-    dialogs.prompt({
-      title: "Cambio de contraseña",
-      message: "Digite el correo asociado a la cuenta.",
-      okButtonText: "Ok",
-      cancelButtonText: "Cancelar",
-      defaultText: "",
-    }).then(r1 => {
-      if(r1.result){
-        // controller reset password
-      }
-    });
+  async changePassword() {
+    try {
+      dialogs.prompt({
+        title: "Cambio de contraseña",
+        message: "Digite el correo asociado a la cuenta.",
+        okButtonText: "Ok",
+        cancelButtonText: "Cancelar",
+        defaultText: "",
+      }).then(async r1 => {
+        if(r1.result){
+          await this.controller.requestPasswordReset(r1.text);
+        }
+      });
+    } catch (error) {
+      dialogs.alert({
+        title: "Error!",
+        message: this.translator.translate(error),
+        okButtonText: "Ok"
+      })
+    }
   }
 
 }

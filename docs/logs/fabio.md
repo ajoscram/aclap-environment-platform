@@ -2,8 +2,14 @@
 
 ### Pendiente
 
-* Completar la vista de implementables de perfil en NS
-* Hacer pruebas de login en NS
+* Cambios de texto en TyC
+* Arreglar tildes en textos
+* Cambiar fotos de headers
+* Pruebas con Firebase
+* Loading para descargas/subida de archivos y solicitudes
+* Fix fonts
+* Double check async and awaits
+* Request Password Reset bug - No dialog alert
 
 ### Completado
 

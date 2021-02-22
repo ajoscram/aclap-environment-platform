@@ -13,7 +13,7 @@ import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTran
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  
+
   implementationsCompleted: Implementation[] = [];
   implementationsIncomplete: Implementation[] = [];
 
@@ -43,43 +43,51 @@ export class ProfileComponent implements OnInit {
     return this.datepipe.transform(date, 'dd-MM-yyyy');
   }
 
-  changePassword(): void{
-    dialogs.prompt({
-      title: "Cambio de contraseña",
-      message: "Digite la nueva contraseña que desea utilizar.",
-      okButtonText: "Ok",
-      cancelButtonText: "Cancelar",
-      defaultText: "",
-      inputType: inputType.password
-    }).then(r1 => {
-        if(r1.result){
-          dialogs.prompt({
-            title: "Cambio de contraseña",
-            message: "Digite la misma contraseña.",
-            okButtonText: "Ok",
-            cancelButtonText: "Cancelar",
-            defaultText: "",
-            inputType: inputType.password
-          }).then(r2 => {
-            if(r2.result){
-              if( (r1.text === r2.text) && (r2.text.length > 8) ){
-                //controller update password
-                dialogs.alert({
-                  title: "Contraseña cambiada!",
-                  message: "La contraseña se cambió exitosamente.",
-                  okButtonText: "Ok"
-                })
-              }else{
-                dialogs.alert({
-                  title: "Error!",
-                  message: "Las contraseñas ingresadas deben ser iguales y tener más de 8 digitos.",
-                  okButtonText: "Ok"
-                })
+  async changePassword(): void{
+    try {
+      dialogs.prompt({
+        title: "Cambio de contraseña",
+        message: "Digite la nueva contraseña que desea utilizar.",
+        okButtonText: "Ok",
+        cancelButtonText: "Cancelar",
+        defaultText: "",
+        inputType: inputType.password
+      }).then(async r1 => {
+          if(r1.result){
+            dialogs.prompt({
+              title: "Cambio de contraseña",
+              message: "Digite la misma contraseña.",
+              okButtonText: "Ok",
+              cancelButtonText: "Cancelar",
+              defaultText: "",
+              inputType: inputType.password
+            }).then(async r2 => {
+              if(r2.result){
+                if( (r1.text === r2.text) && (r2.text.length > 8) ){
+                  await this.controller.setPassword(r1.text);
+                  dialogs.alert({
+                    title: "Contraseña cambiada!",
+                    message: "La contraseña se cambió exitosamente.",
+                    okButtonText: "Ok"
+                  })
+                }else{
+                  dialogs.alert({
+                    title: "Error!",
+                    message: "Las contraseñas ingresadas deben ser iguales y tener más de 8 digitos.",
+                    okButtonText: "Ok"
+                  })
+                }
               }
-            }
-          })
-        }
-    });
+            })
+          }
+      });
+    } catch (error) {
+      dialogs.alert({
+        title: "Error!",
+        message: this.translator.translate(error),
+        okButtonText: "Ok"
+      })
+    }
   }
 
   logout(): void{

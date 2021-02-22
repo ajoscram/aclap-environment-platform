@@ -8,10 +8,10 @@
         <Button text="Login" class="btn btn-primary btn-login" (tap)="onSubmit()"></Button>
     </StackLayout>
 
-    <Label class="center">
+    <Label class="center" (tap)="changePassword()">
         <FormattedString>
           <Span text="Olvidó su contraseña? "class="password-recov-text"></Span>
-          <Span text="Presione aquí" class="password-recov-text-link" (tap)="changePassword()"></Span>
+          <Span text="Presione aquí" class="password-recov-text-link"></Span>
         </FormattedString>
     </Label>
 
