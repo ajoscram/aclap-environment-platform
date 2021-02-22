@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Event, ImageSection } from '@src/app/models';
 import { Controller } from '@src/app/services/control/Controller.service';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-edit-event-info',
@@ -23,7 +24,7 @@ export class EditEventInfoComponent implements OnInit {
   moduleForm: FormGroup;
   ageRange: any[];
 
-  constructor(private controller: Controller, private builder: FormBuilder, private router: Router) { }
+  constructor(private controller: Controller, private builder: FormBuilder, private router: Router, private translator: ErrorTranslator) { }
 
   ngOnInit(): void {
     this.moduleForm = this.builder.group({
@@ -42,6 +43,7 @@ export class EditEventInfoComponent implements OnInit {
   deleteModule():void {
     this.controller.deleteImplementable(this.module.id).then(
       _ => {
+        alert("Evento eliminado correctamente.");
         this.router.navigateByUrl("/eventos");
       }
     );
