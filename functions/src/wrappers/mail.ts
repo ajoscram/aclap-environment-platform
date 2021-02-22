@@ -26,7 +26,7 @@ async function send(recepient: string, subject: string, body: string): Promise<v
 export async function welcome(educator: Educator, password: string): Promise<void>{
     const recepient: string = educator.email;
     const subject: string = credentials.subjects.welcome;
-    const body: string = `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Pueda cambiarla en cualquier momento desde la aplicación web o móvil.`;
+    const body: string = `<h3>Su contraseña por defecto es:</h3><br>${password}<br><br>Puede cambiarla en cualquier momento desde la aplicación web o móvil.`;
     await send(recepient, subject, body);
 }
 

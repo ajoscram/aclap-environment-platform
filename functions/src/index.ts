@@ -70,6 +70,7 @@ export const onRequestAccepted = functions.firestore
 
          //send email to the user
          try{
+            console.log('sending a welcome email to:', educator.email);
             await mail.welcome(educator, password);
          }catch(error){
             //this could be handled by notifying the administrator via an email that it failed.

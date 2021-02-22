@@ -92,21 +92,10 @@ service cloud.firestore {
 
     match /implementations/{implementationID} {
 
-      function userIsPublisher(){
-        return resource != null && request.auth.uid == resource.data.educatorId;
-      }
-
-      function implementationIsAvailable(){
-        return resource != null && resource.data.completed == false && resource.data.deleted == false;
-      }
-
-      allow read: if userIsPublisher() || userIsAdmin();
-      allow create: if userIsAdmin() || userIsEducator();
-      allow update: if userIsAdmin() || (userIsPublisher() && implementationIsAvailable());
+      allow read, create, update: if userIsAdmin() || userIsEducator();
 
       match /evidence/{evidenceID} {
-        allow read: if userIsAdmin() || userIsEducator();
-        allow write: if userIsAdmin() || userIsPublisher();
+        allow create, read, delete: if userIsAdmin() || userIsEducator();
       }
 
       match /answers/{answerID} {
@@ -119,10 +108,9 @@ service cloud.firestore {
                   request.resource.data.score == 'VERY_HIGH'; 
         }
 
-        allow read: if userIsAdmin() || userIsPublisher();
-        allow create: if userIsAdmin() || userIsEducator() && answerIsValid();
-        allow update: if userIsPublisher() && answerIsValid();
-        allow delete: if userIsAdmin() && userIsPublisher();
+        allow read: if userIsAdmin() || userIsEducator();
+        allow create, update: if (userIsAdmin() || userIsEducator()) && answerIsValid();
+        allow delete: if userIsAdmin() || userIsEducator();
       }
     }
   }

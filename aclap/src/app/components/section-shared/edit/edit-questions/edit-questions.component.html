@@ -59,7 +59,7 @@
             <tbody>
                 <tr *ngFor="let q of questions; index as i">
                     <th scope="row">{{i + 1}}</th>
-                    <td>{{q.question}}: ({{q.options[score.VERY_LOW]}},{{q.options[score.LOW]}},{{q.options[score.AVERAGE]}},{{q.options[score.HIGH]}},{{q.options[score.VERY_HIGH]}})</td>
+                    <td>{{q.question}}: ({{q.options.get(score.VERY_LOW)}},{{q.options.get(score.LOW)}},{{q.options.get(score.AVERAGE)}},{{q.options.get(score.HIGH)}},{{q.options.get(score.VERY_HIGH)}})</td>
                     <td> 
                         <span class="btn btn-danger" (click)="questions.splice(i,1)"> Eliminar </span> 
                     </td>

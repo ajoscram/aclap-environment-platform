@@ -54,7 +54,8 @@ export const errors = {
         UNKNOWN_ISECTION: 'Tipo de sección interno desconocido. Esto usualmente es un error interno y debería reportarlo.',
         UNKNOWN_IIMPLEMENTABLE: 'Tipo de implementable interno desconocido. Esto usualmente es un error interno y debería reportarlo.',
         LATITUDE_OUT_OF_BOUNDS: 'Latitud fuera del rango esperado. La latitud es únicamente un valor entre -90 y 90.',
-        LONGITUDE_OUT_OF_BOUNDS: 'Longitud fuera del rango esperado. La longitud es únicamente un valor entre -180 y 180.'
+        LONGITUDE_OUT_OF_BOUNDS: 'Longitud fuera del rango esperado. La longitud es únicamente un valor entre -180 y 180.',
+        QUESTION_MISSING_OPTIONS: 'Pregunta sin todas las opciones necesarias agregada. Debería haber una opción por cada valor de "Muy bajo" a "Muy alto" al 5. Esto usualmente es un error interno y debería ser reportado.'
     },
     StorageError:{
         UPLOAD_ERROR: "Ha ocurrido un error subiendo un archivo.",
