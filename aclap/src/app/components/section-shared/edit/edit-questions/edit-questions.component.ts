@@ -12,8 +12,9 @@ export class EditQuestionsComponent implements OnInit {
 
   form: FormGroup;
   tempQuestion: Question;
-  @Input() questions: Question[];
-  options: string[];
+  @Input() questions: Question[] = [];
+  @Input() deleted: Question[] = [];
+  options: string[] = [];
 
   constructor(private builder: FormBuilder) { }
 
@@ -50,6 +51,11 @@ export class EditQuestionsComponent implements OnInit {
 
     this.questions.push(qstn);
     this.initQuestion();
+  }
+
+  deleteQuestion(i: number):void {
+    this.deleted.push(this.questions[i]);
+    this.questions.splice(i,1);
   }
 
   public get score(): typeof Score{
