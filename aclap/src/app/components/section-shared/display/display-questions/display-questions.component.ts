@@ -15,6 +15,7 @@ export class DisplayQuestionsComponent implements OnInit {
   @Input() editing: boolean = false;
   @Input() editable: boolean = true;
   @Input() implementableId: string;
+  @Input() implementationId: string;
   q_colors: any[] = [];
   colors: string[] = ["#555", "#F13939", "#FE760E", "#FAD621", "#A1FB2B", "#329F22"];
 
@@ -24,7 +25,12 @@ export class DisplayQuestionsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     await this.controller.getQuestions(this.implementableId)
-      .then(qstns => {this.questions = qstns; console.log(this.questions); if (!this.editing) { qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} ) } })
+      .then(qstns => {
+        this.questions = qstns; console.log("Display-q.getQuestions",this.questions, this.implementableId); 
+        if (!this.editing) { 
+          qstns.map(q =>  { this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))})
+        } 
+      })
       .catch( err => { alert(this.translator.translate(err)); });
 
     for (let index = 0; index < this.questions.length; index++) {
@@ -32,7 +38,7 @@ export class DisplayQuestionsComponent implements OnInit {
     }
 
     if(this.editing){
-      await this.controller.getAnswers(this.implementableId)
+      await this.controller.getAnswers(this.implementationId)
       .then(answers => {answers.map( (element, i) => {this.answers.push(element)}  )})
       .catch( err => { alert(this.translator.translate(err)); });
       this.assignColors();
@@ -60,8 +66,6 @@ export class DisplayQuestionsComponent implements OnInit {
         this.q_colors[index] = {color: this.colors[this.scoreton(answer.score)], status: true, option: this.scoreton(answer.score)};
       }
     });
-    console.log(this.q_colors);
-    console.log(this.answers);
   }
 
   public get score(): typeof Score{

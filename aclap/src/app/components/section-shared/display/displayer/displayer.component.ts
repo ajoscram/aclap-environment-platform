@@ -13,6 +13,7 @@ export class DisplayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("Displayer: init");
   }
 
   isActivity(component: Section): boolean {
