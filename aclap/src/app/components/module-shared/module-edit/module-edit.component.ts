@@ -20,7 +20,9 @@ export class ModuleEditComponent implements OnInit {
   bannerImage: ImageSection;
   moduleFiles: File[] = [];
   deletedModuleFiles: File[] = [];
+  deletedSections: Section[] = [];
   questions: Question[];
+  deletedQuestions: Question[] = [];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -154,6 +156,14 @@ export class ModuleEditComponent implements OnInit {
       })
       .catch( err => { alert(this.translator.translate(err)); gotError = true; });
 
+    this.deletedSections.map(
+      (section: Section) => {
+        this.controller.deleteSection(this.id, section.id)
+        .then(_ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
     this.deletedModuleFiles.forEach(
       (file: File) => {
         this.controller.deleteFile(this.id, file.id)
@@ -174,6 +184,16 @@ export class ModuleEditComponent implements OnInit {
       (question) => {
         this.controller.setQuestion(question, this.id, question.id).then(_ => {})
         .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
+    this.deletedQuestions.map(
+      (question: Question) => {
+        if(question.id != null){
+          this.controller.deleteQuestion(this.id, question.id)
+          .then( _ => { })
+          .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        }
       }
     );
 

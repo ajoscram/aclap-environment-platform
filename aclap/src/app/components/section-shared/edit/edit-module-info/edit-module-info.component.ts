@@ -3,6 +3,7 @@ import { Controller } from '../../../../services/control/Controller.service';
 import { Discipline, DisciplineMetadata, ImageSection, Module, Subject } from '../../../../models';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ErrorTranslator } from '@src/app/services/ui/error_translator/ErrorTranslator.service';
 
 @Component({
   selector: 'app-edit-module-info',
@@ -26,7 +27,7 @@ export class EditModuleInfoComponent implements OnInit {
   discipline: Discipline;
   ageRange: any[];
 
-  constructor(private controller: Controller, private builder: FormBuilder, private router: Router) { }
+  constructor(private controller: Controller, private builder: FormBuilder, private router: Router, private translator: ErrorTranslator) { }
 
   async ngOnInit(): Promise<void> {
     this.moduleForm = this.builder.group({
@@ -66,6 +67,7 @@ export class EditModuleInfoComponent implements OnInit {
   deleteModule():void {
     this.controller.deleteImplementable(this.module.id).then(
       _ => {
+        alert("Módulo eliminado correctamente.");
         this.router.navigateByUrl("/modulos");
       }
     );

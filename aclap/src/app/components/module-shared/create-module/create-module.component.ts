@@ -103,12 +103,25 @@ export class CreateModuleComponent implements OnInit {
     await uploadingModule;
 
 
-    const sect = this.sections.map(async (section:Section) => {
-      const sect_response = await this.controller.setSection(section, this.id, section.id);
-      return sect_response;
-    });
-
-    const sects = await Promise.all(sect);
+    for (let i = 0; i < this.sections.length; i++) {
+      const section = this.sections[i];
+      if(section instanceof ImageSection && !section.url.startsWith("http")){
+        const imagetarget = this.imageProxy[section.url];
+        const imgUrl = await this.controller.upload(imagetarget).then(id => {
+          return id;
+        });
+        const _section = {
+          "id": section.id, 
+          "index": section.index, 
+          "footing": section.footing,
+          "url": imgUrl, 
+          "reference": section.reference
+        };
+        this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
+      }else{
+        this.sections[i] = await this.controller.setSection(section, this.id, section.id);
+      }
+    };
 
     this.files.forEach(
       (file) => {
@@ -118,10 +131,13 @@ export class CreateModuleComponent implements OnInit {
       }
     );
 
-    this.questions.forEach(
-      (question) => {
-        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+    await this.questions.map(
+      (question, i) => {
+        console.log(question);
+        this.controller.setQuestion(question, this.id, question.id).then(q => {
+          console.log("Question", i, q);
+        })
+        .catch( err => { alert("Preguntas:\n\n"+this.translator.translate(err)); gotError = true; });
       }
     );
 

@@ -12,8 +12,9 @@ export class EditQuestionsComponent implements OnInit {
 
   form: FormGroup;
   tempQuestion: Question;
-  @Input() questions: Question[];
-  options: string[];
+  @Input() questions: Question[] = [];
+  @Input() deleted: Question[] = [];
+  options: string[] = [];
 
   constructor(private builder: FormBuilder) { }
 
@@ -41,15 +42,20 @@ export class EditQuestionsComponent implements OnInit {
   addQuestion(){
     let qstn = new Question("","", new Map());
 
-    qstn.options[Score.VERY_LOW] = this.options[0];
-    qstn.options[Score.LOW] = this.options[1];
-    qstn.options[Score.AVERAGE] = this.options[2];
-    qstn.options[Score.HIGH] = this.options[3];
-    qstn.options[Score.VERY_HIGH] = this.options[4];
+    qstn.options.set(Score.VERY_LOW, this.options[0]);
+    qstn.options.set(Score.LOW, this.options[1]);
+    qstn.options.set(Score.AVERAGE, this.options[2]);
+    qstn.options.set(Score.HIGH, this.options[3]);
+    qstn.options.set(Score.VERY_HIGH, this.options[4]);
     qstn.question = this.form.get("question").value;
 
     this.questions.push(qstn);
     this.initQuestion();
+  }
+
+  deleteQuestion(i: number):void {
+    this.deleted.push(this.questions[i]);
+    this.questions.splice(i,1);
   }
 
   public get score(): typeof Score{

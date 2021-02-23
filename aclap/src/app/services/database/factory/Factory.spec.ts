@@ -128,8 +128,14 @@ describe('Factory', () => {
 
     const STUB_QUESTION: IQuestion = {
         question: "is this a question?",
-        options: new Map()
+        options: new Map<Score, string>()
     };
+
+    STUB_QUESTION.options.set(Score.VERY_LOW, "Very Low option");
+    STUB_QUESTION.options.set(Score.LOW, "Low option");
+    STUB_QUESTION.options.set(Score.AVERAGE, "Average option");
+    STUB_QUESTION.options.set(Score.HIGH, "High option");
+    STUB_QUESTION.options.set(Score.VERY_HIGH, "Very High option");
 
     const STUB_IMPLEMENTATION: IImplementation = {
         date: new Date(),

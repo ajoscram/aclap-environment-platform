@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ControlModule from '../../../modules/control/control.module';
-import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IAlly, IAnswer, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, IQuestion, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, TitleSection, YoutubeVideoSection } from '../../../models';
+import { ActivitySection, Administrator, Educator, Event, IActivitySection, IAdministrator, IAlly, IAnswer, IDiscipline, IDisciplineMetadata, IEducator, IEducatorRequest, IEvent, IFile, IImageSection, IImplementable, IImplementation, ILocation, ImageSection, IModule, IParagraphSection, IQuestion, ISection, ISubject, ITitleSection, IUser, IYoutubeVideoSection, Module, ParagraphSection, Score, TitleSection, YoutubeVideoSection } from '../../../models';
 
 @Injectable({
     providedIn: ControlModule
@@ -174,6 +174,13 @@ export class Validator{
 
     validateIQuestion(question: IQuestion){
         this.validateNullOrUndefined(question);
+        console.log('validateIQuestion', question.options);
+        if( !question.options.has(Score.VERY_LOW) ||
+            !question.options.has(Score.LOW) ||
+            !question.options.has(Score.AVERAGE) || 
+            !question.options.has(Score.HIGH) || 
+            !question.options.has(Score.VERY_HIGH))
+            throw new Error(ValidatorError.QUESTION_MISSING_OPTIONS);
     }
 
     validateIImplementation(implementation: IImplementation){
@@ -225,5 +232,6 @@ export enum ValidatorError{
     UNKNOWN_ISECTION = "ValidatorError.UNKNOWN_ISECTION",
     UNKNOWN_IIMPLEMENTABLE = "ValidatorError.UNKNOWN_IIMPLEMENTABLE",
     LATITUDE_OUT_OF_BOUNDS = "ValidatorError.LATITUDE_OUT_OF_BOUNDS",
-    LONGITUDE_OUT_OF_BOUNDS = "ValidatorError.LONGITUDE_OUT_OF_BOUNDS"
+    LONGITUDE_OUT_OF_BOUNDS = "ValidatorError.LONGITUDE_OUT_OF_BOUNDS",
+    QUESTION_MISSING_OPTIONS = "ValidatorError.QUESTION_MISSING_OPTIONS"
 }

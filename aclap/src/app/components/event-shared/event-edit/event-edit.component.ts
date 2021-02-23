@@ -20,7 +20,9 @@ export class EventEditComponent implements OnInit {
   bannerImage: ImageSection;
   moduleFiles: File[] = [];
   deletedModuleFiles: File[] = [];
-  questions: Question[];
+  deletedSections: Section[] = [];
+  questions: Question[] = [];
+  deletedQuestions: Question[] = [];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -152,6 +154,15 @@ export class EventEditComponent implements OnInit {
         })
       .catch( err => { alert(this.translator.translate(err)); gotError = true; });
 
+
+    this.deletedSections.map(
+      (section: Section) => {
+        this.controller.deleteSection(this.id, section.id)
+        .then(_ => {})
+        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      }
+    );
+
     this.deletedModuleFiles.forEach(
       (file: File) => {
         this.controller.deleteFile(this.id, file.id)
@@ -175,8 +186,19 @@ export class EventEditComponent implements OnInit {
       }
     );
 
+    this.deletedQuestions.map(
+      (question: Question) => {
+        if(question.id != null){
+          this.controller.deleteQuestion(this.id, question.id)
+          .then( _ => {})
+          .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        }
+      }
+    );
+
     //Display modal that everithing worked fine
     if(gotError){
+      alert("Error en la subida, intente nuevamente");
       return;
     }else{
       alert("Contenido del evento actualizado de manera correcta");

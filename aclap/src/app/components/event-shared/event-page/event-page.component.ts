@@ -60,7 +60,8 @@ export class EventPageComponent implements OnInit {
   }
 
   dateFormat(date: Date){
-    return `${date.getDay()} de ${this.months[date.getMonth()]}`
+    const date1 = new Date(date);
+    return `${date1.getDay()} de ${this.months[date1.getMonth()]}`;
   }
 
 }
