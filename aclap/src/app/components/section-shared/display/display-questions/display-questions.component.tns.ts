@@ -30,7 +30,7 @@ export class DisplayQuestionsComponent implements OnInit {
   fileNames: string[] = [];
   questionOptions: string[][] = [];
   imageOptions: string[] = [];
-  scoreOptions: Score[] = [Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
+  scoreOptions: Score[] = [Score.UNKNOWN, Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
 
   module: Module;
   id: string;
@@ -57,9 +57,9 @@ export class DisplayQuestionsComponent implements OnInit {
       .then(qstns => {
         this.questions = qstns;
         qstns.map(q =>  {
-          this.answers.push(new Answer(null, q.id, q.question, null, null))
-          this.imageOptions.push("res://score_3")
-          let ops = [q.options[Score.VERY_HIGH], q.options[Score.LOW], q.options[Score.AVERAGE], q.options[Score.HIGH], q.options[Score.VERY_HIGH]]
+          this.answers.push(new Answer('', q.id, q.question, "Sin responder", Score.UNKNOWN));
+          this.imageOptions.push("res://score_unknown");
+          let ops = ["Sin responder", q.options.get(Score.VERY_LOW), q.options.get(Score.LOW), q.options.get(Score.AVERAGE), q.options.get(Score.HIGH), q.options.get(Score.VERY_HIGH)];
           this.questionOptions.push(ops)
         })
       })
@@ -74,32 +74,38 @@ export class DisplayQuestionsComponent implements OnInit {
   onSelectedIndexChanged(args, i) {
     const picker = <ListPicker>args.object;
     switch(this.scoreOptions[picker.selectedIndex]) {
-      case 'VERY_LOW': {
+      case Score.VERY_LOW: {
         this.imageOptions[i] = "res://score_1";
         this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break;
       }
-      case 'LOW': {
+      case Score.LOW: {
         this.imageOptions[i] = "res://score_2";
         this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break;
       }
-      case 'AVERAGE': {
+      case Score.AVERAGE: {
         this.imageOptions[i] = "res://score_3";
         this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break;
       }
-      case 'HIGH': {
+      case Score.HIGH: {
         this.imageOptions[i] = "res://score_4";
         this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break;
       }
-      default: {
+      case Score.VERY_HIGH: {
         this.imageOptions[i] = "res://score_5";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      default: {
+        this.imageOptions[i] = "res://score_unknown";
         this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
         break;

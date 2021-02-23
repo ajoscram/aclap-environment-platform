@@ -28,7 +28,7 @@ export class DisplayerComponent implements OnInit {
       .catch(error => console.error(error));
 
     this.controller.getSections(this.id)
-    .then(sections => { this.sections = sections; 
+    .then(sections => { this.sections = sections;
       this.sections = this.sections.sort(
         (obj1, obj2) => {
           if (obj1.index > obj2.index) {
@@ -36,7 +36,7 @@ export class DisplayerComponent implements OnInit {
           }
           if (obj1.index < obj2.index){
             return -1;
-          } 
+          }
           return 0;
         }
       );

@@ -17,10 +17,11 @@ export class Validator{
             throw new Error(ValidatorError.IS_NULL_OR_UNDEFINED);
         try{
             if(typeof object === Validator.OBJECT_TYPE)
-                Object.keys(object).forEach(key => { 
+                Object.keys(object).forEach(key => {
                     this.validateNullOrUndefined(object[key]);
                 });
         } catch(error) {
+            console.log(object);
             if(error instanceof Error && (<Error>error).message === ValidatorError.IS_NULL_OR_UNDEFINED)
                 throw new Error(ValidatorError.HAS_NULL_OR_UNDEFINED_FIELDS);
             else{
@@ -40,7 +41,7 @@ export class Validator{
         else if(location.longitude > 180 || location.longitude < -180)
             throw new Error(ValidatorError.LONGITUDE_OUT_OF_BOUNDS)
     }
-    
+
     validateIEducatorRequest(request: IEducatorRequest){
         this.validateNullOrUndefined(request);
         if(!Validator.EMAIL_REGEX.test(request.email))
@@ -49,7 +50,7 @@ export class Validator{
             throw new Error(ValidatorError.MALFORMED_PHONE)
         else if(request.birthday > new Date())
             throw new Error(ValidatorError.BIRTHDAY_CANT_BE_FUTURE)
-        
+
         this.validateILocation(request.address);
     }
 
@@ -108,7 +109,7 @@ export class Validator{
             throw new Error(ValidatorError.MALFORMED_URL);
         else if(!Validator.URL_REGEX.test(implementable.bannerImageUrl))
             throw new Error(ValidatorError.MALFORMED_URL);
-        
+
         if(Module.check(implementable))
             this.validateIModule(implementable);
         else if(Event.check(implementable))
@@ -121,7 +122,7 @@ export class Validator{
         if(section.estimatedMinutes < 0)
             throw new Error(ValidatorError.ESTIMATED_MINUTES_LESS_THAN_ZERO);
     }
-    
+
     private validateIImageSection(section: IImageSection){
         if(!Validator.URL_REGEX.test(section.url))
             throw new Error(ValidatorError.MALFORMED_URL);
@@ -183,7 +184,7 @@ export class Validator{
                 implementation.maleParticipants < 0 ||
                 implementation.otherParticipants < 0)
             throw new Error(ValidatorError.PARTICIPANTS_LESS_THAN_ZERO)
-        
+
         this.validateILocation(implementation.location)
     }
 

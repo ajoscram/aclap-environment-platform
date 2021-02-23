@@ -12,7 +12,7 @@
 
             <StackLayout orientation="horizontal">
                 <Label text="Fecha:" class="subtitle-text-picker" textWrap="true"></Label>
-                <DatePicker [(ngModel)]="pickerDate" 
+                <DatePicker [(ngModel)]="pickerDate"
                     [date]="todayDate"
                     [minDate]="minDate" [maxDate]="maxDate"
                     verticalAlignment="center" class="date-picker">
@@ -44,7 +44,7 @@
             <StackLayout *ngFor="let question of questions; index as i" orientation="vertical">
                 <Label text="{{ question.question }}" class="subtitle-text-question" textWrap="true"></Label>
                 <StackLayout orientation="horizontal">
-                    <ListPicker [items]="questionOptions[i]" selectedIndex="2" textWrap="true" class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
+                    <ListPicker [items]="questionOptions[i]" selectedIndex="0" textWrap="true" class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
                     <Image src="{{ imageOptions[i] }}" class="img-answer-icon"></Image>
                 </StackLayout>
             </StackLayout>
@@ -66,7 +66,7 @@
 
                         <Label row="2" col="1" text="{{ file }}" class="subtitle-text-file" textWrap="true"></Label>
                         <Button row="0" col="2" text="x" class="btn btn-primary btn-fileRemover" (tap)="removeFile($event, i)"></Button>
-                    
+
                     </GridLayout>
                 </Card:CardView>
 

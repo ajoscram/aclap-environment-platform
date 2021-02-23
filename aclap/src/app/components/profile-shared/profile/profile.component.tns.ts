@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
               inputType: inputType.password
             }).then(async r2 => {
               if(r2.result){
-                if( (r1.text === r2.text) && (r2.text.length > 8) ){
+                if( (r1.text === r2.text) && (r2.text.length >= 8) ){
                   await this.controller.setPassword(r1.text);
                   dialogs.alert({
                     title: "Contraseña cambiada!",

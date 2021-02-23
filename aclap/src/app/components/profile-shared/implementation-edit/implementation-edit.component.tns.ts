@@ -31,7 +31,9 @@ export class ImplementationEditComponent implements OnInit {
   fileNames: string[] = [];
   questionOptions: string[][] = [];
   imageOptions: string[] = [];
-  scoreOptions: Score[] = [Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
+  scoreOptions: Score[] = [Score.UNKNOWN, Score.VERY_LOW, Score.LOW, Score.AVERAGE, Score.HIGH, Score.VERY_HIGH];
+  imageUrls: string[] = ["res://score_unknown", "res://score_1", "res://score_2", "res://score_3", "res://score_4", "res://score_5"]
+  indexMapper: Map<Score, number>;
 
   id: string;
   user: User;
@@ -39,42 +41,59 @@ export class ImplementationEditComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private routerExtensions: RouterExtensions, private controller: Controller, private translator: ErrorTranslator) {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.indexMapper = new Map();
+    this.indexMapper.set(Score.UNKNOWN, 0);
+    this.indexMapper.set(Score.VERY_LOW, 1);
+    this.indexMapper.set(Score.LOW, 2);
+    this.indexMapper.set(Score.AVERAGE, 3);
+    this.indexMapper.set(Score.HIGH, 4);
+    this.indexMapper.set(Score.VERY_HIGH, 5);
+
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    try {
+        this.user = await this.controller.getUser();
+        this.implementation = await this.controller.getImplementation(this.id);
+        this.questions = await this.controller.getQuestions(this.implementation.implementableId);
+        this.answers = await this.controller.getAnswers(this.id);
+        this.files = await this.controller.getEvidence(this.id);
 
-    this.controller.getImplementation(this.id).then(
-      impl => {
-        console.log(impl) 
-        this.implementation = <Implementation> impl;
-        this.txtAddress = impl.location.name.replace(", Costa Rica", "")
-        this.pickerFparticipants = impl.femaleParticipants;
-        this.pickerMparticipants = impl.maleParticipants; 
-        this.pickerOparticipants = impl.otherParticipants;  
-        this.controller.getQuestions(impl.implementableId)
-        .then(qstns => { this.questions = qstns; 
-          qstns.map(q =>  {
-            this.imageOptions.push("res://score_3")
-           let ops = [q.options[Score.VERY_HIGH], q.options[Score.LOW], q.options[Score.AVERAGE], q.options[Score.HIGH], q.options[Score.VERY_HIGH]]
-            this.questionOptions.push(ops)
-          })
-        })
-        .catch( err => { console.log(this.translator.translate(err)); } );
+        this.txtAddress = this.implementation.location.name.replace(", Costa Rica", "")
+        this.pickerFparticipants = this.implementation.femaleParticipants;
+        this.pickerMparticipants = this.implementation.maleParticipants;
+        this.pickerOparticipants = this.implementation.otherParticipants;
+
+        let sortedAnswers = []
+
+        for (let q of this.questions) {
+          let ops = ["Sin responder", q.options.get(Score.VERY_LOW), q.options.get(Score.LOW), q.options.get(Score.AVERAGE), q.options.get(Score.HIGH), q.options.get(Score.VERY_HIGH)];
+          this.questionOptions.push(ops);
+          let answer = this.getAnswer(q.id);
+          sortedAnswers.push(answer);
+          let scoreIndex = this.indexMapper.get(answer.score);
+          this.imageOptions.push(this.imageUrls[scoreIndex]);
+        }
+
+        this.answers = sortedAnswers;
+
+    } catch (error) {
+      dialogs.alert({
+        title: "Error!",
+        message: this.translator.translate(error),
+        okButtonText: "Ok"
       })
-      .catch(error => console.error(error));
+      this.routerExtensions.navigate(['perfil'], { clearHistory: true });
+    }
 
-    this.controller.getUser().then(
-      user => { this.user = user; }
-    );
+  }
 
-    this.controller.getAnswers(this.id)
-      .then(answ => { this.answers = <Answer[]> answ })
-      .catch(error => console.error(error));
+  getOptionIndex(answer): number {
+    return this.indexMapper.get(answer.score);
+  }
 
-    this.controller.getEvidence(this.id)
-      .then(files => { this.files = files })
-      .catch(error => console.error(error));
-
+  getAnswer(questionId): Answer {
+    return this.answers.find( answer => answer.questionId === questionId);
   }
 
   getFilename(filePath) {
@@ -83,37 +102,43 @@ export class ImplementationEditComponent implements OnInit {
 
   onSelectedIndexChanged(args, i) {
     const picker = <ListPicker>args.object;
-    switch(this.scoreOptions[picker.selectedIndex]) { 
-      case 'VERY_LOW': { 
+    switch(this.scoreOptions[picker.selectedIndex]) {
+      case Score.VERY_LOW: {
         this.imageOptions[i] = "res://score_1";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
-        break; 
-      } 
-      case 'LOW': { 
-        this.imageOptions[i] = "res://score_2";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
+        break;
       }
-      case 'AVERAGE': { 
-        this.imageOptions[i] = "res://score_3";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
+      case Score.LOW: {
+        this.imageOptions[i] = "res://score_2";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
         this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
-        break; 
-      } 
-      case 'HIGH': { 
+        break;
+      }
+      case Score.AVERAGE: {
+        this.imageOptions[i] = "res://score_3";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      case Score.HIGH: {
         this.imageOptions[i] = "res://score_4";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
-      } 
-      default: { 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      case Score.VERY_HIGH: {
         this.imageOptions[i] = "res://score_5";
-        this.answers[i].score = this.scoreOptions[picker.selectedIndex]; 
-        this.answers[i].option = this.questionOptions[i][picker.selectedIndex]; 
-        break; 
-      } 
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
+      default: {
+        this.imageOptions[i] = "res://score_unknown";
+        this.answers[i].score = this.scoreOptions[picker.selectedIndex];
+        this.answers[i].option = this.questionOptions[i][picker.selectedIndex];
+        break;
+      }
     }
   }
 
@@ -141,7 +166,7 @@ export class ImplementationEditComponent implements OnInit {
   }
 
   isFile(filename): boolean {
-    return filename.substring(filename.lastIndexOf('.')) !== ".jpg" 
+    return filename.substring(filename.lastIndexOf('.')) !== ".jpg"
     && filename.substring(filename.lastIndexOf('.')) !== ".png";
   }
 
@@ -150,7 +175,7 @@ export class ImplementationEditComponent implements OnInit {
     try {
       let locName = this.txtAddress + ", Costa Rica";
       let loc = await geocoding.getLocationFromName(locName);
-  
+
       const request: IImplementation = {
         date: this.pickerDate,
         femaleParticipants: this.pickerFparticipants,
@@ -163,17 +188,17 @@ export class ImplementationEditComponent implements OnInit {
         implementableId: this.implementation.implementableId,
         implementableName: this.implementation.implementableName
       };
-  
+
       await this.controller.updateImplementation(this.implementation.id, request);
-      
+
       for (let filePath of this.filePaths){
         await this.controller.addEvidence(this.implementation.id, filePath);
       }
-  
+
       for (let answer of this.answers){
         await this.controller.addAnswer(this.implementation.id, answer);
       }
-  
+
       if(submitType === "complete"){
         await this.controller.completeImplementation(this.implementation.id)
         .then( non => {
