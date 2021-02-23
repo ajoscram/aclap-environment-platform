@@ -22,7 +22,7 @@ export class ModuleEditComponent implements OnInit {
   deletedModuleFiles: File[] = [];
   deletedSections: Section[] = [];
   questions: Question[];
-  deletedQuestions: Question[];
+  deletedQuestions: Question[] = [];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 

@@ -12,7 +12,7 @@
 
             <StackLayout orientation="horizontal">
                 <Label text="Fecha:" class="subtitle-text-picker" textWrap="true"></Label>
-                <DatePicker [(ngModel)]="pickerDate" 
+                <DatePicker [(ngModel)]="pickerDate"
                     [date]="todayDate"
                     [minDate]="minDate" [maxDate]="maxDate"
                     verticalAlignment="center" class="date-picker">
@@ -44,7 +44,7 @@
             <StackLayout *ngFor="let question of questions; index as i" orientation="vertical">
                 <Label text="{{ question.question }}" class="subtitle-text-question" textWrap="true"></Label>
                 <StackLayout orientation="horizontal">
-                    <ListPicker [items]="questionOptions[i]" selectedIndex="2"  class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
+                    <ListPicker [items]="questionOptions[i]" [selectedIndex]="getOptionIndex(answers[i])"  class="answer-picker" (selectedIndexChange)="onSelectedIndexChanged($event, i)"></ListPicker>
                     <Image src="{{ imageOptions[i] }}" class="img-answer-icon"></Image>
                 </StackLayout>
             </StackLayout>
@@ -57,7 +57,7 @@
                     <GridLayout rows="*, *" columns="*, 150, *" orientation="horizontal">
 
                         <StackLayout rowspan="5" row="0" col="0" *ngIf="isImg(file.name)">
-                            <Image src="{{ file.name }}" class="file-img"></Image>
+                            <Image src="res://img" class="file-img"></Image>
                         </StackLayout>
 
                         <StackLayout rowspan="5" row="0" col="0" *ngIf="isFile(file.name)">
@@ -66,7 +66,7 @@
 
                         <Label row="2" col="1" text="{{ file.name }}" class="subtitle-text-file"></Label>
                         <Button row="0" col="2" text="x" class="btn btn-primary btn-fileRemover" (tap)="removeOldFile(i)"></Button>
-                    
+
                     </GridLayout>
                 </Card:CardView>
 
@@ -78,7 +78,7 @@
                     <GridLayout rows="*, *" columns="*, 150, *" orientation="horizontal">
 
                         <StackLayout rowspan="5" row="0" col="0" *ngIf="isImg(file)">
-                            <Image src="{{ filePaths[i] }}" class="file-img"></Image>
+                            <Image src="res://img" class="file-img"></Image>
                         </StackLayout>
 
                         <StackLayout rowspan="5" row="0" col="0" *ngIf="isFile(file)">
@@ -87,7 +87,7 @@
 
                         <Label row="2" col="1" text="{{ file }}" class="subtitle-text-file"></Label>
                         <Button row="0" col="2" text="x" class="btn btn-primary btn-fileRemover" (tap)="removeFile(i)"></Button>
-                    
+
                     </GridLayout>
                 </Card:CardView>
 

@@ -61,7 +61,7 @@
                     <th scope="row">{{i + 1}}</th>
                     <td>{{q.question}}: ({{q.options.get(score.VERY_LOW)}},{{q.options.get(score.LOW)}},{{q.options.get(score.AVERAGE)}},{{q.options.get(score.HIGH)}},{{q.options.get(score.VERY_HIGH)}})</td>
                     <td> 
-                        <span class="btn btn-danger" (click)="questions.splice(i,1)"> Eliminar </span> 
+                        <span class="btn btn-danger" (click)="deleteQuestion(i)"> Eliminar </span>
                     </td>
                 </tr>
             </tbody>

@@ -5,11 +5,8 @@
 * Cambios de texto en TyC
 * Arreglar tildes en textos
 * Cambiar fotos de headers
-* Pruebas con Firebase
 * Loading para descargas/subida de archivos y solicitudes
 * Fix fonts
-* Double check async and awaits
-* Request Password Reset bug - No dialog alert
 
 ### Completado
 
@@ -49,3 +46,8 @@
 | 28/01/2021 | Implementación de cambio de contraseñas para en UI de perfil |
 | 03/02/2021 | Cambio de imagenes de encabezado |
 | 03/02/2021 | Agregar fuentes a titulos y textos |
+| 22/02/2021 | Pruebas con Firebase |
+| 22/02/2021 | Request Password Reset bug - No dialog alert |
+| 22/02/2021 | Double check async and awaits |
+| 22/02/2021 | Agregar fuentes a titulos y textos |
+| 22/02/2021 | Agregar fuentes a titulos y textos |

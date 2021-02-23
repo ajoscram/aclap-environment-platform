@@ -2,7 +2,7 @@
     <ScrollView orientation="vertical" height="1000">
         <StackLayout orientation="vertical">
             <StackLayout *ngFor="let section of sections" orientation="vertical">
-                
+
                 <StackLayout *ngIf="isTitle(section)">
 
                     <StackLayout *ngIf="section.size === h1">
@@ -38,7 +38,7 @@
 
                 <StackLayout *ngIf="isParagraph(section)">
                     <StackLayout *ngFor="let part of section.text.split('\n')">
-                        <Label text="{{ part.text }}" textWrap="true" class="body-text"></Label>
+                        <Label text="{{ part }}" textWrap="true" class="body-text"></Label>
                     </StackLayout>
                 </StackLayout>
 
