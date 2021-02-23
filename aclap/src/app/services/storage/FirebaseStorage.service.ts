@@ -34,7 +34,7 @@ export class FirebaseStorage implements Storage{
 
     async delete(file: File_): Promise<void>{
         try{
-            await this.storage.ref(file.url).delete().toPromise();
+            await this.storage.refFromURL(file.url).delete().toPromise();
         } catch(error){
             console.error(error);
             throw new Error(StorageError.DELETE_ERROR);

@@ -22,7 +22,7 @@ export class ModuleEditComponent implements OnInit {
   deletedModuleFiles: File[] = [];
   deletedSections: Section[] = [];
   questions: Question[];
-  deletedQuestions: Question[];
+  deletedQuestions: Question[] = [];
   sectionOptions = ["Actividad","Imagen","Párrafo","Título / Subtítulo","Youtube"];
   public sectionButtonsCollapsed = true;
 
@@ -191,7 +191,7 @@ export class ModuleEditComponent implements OnInit {
       (question: Question) => {
         if(question.id != null){
           this.controller.deleteQuestion(this.id, question.id)
-          .then( _ => {})
+          .then( _ => { })
           .catch( err => { alert(this.translator.translate(err)); gotError = true; });
         }
       }
