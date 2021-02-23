@@ -76,14 +76,6 @@ export class ImplementationEditComponent implements OnInit {
         })
       })
     ];
-
-    this.controller.getQuestions(this.implementation.implementableId)
-      .then(qstns => {this.questions = qstns;})
-      .catch( err => { alert(this.translator.translate(err)); });
-    
-    this.controller.getAnswers(this.id)
-      .then(answers => {this.answers = answers;})
-      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.implementation.implementableId)
       .then(sections => {

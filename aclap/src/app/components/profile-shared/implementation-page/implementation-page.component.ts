@@ -53,10 +53,6 @@ export class ImplementationPageComponent implements OnInit {
     await this.controller.draftImplementation(this.id)
       .then(impl => {this.implementation = <Implementation> impl; console.log(this.implementation)})
       .catch( err => { alert(this.translator.translate(err)); });
-
-    this.controller.getQuestions(this.id)
-      .then(qstns => {this.questions = qstns; console.log(this.questions); qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} )})
-      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)
       .then(sections => {
@@ -78,8 +74,7 @@ export class ImplementationPageComponent implements OnInit {
         femaleParticipants: [''],
         otherParticipants: ['']
       });
-    
-      
+   
   }
 
   statusFormat(completed: boolean){
@@ -106,13 +101,13 @@ export class ImplementationPageComponent implements OnInit {
 
     console.log(this.answers);
 
-    this.answers.forEach( ans => {
+    this.answers.map( ans => {
       this.controller.setAnswer(ans, this.implementation.id, ans.id)
-        .then(_ => {})
+        .then(ans => { console.log("Answer", ans) })
         .catch( err => { alert(this.translator.translate(err)); });
     });
 
-    this.files.forEach(
+    this.files.map(
       (file) => {
         this.controller.addEvidence(this.implementation.id, file)
         .then( _ => {})
