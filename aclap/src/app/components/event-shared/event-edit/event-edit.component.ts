@@ -96,6 +96,7 @@ export class EventEditComponent implements OnInit {
     //Go to module Display Page
 
     let gotError: boolean = false;
+    let promises: Promise<any>[] = [];
 
     /* Upload image and banner of the module */
     try{
@@ -125,86 +126,77 @@ export class EventEditComponent implements OnInit {
     this.module.imageUrl = this.moduleImage.url;
     this.module.bannerImageUrl = this.bannerImage.url;
     /* */
+    try{
+      for (let i = 0; i < this.sections.length; i++) {
+        const section = this.sections[i];
+        if(section instanceof ImageSection && !section.url.startsWith("http")){
+          const imagetarget = this.imageProxy[section.url];
+          const imgUrl = await this.controller.upload(imagetarget).then(id => {
+            return id;
+          });
+          const _section = {
+            "id": section.id, 
+            "index": section.index, 
+            "footing": section.footing,
+            "url": imgUrl, 
+            "reference": section.reference
+          };
+          this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
+        }else{
+          this.sections[i] = await this.controller.setSection(section, this.id, section.id);
+        }
+      };
 
-    for (let i = 0; i < this.sections.length; i++) {
-      const section = this.sections[i];
-      if(section instanceof ImageSection && !section.url.startsWith("http")){
-        const imagetarget = this.imageProxy[section.url];
-        const imgUrl = await this.controller.upload(imagetarget).then(id => {
-          return id;
-        });
-        const _section = {
-          "id": section.id, 
-          "index": section.index, 
-          "footing": section.footing,
-          "url": imgUrl, 
-          "reference": section.reference
-        };
-        this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
-      }else{
-        this.sections[i] = await this.controller.setSection(section, this.id, section.id);
-      }
-    };
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
+    }
 
-    this.controller.updateImplementable(this.module.id, this.module)
-      .then(
-        module => {
-          //All Good
-          console.log(module);
-        })
-      .catch( err => { alert(this.translator.translate(err)); gotError = true; });
-
+    promises.push(this.controller.updateImplementable(this.module.id, this.module));
 
     this.deletedSections.map(
       (section: Section) => {
-        this.controller.deleteSection(this.id, section.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.deleteSection(this.id, section.id));
       }
     );
 
-    this.deletedModuleFiles.forEach(
+    this.deletedModuleFiles.map(
       (file: File) => {
-        this.controller.deleteFile(this.id, file.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.deleteFile(this.id, file.id));
       }
     );
 
-    this.files.forEach(
+    this.files.map(
       (file) => {
-        this.controller.addFile(this.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.addFile(this.id, file));
       }
     );
 
-    this.questions.forEach(
+    this.questions.map(
       (question) => {
-        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.setQuestion(question, this.id, question.id));
       }
     );
 
     this.deletedQuestions.map(
       (question: Question) => {
         if(question.id != null){
-          this.controller.deleteQuestion(this.id, question.id)
-          .then( _ => {})
-          .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+          promises.push(this.controller.deleteQuestion(this.id, question.id));
         }
       }
     );
 
-    //Display modal that everithing worked fine
-    if(gotError){
-      alert("Error en la subida, intente nuevamente");
-      return;
-    }else{
-      alert("Contenido del evento actualizado de manera correcta");
-      this.router.navigateByUrl(`/eventos/${this.route.snapshot.paramMap.get('id')}`);
-
-    }
+    await Promise.all(promises)
+      .then(
+        _ => {
+          alert("Contenido del módulo actualizado de manera correcta");
+          this.router.navigateByUrl(`/modulos/${this.id}`);
+        }
+      )
+      .catch(
+        error => {
+          this.translator.translate(error);
+        }
+      );
 
   }
 

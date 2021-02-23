@@ -59,7 +59,7 @@ export class CreateEventComponent implements OnInit {
   }
 
   async submitSections(){
-
+    let promises: Promise<any>[] = [];
     let gotError: boolean = false;
 
     /* Upload image and banner of the event */
@@ -90,49 +90,59 @@ export class CreateEventComponent implements OnInit {
     this.event.imageUrl = this.eventImage.url;
     this.event.bannerImageUrl = this.bannerImage.url;
     /* */
-    
-    const uploadingModule = this.controller.addImplementable(this.event)
-      .then(
-        event => {
-          this.id = event.id;
+
+    try{
+      const uploadingModule = await this.controller.addImplementable(this.event);
+      this.id = uploadingModule.id;
+
+      for (let i = 0; i < this.sections.length; i++) {
+        const section = this.sections[i];
+        if(section instanceof ImageSection && !section.url.startsWith("http")){
+          const imagetarget = this.imageProxy[section.url];
+          const imgUrl = await this.controller.upload(imagetarget).then(id => {
+            return id;
+          });
+          const _section = {
+            "id": section.id, 
+            "index": section.index, 
+            "footing": section.footing,
+            "url": imgUrl, 
+            "reference": section.reference
+          };
+          this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
+        }else{
+          this.sections[i] = await this.controller.setSection(section, this.id, section.id);
         }
-      )
-      .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+      };
 
-    await uploadingModule;
-
-
-    const sect = this.sections.map(async (section:Section) => {
-      const sect_response = await this.controller.setSection(section, this.id, section.id);
-      return sect_response;
-    });
-
-    const sects = await Promise.all(sect);
-    console.log(sects);
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
+    }
 
     this.files.forEach(
       (file) => {
-        this.controller.addFile(this.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.addFile(this.id, file));
       }
     );
 
-    this.questions.forEach(
-      (question) => {
-        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+    this.questions.map(
+      (question, i) => {
+        promises.push(this.controller.setQuestion(question, this.id, question.id));
       }
     );
 
-    if(gotError){
-      return;
-    }else{
-      alert("Contenido del evento actualizado de manera correcta");
-      this.router.navigateByUrl(`/eventos/${this.id}`);
-    }
-
-    
+    await Promise.all(promises)
+      .then(
+        _ => {
+          alert("Contenido del módulo actualizado de manera correcta");
+          this.router.navigateByUrl(`/modulos/${this.id}`);
+        }
+      )
+      .catch(
+        error => {
+          this.translator.translate(error);
+        }
+      );
 
   }
 

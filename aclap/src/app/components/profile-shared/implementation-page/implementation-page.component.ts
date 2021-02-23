@@ -55,7 +55,7 @@ export class ImplementationPageComponent implements OnInit {
       .catch( err => { alert(this.translator.translate(err)); });
 
     this.controller.getQuestions(this.id)
-      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} )})
+      .then(qstns => {this.questions = qstns; console.log(this.questions); qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} )})
       .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)

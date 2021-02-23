@@ -99,6 +99,7 @@ export class ModuleEditComponent implements OnInit {
     //Submit Sections
     //Go to module Display Page
     let gotError: boolean = false;
+    let promises: Promise<any>[] = [];
 
     /* Upload image and banner of the module */
     try{
@@ -158,52 +159,48 @@ export class ModuleEditComponent implements OnInit {
 
     this.deletedSections.map(
       (section: Section) => {
-        this.controller.deleteSection(this.id, section.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.deleteSection(this.id, section.id));
       }
     );
 
-    this.deletedModuleFiles.forEach(
+    this.deletedModuleFiles.map(
       (file: File) => {
-        this.controller.deleteFile(this.id, file.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.deleteFile(this.id, file.id));
       }
     );
 
-    this.files.forEach(
+    this.files.map(
       (file) => {
-        this.controller.addFile(this.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.addFile(this.id, file));
       }
     );
 
-    this.questions.forEach(
+    this.questions.map(
       (question) => {
-        this.controller.setQuestion(question, this.id, question.id).then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.setQuestion(question, this.id, question.id));
       }
     );
 
     this.deletedQuestions.map(
       (question: Question) => {
         if(question.id != null){
-          this.controller.deleteQuestion(this.id, question.id)
-          .then( _ => {})
-          .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+          promises.push(this.controller.deleteQuestion(this.id, question.id));
         }
       }
     );
 
-    //Display modal that everithing worked fine
-    if(gotError){
-      return;
-    }else{
-      alert("Contenido del módulo actualizado de manera correcta");
-      this.router.navigateByUrl(`/modulos/${this.route.snapshot.paramMap.get('id')}`);
-    }
+    await Promise.all(promises)
+      .then(
+        _ => {
+          alert("Contenido del módulo actualizado de manera correcta");
+          this.router.navigateByUrl(`/modulos/${this.id}`);
+        }
+      )
+      .catch(
+        error => {
+          this.translator.translate(error);
+        }
+      );
 
   }
 

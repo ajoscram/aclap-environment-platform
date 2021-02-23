@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span> {{ question.options[score.VERY_LOW] }} </span>
+                        <span> {{ question.options.get(score.VERY_LOW) }} </span>
                     </div>
                     <div class="row">
                         <img class="img-fluid emoji"  [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 1 }" id="{{i}}-score1" src="../../../../../assets/scores-img/score-1.svg" alt="muy mal" (click)="selectOption(i, 1 )">
@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span> {{ question.options[score.LOW] }} </span>
+                        <span> {{ question.options.get(score.LOW) }} </span>
                     </div>
                     <div class="row">
                         <img class="img-fluid" [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 2 }" id="{{i}}-score2" src="../../../../../assets/scores-img/score-2.svg" alt="mal" (click)="selectOption(i, 2 )">
@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span> {{ question.options[score.AVERAGE] }} </span>
+                        <span> {{ question.options.get(score.AVERAGE) }} </span>
                     </div>
                     <div class="row">
                         <img class="img-fluid"  [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 3 }" id="{{i}}-score3" src="../../../../../assets/scores-img/score-3.svg" alt="promedio" (click)="selectOption(i, 3 )">
@@ -43,7 +43,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span> {{ question.options[score.HIGH] }} </span>
+                        <span> {{ question.options.get(score.HIGH) }} </span>
                     </div>
                     <div class="row">
                         <img class="img-fluid"  [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 4 }" id="{{i}}-score4" src="../../../../../assets/scores-img/score-4.svg" alt="bien" (click)="selectOption(i, 4 )">
@@ -55,10 +55,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <span> {{ question.options[score.VERY_HIGH] }} </span>
+                        <span> {{ question.options.get(score.VERY_HIGH) }} </span>
                     </div>
                     <div class="row">
-                        <img class="img-fluid"  [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 5 }" src="../../../../../assets/scores-img/score-5.svg" alt="muy bien" (click)="selectOption(i, 5 )">
+                        <img class="img-fluid"  [ngClass]="{'emoji' : !q_colors[i].status || q_colors[i].option !== 5 }" src="../../../../../assets/scores-img/score-5.svg" alt="muy bien" (click)="selectOption(i, 5)">
                     </div>
                 </div>
             </div>

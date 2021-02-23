@@ -62,6 +62,7 @@ export class CreateModuleComponent implements OnInit {
 
   async submitSections(){
 
+    let promises: Promise<any>[] = [];
     let gotError: boolean = false;
 
     /* Upload image and banner of the module */
@@ -79,11 +80,7 @@ export class CreateModuleComponent implements OnInit {
 
     try{
       if(!this.bannerImage.url.startsWith('http')   && this.bannerImage.url != ''){
-        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]).then(
-          url => {
-            return url;
-          }
-        );
+        this.bannerImage.url = await this.controller.upload(this.imageProxy[this.bannerImage.url]);
       }
     }catch(err){
       alert(this.translator.translate(err)); gotError = true;
@@ -92,63 +89,58 @@ export class CreateModuleComponent implements OnInit {
     this.module.imageUrl = this.moduleImage.url;
     this.module.bannerImageUrl = this.bannerImage.url;
     /* */
-    
-    const uploadingModule = this.controller.addImplementable(this.module).then(
-      module => {
-        this.id = module.id;
-      }
-    )
-    .catch( err => { alert(this.translator.translate(err)); gotError = true; });;
+    try{
+      const uploadingModule = await this.controller.addImplementable(this.module);
+      this.id = uploadingModule.id;
 
-    await uploadingModule;
+      for (let i = 0; i < this.sections.length; i++) {
+        const section = this.sections[i];
+        if(section instanceof ImageSection && !section.url.startsWith("http")){
+          const imagetarget = this.imageProxy[section.url];
+          const imgUrl = await this.controller.upload(imagetarget).then(id => {
+            return id;
+          });
+          const _section = {
+            "id": section.id, 
+            "index": section.index, 
+            "footing": section.footing,
+            "url": imgUrl, 
+            "reference": section.reference
+          };
+          this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
+        }else{
+          this.sections[i] = await this.controller.setSection(section, this.id, section.id);
+        }
+      };
 
-
-    for (let i = 0; i < this.sections.length; i++) {
-      const section = this.sections[i];
-      if(section instanceof ImageSection && !section.url.startsWith("http")){
-        const imagetarget = this.imageProxy[section.url];
-        const imgUrl = await this.controller.upload(imagetarget).then(id => {
-          return id;
-        });
-        const _section = {
-          "id": section.id, 
-          "index": section.index, 
-          "footing": section.footing,
-          "url": imgUrl, 
-          "reference": section.reference
-        };
-        this.sections[i] = await this.controller.setSection(_section,this.id, section.id);
-      }else{
-        this.sections[i] = await this.controller.setSection(section, this.id, section.id);
-      }
-    };
+    }catch(err){
+      alert(this.translator.translate(err)); gotError = true;
+    }
 
     this.files.forEach(
       (file) => {
-        this.controller.addFile(this.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.addFile(this.id, file));
       }
     );
 
-    await this.questions.map(
+    this.questions.map(
       (question, i) => {
-        console.log(question);
-        this.controller.setQuestion(question, this.id, question.id).then(q => {
-          console.log("Question", i, q);
-        })
-        .catch( err => { alert("Preguntas:\n\n"+this.translator.translate(err)); gotError = true; });
+        promises.push(this.controller.setQuestion(question, this.id, question.id));
       }
     );
 
-    if(gotError){
-      return;
-    }else{
-      alert("Contenido del módulo actualizado de manera correcta");
-      this.router.navigateByUrl(`/modulos/${this.id}`);
-    }
-
-
+    await Promise.all(promises)
+      .then(
+        _ => {
+          alert("Contenido del módulo actualizado de manera correcta");
+          this.router.navigateByUrl(`/modulos/${this.id}`);
+        }
+      )
+      .catch(
+        error => {
+          this.translator.translate(error);
+        }
+      );
   }
 
 }

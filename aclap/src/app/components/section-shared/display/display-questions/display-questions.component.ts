@@ -48,6 +48,7 @@ export class DisplayQuestionsComponent implements OnInit {
         this.q_colors[index] = {color: this.colors[this.scoreton(answer.score)], status: true, option: this.scoreton(answer.score)};
       }
     });
+    console.log(this.q_colors);
     console.log(this.answers);
   }
 
@@ -56,7 +57,9 @@ export class DisplayQuestionsComponent implements OnInit {
   }
 
   scoreton(score: Score){
-    if(score == Score.VERY_LOW){
+    if(score == Score.UNKNOWN){
+      return 0;
+    }if(score == Score.VERY_LOW){
       return 1;
     }else if(score == Score.LOW){
       return 2;
@@ -70,7 +73,9 @@ export class DisplayQuestionsComponent implements OnInit {
   }
 
   ntoscore(n: number){
-    if(n == 1) {
+    if(n == 0) {
+      return Score.UNKNOWN;
+    }if(n == 1) {
       return Score.VERY_LOW;
     }
     if(n == 2) {
