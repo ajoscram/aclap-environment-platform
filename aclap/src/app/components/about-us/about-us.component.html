@@ -30,14 +30,14 @@
         </div>
     </div>
     <div class="row">
-        <div *ngIf="let part of terms.split('\n')" class="col-12">
+        <div *ngFor="let paragraph of terms.split('\n')" class="col-12">
             <p class="text-justify">
-                {{ part }}
+                {{ paragraph }}
             </p>
         </div>
     </div>
     <hr>
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
             <p class="text-justify">
                 Esta aplicación fué desarrollada y donada por estudiantes del Instituto Tecnológico de Costa Rica como parte del curso de Proyecto de Ingeniería de Software, durante el segundo semestre del 2020 bajo supervisión de la profesora María Estrada Sánchez. Los siguientes estudiantes desarrollaron esta aplicación:

@@ -189,7 +189,7 @@ export class EventEditComponent implements OnInit {
       .then(
         _ => {
           alert("Contenido del módulo actualizado de manera correcta");
-          this.router.navigateByUrl(`/modulos/${this.id}`);
+          this.router.navigateByUrl(`/eventos/${this.id}`);
         }
       )
       .catch(

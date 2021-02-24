@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="row">
                     <div class="col d-flex justify-content-center">
-                        <h1> {{ implementation.implementableName}} </h1>
+                        <h1> Implementación finalizada: {{ implementation.implementableName}} </h1>
                     </div>
                 </div>
                 <div class="row">
@@ -19,17 +19,38 @@
                 <p>Realizado por: {{ implementation.educatorName }} {{ implementation.educatorLastname }} </p>
             </div>
             <div class="col-6 d-flex justify-content-end">
-                <p>Estado: {{ statusFormat(implementation.completed) }}</p>
+                <p class="btn btn-success">Estado de la implementación: {{ statusFormat(implementation.completed) }}</p>
             </div>
         </div>
     </div>
 </div>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            
+            <div class="row">
+                <div class="col-12">
+                    <h2>Lugar donde se realizó la actividad</h2>
+                </div>
+                <div class="col-12">
+                    <div style="height: 300px;"
+                        leaflet 
+                        [leafletOptions]="options"
+                        [(leafletCenter)]="center"
+                        [(leafletLayers)]="layers">
+                    </div>
+                </div>
+                <div class="col">
+                    <h5>
+                       Ubicación: {{ implementation.location.name }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mt-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title"> Información general </h3>
+                    <h3 class="card-title"> Información general de la implementación finalizada </h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -56,12 +77,15 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <span>Fecha: {{ implementation.date}} </span>
+                            <span>Fecha: {{ implementation.date  | date: 'dd/MM/yyyy'}} </span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-7">
             <div class="row">
                 <div class="col-12">
                     <h3>Preguntas de evaluación</h3>
@@ -73,25 +97,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-12">
-                    <h2>Lugar donde se realizó la actividad</h2>
-                </div>
-                <div class="col-8">
-                    <div style="height: 300px;"
-                        leaflet 
-                        [leafletOptions]="options"
-                        [(leafletCenter)]="center"
-                        [(leafletLayers)]="layers">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <h4>
-                        {{ implementation.location.name }}
-                    </h4>
-                </div>
-            </div>
+        <div class="col-md-5">
             <div class="row">
                 <div class="col-12">
                     <h2> Evidencias de trabajo </h2>
