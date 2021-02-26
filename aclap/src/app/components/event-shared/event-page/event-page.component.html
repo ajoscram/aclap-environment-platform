@@ -2,10 +2,10 @@
     <div class="container-fluid fill d-flex align-items-center">
         <div class="col d-flex justify-content-center title">
             <div class="row my-5">
-                <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-                    <img class="img-fluid" [src]="module.imageUrl">
+                <div class="col-12 col-md-4 col-lg-auto col-xl-auto">
+                    <img class="img-fluid" [src]="module.imageUrl" style="min-height: 150px; min-width: 150px; max-width: 200px; max-height: 200px;">
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <div class="row">
                         <h1>
                             {{module.name}}
@@ -17,7 +17,7 @@
                         </h3>
                     </div>
                 </div>
-                <div *ngIf="isAdmin" class="col d-flex justify-content-end">
+                <div *ngIf="isAdmin" class="col-auto d-flex justify-content-end">
                     <a class="wt"  [routerLink]="['/eventos',module.id,'editar']"> EDITAR</a>
                 </div>
             </div>

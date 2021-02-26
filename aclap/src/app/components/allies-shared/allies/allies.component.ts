@@ -36,4 +36,8 @@ export class AlliesComponent implements OnInit {
       .catch( );
   }
 
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
+
 }

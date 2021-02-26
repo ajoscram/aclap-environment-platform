@@ -19,7 +19,7 @@
                 <p>Realizado por: {{ implementation.educatorName }} {{ implementation.educatorLastname }} </p>
             </div>
             <div class="col-6 d-flex justify-content-end">
-                <p class="btn btn-success">Estado de la implementación: {{ statusFormat(implementation.completed) }}</p>
+                <p class="btn btn-success" [ngClass]="{'btn-danger' : implementation.deleted }" [ngClass]="{'btn-success' : implementation.completed && !implementation.deleted }" >Estado de la implementación: {{ statusFormat(implementation.completed, implementation.deleted) }}</p>
             </div>
         </div>
     </div>
