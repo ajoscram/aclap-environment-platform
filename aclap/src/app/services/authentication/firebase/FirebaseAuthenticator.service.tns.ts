@@ -96,11 +96,11 @@ export class FirebaseAuthenticator implements Authenticator{
     }
 
     async setPassword(password: string): Promise<void>{
+        await this.getSession();//just checking for a user being logged in
         try{
-            await this.getSession();//just checking for a user being logged in
             await firebase.updatePassword(password);
         } catch(error){
-            this.throwError(error);
+            throw new Error(AuthenticatorError.REAUTHENTICATION_REQUIRED);
         }
     }
 }
