@@ -23,12 +23,12 @@
 </div>
 <div class="container" id="main-content">
     <div class="row">
-        <div class="col-12 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center mt-3">
             <h1> Implementaciones de {{ implementable }}  </h1>
         </div>
     </div>
     <div *ngFor="let imp of implementations" class="row">
-        <div class="card shadow col-12" [routerLink]="['/implementacion','ver', imp.id]" >
+        <div class="card shadow col-12 my-3" [routerLink]="['/implementacion','ver', imp.id]" >
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -59,6 +59,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div *ngIf="(implementations.length === 0)" class="row mt-5">
+        <div class="col-12">
+            <h3 style="color: teal;">
+                No hay implementaciones subidas
+            </h3>
         </div>
     </div>
 </div>

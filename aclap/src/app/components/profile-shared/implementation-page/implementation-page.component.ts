@@ -53,10 +53,6 @@ export class ImplementationPageComponent implements OnInit {
     await this.controller.draftImplementation(this.id)
       .then(impl => {this.implementation = <Implementation> impl; console.log(this.implementation)})
       .catch( err => { alert(this.translator.translate(err)); });
-
-    this.controller.getQuestions(this.id)
-      .then(qstns => {this.questions = qstns; qstns.map(q =>  {this.answers.push(new Answer("",q.id, q.question, "", Score.UNKNOWN))} )})
-      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.id)
       .then(sections => {
@@ -78,8 +74,7 @@ export class ImplementationPageComponent implements OnInit {
         femaleParticipants: [''],
         otherParticipants: ['']
       });
-    
-      
+   
   }
 
   statusFormat(completed: boolean){
@@ -92,43 +87,37 @@ export class ImplementationPageComponent implements OnInit {
   }
 
   async onSave(){
-    this.onSubmit();
-    alert('Cambios guardados correctamente');
-    this.router.navigateByUrl(`/modulos`);
+    try{
+      await this.onSubmit();
+      alert('Cambios guardados correctamente');
+      this.router.navigateByUrl(`/perfil`);
+    }catch(err){
+      alert(this.translator.translate(err));
+    }
   }
 
   async onSubmit(){
+    let promises: Promise<any>[] = [];
     this.implementation.location = new Location(this.currentPosition, this.center.lat, this.center.lng);
-
-    await this.controller.addImplementation(this.implementation)
-      .then(implementation => { this.implementation = implementation;})
-      .catch( err => { alert(this.translator.translate(err)); });
-
-    console.log(this.answers);
-
-    this.answers.forEach( ans => {
-      this.controller.setAnswer(ans, this.implementation.id, ans.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); });
-    });
-
-    this.files.forEach(
-      (file) => {
-        this.controller.addEvidence(this.implementation.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); });
-      }
-    );
+    this.implementation = await this.controller.addImplementation(this.implementation);
+    for (const ans of this.answers){
+      promises.push(this.controller.setAnswer(ans, this.implementation.id, ans.id));
+    }
+    for (const file of this.files){
+      promises.push(this.controller.addEvidence(this.implementation.id, file));
+    }
+    await Promise.all(promises);
   }
 
   async onComplete(){
-    await this.onSubmit();
-    this.controller.completeImplementation(this.implementation.id)
-      .then(implementation => {
-        alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
-        this.router.navigateByUrl(`/modulos`);
-      })
-      .catch( err => { alert(this.translator.translate(err)); });
+    try{
+      await this.onSubmit();
+      await this.controller.completeImplementation(this.implementation.id);
+      alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
+      this.router.navigateByUrl(`/perfil`);
+    }catch(err){
+      alert(this.translator.translate(err));
+    }
   }
 
   showPos(){

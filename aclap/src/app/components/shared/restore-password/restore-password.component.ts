@@ -29,7 +29,7 @@ export class RestorePasswordComponent implements OnInit {
 
     this.controller.requestPasswordReset(usrname)
       .then(message => {
-        alert(message);
+        alert("Se ha enviado un correo a la dirección: " + message + " con su nueva contraseña\nPuede cambiarla más adelante en Perfil > Editar Perfil\n\nNOTA: si no encuentra el correo electrónico, buscar en correos de SPAM");
         this.router.navigateByUrl('/login');
       })
       .catch( err => { alert(this.translator.translate(err)); });

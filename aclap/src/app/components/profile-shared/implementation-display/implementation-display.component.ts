@@ -80,8 +80,10 @@ export class ImplementationDisplayComponent implements OnInit {
     );
   }
 
-  statusFormat(completed: boolean){
-    return completed ? "Completado" : "En proceso" 
+  statusFormat(completed: boolean, deleted: boolean){
+    if (deleted) return "Eliminado"
+    else if (completed) return "Completado"
+    else return "En proceso"
   }
 
   deleteImplementation(){

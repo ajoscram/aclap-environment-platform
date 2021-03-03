@@ -1,27 +1,27 @@
 <div class="jumbotron jumbotron-fluid header-image" [style.background-image]="'url(' + module.bannerImageUrl + ')'">
     <div class="container-fluid fill d-flex align-items-center">
-        <div class="col d-flex justify-content-center title">
-            <div class="row my-5">
-                <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-                    <img class="img-fluid" [src]="module.imageUrl">
+        <div class="col-12 title">
+            <div class="row d-flex align-items-center my-5">
+                <div class="col-12 col-md-4 col-lg-auto offset-xl-1 col-xl-3">
+                    <img class="img-fluid" [src]="module.imageUrl"  style="min-height: 150px; min-width: 150px; max-width: 200px; max-height: 200px;">
                 </div>
-                <div class="col">
+                <div class="col-auto col-xl-6">
                     <div class="row">
-                        <div class="col-12">
-                            <h1>
+                        <div class="col">
+                            <h1 class="text-center">
                                 {{module.name}}
                             </h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <h5>
+                        <div class="col">
+                            <h5 class="text-center">
                                 Edad recomendada: {{module.recommendedAge}}
                             </h5>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="isAdmin" class="col d-flex justify-content-end">
+                <div *ngIf="isAdmin" class="col col-xl-2 d-flex justify-content-end">
                     <a class="wt"  [routerLink]="['/modulos',module.id,'editar']"> EDITAR</a>
                 </div>
             </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-4 mb-3" style="height: 250px;">
             <div class="card h-100 clickable button d-flex justify-content-center" [style.background-color]="module.color" (click)="switchFiles()">
-                <h2 class="my-auto text-center">Material descargables</h2>
+                <h2 class="my-auto text-center">Material descargable</h2>
             </div>
         </div>
         <div *ngIf="isEducator" class="col-md-4 mb-3" style="height: 250px;">

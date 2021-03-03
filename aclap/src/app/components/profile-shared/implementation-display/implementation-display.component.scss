@@ -9,6 +9,11 @@
     margin: 0 !important;
  }
 
+ .completed{
+    background-color: app.$green-color;
+    color: white;
+ }
+
  .centering{
     margin: auto;
     position: relative;

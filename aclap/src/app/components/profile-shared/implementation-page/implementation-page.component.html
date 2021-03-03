@@ -16,10 +16,10 @@
         </div>
         <div class="row my-4">
             <div class="col-6">
-                <p>Realizado por: {{ implementation.educatorName }}</p>
+                <p>Realizado por: {{ implementation.educatorName + " " + implementation.educatorLastname }}</p>
             </div>
             <div class="col-6 d-flex justify-content-end">
-                <p>Estado: {{ statusFormat(implementation.completed) }}</p>
+                <p class="btn btn-warning">Estado de la implementación: {{ statusFormat(implementation.completed) }}</p>
             </div>
         </div>
     </div>
@@ -35,8 +35,14 @@
                 [(leafletCenter)]="center"
                 [(leafletLayers)]="layers">
             </div>
-            <span class="btn btn-primary" (click)="showPos()" >Actualizar Posición</span>
-            <span> {{currentPosition}} </span>
+            <div class="row">
+                <div class="col-auto">
+                    <span> <strong>  Ubicación actual: </strong> {{currentPosition}} </span>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn button clickable" (click)="showPos()" >Actualizar Posición</button>
+                </div>
+            </div>
         </div>
         <div class="col-sm col-xl">
             <div class="row">
@@ -48,9 +54,9 @@
                 </div>
             </div>
             <form [formGroup]=form>
-                <div class="row">
+                <div class="row mt-5">
                     <div class="col-12">
-                        <span class="text-center"> Participantes </span>
+                        <h5 class="text-center"> Participantes </h5>
                     </div>
                 </div>
                 <div class="row">
@@ -67,33 +73,37 @@
                         <input type="number" formControlName=otherParticipants class="form-control" [(ngModel)]="implementation.otherParticipants">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="date" class="col-2 col-form-label">Fecha</label>
+                <div class="row  mt-2">
+                    <label for="date" class="col-2 col-form-label">Fecha</label>
+                    <div class="col-xl-10">
                         <input type="date" class="form-control" formControlName="date" [(ngModel)]="implementation.date">
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-md-7">
-            <div class="col-12">
-                <h3>Actividades</h3>
-            </div>
-            <div class="col">
-                <app-displayer [sections]="activities"></app-displayer>
-            </div>
             <div class="col-12">
                 <h3>Preguntas de evaluación</h3>
             </div>
             <div class="col">
-                <app-display-questions [questions]="questions" [answers]="answers" ></app-display-questions>
+                <app-display-questions [questions]="questions" [answers]="answers" [editable]="true" [implementableId]="id" ></app-display-questions>
             </div>
         </div>
         <div class="col-12 col-md-5">
-            <h3> Evidencias de trabajo </h3>
-            <app-edit-files [files]="files"></app-edit-files>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Actividades</h3>
+                </div>
+            </div>
+            <app-displayer [sections]="activities"></app-displayer>
+            <div class="row mt-5">
+                <h3> Evidencias de trabajo </h3>
+                <div class="col-12">
+                    <app-edit-files [files]="files"></app-edit-files>
+                </div>
+            </div>
         </div>
     </div>
 </div>

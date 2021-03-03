@@ -76,14 +76,6 @@ export class ImplementationEditComponent implements OnInit {
         })
       })
     ];
-
-    this.controller.getQuestions(this.implementation.implementableId)
-      .then(qstns => {this.questions = qstns;})
-      .catch( err => { alert(this.translator.translate(err)); });
-    
-    this.controller.getAnswers(this.id)
-      .then(answers => {this.answers = answers;})
-      .catch( err => { alert(this.translator.translate(err)); });
     
     this.controller.getSections(this.implementation.implementableId)
       .then(sections => {
@@ -110,52 +102,48 @@ export class ImplementationEditComponent implements OnInit {
   }
 
   async onSubmit(){
+    let promises: Promise<any>[] = [];
     this.implementation.location = new Location(this.currentPosition, this.center.lat, this.center.lng);
 
-    await this.controller.updateImplementation(this.implementation.id, this.implementation)
-      .then(implementation => { this.implementation = implementation })
-      .catch( err => { alert(this.translator.translate(err)); });
+    this.implementation = await this.controller.updateImplementation(this.implementation.id, this.implementation);
 
-    this.answers.forEach( ans => {
-      this.controller.setAnswer(ans, this.implementation.id, ans.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); });
-    });
+    for (const ans of this.answers){
+      promises.push(this.controller.setAnswer(ans, this.implementation.id, ans.id));
+    }
+    for (const file of this.files){
+      promises.push(this.controller.addEvidence(this.implementation.id, file));
+    }
 
-    this.files.forEach(
-      (file) => {
-        this.controller.addEvidence(this.implementation.id, file)
-        .then( _ => {})
-        .catch( err => { alert(this.translator.translate(err)); });
-      }
-    );
+    for(const file of this.deletedModuleFiles){
+      promises.push(this.controller.deleteEvidence(this.id, file.id));
+    }
 
-    this.deletedModuleFiles.forEach(
-      (file: File) => {
-        this.controller.deleteEvidence(this.id, file.id)
-        .then(_ => {})
-        .catch( err => { alert(this.translator.translate(err)); });
-      }
-    );
+    await Promise.all(promises);
+
   }
 
   async onSave(){
-    this.onSubmit();
-    alert('Cambios guardados correctamente');
-    this.router.navigateByUrl(`/perfil`);
+    try{
+      await this.onSubmit();
+      alert('Cambios guardados correctamente');
+      this.router.navigateByUrl(`/perfil`);
+    }catch(err){
+      alert(this.translator.translate(err));
+    }
   }
 
   async onComplete(){
-    this.controller.completeImplementation(this.implementation.id)
-      .then(implementation => {
-        alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
-        this.router.navigateByUrl(`/perfil`);
-      })
-      .catch( err => { alert(this.translator.translate(err)); });
+    try{
+      await this.onSubmit();
+      await this.controller.completeImplementation(this.implementation.id);
+      alert("Se finalizó la implementación correctamente, ya no es posible editar esta implementación");
+      this.router.navigateByUrl(`/perfil`);
+    }catch(err){
+      alert(this.translator.translate(err));
+    }
   }
 
   showPos(){
-    console.log(this.center)
     this.layers = [
       marker(this.center, {
         icon: icon({

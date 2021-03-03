@@ -1,17 +1,17 @@
 <div *ngFor="let section of sections">
-    <div class="col-12" *ngIf="isActivity(section)">
+    <div class="col-12 my-3" *ngIf="isActivity(section)">
         <app-display-activity [activity]=section ></app-display-activity>
     </div>
-    <div class="col-12" *ngIf="isImage(section)">
+    <div class="col-12 my-3" *ngIf="isImage(section)">
         <app-display-image [image]=section></app-display-image>
     </div>
-    <div class="col-12" *ngIf="isParagraph(section)">
+    <div class="col-12 my-3" *ngIf="isParagraph(section)">
         <app-display-paragraph [paragraph]=section></app-display-paragraph>
     </div>
-    <div class="col-12" *ngIf="isTitle(section)">
+    <div class="col-12 my-3" *ngIf="isTitle(section)">
         <app-display-title [title]=section></app-display-title>
     </div>
-    <div class="col-12" *ngIf="isYoutube(section)">
+    <div class="col-12 my-3" *ngIf="isYoutube(section)">
         <app-display-youtube [video]=section></app-display-youtube>
     </div>
 </div>

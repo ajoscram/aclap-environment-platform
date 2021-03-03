@@ -1,18 +1,6 @@
 ## Josué Canales Mena{docsify-ignore}
 
 ### Pendiente
-* Crear Pantalla de Lista de Implementaciones
-* Crear Component de Implementacion
-
-
-1. Agregar una implementación (descripción, fecha, número de participantes, ubicación, evidencias)
-2. Ver implementaciones propias
-3. Ver implementaciones de un módulo
-4. Modificar información y evidencias de una implementación
-5. Eliminar una implementación
-6. Hacer solicitud como Educador Ambiental
-7. Ver lista de solicitudes
-8. Aceptar o rechazar solicitud
 
 ### Completado
 | Fecha | Tarea | 
@@ -80,3 +68,4 @@
 | 23/01/2021 | Detalles card UI de implementación |
 | 23/01/2021 | Creación de componentes restantes de la aplicación Web |
 | 23/01/2021 | Bugs corregidos |
+| 27/02/2021 | Implementaciones, Correcciones, UI, UX, Bugs, Proyecto finalizado |
