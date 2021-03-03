@@ -32,7 +32,10 @@ export async function welcome(educator: Educator, password: string): Promise<voi
     <h3 style='text-align: center'>${password}</h3>
     <br>
     <p>Puede cambiarla en su perfil desde la aplicación web o móvil.</p>
-    <p>Cualquier pregunta, no dude en contactarnos al correo electrónico <a href="aclap.estrategia@gmail.com">aclap.estrategia@gmail.com</a>.</p>`;
+    <p>Cualquier pregunta, no dude en contactarnos al correo electrónico <a href="aclap.estrategia@gmail.com">aclap.estrategia@gmail.com</a>.</p>
+    <br>
+    <p>Atentamente,</p>
+    <p>Equipo de educación ambiental<br>Área de Conservación La Amistad Pacífico</p>`;
     await send(recepient, subject, body);
 }
 
@@ -43,6 +46,9 @@ export async function resetPassword(email: string, password: string): Promise<vo
     <h3 style='text-align: center'>${password}</h3>
     <br>
     <p>Pueda cambiarla en su perfil desde la aplicación web o móvil.</p>
-    <p>Cualquier pregunta, no dude en contactarnos al correo electrónico <a href="aclap.estrategia@gmail.com">aclap.estrategia@gmail.com</a>.</p>`;
+    <p>Cualquier pregunta, no dude en contactarnos al correo electrónico <a href="aclap.estrategia@gmail.com">aclap.estrategia@gmail.com</a>.</p>
+    <br>
+    <p>Atentamente,</p>
+    <p>Equipo de educación ambiental<br>Área de Conservación La Amistad Pacífico</p>`;
     await send(email, subject, body);
 }
