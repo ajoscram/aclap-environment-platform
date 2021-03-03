@@ -1,5 +1,9 @@
 @use '../../app.component.scss';
 
+.container-fluid{
+    max-width: 1250px;
+}
+
 @media (min-width: 768px) {
     .jumbotron {
         height: 300px;

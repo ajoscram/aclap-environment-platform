@@ -5,7 +5,7 @@
         </button>
         <img class="d-block d-sm-none" src="../../../../assets/logo-alpha.png" height="30">
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="Navbar">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto d-flex align-items-center">
                 <a class="navbar-brand mr-auto d-none d-md-block" [routerLink]="['/inicio']"><img src="../../../assets/logo-alpha.png" height="35"></a>
                 <li class="nav-item ml-md-3" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/inicio']">Inicio</a></li>
                 <li *ngIf="loggedIn" (click)="changeIndex(1)" class="nav-item" [routerLinkActive]="['active']"><a class="nav-link" [routerLink]="['/perfil']"> Perfil</a></li>

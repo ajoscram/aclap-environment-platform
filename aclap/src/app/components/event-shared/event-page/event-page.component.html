@@ -1,20 +1,24 @@
 <div class="jumbotron jumbotron-fluid header-image" [style.background-image]="'url(' + module.bannerImageUrl + ')'">
     <div class="container-fluid fill d-flex align-items-center">
-        <div class="col d-flex justify-content-center title">
-            <div class="row my-5">
-                <div class="col-12 col-md-4 col-lg-auto col-xl-auto">
+        <div class="col-12 title">
+            <div class="row d-flex align-items-center my-5">
+                <div class="col-12 col-md-4 col-lg-auto offset-xl-1 col-xl-3">
                     <img class="img-fluid" [src]="module.imageUrl" style="min-height: 150px; min-width: 150px; max-width: 200px; max-height: 200px;">
                 </div>
-                <div class="col-auto">
+                <div class="col col-lg-7">
                     <div class="row">
-                        <h1>
-                            {{module.name}}
-                        </h1>
+                        <div class="col">
+                            <h1 class="text-center">
+                                {{module.name}}
+                            </h1>
+                        </div>
                     </div>
                     <div class="row">
-                        <h3>
-                            Fecha: {{dateFormat(module.date)}}
-                        </h3>
+                        <div class="col">
+                            <h3 class="text-center">
+                                Fecha: {{dateFormat(module.date)}}
+                            </h3>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="isAdmin" class="col-auto d-flex justify-content-end">
