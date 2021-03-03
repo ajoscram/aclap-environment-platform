@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       .then(non => {
         dialogs.alert({
           title: "Inicio de sesión",
-          message: "Se ingreso exitosamente a la sesión.",
+          message: "Se ingresó exitosamente a la sesión.",
           okButtonText: "Ok"
         })
           this.routerExtensions.navigate(['inicio'], { clearHistory: true });

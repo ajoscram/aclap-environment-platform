@@ -2,11 +2,8 @@
 
 ### Pendiente
 
-* Cambios de texto en TyC
-* Arreglar tildes en textos
-* Cambiar fotos de headers
 * Loading para descargas/subida de archivos y solicitudes
-* Fix fonts
+* Debug apk build que no se mantiene dentro del perfil
 
 ### Completado
 
@@ -49,5 +46,9 @@
 | 22/02/2021 | Pruebas con Firebase |
 | 22/02/2021 | Request Password Reset bug - No dialog alert |
 | 22/02/2021 | Double check async and awaits |
-| 22/02/2021 | Agregar fuentes a titulos y textos |
-| 22/02/2021 | Agregar fuentes a titulos y textos |
+| 24/02/2021 | Fix fonts |
+| 24/02/2021 | Cambios de texto en TyC |
+| 24/02/2021 | Arreglar tildes en textos |
+| 24/02/2021 | Cambiar fotos de headers |
+| 02/03/2021 | Cambiar alerta que se tira aun cuando no se borra implementación |
+| 02/03/2021 | Debug funcion de cambiar contraseña |

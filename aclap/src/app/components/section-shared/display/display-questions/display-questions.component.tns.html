@@ -5,7 +5,7 @@
             <GridLayout rows="*, *, *, *" columns="*" backgroundColor="black">
                 <Image rowspan="3" row="0" col="0" stretch="aspectFill" src="{{ module.bannerImageUrl }}" class="img-banner"></Image>
                 <Label row="1" col="0" text="Evaluación del módulo: {{ module.name }}" class="header-text" textWrap="true"></Label>
-                <Label row="2" col="0" text="Realizado por: {{ user.name }} {{ user.lastName }}" class="madeby-text"  horizontalAlignment="left" textWrap="true"></Label>
+                <Label row="2" col="0" text="Realizado por: {{ user.name }} {{ user.lastname }}" class="madeby-text"  horizontalAlignment="left" textWrap="true"></Label>
             </GridLayout>
 
             <Label text="Formulario" class="text-subtitle-first" textWrap="true"></Label>
@@ -25,12 +25,12 @@
             <Label text="Participantes" class="first-subtitle-text-picker" textWrap="true"></Label>
 
             <StackLayout orientation="horizontal">
-                <Label text="Femeninos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <Label text="Mujeres: " class="subtitle-text-picker" textWrap="true"></Label>
                 <ListPicker [(ngModel)]="pickerFparticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
             </StackLayout>
 
             <StackLayout orientation="horizontal">
-                <Label text="Masculinos: " class="subtitle-text-picker" textWrap="true"></Label>
+                <Label text="Hombres: " class="subtitle-text-picker" textWrap="true"></Label>
                 <ListPicker [(ngModel)]="pickerMparticipants" [items]="participants" selectedIndex="0" class="participant-picker"></ListPicker>
             </StackLayout>
 

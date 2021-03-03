@@ -43,50 +43,41 @@ export class ProfileComponent implements OnInit {
     return this.datepipe.transform(date, 'dd-MM-yyyy');
   }
 
-  async changePassword(): void{
+  async changePassword() {
     try {
-      dialogs.prompt({
+
+      const r1 = await dialogs.prompt({
         title: "Cambio de contraseña",
         message: "Digite la nueva contraseña que desea utilizar.",
         okButtonText: "Ok",
         cancelButtonText: "Cancelar",
         defaultText: "",
         inputType: inputType.password
-      }).then(async r1 => {
-          if(r1.result){
-            dialogs.prompt({
-              title: "Cambio de contraseña",
-              message: "Digite la misma contraseña.",
-              okButtonText: "Ok",
-              cancelButtonText: "Cancelar",
-              defaultText: "",
-              inputType: inputType.password
-            }).then(async r2 => {
-              if(r2.result){
-                if( (r1.text === r2.text) && (r2.text.length >= 8) ){
-                  await this.controller.setPassword(r1.text);
-                  dialogs.alert({
-                    title: "Contraseña cambiada!",
-                    message: "La contraseña se cambió exitosamente.",
-                    okButtonText: "Ok"
-                  })
-                }else{
-                  dialogs.alert({
-                    title: "Error!",
-                    message: "Las contraseñas ingresadas deben ser iguales y tener más de 8 digitos.",
-                    okButtonText: "Ok"
-                  })
-                }
-              }
-            })
-          }
       });
+
+      if(r1.result) {
+        if(await this.checkPasswords(r1.text)) {
+
+          await this.controller.setPassword(r1.text);
+          await dialogs.alert({
+            title: "Confirmación",
+            message: "¡Se cambió la contraseña exitosamente!",
+            okButtonText: "Ok"
+          });
+        }else{
+          await dialogs.alert({
+            title: "Error",
+            message: "¡Por favor digite la contraseña igual dos veces!",
+            okButtonText: "Ok"
+          });
+        }
+      }
     } catch (error) {
-      dialogs.alert({
-        title: "Error!",
+      await dialogs.alert({
+        title: "Error",
         message: this.translator.translate(error),
         okButtonText: "Ok"
-      })
+      });
     }
   }
 
@@ -95,25 +86,32 @@ export class ProfileComponent implements OnInit {
     this.routerExtensions.navigate(['inicio'], { clearHistory: true });
   }
 
-  removeCompleteImpl(id, index): void{
-    dialogs.confirm({ title: "Confirmar", message: "Desea eliminar esta implementación?", okButtonText: "Ok", cancelButtonText: "Cancelar" })
-    .then(result => {
+  async removeCompleteImpl(id, index) {
+    dialogs.confirm({ title: "Confirmar", message: "¿Desea eliminar esta implementación?", okButtonText: "Ok", cancelButtonText: "Cancelar" })
+    .then(async result => {
       if(result){
-        this.implementationsCompleted.splice(index, 1);
-        this.controller.deleteImplementation(id)
-        .catch( error => { dialogs.alert(this.translator.translate(error)); })
+        try {
+          await this.implementationsCompleted.splice(index, 1);
+          await this.controller.deleteImplementation(id);
+          dialogs.alert({ title: "Alerta", message: "Implementación borrada exitosamente", okButtonText: "Ok"});
+        } catch (error) {
+          dialogs.alert(this.translator.translate(error));
+        }
       }
-      dialogs.alert({ title: "Alerta", message: "Implementación borrada exitosamente", okButtonText: "Ok"})
     });
   }
 
-  removeIncompleteImpl(id, index): void{
-    dialogs.confirm({ title: "Confirmar", message: "Desea eliminar esta implementación?", okButtonText: "Ok", cancelButtonText: "Cancelar" })
-    .then(result => {
+  async removeIncompleteImpl(id, index) {
+    dialogs.confirm({ title: "Confirmar", message: "¿Desea eliminar esta implementación?", okButtonText: "Ok", cancelButtonText: "Cancelar" })
+    .then(async result => {
       if(result){
-        this.implementationsIncomplete.splice(index, 1);
-        this.controller.deleteImplementation(id)
-        .catch( error => { dialogs.alert(this.translator.translate(error)); })
+        try {
+          await this.implementationsIncomplete.splice(index, 1);
+          await this.controller.deleteImplementation(id);
+          dialogs.alert({ title: "Alerta", message: "Implementación borrada exitosamente", okButtonText: "Ok"});
+        } catch (error) {
+          dialogs.alert(this.translator.translate(error));
+        }
       }
     });
   }
@@ -124,6 +122,18 @@ export class ProfileComponent implements OnInit {
       message: "Ya no es posible editar esta implementación.",
       okButtonText: "Ok"
     })
+  }
+
+  async checkPasswords(firstPassword): Promise<boolean> {
+    const r2 = await dialogs.prompt({
+      title: "Cambio de contraseña",
+      message: "Digite la misma contraseña.",
+      okButtonText: "Ok",
+      cancelButtonText: "Cancelar",
+      defaultText: "",
+      inputType: inputType.password
+    })
+    return (r2.result && r2.text === firstPassword);
   }
 
   navigateToEditImplementation(id): void {

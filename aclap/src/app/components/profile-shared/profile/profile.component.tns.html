@@ -3,10 +3,10 @@
     <ScrollView orientation="vertical"  height="1000">
         <StackLayout orientation="vertical">
 
-            <Gridlayout height="55" columns="auto, *" rows="auto, *" backgroundColor="#1c81a9">
-                <Label col="1" rowSpan="2" text="{{ user.name }} {{ user.lastname }}" horizontalAlignment="left" class="user-text" textWrap="true"></Label>
-                <Button col="2" rowSpan="2" text="&#xf084;" class="btn-edit" horizontalAlignment="right" (tap)="changePassword()"></Button>
-                <Button col="3" rowSpan="2" text="&#xf2f6;" class="btn-logout" horizontalAlignment="right" (tap)="logout()"></Button>
+            <Gridlayout columns="auto, *" rows="auto, *" backgroundColor="#1c81a9">
+                <Label col="0" row="0" text="{{ user.name }} {{ user.lastname }}" horizontalAlignment="left" class="user-text" textWrap="true"></Label>
+                <Button col="1" row="0" text="&#xf084;" class="btn-edit" horizontalAlignment="right" (tap)="changePassword()"></Button>
+                <Button col="2" row="0" text="&#xf2f6;" class="btn-logout" horizontalAlignment="right" (tap)="logout()"></Button>
             </Gridlayout>
 
             <StackLayout *ngFor="let implementation of implementationsCompleted; index as i" orientation="vertical">

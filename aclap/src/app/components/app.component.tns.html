@@ -6,20 +6,20 @@
 
         <Image src="res://logo_flat" class="img-header"></Image>
         <Button class="btn-nav" text="Inicio" (tap)="navigateToHome()"></Button>
-        <Button class="btn-nav" text="Modulos" (tap)="navigateToModules()"></Button>
+        <Button class="btn-nav" text="Módulos" (tap)="navigateToModules()"></Button>
         <Button class="btn-nav" text="Eventos" (tap)="navigateToEvents()"></Button>
         <Button class="btn-nav" text="Perfil" (tap)="navigateToProfile_Login()"></Button>
         <Button class="btn-nav" text="Aliados" (tap)="navigateToAllies()"></Button>
         <Button class="btn-nav" text="Acerca de" (tap)="navigateToAboutUs()"></Button>
-          
+
       </StackLayout>
 
       <StackLayout class="sidedrawer-footer">
 
         <StackLayout orientation="horizontal" width="245" height="100">
 
-          <Label text="Ser educador" horizontalAlignment="right" class="text-nav" (tap)="navigateToEducatorApplication()"></Label>
-          
+          <Label text="Ser persona educadora" horizontalAlignment="right" class="text-nav" (tap)="navigateToEducatorApplication()"></Label>
+
         </StackLayout>
 
       </StackLayout>
@@ -27,6 +27,6 @@
   </StackLayout>
 
   <page-router-outlet tkMainContent actionBarVisibility="never"></page-router-outlet>
-  
+
 </RadSideDrawer>
 

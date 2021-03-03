@@ -18,17 +18,13 @@ export class AppComponent {
 
   ngOnInit(): void {
 
-    if(global.production){
-
-      firebase.init()
-      .then( r =>{
-        console.log("Firebase se inicio correctamente")
-      })
-      .catch(error =>{
-        console.log("Hubo un error: ", error)
-      })
-
-    }
+    firebase.init()
+    .then( r =>{
+      console.log("Firebase se inicio correctamente")
+    })
+    .catch(error =>{
+      console.log("Hubo un error: ", error)
+    })
 
   }
 

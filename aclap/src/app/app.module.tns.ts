@@ -30,7 +30,6 @@ import { DisplayerComponent } from '@src/app/components/section-shared/display/d
 import { EditDisplayerComponent } from '@src/app/components/section-shared/edit/edit-displayer/edit-displayer.component';
 import { LoginComponent } from '@src/app/components/shared/login/login.component';
 
-import { DisplayImageComponent } from '@src/app/components/section-shared/display/display-image/display-image.component';
 import { AboutUsComponent } from '@src/app/components/about-us/about-us.component';
 import { AlliesComponent } from '@src/app/components/allies-shared/allies/allies.component';
 
@@ -55,10 +54,8 @@ import { FirebaseStorage } from '@src/app/services/storage/FirebaseStorage.servi
 import { FirebaseAuthenticator } from '@src/app/services/authentication/firebase/FirebaseAuthenticator.service';
 import { environment } from '@src/environments/environment';
 
-environment.production = global.production;
-
-console.log("environment.production");
-console.log(environment.production);
+environment.production = true;
+// environment.production = global.production;
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 // import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
@@ -88,9 +85,8 @@ console.log(environment.production);
     DisplayerComponent,
     EditDisplayerComponent,
     LoginComponent,
-    //DisplayImageComponent,
-    //AboutUsComponent,
-    //AlliesComponent
+    AboutUsComponent,
+    AlliesComponent
   ],
   imports: [
     TempModule,
@@ -104,13 +100,16 @@ console.log(environment.production);
   ],
   providers: [
     { provide: Controller, useClass: DefaultController },
-    { provide: DatePipe, useClass: DatePipe },
     { provide: Factory },
     { provide: Validator },
     { provide: ErrorTranslator },
-    { provide: Database, useClass: global.production ? FirebaseDatabase : MockDatabase },
-    { provide: Storage, useClass: global.production ? FirebaseStorage : MockStorage },
-    { provide: Authenticator, useClass: global.production ? FirebaseAuthenticator : MockAuthenticator }
+    { provide: DatePipe, useClass: DatePipe },
+    // { provide: Database, useClass: global.production ? FirebaseDatabase : MockDatabase },
+    // { provide: Storage, useClass: global.production ? FirebaseStorage : MockStorage },
+    // { provide: Authenticator, useClass: global.production ? FirebaseAuthenticator : MockAuthenticator }
+    { provide: Database, useClass: FirebaseDatabase },
+    { provide: Storage, useClass: FirebaseStorage },
+    { provide: Authenticator, useClass: FirebaseAuthenticator }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
