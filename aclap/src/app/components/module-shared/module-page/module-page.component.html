@@ -30,8 +30,7 @@
 </div>
 <div class="container-fluid">
     <div class="row mt-4">
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <!--List of subjects-->
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3" *ngIf="module.disciplines.length > 0">
             <app-display-disciplines [disciplines]="module.disciplines" ></app-display-disciplines>
         </div>
         <div class="col">
@@ -43,6 +42,10 @@
                     </p>
                 </ul>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <div class="col-12 pt-3">
                 <h3>Objetivo</h3>
                 <p *ngFor="let objective of module.objective.split('\n')" class="text-justify">
