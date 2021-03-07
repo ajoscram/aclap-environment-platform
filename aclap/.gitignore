@@ -51,4 +51,4 @@ Thumbs.db
 
 # Environment
 environments/
-App_Resources/Android/google-services.json
+/App_Resources/Android/google-services.json
